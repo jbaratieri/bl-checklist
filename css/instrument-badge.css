@@ -1,0 +1,31 @@
+/* instrument-badge.css — estilo do selo do instrumento atual */
+.inst-badge{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 8px;
+  font-size: .82rem;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: linear-gradient(180deg, #ffffff, #f6efe5);
+  color: var(--ink, #2e2a26);
+  box-shadow: 0 1px 8px rgba(0,0,0,.06);
+  user-select: none;
+}
+.inst-badge::before{
+  content: "";
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--inst-color, #8a623f);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.05) inset;
+}
+@media (prefers-color-scheme: dark){
+  .inst-badge{
+    background: #2a2a2a;
+    border-color: rgba(255,255,255,.12);
+    color: #f3f3f3;
+    box-shadow: 0 1px 8px rgba(0,0,0,.3);
+  }
+}

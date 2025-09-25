@@ -1,0 +1,74 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="a">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Linha central (topo + headstock) -->
+ <!-- 2) Localizar o traste 12 (1/2 escala) e traçar a 90° -->
+ <!-- 3) Marcas no tróculo (pescoço 12 mm e slots) -->
+ <!-- ===== Labels adicionais (por cima) ===== -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Planejar e riscar o braço — linha central, traste 12 e tróculo</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Traçar linha central (envolvendo a peça)</text>
+  <g id="svg_5">
+   <!-- blank do braço + mão (vista superior) -->
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="92" width="360" y="126" x="71"/>
+   <!-- headstock “fantasma” (onde vai a mão) -->
+   <path id="svg_7" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m31,148l40,0l0,50l-40,0l0,-50z"/>
+   <!-- linha central que atravessa tudo -->
+   <line id="svg_8" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke-width="2" stroke="#c33" class="center" y2="172" x2="431" y1="172" x1="31"/>
+   <!-- rótulos -->
+   <rect stroke="#ddd" id="svg_9" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="322.00001" y="223" x="88"/>
+   <text id="svg_10" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="237" x="95">linha central contínua (topo, laterais e contorno do tróculo)</text>
+  </g>
+  <text id="svg_11" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Traste 12 = metade da escala (linha a 90°)</text>
+  <g id="svg_12">
+   <!-- topo do braço (vista) -->
+   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="92" width="360" y="130" x="456"/>
+   <!-- nut (referência) -->
+   <line id="svg_14" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="222" x2="466" y1="130" x1="466"/>
+   <rect id="svg_15" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="18" width="120" y="108" x="457"/>
+   <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="121" x="468">nut / traste zero</text>
+   <!-- dimensão até o 12º (metade da escala) -->
+   <line id="svg_17" vector-effect="non-scaling-stroke" marker-end="url(#a)" marker-start="url(#a)" stroke-width="1.5" stroke="#666" class="dim" y2="226" x2="706" y1="226" x1="466"/>
+   <rect stroke="#ddd" id="svg_18" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="18" width="160.00001" y="173" x="628"/>
+   <text id="svg_19" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="184" x="647">traste 12 = 1/2 da escala</text>
+   <!-- linha do traste 12 a 90° -->
+   <line id="svg_20" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#666" class="square" y2="232" x2="706" y1="122" x1="706"/>
+   <rect stroke="#ddd" id="svg_21" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="212" y="104" x="628"/>
+   <text id="svg_22" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="118" x="635">linha a 90° (guia dos slots das laterais)</text>
+  </g>
+  <text id="svg_23" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Tróculo — pescoço 12 mm e continuidade dos slots</text>
+  <g id="svg_24">
+   <!-- bloco do tróculo acoplado ao braço (vista superior/simplificada) -->
+   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="92" width="360" y="344" x="35"/>
+   <!-- prolongamento da linha central -->
+   <line stroke="#c33" id="svg_26" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke-width="2" class="center" y2="387" x2="283.99999" y1="387" x1="45"/>
+   <!-- slots entrando no tróculo (a partir da linha do 12º) -->
+   <rect stroke="#ddd" id="svg_29" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="250" y="281" x="513"/>
+   <text id="svg_30" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="293" x="525">slots vindos do traste 12 (perpendiculares)</text>
+   <!-- face inferior: “pescoço” do tróculo ~12 mm -->
+   <text id="svg_33" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="338" x="169">pescoço do tróculo ≈ 12 mm (apoio das laterais)</text>
+   <rect stroke="#7aa1d1" id="svg_40" vector-effect="non-scaling-stroke" fill="#000000" class="slot" rx="4" height="34" width="8" y="341" x="297"/>
+   <text font-weight="normal" transform="rotate(-90.5185 288.836 386.042) matrix(1.03099 0 0 1.33838 4.14328 -157.943)" stroke="#fff" xml:space="preserve" text-anchor="start" id="svg_43" y="411.47275" x="259.34012" stroke-width="0" fill="#191919">12mm</text>
+   <line stroke="#c33" id="svg_47" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke-width="2" class="center" y2="387" x2="283.99999" y1="387" x1="45"/>
+   <line stroke="#c33" id="svg_48" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke-width="2" class="center" y2="387" x2="283.99999" y1="387" x1="45"/>
+   <line stroke="#c33" id="svg_49" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke-width="2" class="center" y2="386" x2="386" y1="386" x1="315"/>
+   <rect stroke="#7aa1d1" id="svg_50" vector-effect="non-scaling-stroke" fill="#000000" class="slot" rx="4" height="34" width="7" y="403" x="297"/>
+  </g>
+  <g id="labels">
+   <g stroke="null" id="svg_34" class="label">
+    <rect stroke="#ddd" id="svg_35" vector-effect="non-scaling-stroke" fill="#fff" rx="4" height="20" width="380.24922" y="232" x="456" class="labelbox"/>
+    <text transform="matrix(1.06643 0 0 1 -28.9646 0)" stroke="#fff" id="svg_36" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="244" x="463.38488">confirme metade da escala no seu preset/molde antes de riscar</text>
+   </g>
+   <g stroke="null" id="svg_37" class="label">
+    <rect stroke="#ddd" id="svg_38" vector-effect="non-scaling-stroke" fill="#fff" rx="4" height="20" width="352" y="446" x="40" class="labelbox"/>
+    <text transform="matrix(1.03873 0 0 1 -2.43622 0)" stroke="#fff" id="svg_39" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="458" x="48">linha central deve “circundar” a peça (topo, laterais e tróculo)</text>
+   </g>
+  </g>
+ </g>
+</svg>

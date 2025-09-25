@@ -1,0 +1,62 @@
+/* Step 2: Índice em 4 colunas + hover pro + títulos sem quebra */
+nav.toc { --toc-radius: 12px; --toc-gap: 10px; --toc-pad: 10px; --toc-border: 1px; --toc-accent: #8a6a4a; }
+nav.toc strong { display:block; margin-bottom: .5rem; font-weight: 700; font-size: 1.05rem; }
+nav.toc ul {
+  list-style: none;
+  margin: .25rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: var(--toc-gap);
+}
+nav.toc li { min-width: 0; } /* permite ellipsis */
+nav.toc a {
+  display: block;
+  padding: var(--toc-pad);
+  border: var(--toc-border) solid rgba(0,0,0,.10);
+  border-radius: var(--toc-radius);
+  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.85));
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
+  line-height: 1.25;
+  white-space: nowrap;          /* não quebra linha */
+  overflow: hidden;             /* corta excedente */
+  text-overflow: ellipsis;      /* coloca reticências */
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+  transition: transform .12s ease, box-shadow .18s ease, border-color .18s ease, background .18s ease;
+}
+nav.toc a:hover,
+nav.toc a:focus-visible {
+  background: #fff;
+  border-color: color-mix(in srgb, var(--toc-accent) 35%, #0000);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  outline: none;
+}
+/* Acessibilidade ao focar via teclado */
+nav.toc a:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--toc-accent) 25%, #ffffff); }
+
+/* Responsivo: reduz colunas em telas menores */
+@media (max-width: 1200px) {
+  nav.toc ul { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+@media (max-width: 900px) {
+  nav.toc ul { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 560px) {
+  nav.toc ul { grid-template-columns: 1fr; }
+}
+
+/* Dark mode (se o site usar) */
+@media (prefers-color-scheme: dark) {
+  nav.toc a {
+    border-color: rgba(255,255,255,.12);
+    background: linear-gradient(180deg, rgba(34,34,34,.9), rgba(30,30,30,.85));
+  }
+  nav.toc a:hover,
+  nav.toc a:focus-visible {
+    background: #262626;
+    box-shadow: 0 6px 18px rgba(0,0,0,.35);
+  }
+}

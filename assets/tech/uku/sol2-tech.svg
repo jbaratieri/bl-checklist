@@ -1,0 +1,79 @@
+<svg width="880" height="380" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="12">
+ <g id="Layer_1">
+  <title>Layer 1</title>
+  <g id="svg_1">
+   <!-- moldura -->
+   <rect id="svg_2" x="20" y="30" width="840" height="320" rx="12" class="panel" fill="#f6f1e7" stroke="#c8b596" stroke-width="2"/>
+   <text id="svg_3" x="40" y="50" class="title" fill="#222" font-weight="700">Headstock — corte e colagem a 15° (scarf joint)</text>
+   <!-- 1) Marcação e corte -->
+   <text id="svg_4" x="37" y="71" class="title" fill="#222" font-weight="700">1) Marcação e corte a 15° (referência = lateral do bloco)</text>
+   <g id="svg_5">
+    <!-- bloco do braço -->
+    <rect id="svg_6" x="40" y="102" width="340" height="116" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2"/>
+    <!-- lateral de referência (0°) -->
+    <line id="svg_7" x1="40" y1="102" x2="40" y2="218" class="ref" stroke="#3a6ea5" stroke-width="2"/>
+    <!-- rótulo lateral -->
+    <text id="svg_8" x="46" y="94" class="note" fill="#333">lateral referência (0°)</text>
+    <!-- grã longitudinal -->
+    <line id="svg_9" x1="68" y1="110" x2="68" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_10" x1="98" y1="110" x2="98" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_11" x1="128" y1="110" x2="128" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_12" x1="158" y1="110" x2="158" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_13" x1="188" y1="110" x2="188" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_14" x1="218" y1="110" x2="218" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_15" x1="248" y1="110" x2="248" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_16" x1="278" y1="110" x2="278" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_17" x1="308" y1="110" x2="308" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_18" x1="338" y1="110" x2="338" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <!-- plano de corte a 15° (medido da lateral) -->
+    <line id="svg_19" x1="84" y1="108" x2="172" y2="170" class="angle" stroke="#666" stroke-width="2"/>
+    <!-- arco e etiqueta do ângulo (afastados) -->
+    <path id="svg_20" d="m52,108a36,36 0 0 1 22,14" fill="none" class="angle" stroke="#666" stroke-width="2"/>
+    <rect stroke="#ddd" id="svg_21" x="72" y="129" width="21" height="15" rx="4" class="labelbox" fill="#fff"/>
+    <text id="svg_22" x="75" y="140" class="note" fill="#333">15°</text>
+    <!-- legenda inferior (mais abaixo) -->
+    <text id="svg_23" x="40" y="252" class="note" fill="#333">Apoie a base do transferidor ENCOSTADA à lateral do bloco (0°).</text>
+    <text id="svg_24" x="40" y="272" class="note" fill="#333">Marque 15° e trace a linha de corte.</text>
+   </g>
+   <!-- 2) Rotação e colagem da mão -->
+   <text id="svg_25" x="460" y="86" class="title" fill="#222" font-weight="700">2) Rotação e colagem da mão (scarf)</text>
+   <g id="svg_26">
+    <!-- corpo principal após o corte -->
+    <polygon id="svg_27" points="460,102 708,102 792,166 544,166 " class="board" fill="#fff" stroke="#c7ae83" stroke-width="2"/>
+    <!-- grã mais densa no corpo -->
+    <line id="svg_28" x1="476" y1="112" x2="476" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_29" x1="492" y1="112" x2="492" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_30" x1="508" y1="112" x2="508" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_31" x1="524" y1="112" x2="524" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_32" x1="540" y1="112" x2="540" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_33" x1="556" y1="112" x2="556" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_34" x1="572" y1="112" x2="572" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_35" x1="588" y1="112" x2="588" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_36" x1="604" y1="112" x2="604" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_37" x1="620" y1="112" x2="620" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_38" x1="636" y1="112" x2="636" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_39" x1="652" y1="112" x2="652" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_40" x1="668" y1="112" x2="668" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_41" x1="684" y1="112" x2="684" y2="158" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <!-- peça da mão (invertida) -->
+    <polygon id="svg_42" points="708,102 792,166 792,214 708,154 " class="board" fill="#fff" stroke="#c7ae83" stroke-width="2"/>
+    <!-- grã mais densa na mão -->
+    <line id="svg_43" x1="720" y1="114" x2="720" y2="206" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_44" x1="730" y1="120" x2="730" y2="210" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_45" x1="740" y1="126" x2="740" y2="212" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_46" x1="750" y1="132" x2="750" y2="212" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_47" x1="760" y1="138" x2="760" y2="212" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_48" x1="770" y1="144" x2="770" y2="212" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <line id="svg_49" x1="780" y1="150" x2="780" y2="212" class="grain" stroke="#8a623f" stroke-width="2"/>
+    <!-- plano de cola -->
+    <line id="svg_50" x1="708" y1="102" x2="792" y2="166" class="glue" fill="#fde6e6" stroke="#e59a9a"/>
+    <!-- rótulos: separados em altura -->
+    <rect stroke="#ddd" id="svg_51" x="460" y="249" width="370" height="20" rx="4" class="labelbox" fill="#fff"/>
+    <text id="svg_52" x="468" y="264" class="hint" fill="#555">Colar a mão invertida favorece fibras longas na região da pestana.</text>
+    <rect id="svg_53" x="460" y="278" width="220" height="20" rx="4" class="labelbox" fill="#fff" stroke="#ddd"/>
+    <text id="svg_54" x="468" y="292" class="note" fill="#333">Plano de cola no corte a 15° (scarf joint)</text>
+   </g>
+  </g>
+ </g>
+
+</svg>

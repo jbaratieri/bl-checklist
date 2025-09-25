@@ -1,0 +1,106 @@
+/* btn-hover-tune.v2.css — corrige border-radius e mantém os hovers/transitions */
+:root{
+  /* NÃO redefinimos --radius aqui para evitar ciclo; criamos um fallback próprio */
+  --btn-radius: 12px;
+}
+
+/* Base para todos os .btn (inclui anchors) */
+.btn, a.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  /* Se já existir --radius no tema, usamos. Senão, caímos em --btn-radius (12px). */
+  border-radius: var(--radius, var(--btn-radius, 12px));
+  transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .08s ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover/focus sutil */
+.btn:hover, .btn:focus-visible,
+a.btn:hover, a.btn:focus-visible{
+  color: var(--ink, #2e2a26);
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(249,246,241,1));
+  border-color: rgba(0,0,0,.12);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  transform: translateY(-1px);
+  outline: none;
+}
+.btn:active, a.btn:active{
+  transform: translateY(0);
+  box-shadow: var(--shadow, 0 2px 12px rgba(0,0,0,.06));
+}
+
+/* Primário */
+.btn.primary:hover, .btn.primary:focus-visible{
+  filter: brightness(0.98);
+  box-shadow: 0 10px 20px rgba(0,0,0,.15);
+}
+
+/* GOOGLE FOTOS */
+a.btn.link-photos{
+  color: var(--acc, #8a623f);
+  background: #fff;
+  border: 1px solid #e0d7c8;
+}
+a.btn.link-photos:hover,
+a.btn.link-photos:focus-visible{
+  color: var(--acc-2, #cf995f);
+  background: linear-gradient(180deg, #fff, #f7efe3);
+  border-color: #e9d9bf;
+}
+
+/* Ícones dentro de .btn */
+.btn .icon{
+  width: 1.1em; height: 1.1em;
+  flex-shrink: 0; display: inline-block;
+}
+.btn:hover .icon, .btn:focus-visible .icon{
+  transform: translateY(-1px);
+  transition: transform .2s ease;
+}
+
+/* Ícone via ::before usando mask com SVG inline (herda a cor) */
+a.btn.link-photos{
+  position: relative;
+  padding-left: .9em; /* leve ajuste se quiser mais “respiro” */
+}
+a.btn.link-photos::before{
+  content: "";
+  width: 1.1em; height: 1.1em;
+  margin-right: .35rem;
+  display: inline-block;
+  background: currentColor;
+  -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path fill="black" d="M4 8h3l1.5-2h7L17 8h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z"/><circle cx="12" cy="13.5" r="3.5" fill="black"/></svg>') no-repeat center / contain;
+          mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <path fill="black" d="M4 8h3l1.5-2h7L17 8h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z"/><circle cx="12" cy="13.5" r="3.5" fill="black"/></svg>') no-repeat center / contain;
+  vertical-align: -0.1em;
+  transform: translateY(0);
+  transition: transform .2s ease;
+}
+a.btn.link-photos:hover::before,
+a.btn.link-photos:focus-visible::before{
+  transform: translateY(-1px);
+}
+
+
+
+/* Dark mode */
+@media (prefers-color-scheme: dark){
+  .btn:hover, .btn:focus-visible,
+  a.btn:hover, a.btn:focus-visible{
+    background: #262626;
+    border-color: rgba(255,255,255,.16);
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+  a.btn.link-photos{
+    background: linear-gradient(180deg, rgba(34,34,34,.9), rgba(30,30,30,.85));
+    border-color: rgba(255,255,255,.12);
+    color: #f0e6db;
+  }
+  a.btn.link-photos:hover,
+  a.btn.link-photos:focus-visible{
+    background: #303030;
+    color: #ffe1b8;
+  }
+}

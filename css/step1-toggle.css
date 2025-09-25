@@ -1,0 +1,6 @@
+/* Step 1: Toggle por cabeçalho — mínimo & sem quebrar estilos existentes */
+.section > .section-body { display: none; }
+.section.is-open > .section-body { display: block; }
+
+.etapa > .etapa-body { display: none; }
+.etapa.is-open > .etapa-body { display: block; }

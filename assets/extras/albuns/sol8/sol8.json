@@ -1,0 +1,36 @@
+{
+  "images": [
+    {
+      "thumb": "thumbs/sol8-001.webp",
+      "full": "full/sol8-001.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-002.webp",
+      "full": "full/sol8-002.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-003.webp",
+      "full": "full/sol8-003.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-004.webp",
+      "full": "full/sol8-004.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-005.webp",
+      "full": "full/sol8-005.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-006.webp",
+      "full": "full/sol8-006.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-007.webp",
+      "full": "full/sol8-007.webp"
+    },
+    {
+      "thumb": "thumbs/sol8-008.webp",
+      "full": "full/sol8-008.webp"
+    }
+  ]
+}

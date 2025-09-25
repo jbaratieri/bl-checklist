@@ -1,0 +1,59 @@
+<svg width="880" height="520" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
+   <polygon id="svg_1" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- 1) Alinhamento geral -->
+ <!-- 2) Ação na 12ª -->
+ <!-- 3) Relief na 7ª -->
+ <!-- 4) Cavalete e rastilho -->
+ <!-- 5) Colagens e acabamento -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="500" width="860" y="10" x="10"/>
+  <text font-weight="bold" id="svg_3" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="36" x="26">Inspeção final — alinhamento, ação/relief e colagens</text>
+  <text font-weight="bold" id="svg_4" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="66" x="26">1) Alinhamento geral</text>
+  <g id="svg_5">
+   <rect id="svg_6" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="78" x="26"/>
+   <rect id="svg_7" stroke="#b69b7a" fill="#e9e2d9" class="neck" height="24" width="340" y="138" x="46"/>
+   <line id="svg_8" stroke-dasharray="6 4" stroke="#bbb" fill="none" class="ghost" y2="198" x2="216" y1="118" x1="216"/>
+   <text id="svg_9" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="108" x="52">Eixo central → roseta, escala, cavalete</text>
+  </g>
+  <text font-weight="bold" id="svg_10" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="66" x="456">2) Ação na 12ª</text>
+  <g id="svg_11">
+   <rect id="svg_12" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="78" x="456"/>
+   <rect id="svg_13" stroke="#b69b7a" fill="#e9e2d9" class="neck" height="28" width="340" y="168" x="476"/>
+   <line id="svg_14" stroke-width="2" stroke="#888" class="fret" y2="204" x2="696" y1="160" x1="696"/>
+   <text id="svg_15" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="156" x="688">12ª</text>
+   <line id="svg_16" stroke-width="2" stroke="#777" class="string" y2="174" x2="816" y1="174" x1="476"/>
+   <line id="svg_17" stroke-width="2.8" stroke="#666" class="stringL" y2="188" x2="816" y1="188" x1="476"/>
+   <line id="svg_18" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="164" x2="696" y1="174" x1="696"/>
+   <line id="svg_19" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="204" x2="696" y1="188" x1="696"/>
+   <text id="svg_20" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="180" x="704">1ª</text>
+   <text id="svg_21" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="200" x="704">6ª</text>
+  </g>
+  <text font-weight="bold" id="svg_22" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="258" x="26">3) Relief na 7ª</text>
+  <g id="svg_23">
+   <rect id="svg_24" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="270" x="26"/>
+   <rect id="svg_25" stroke="#b69b7a" fill="#e9e2d9" class="neck" height="24" width="340" y="330" x="46"/>
+   <line id="svg_26" stroke-width="2" stroke="#888" class="fret" y2="354" x2="186" y1="330" x1="186"/>
+   <text id="svg_27" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="322" x="178">7ª</text>
+   <line id="svg_28" stroke-dasharray="6 4" stroke="#bbb" fill="none" class="ghost" y2="342" x2="386" y1="334" x1="46"/>
+   <line id="svg_29" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="344" x2="186" y1="336" x1="186"/>
+   <text id="svg_30" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="320" x="196">folga mínima</text>
+  </g>
+  <text font-weight="bold" id="svg_31" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="258" x="455">4) Cavalete/rastilho — pressão e contato</text>
+  <g id="svg_32">
+   <rect id="svg_33" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="270" x="456"/>
+   <rect id="svg_34" stroke="#2a1c14" fill="#3b2a20" class="bridge" height="30" width="240" y="350" x="516"/>
+   <rect id="svg_35" stroke="#b3b3b3" fill="#f0efe9" class="saddle" height="20" width="20" y="340" x="626"/>
+   <text id="svg_36" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="400" x="476">Base do rastilho plana, sem folgas; ângulo de quebra ok</text>
+  </g>
+  <text font-weight="bold" id="svg_37" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="437" x="27">5) Colagens internas e acabamento</text>
+  <g id="svg_38">
+   <rect id="svg_39" stroke="#c7ae83" fill="#fff" class="box" height="50" width="810" y="442" x="26"/>
+   <text id="svg_40" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="471" x="37">Tap test sem ruídos • travessas firmes • sem cola aparente em roseta/filetes • luz rasante sem defeitos</text>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,93 @@
+/* ====== Wood Catalog – correções de layout ====== */
+
+/* Modal um pouco mais largo, mas responsivo */
+#wc-dialog.wc-modal{
+  width: min(980px, 96vw) !important;
+}
+
+/* Garante lista em coluna única: uma madeira por linha */
+#wc-dialog .wc-body .wc-list{
+  display: block !important;
+}
+
+/* Cada linha com 4 colunas: Nome | Uso | Observações | Ações */
+#wc-dialog .wc-body .wc-row{
+  display: grid !important;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 2.4fr) auto !important;
+  gap: 12px !important;
+  width: 100% !important;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 8px 0;
+}
+#wc-dialog .wc-body .wc-row input[type="text"]{
+  min-width: 0 !important; /* evita estourar a coluna */
+}
+
+/* Mesma grade pra área de adicionar novo item */
+#wc-dialog .wc-body .wc-add{
+  display: grid !important;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 2.4fr) auto !important;
+  gap: 12px !important;
+}
+
+/* Corrige qualquer tentativa externa de colocar .wc-row lado a lado */
+#wc-dialog .wc-body .wc-row,
+#wc-dialog .wc-body .wc-add{
+  float: none !important;
+  clear: both !important;
+}
+
+/* ====== Resumo por uso ====== */
+
+/* Grade de cartões do resumo ocupando o espaço todo */
+#wc-dialog .wc-summary .wc-list{
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 12px !important;
+}
+@media (min-width: 880px){
+  #wc-dialog .wc-summary .wc-list{
+    grid-template-columns: 1fr 1fr !important; /* 2 colunas em telas largas */
+  }
+}
+
+/* Cartões bonitos e fluidos */
+#wc-dialog .wc-summary .wc-card{
+  width: 100% !important;
+  box-sizing: border-box;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--card, #fff);
+}
+
+/* Barra de filtros/chips melhor distribuída */
+#wc-dialog .wc-summary .wc-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+#wc-dialog .wc-summary .wc-chipbar{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Botões com tuas cores */
+#wc-dialog .wc-btn.primary{
+  background: var(--acc, #8a623f) !important;
+  color: #fff !important;
+  border-color: var(--acc, #8a623f) !important;
+}
+#wc-dialog .wc-btn.ghost{
+  border-color: var(--acc-2, #cf995f) !important;
+  color: var(--acc, #8a623f) !important;
+}
+
+/* Aparar qualquer herança externa que “espalhe” elementos */
+#wc-dialog .wc-body *, 
+#wc-dialog .wc-summary *{
+  max-width: 100%;
+}

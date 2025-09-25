@@ -1,0 +1,89 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="a">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Mapa auditivo (tap test) -->
+ <!-- 2) Afinamento direcionado (graves x agudos) -->
+ <!-- 3) Perfis e alturas de referência -->
+ <!-- 4) Limites e zonas de segurança -->
+ <!-- Labels extras -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Voicing das varetas — mapa auditivo, afinamento direcionado e limites</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="117" x="42">1) Mapa auditivo (tap test)</text>
+  <g id="svg_5">
+   <!-- tampo (verso) com roseta -->
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="134" x="36"/>
+   <circle id="svg_7" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" r="44" cy="204" cx="196"/>
+   <!-- locais de toque -->
+   <circle id="svg_8" vector-effect="non-scaling-stroke" stroke="#94c794" fill="#e7f6e7" r="8" cy="176" cx="116"/>
+   <circle id="svg_9" vector-effect="non-scaling-stroke" stroke="#e1c15a" fill="#fff4d6" r="8" cy="166" cx="196"/>
+   <circle id="svg_10" vector-effect="non-scaling-stroke" stroke="#94c794" fill="#e7f6e7" r="8" cy="176" cx="276"/>
+   <circle id="svg_11" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#fde6e6" r="8" cy="236" cx="156"/>
+   <circle id="svg_12" vector-effect="non-scaling-stroke" stroke="#94c794" fill="#e7f6e7" r="8" cy="236" cx="236"/>
+   <!-- legenda -->
+   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="282" x="36"/>
+   <text transform="matrix(0.863237 0 0 1 6.01759 0)" stroke="#fff" id="svg_14" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="295" x="44">teste leve com nós dos dedos: grave/agudo, sustain e “dureza” por regiões</text>
+  </g>
+  <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="82" x="429">2) Afinamento direcionado</text>
+  <g id="svg_16">
+   <rect id="svg_17" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="96" x="428"/>
+   <!-- leque básico -->
+   <path id="svg_18" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="brace" d="m468,224l120,-58l120,58"/>
+   <path id="svg_19" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="brace" d="m488,224l100,-50l100,50"/>
+   <path id="svg_20" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="brace" d="m508,224l80,-42l80,42"/>
+   <!-- zonas a aliviar (graves, lado baixo) -->
+   <rect stroke="#e1c15a" id="svg_21" vector-effect="non-scaling-stroke" fill="#fff4d6" class="warn" height="18" width="148" y="210" x="433.00001"/>
+   <path id="svg_22" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m513,210l0,-22"/>
+   <text id="svg_23" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="223" x="448">alívio sutil sob 4ª–6ª</text>
+   <!-- zonas a preservar (agudos) -->
+   <rect stroke="#94c794" id="svg_24" vector-effect="non-scaling-stroke" fill="#e7f6e7" class="ok" height="18" width="141" y="188" x="601"/>
+   <path id="svg_25" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m663,188l0,-18"/>
+   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="201" x="613">manter rigidez sob 1ª–3ª</text>
+   <!-- nota -->
+   <rect stroke="#ddd" id="svg_27" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="421" y="243" x="429"/>
+   <text transform="matrix(0.94693 0 0 1 31.4698 0)" stroke="#fff" id="svg_28" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="258" x="423.96643">micro-incrementos e teste a cada iteração; evitar mudanças múltiplas simultâneas</text>
+  </g>
+  <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="348" x="43">3) Perfis e alturas de referência</text>
+  <g id="svg_30">
+   <!-- linha de base -->
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="362" x="39"/>
+   <!-- perfis esquemáticos -->
+   <path id="svg_32" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m69,486c40,-60 60,-60 100,0"/>
+   <path id="svg_33" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m209,486c40,-40 60,-40 100,0"/>
+   <!-- anotações de altura -->
+   <line id="svg_34" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="412" x2="119" y1="434" x1="119"/>
+   <line id="svg_35" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="432" x2="259" y1="454" x1="259"/>
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="320" y="508" x="39"/>
+   <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="521" x="47">extremidades 2.5–4.5 mm; cume até ~6 mm (ajuste ao projeto)</text>
+  </g>
+  <text id="svg_38" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="316" x="427">4) Limites e zonas de segurança</text>
+  <g id="svg_39">
+   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="318" x="421"/>
+   <!-- áreas críticas (não afinar demais) -->
+   <rect stroke="#e59a9a" id="svg_41" vector-effect="non-scaling-stroke" fill="#fde6e6" class="bad" height="16" width="133" y="372" x="541"/>
+   <text id="svg_42" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="383" x="550">próximo ao cavalete</text>
+   <rect id="svg_43" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#fde6e6" class="bad" height="12" width="60" y="426" x="441"/>
+   <rect id="svg_44" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#fde6e6" class="bad" height="12" width="60" y="426" x="661"/>
+   <text id="svg_45" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="436" x="447">laterais</text>
+   <text id="svg_46" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="436" x="667">laterais</text>
+   <!-- lembretes -->
+   <rect stroke="#ddd" id="svg_47" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="425.99998" y="464" x="421"/>
+   <text id="svg_48" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="477" x="428">evite afinamento excessivo junto ao cavalete e encontros com laterais/travessas</text>
+  </g>
+  <g id="labels">
+   <g stroke="null" id="svg_49">
+    <rect stroke="#ddd" id="svg_50" vector-effect="non-scaling-stroke" fill="#fff" rx="4" height="20" width="326" y="303" x="43" class="labelbox"/>
+    <text stroke="#fff" transform="matrix(0.9175 0 0 1 7.2175 1)" id="svg_51" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="316" x="47">voicing é iterativo: ajuste uma zona, teste, repita — sem pressa</text>
+   </g>
+   <g id="svg_52">
+    <rect stroke="#ddd" id="svg_53" vector-effect="non-scaling-stroke" fill="#fff" rx="4" height="20" width="422.99998" y="265" x="427" class="labelbox"/>
+    <text id="svg_54" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="280" x="432">use raspilha e mini plaina bem afiadas; cortes limpos preservam a estrutura</text>
+   </g>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,58 @@
+
+/* Step 9: Instrument selector + print header */
+#btnInstrument {
+  position: fixed; right: 14px; bottom: 14px; z-index: 999;
+  padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(0,0,0,.15);
+  background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  font: 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; cursor: pointer;
+}
+#inst-modal {
+  position: fixed; inset: 0; display: none; place-items: center; z-index: 1000;
+  background: rgba(0,0,0,.35);
+}
+#inst-modal.show { display: grid; }
+#inst-modal .dialog {
+  background: #fff; border-radius: 12px; padding: 16px; width: min(480px, 92vw);
+  box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
+#inst-modal h3 { margin: 0 0 10px; font-size: 18px; }
+#inst-modal .grid {
+  display: grid; gap: 10px; grid-template-columns: 1fr 1fr;
+}
+#inst-modal label {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px; border:1px solid rgba(0,0,0,.12); border-radius: 10px; cursor: pointer;
+}
+#inst-modal .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+#inst-modal .actions .btn {
+  padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(0,0,0,.15); background: #fff; cursor: pointer;
+}
+#inst-modal .actions .btn.primary { background: #2f6; border-color: #2c5; }
+
+/* Print header/footer for full checklist (not measures) */
+@media print {
+  body:not(.print-measures) #app-print-header {
+    display: flex !important; position: fixed; top:0; left:0; right:0;
+    padding: 10px 16px; border-bottom:1px solid #bbb; background:#fff;
+    justify-content: space-between; align-items: center;
+    font: 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  body:not(.print-measures) #app-print-footer {
+    display: flex !important; position: fixed; bottom:0; left:0; right:0;
+    padding: 6px 16px; border-top:1px solid #bbb; background:#fff;
+    font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    justify-content: space-between; align-items: center;
+  }
+  /* push content to avoid overlap */
+  body:not(.print-measures) #app-print-spacer { display:block !important; height: 70px; }
+  body:not(.print-measures) #app-print-spacer-bottom { display:block !important; height: 40px; }
+  body:not(.print-measures) .page-count::after { content: "Página " counter(page) " de " counter(pages); }
+}
+#app-print-header, #app-print-footer, #app-print-spacer, #app-print-spacer-bottom { display:none; }
+
+/* Filtra qualquer [data-instruments] pelo instrumento ativo */
+.inst-vcl [data-instruments]:not([data-instruments~="vcl"]) { display:none !important; }
+.inst-vla [data-instruments]:not([data-instruments~="vla"]) { display:none !important; }
+.inst-cav [data-instruments]:not([data-instruments~="cav"]) { display:none !important; }
+.inst-uku [data-instruments]:not([data-instruments~="uku"]) { display:none !important; }
+

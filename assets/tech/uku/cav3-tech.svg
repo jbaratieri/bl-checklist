@@ -1,0 +1,47 @@
+<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3.5" refX="5.2" markerHeight="7" markerWidth="7" id="arr">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 7,3.5 0,7"/>
+  </marker>
+ </defs>
+ <!-- Tampo, linha central e boca -->
+ <!-- Tacos, barra e forças -->
+ <!-- notas -->
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#c8b596" id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" fill="#f6f1e7" class="panel" rx="12" height="567" width="840" y="33" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="68" x="59">Colagem do cavalete — máscara, alinhamento e prensagem</text>
+  <g id="svg_4">
+   <rect id="svg_5" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="top" rx="18" height="320" width="800" y="88" x="47"/>
+   <line id="svg_6" vector-effect="non-scaling-stroke" fill="none" stroke-dasharray="6,4" stroke="#888" class="center" y2="404" x2="447" y1="84" x1="447"/>
+   <text id="svg_7" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="102" x="455">linha central</text>
+   <circle id="svg_8" vector-effect="non-scaling-stroke" stroke="#aaa" fill="#eee" r="45" cy="269" cx="550"/>
+   <!-- máscara da área de cola -->
+   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#8da4d8" fill="#eaf1ff" class="mask" height="36" width="80" y="297" x="407"/>
+   <!-- cavalete e selleta -->
+   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#111" fill="#2b2b2b" rx="3" class="bridge" height="24" width="72" y="301" x="411"/>
+   <rect id="svg_12" vector-effect="non-scaling-stroke" stroke="#777" fill="#ddd" class="saddle" height="4" width="60" y="313" x="417"/>
+   <!-- linha da selleta (com compensação) -->
+  </g>
+  <g id="svg_15">
+   <!-- taco superior (sobre o cavalete) -->
+   <rect id="svg_16" vector-effect="non-scaling-stroke" stroke="#b8a98f" fill="#f2efe9" class="caul" rx="4" height="40" width="76" y="249" x="411"/>
+   <text id="svg_17" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="273" x="415">taco superior</text>
+   <!-- barra longa até o braço -->
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke="#b19f7a" fill="#e9e3d8" class="bar" height="18" width="220" y="161" x="389"/>
+   <!-- apoio interno sob a boca (taco interno) -->
+   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke-dasharray="5,4" stroke="#ccbfa6" fill="#f9f7f3" class="inside" rx="6" height="50" width="120" y="242" x="538"/>
+   <text id="svg_21" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="557">apoio interno</text>
+   <!-- setas de pressão dos três grampos -->
+   <line id="svg_22" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#d06" class="push" y2="243" x2="449" y1="151" x1="449"/>
+   <line id="svg_23" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#d06" class="push" y2="249" x2="429" y1="151" x1="421"/>
+   <line id="svg_24" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#d06" class="push" y2="249" x2="469" y1="151" x1="477"/>
+   <text id="svg_25" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="141" x="404">pressão gradual</text>
+  </g>
+  <g id="svg_26">
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" height="150" width="800" y="430" x="40"/>
+   <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="454" x="52">1) alinhar ao eixo e à linha da selleta; 2) filme fino de cola; 3) prensar: centro → aletas; 4) vigiar squeeze-out;</text>
+   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="474" x="52">5) cura 12–24 h; 6) retirar fita levando a cola seca junto; 7) limpar com formão plano e lixa fina.</text>
+  </g>
+ </g>
+</svg>

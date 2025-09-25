@@ -1,0 +1,127 @@
+/* images-thumbs.css — visual polido para miniaturas */
+.img-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+.img-row .thumb {
+  position: relative;
+  background: #fff;
+  border: 1px solid #e8dfd1;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+  cursor: zoom-in;
+}
+.img-row .thumb:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+}
+.img-row .thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: 1/1;
+}
+.img-row .thumb .close {
+  position: absolute;
+  top: 6px; right: 6px;
+  background: rgba(0,0,0,.55);
+  color: #fff;
+  border: 0;
+  border-radius: 999px;
+  width: 26px; height: 26px;
+  font-size: 14px; line-height: 26px;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* --- extras do projeto (reaproveitam visual das thumbs do usuário) --- */
+.assets-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+/* Miniatura com legenda empilhada */
+.assets-row .thumb {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e8dfd1;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  transition: transform .18s ease, box-shadow .18s ease;
+  cursor: zoom-in;
+  overflow: visible; /* permite a legenda aparecer */
+}
+.assets-row .thumb:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0,0,0,.12);
+}
+.assets-row .thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.assets-row .thumb .caption {
+  display: block;
+  margin-top: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: center;
+  color: #444;
+  background: #faf9f6;
+  border-top: 1px solid #eee;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+/* cursores de zoom também na assets-row */
+.assets-row img,
+.assets-row .thumb { cursor: zoom-in; }
+
+/* Overlay do lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: none;              /* .open => flex */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,.75);
+  z-index: 9999;
+  cursor: zoom-out;           /* lupa (–) em QUALQUER lugar */
+}
+
+/* Lightbox aberto */
+.lightbox.open { display: flex; }
+
+/* Imagem ampliada */
+.lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  cursor: zoom-out;           /* também na imagem */
+}
+
+
+/* cursores nas miniaturas (uploads e manifest) */
+.img-row .thumb,
+.img-row .thumb img,
+.assets-row .thumb,
+.assets-row .thumb img {
+  cursor: zoom-in;
+}
+
+/* opcional: refine o botão de fechar do viewer fallback se quiser
+#assetsViewerClose:hover { opacity: .9; } */
