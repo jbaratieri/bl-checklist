@@ -43,3 +43,27 @@
   .project-header{ border: none; background: transparent; padding: 0 0 8px; }
   #planTable th, #planTable td{ border-color:#ddd; }
 }
+
+/* Ajustes responsivos para telas menores */
+@media (max-width: 1024px) {
+  .project-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid label {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .project-grid input,
+  .project-grid select {
+    width: 100%;
+  }
+}
