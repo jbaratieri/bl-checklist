@@ -1,5 +1,5 @@
-// sw.js — v1.1 (ajuste cache imagens + pré-cache tech)
-const CACHE_VERSION = 'bl-app-v1.1';
+// sw.js — v1.2 (corrige fallback offline para index.html)
+const CACHE_VERSION = 'bl-app-v1.2';
 const APP_SHELL = [
   './',
   './index.html',
@@ -40,7 +40,7 @@ const APP_SHELL = [
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 
-// agora até 300 imagens runtime (antes 120)
+// limite de imagens em cache runtime
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
@@ -61,7 +61,9 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
 // Instalação: pré-cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
+    caches.open(SHELL_CACHE)
+      .then((cache) => cache.addAll(APP_SHELL))
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -70,7 +72,8 @@ self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const names = await caches.keys();
     await Promise.all(
-      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n)).map(n => caches.delete(n))
+      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n))
+           .map(n => caches.delete(n))
     );
     await self.clients.claim();
   })());
@@ -83,23 +86,24 @@ self.addEventListener('fetch', (event) => {
 
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // HTML → network-first
-  if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
+  // 1) Navegação/HTML → network-first, fallback cache
+  if (request.mode === 'navigate') {
     event.respondWith((async () => {
+      const cache = await caches.open(SHELL_CACHE);
       try {
         const net = await fetch(request);
-        const cache = await caches.open(SHELL_CACHE);
-        cache.put('./index.html', net.clone());
+        cache.put('/index.html', net.clone()); // salva com caminho absoluto
         return net;
       } catch {
-        const cache = await caches.open(SHELL_CACHE);
-        return (await cache.match('./index.html')) || Response.error();
+        return (await cache.match('/index.html')) 
+            || (await cache.match('./index.html')) 
+            || Response.error();
       }
     })());
     return;
   }
 
-  // CSS/JS/manifest/ícones → stale-while-revalidate
+  // 2) CSS/JS/manifest/ícones → stale-while-revalidate
   if (/\.(css|js|json|webmanifest|png|svg)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
@@ -113,7 +117,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Imagens de álbuns/tech → cache-first com limite 300
+  // 3) Imagens de álbuns/tech → cache-first com limite
   const isAlbumImg = url.pathname.includes('/assets/extras/albuns/');
   const isTechImg  = url.pathname.includes('/assets/tech/');
   if (/\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname) && (isAlbumImg || isTechImg)) {
@@ -138,7 +142,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Outros → cache-first
+  // 4) Outros → cache-first
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
