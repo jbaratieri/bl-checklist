@@ -1,18 +1,14 @@
-// sw.js — v1.1 (revisado)
-// Service Worker para BL Checklist PWA
-
-const CACHE_VERSION = 'bl-app-v1';
+// sw.js — v1.1 (ajuste cache imagens + pré-cache tech)
+const CACHE_VERSION = 'bl-app-v1.1';
 const APP_SHELL = [
-  './',                    // start_url
+  './',
   './index.html',
-  './manifest.json',       // ajustado (antes estava .webmanifest)
-
+  './manifest.webmanifest',
   // CSS
   './css/main.css',
   './css/images-thumbs.css',
   './css/context-bar.css',
-
-  // JS essenciais (ajuste conforme sua estrutura final)
+  // JS principais
   './js/checklist.js',
   './js/step1-toggle.js',
   './js/step2-toc.js',
@@ -35,17 +31,17 @@ const APP_SHELL = [
   './js/step19-plan-toggle.js',
   './js/step20-context-bar.js',
   './js/step18-persist-fallback.v3.js',
-
-  // Ícones PWA (ajustado para assets/)
+  // Ícones PWA
   './assets/icon-192.png',
-  './assets/icon-512.png'
+  './assets/icon-512.png',
+  './assets/Logotipo.svg'
 ];
 
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 
-// Limite de imagens runtime (álbuns/tech) para não explodir o cache
-const IMG_CACHE_MAX_ENTRIES = 120;
+// agora até 300 imagens runtime (antes 120)
+const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
@@ -62,35 +58,32 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   }
 }
 
-// Instalação: pré-cache do app shell
+// Instalação: pré-cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(SHELL_CACHE)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
+    caches.open(SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
   );
 });
 
-// Ativação: limpa caches antigos
+// Ativação: limpa versões antigas
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const names = await caches.keys();
     await Promise.all(
-      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n))
-           .map(n => caches.delete(n))
+      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n)).map(n => caches.delete(n))
     );
     await self.clients.claim();
   })());
 });
 
-// Fetch handler com estratégias por tipo
+// Fetch
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // 1) Navegação/HTML → network-first
+  // HTML → network-first
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
     event.respondWith((async () => {
       try {
@@ -106,8 +99,8 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2) CSS/JS/manifest/ícones → stale-while-revalidate
-  if (/\.(css|js|json|png)$/.test(url.pathname)) {
+  // CSS/JS/manifest/ícones → stale-while-revalidate
+  if (/\.(css|js|json|webmanifest|png|svg)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
       const cached = await cache.match(request);
@@ -120,7 +113,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3) Imagens de álbuns/tech → cache-first com expiração
+  // Imagens de álbuns/tech → cache-first com limite 300
   const isAlbumImg = url.pathname.includes('/assets/extras/albuns/');
   const isTechImg  = url.pathname.includes('/assets/tech/');
   if (/\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname) && (isAlbumImg || isTechImg)) {
@@ -145,7 +138,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 4) Demais arquivos → cache-first
+  // Outros → cache-first
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
