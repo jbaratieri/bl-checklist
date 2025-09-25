@@ -1,0 +1,45 @@
+/* project-header.css — ficha do projeto + cronograma */
+.project-header{
+  margin: 10px 0 18px;
+  padding: 14px 16px;
+  border: 1px solid #e5dccf;
+  border-radius: 12px;
+  background: #faf7f2;
+}
+.project-header h3{
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  letter-spacing: .2px;
+}
+.project-grid{
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px 16px;
+}
+.project-grid label{ display:flex; align-items:center; gap:.5rem; }
+.project-grid input, .project-grid select{
+  flex:1 1 auto; min-width:0;
+  padding: 8px 10px;
+  border: 1px solid #e0d7c8;
+  border-radius: 10px;
+  background: #fff;
+}
+.project-actions{ margin-top: 10px; display:flex; gap:8px; align-items:center; }
+#planTable{ margin-top: 12px; }
+#planTable table{ width:100%; border-collapse: collapse; }
+#planTable th, #planTable td{
+  border-top:1px solid #eadfce;
+  padding: 8px 10px; text-align:left; font-size:.95rem;
+}
+#planTable thead th{ background:#efe6d9; }
+#planTable tfoot td{ font-weight:600; }
+.badge-current-instrument{
+  display:inline-block; margin-left:8px; padding:2px 8px; font-size:.8rem;
+  background:#efe6d9; border:1px solid #e0d7c8; border-radius:999px;
+}
+
+/* impressão: mostra planTable no topo com bordas suaves */
+@media print{
+  .project-header{ border: none; background: transparent; padding: 0 0 8px; }
+  #planTable th, #planTable td{ border-color:#ddd; }
+}

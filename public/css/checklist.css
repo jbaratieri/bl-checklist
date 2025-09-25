@@ -1,0 +1,214 @@
+
+:root{
+  --bg:#f7f2ea; --card:#fff; --ink:#2e2a26; --muted:#6f675f;
+  --acc:#8a623f; --acc-2:#cf995f;
+  --radius:14px; --shadow:0 2px 12px rgba(0,0,0,.06);
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0}
+body{font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--ink);}
+.app{position:sticky;top:0;background:linear-gradient(180deg,#e9d7bf 0%, #f5eadb 100%);padding:16px 14px;border-bottom:1px solid #eadfce;z-index:10}
+.app h1{margin:0 0 4px;font-size:20px;letter-spacing:.2px}
+.app p{margin:0 0 12px;color:var(--muted);font-size:13px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{border:1px solid #e0d7c8;color:--var(ink);background:#fff;border-radius:999px;padding:10px 14px;font-weight:600;font-size:14px;text-decoration:none;cursor:pointer;box-shadow:var(--shadow)}
+.btn.primary{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn.ghost{background:transparent}
+.badge{background:#fff;border:1px solid #eadfce;padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted)}
+.top-progress{height:6px;background:#e9e0d3;border-radius:999px;overflow:hidden;margin-top:10px}
+.top-progress .fill{height:100%;width:0%;background:linear-gradient(90deg,var(--acc),var(--acc-2));transition:width .25s}
+
+.container{max-width:1100px;margin:18px auto;padding:0 14px 40px}
+.card{background:var(--card);border:1px solid #eadfce;border-radius:var(--radius);padding:14px;margin-bottom:12px;box-shadow:var(--shadow)}
+.toc{background:var(--card);border:1px solid #eadfce;border-radius:var(--radius);padding:12px;margin:12px 0;box-shadow:var(--shadow)}
+.toc ul{list-style:none;padding:0;margin:8px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.toc a{text-decoration:none;color:var(--ink);padding:8px 10px;border:1px dashed #eadfce;border-radius:10px}
+.toc a:hover{background:#ffe9cc;border-color:#f0b770;color:#5a3a10}
+
+.section{background:var(--card);border:1px solid #eadfce;border-radius:var(--radius);margin:12px 0;box-shadow:var(--shadow)}
+.section>header{display:flex;align-items:center;gap:10px;justify-content:space-between;padding:12px 14px;cursor:pointer}
+.section>header h3{margin:0;font-size:16px}
+.section .section-body{padding:0 14px 12px;display:none}
+.section.open .section-body{display:block}
+.section .tick{display:none;color:#1b8a3d;font-weight:700}
+.section.done .tick{display:block}
+
+.step{border-top:1px dashed #eadfce;padding:10px 0}
+.step .label{font-weight:600}
+.step .btn.toggle{margin-left:8px}
+.detail{display:none;padding:10px;background:#fbf8f3;border:1px solid #eadfce;border-radius:10px;margin-top:8px}
+.step.open .detail{display:block}
+
+.placeholder-clean{display:flex;align-items:center;gap:12px;margin:8px 0}
+.placeholder-clean img{width:72px;height:72px;border-radius:10px;border:1px solid #e8dccd;object-fit:contain;background:#fff}
+.placeholder-clean figcaption{font-size:12px;color:var(--muted)}
+.measures-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:10px 0 6px}
+.measures-grid label{display:flex;flex-direction:column;font-size:12px;color:var(--muted)}
+.measures-grid input{margin-top:4px}
+
+.tool-row{display:flex;gap:8px;margin-top:8px}
+textarea{width:100%;min-height:64px;border:1px solid #eadfce;border-radius:10px;padding:10px;background:#fff;resize:vertical}
+
+.progress{font-size:12px;color:var(--muted)}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;padding:16px}
+.modal .panel{background:#fff;border-radius:16px;border:1px solid #eadfce;max-width:980px;width:100%;box-shadow:var(--shadow);padding:14px}
+.canvas-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.canvas-wrap{background:#fff;border:1px solid #eadfce;border-radius:12px;overflow:hidden}
+canvas{display:block;width:100%;height:auto;max-height:65vh}
+
+.credits {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 2em;
+}
+.credits em { font-style: italic; }
+.credits strong { color: #222; }
+
+
+.intro {
+  max-width: 700px;
+  margin: 2em auto;
+  text-align: center;
+  line-height: 1.6;
+  color: #333;
+}
+.intro h2 {
+  margin-bottom: 1em;
+  font-size: 1.8em;
+  font-weight: bold;
+}
+.intro p {
+  margin-bottom: 1em;
+}
+
+header.app {
+  position: relative;
+}
+
+header.app .toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-right: 140px; /* reserva espaço pro logo (ajuste) */
+}
+
+header.app .logo-box {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+}
+
+header.app .logo-box img {
+  height: 200px; /* ajuste fino 32–48px */
+  width: auto;
+}
+
+
+/* adicione em step11-tech.css ou no seu CSS global */
+figure.tech-figure img { background:#fff; }
+
+/* Ajustes para botões que ficavam "sumidos" no fundo branco */
+.btn.toggle,
+.btn.add-image,
+.btn.open-draw, 
+.btn.wood-catalog-trigger,
+.btn.load-assets {
+  background: #f5eadb;                /* tom claro, mesmo do header */
+  color: #3a2d1c;                     /* marrom escuro */
+  border: 1px solid #e9d7bf;          /* borda suave, alinhada ao header */
+  box-shadow: 0 1px 0 rgba(0,0,0,.04);
+  transition: background 0.2s, border 0.2s;
+}
+
+.btn.toggle:hover,
+.btn.add-image:hover,
+.btn.open-draw:hover {
+  background: #e9d7bf;                /* o tom mais forte do degradê */
+  border-color: #d6c2a5;              /* borda levemente mais marcada */
+}
+
+.btn.toggle:active,
+.btn.add-image:active,
+.btn.open-draw:active {
+  background: #e2cfb3;
+  transform: translateY(0.5px);
+  box-shadow: none;
+}
+
+.btn.toggle:focus-visible,
+.btn.add-image:focus-visible,
+.btn.open-draw:focus-visible {
+  outline: 2px solid #8a623f;         /* destaque no foco acessível */
+  outline-offset: 2px;
+}
+
+.badge-aplica {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: .5rem;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  border: 1px solid #eadfce;
+  background: #fff;
+  font: 600 12px/1.2 system-ui, sans-serif;
+  color: #4a3b2e;
+  box-shadow: 0 1px 0 rgba(0,0,0,.06);
+  vertical-align: middle;
+}
+.badge-aplica::before{
+  content: "Comum";
+  padding: 2px 6px;
+  border-radius: 9999px;
+  border: 1px solid #eadfce;
+  background: linear-gradient(180deg, #e9d7bf 0%, #f5eadb 100%);
+  font-weight: 700;
+}
+.badge-aplica .sep { opacity:.5; }
+.badge-aplica .off { opacity:.3; filter: grayscale(1); }
+
+/* base + esconde condicionais */
+.callout{
+  margin:.5rem 0; padding:.6rem .8rem; border-left:4px solid #c8a97a;
+  background:#faf6ef; border-radius:.5rem; font-size:.95rem; line-height:1.45;
+}
+.callout[data-instruments]{ display: none; }  /* <- ESTA PRIMEIRO */
+
+/* mostra conforme instrumento (preciso ganhar a cascata) */
+.inst-vcl .callout[data-instruments~="vcl"]{ display:block !important; border-left-color:#9b6b34; }
+.inst-vla .callout[data-instruments~="vla"]{ display:block !important; border-left-color:#4e7a3a; }
+.inst-cav .callout[data-instruments~="cav"]{ display:block !important; border-left-color:#336699; }
+.inst-uku .callout[data-instruments~="uku"]{ display:block !important; border-left-color:#b44186; }
+
+/* opcional: callout “para todos” */
+.callout[data-instruments~="*"]{ display:block !important; }
+
+
+
+
+@media print{
+  .app, .toc, .toolbar, #btnExportPDF{display:none!important}
+  .section .section-body{display:block!important}
+}
+
+
+/* Thumbnails de imagens com botão "FECHAR IMAGEM" */
+.img-row{
+  display:flex; flex-wrap:wrap; gap:10px; padding:6px 0;
+}
+.img-thumb{
+  position:relative; width:150px; height:150px; border-radius:12px; overflow:hidden;
+  background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.08);
+  display:flex; align-items:center; justify-content:center;
+}
+.img-pic{
+  max-width:100%; max-height:100%; object-fit:cover; display:block;
+}
+.img-close{
+  position:absolute; left:6px; top:6px; z-index:2;
+  padding:6px 10px; font-size:11px; border-radius:8px; border:1px solid rgba(0,0,0,.2);
+  background:rgba(255,255,255,.9); cursor:pointer;
+}
+.img-close:hover{ background:#fff; }

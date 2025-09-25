@@ -1,0 +1,36 @@
+{
+  "images": [
+    {
+      "thumb": "thumbs/caixa3-001.webp",
+      "full": "full/caixa3-001.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-002.webp",
+      "full": "full/caixa3-002.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-003.webp",
+      "full": "full/caixa3-003.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-004.webp",
+      "full": "full/caixa3-004.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-005.webp",
+      "full": "full/caixa3-005.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-006.webp",
+      "full": "full/caixa3-006.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-007.webp",
+      "full": "full/caixa3-007.webp"
+    },
+    {
+      "thumb": "thumbs/caixa3-008.webp",
+      "full": "full/caixa3-008.webp"
+    }
+  ]
+}

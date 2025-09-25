@@ -1,0 +1,69 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+
+ <!-- Moldura -->
+ <!-- 1) Espelho (reforço central) sobre o adorno -->
+ <!-- 2) Travessas pré-curvadas e ajuste na solera -->
+ <!-- 3) Colagem (pressão homogênea) -->
+ <!-- 4) Perfil final das travessas -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Fundo — reforço central (espelho), travessas, colagem e perfil final</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Espelho (contrafibra) sobre a emenda</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="90" x="37"/>
+   <!-- metades + adorno + espelho -->
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="100" width="110" y="120" x="77"/>
+   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="100" width="20" y="120" x="187"/>
+   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="100" width="110" y="120" x="207"/>
+   <!-- espelho -->
+   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#f0f0f0" height="100" width="28" y="120" x="183"/>
+   <text transform="matrix(0.858111 0 0 0.761301 -26.1362 151.637)" stroke="#fff" id="svg_11" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="110" x="177">espelho ~25×2 mm (contrafibra)</text>
+   <line id="svg_12" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="108" x2="207" y1="108" x1="187"/>
+   <text id="svg_13" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="105" x="179">emenda</text>
+   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="258" x="37"/>
+   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="45">colar plano e simétrico; o espelho cobre a emenda/adorno sem degraus</text>
+  </g>
+  <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Travessas — pré-curva e ajuste</text>
+  <g stroke="null" id="svg_17">
+   <rect stroke="#c7ae83" id="svg_18" vector-effect="non-scaling-stroke" stroke-width="2" fill="#fff" class="board" height="131.91489" width="320" y="92" x="449"/>
+   <!-- placa com leve arqueamento (fantasma) -->
+   <path stroke="#bbb" id="svg_19" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" fill="none" class="ghost" d="m479,182.69149q130,-24.73404 260,0"/>
+   <!-- travessas com curvatura -->
+   <rect stroke="#7aa1d1" id="svg_20" vector-effect="non-scaling-stroke" fill="#deedff" class="brace" rx="6" height="9.89362" width="200" y="139.81915" x="509"/>
+   <rect stroke="#7aa1d1" id="svg_21" vector-effect="non-scaling-stroke" fill="#deedff" class="brace" rx="6" height="9.89362" width="200" y="166.20213" x="509"/>
+   <rect stroke="#ddd" id="svg_22" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="16.48936" width="360" y="230.51064" x="449"/>
+   <text transform="matrix(1 0 0 0.824468 0 48.7979)" stroke="#fff" id="svg_23" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="233.4" x="457">transfira a curvatura da solera; assentar por gravidade, sem forçar</text>
+  </g>
+  <text id="svg_24" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="312" x="37">3) Colagem com pressão homogênea</text>
+  <g id="svg_25">
+   <rect id="svg_26" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="325" x="34"/>
+   <!-- base + papel -->
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#f7f7f7" class="paper" height="10" width="280" y="355" x="54"/>
+   <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="351" x="58">papel antiaderente</text>
+   <!-- peça e travessas posicionadas -->
+   <rect id="svg_29" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="240" y="375" x="74"/>
+   <rect id="svg_30" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#f0f0f0" height="80" width="28" y="375" x="190"/>
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="brace" rx="5" height="10" width="200" y="393" x="94"/>
+   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="brace" rx="5" height="10" width="200" y="427" x="94"/>
+   <!-- barras/calços (fantasma) -->
+   <rect id="svg_33" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="20" width="20" y="369" x="64"/>
+   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="20" width="20" y="369" x="304"/>
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="20" width="20" y="449" x="64"/>
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="20" width="20" y="449" x="304"/>
+   <rect id="svg_37" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="495" x="34"/>
+   <text id="svg_38" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="508" x="42">calços/barras/cunhas ou go-bar; pressão uniforme; limpeza do excesso de cola</text>
+  </g>
+  <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Perfil final das travessas</text>
+  <g id="svg_40">
+   <rect id="svg_41" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="304" x="450"/>
+   <!-- travessa com perfil alto no centro e pontas baixas -->
+   <path id="svg_42" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" d="m510,394c60,-40 140,-40 200,0"/>
+   <line id="svg_43" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="414" x2="710" y1="414" x1="510"/>
+   <text id="svg_44" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="426" x="512">pontas ~3 mm (reengrosso)</text>
+   <text id="svg_45" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="362" x="600">centro mais alto</text>
+   <rect id="svg_46" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="474" x="450"/>
+   <text id="svg_47" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="487" x="458">perfil em arco: centro mais alto, alívio progressivo para as pontas</text>
+  </g>
+ </g>
+</svg>

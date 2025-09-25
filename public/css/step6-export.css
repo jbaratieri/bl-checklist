@@ -1,0 +1,52 @@
+/* Step 6 (rev): folha de impressão só quando exportando medidas */
+#print-sheet{ display:none; }
+@media print {
+  body.print-measures > *:not(#print-sheet){ display:none !important; }
+  body.print-measures #print-sheet{ display:block !important; padding:24px; font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:#111; }
+  body.print-measures #print-sheet h1{ font-size:20px; margin:0 0 8px; }
+  body.print-measures #print-sheet .meta{ font-size:12px; color:#555; margin-bottom:16px; }
+  body.print-measures #print-sheet table{ width:100%; border-collapse: collapse; }
+  body.print-measures #print-sheet th, 
+  body.print-measures #print-sheet td{ border:1px solid #bbb; padding:8px; vertical-align: top; }
+  body.print-measures #print-sheet th{ background:#f3f3f3; text-align:left; }
+  body.print-measures #print-sheet td.notes{ white-space: pre-wrap; }
+}
+
+
+/* --- Step 8: header/footer with logo and page counters --- */
+@media print {
+  body.print-measures #print-header{
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #bbb;
+    background: #fff;
+  }
+  body.print-measures #print-header img{ height: 36px; width: auto; display: block; }
+  body.print-measures #print-header .titles{ display: flex; flex-direction: column; }
+  body.print-measures #print-header .titles .title{ font-size: 16px; font-weight: 700; line-height: 1.2; }
+  body.print-measures #print-header .titles .subtitle{ font-size: 12px; color:#555; }
+
+  body.print-measures #print-footer{
+    position: fixed; bottom: 0; left: 0; right: 0;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 16px;
+    border-top: 1px solid #bbb;
+    background: #fff;
+    font-size: 12px; color:#444;
+  }
+  /* Page counters (Chrome/Edge support counter(page) & counter(pages)) */
+  body.print-measures #print-footer .page::after{
+    content: "Página " counter(page) " de " counter(pages);
+  }
+
+  /* Provide space for header/footer */
+  body.print-measures #print-content{
+    padding-top: 70px;   /* header height */
+    padding-bottom: 40px;/* footer height */
+  }
+
+  /* Refine table look under this mode */
+  body.print-measures #print-sheet table { page-break-inside: auto; }
+  body.print-measures #print-sheet tr { page-break-inside: avoid; page-break-after: auto; }
+}

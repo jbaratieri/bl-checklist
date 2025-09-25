@@ -1,0 +1,114 @@
+
+/* context-bar.css — barra unificada Instrumento + Projeto (v1.3) */
+:root{
+  --ctx-bg: #fcf8f3;
+  --ctx-border: #e8dfd1;
+  --ctx-ink: #2e2a26;
+  --ctx-accent: #7a5a3c;
+  --ctx-accent-ink: #ffffff;
+  --ctx-surface: #ffffff;
+}
+#contextBar{
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--ctx-bg);
+  border-bottom: 1px solid var(--ctx-border);
+  padding: 8px 12px;
+  backdrop-filter: saturate(1.05) blur(2px);
+}
+#contextBar .row{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+#contextBar .group{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  align-items: center;
+}
+#contextBar label{
+  display:flex; align-items:center; gap:.5rem;
+  font-size: .95rem; color: var(--ctx-ink);
+}
+#contextBar select{
+  min-width: 200px;
+  padding: 8px 10px;
+  border: 1px solid #e0d7c8;
+  border-radius: 12px;
+  background: var(--ctx-surface);
+  color: var(--ctx-ink);
+  outline: none;
+}
+#contextBar select:focus{
+  border-color: var(--ctx-accent);
+  box-shadow: 0 0 0 3px rgba(122,90,60,.15);
+}
+#contextBar .btn{
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid #e0d7c8;
+  background: var(--ctx-surface);
+  color: var(--ctx-ink);
+  transition: transform .06s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
+  outline: none;
+}
+#contextBar .btn:hover{ transform: translateY(-1px); }
+#contextBar .btn:focus{ box-shadow: 0 0 0 3px rgba(122,90,60,.15); }
+#contextBar .btn.primary{
+  background: var(--ctx-accent);
+  color: var(--ctx-accent-ink);
+  border-color: var(--ctx-accent);
+}
+#contextBar small{ opacity:.75; }
+@media print{
+  #contextBar{ display:none !important; }
+}
+
+/* Modal — "Novo Projeto" (v1.3 com datas) */
+#ctxNewModal.backdrop{
+  position: fixed; inset: 0; z-index: 60;
+  background: rgba(0,0,0,.35);
+  display: none; align-items: center; justify-content: center;
+}
+#ctxNewModal.backdrop.show{ display: flex; }
+#ctxNewModal .panel{
+  width: min(720px, 96vw);
+  background: #fff; border-radius: 14px;
+  box-shadow: 0 14px 38px rgba(0,0,0,.25);
+  border: 1px solid var(--ctx-border);
+  padding: 16px;
+}
+#ctxNewModal h4{ margin: 0 0 12px; font-size: 1.05rem; color: var(--ctx-ink); }
+#ctxNewModal .grid{
+  display:grid; grid-template-columns: 1fr 1fr; gap: 12px 16px;
+}
+#ctxNewModal .field{ display:flex; gap:.5rem; align-items:center; min-width:0; }
+#ctxNewModal .field > label{ min-width: 110px; color: var(--ctx-ink); flex:0 0 auto; }
+#ctxNewModal input[type="text"],
+#ctxNewModal input[type="date"],
+#ctxNewModal select{
+  flex: 1 1 auto; min-width: 0;
+  padding: 8px 10px; border:1px solid #e0d7c8; border-radius: 12px; background:#fff; color: var(--ctx-ink);
+  outline: none;
+}
+#ctxNewModal input[type="text"]:focus,
+#ctxNewModal input[type="date"]:focus,
+#ctxNewModal select:focus{ border-color: var(--ctx-accent); box-shadow: 0 0 0 3px rgba(122,90,60,.15); }
+#ctxNewModal .actions{ display:flex; gap:8px; justify-content:flex-end; margin-top: 12px; }
+#ctxNewModal .hint{ font-size:.85rem; opacity:.75; margin-top:6px; }
+#ctxNewModal .row{ display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+#ctxNewModal input[type="checkbox"]{ transform: translateY(1px); }
+
+@media (max-width: 640px){
+  #ctxNewModal .grid{ grid-template-columns: 1fr; }
+}
+
+/* Esconder elementos antigos */
+label:has(#job-instrument){ display:none !important; } /* pode não funcionar em todos browsers */
+.instrument-fab, #btnInstrument, [data-role="instrument-fab"]{ display:none !important; }

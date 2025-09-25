@@ -1,0 +1,131 @@
+{
+  "checklist.js": {
+    "dependsOn": [],
+    "provides": ["núcleo base"],
+    "notes": "Script principal do checklist. Base para outros steps."
+  },
+  "step1-toggle.js": {
+    "dependsOn": ["checklist.js"],
+    "provides": ["UI toggle"],
+    "notes": "Controla abrir/recolher seções."
+  },
+  "step2-toc.js": {
+    "dependsOn": ["checklist.js"],
+    "provides": ["sumário"],
+    "notes": "Gera e sincroniza índice (Table of Contents)."
+  },
+  "step6-export.js": {
+    "dependsOn": ["checklist.js"],
+    "provides": ["export"],
+    "notes": "Exporta dados do checklist."
+  },
+  "step11-tech.js": {
+    "dependsOn": ["checklist.js"],
+    "provides": ["detalhes técnicos"],
+    "notes": "Gerencia blocos de detalhe técnico em cada subetapa."
+  },
+
+  "step9-instrument-bus.js": {
+    "dependsOn": [],
+    "provides": ["instrument bus"],
+    "notes": "Canal de eventos/state para o instrumento atual."
+  },
+  "step21-project-bus.js": {
+    "dependsOn": [],
+    "provides": ["project bus"],
+    "notes": "Canal de eventos/state para o projeto atual."
+  },
+
+  "step21-project-unique.js": {
+    "dependsOn": ["step21-project-bus.js"],
+    "provides": ["project name uniqueness"],
+    "notes": "Garante nomes únicos de projetos."
+  },
+  "step23-media-context.js": {
+    "dependsOn": ["step9-instrument-bus.js", "step21-project-bus.js"],
+    "provides": ["media context"],
+    "notes": "Resolve chaves de mídia baseadas em Instrumento+Projeto."
+  },
+
+  "step9-instrument.js": {
+    "dependsOn": ["step9-instrument-bus.js"],
+    "provides": ["instrument consumer"],
+    "notes": "Consome dados do Instrumento."
+  },
+  "step15-instrument-badge.js": {
+    "dependsOn": ["step9-instrument-bus.js"],
+    "provides": ["instrument badge"],
+    "notes": "Badge visual para indicar Instrumento ativo."
+  },
+
+  "viewer.global.js": {
+    "dependsOn": [],
+    "provides": ["viewer"],
+    "notes": "Lightbox unificado: ESC fecha, clique em qualquer lugar, cursor lupa(-)."
+  },
+  "step14-images-persist.v4.1.js": {
+    "dependsOn": ["viewer.global.js", "step23-media-context.js"],
+    "provides": ["image persistence"],
+    "notes": "Uploads persistentes com compressão e migração v4.1."
+  },
+  "load-assets.patch.js": {
+    "dependsOn": ["viewer.global.js"],
+    "provides": ["assets loader"],
+    "notes": "Carrega manifest/CSV de imagens extras com captions."
+  },
+  "step12-draw.v4.1.js": {
+    "dependsOn": ["step23-media-context.js"],
+    "provides": ["drawing"],
+    "notes": "Canvas de desenho técnico; integra ao contexto de mídia."
+  },
+
+  "step17-measures-instrumentos.js": {
+    "dependsOn": [],
+    "provides": ["instrument measures"],
+    "notes": "Definições de medidas base por instrumento."
+  },
+  "step16-measures-presets.js": {
+    "dependsOn": ["step17-measures-instrumentos.js"],
+    "provides": ["measure presets"],
+    "notes": "Presets aplicáveis de medidas conforme instrumento."
+  },
+  "step16-range-support.js": {
+    "dependsOn": [],
+    "provides": ["range support"],
+    "notes": "Ajusta inputs de range para medidas."
+  },
+
+  "step19-project-plan.v2.js": {
+    "dependsOn": ["step21-project-bus.js"],
+    "provides": ["project plan"],
+    "notes": "Calcula plano/cronograma do projeto."
+  },
+  "step19-plan-toggle.js": {
+    "dependsOn": ["step19-project-plan.v2.js"],
+    "provides": ["plan toggle"],
+    "notes": "Transforma botão de cálculo em expandir/recolher cronograma."
+  },
+
+  "step20-context-bar.js": {
+    "dependsOn": ["step9-instrument-bus.js", "step21-project-bus.js"],
+    "provides": ["context bar"],
+    "notes": "Barra unificada mostrando Instrumento + Projeto."
+  },
+  "context-bar.css": {
+    "dependsOn": [],
+    "provides": ["context bar styles"],
+    "notes": "Estilo para a barra unificada."
+  },
+
+  "step18-persist-fallback.v3.js": {
+    "dependsOn": [],
+    "provides": ["legacy persistence"],
+    "notes": "Persistência fallback (versão 3)."
+  },
+
+  "sw.js": {
+    "dependsOn": [],
+    "provides": ["service worker"],
+    "notes": "Service worker para PWA/offline. Sempre último."
+  }
+}
