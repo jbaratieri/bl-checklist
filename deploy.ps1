@@ -1,26 +1,16 @@
-Write-Host "🚀 Iniciando deploy do BL Checklist para GitHub Pages..."
+Write-Host "🚀 Deploy do BL Checklist para GitHub Pages..." -ForegroundColor Green
 
-# Verifica se execução de scripts está habilitada
-try {
-    # Testa um comando simples em scriptblock
-    $null = Invoke-Command { "test-exec-policy" } -ErrorAction Stop
-}
-catch {
-    Write-Host "`n❌ Execução de scripts desabilitada neste sistema."
-    Write-Host "👉 Para liberar TEMPORARIAMENTE nesta sessão, rode no terminal:"
-    Write-Host "   Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`n"
-    Write-Host "👉 Ou para liberar PERMANENTE para seu usuário, rode:"
-    Write-Host "   Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`n"
-    Write-Host "Depois, rode novamente: .\deploy.ps1"
-    exit 1
-}
-
-# Fluxo de deploy
+# 1) Adiciona todas as mudanças
 git add .
+
+# 2) Cria commit (mesmo se não houver mudanças, usa --allow-empty pra não falhar)
 git commit -m "deploy automático" --allow-empty
+
+# 3) Envia para o branch main
 git push origin main
+
+# 4) Faz deploy para o GitHub Pages (gh-pages)
 git deploy
 
-Write-Host "✅ Deploy concluído!"
-Write-Host "🌍 Site atualizado em: https://jbaratieri.github.io/bl-checklist/"
-
+Write-Host "✅ Deploy concluído! Site atualizado em:" -ForegroundColor Green
+Write-Host "👉 https://jbaratieri.github.io/bl-checklist/" -ForegroundColor Cyan
