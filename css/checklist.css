@@ -73,14 +73,46 @@ canvas{display:block;width:100%;height:auto;max-height:65vh}
   line-height: 1.6;
   color: #333;
 }
+
 .intro h2 {
   margin-bottom: 1em;
   font-size: 1.8em;
   font-weight: bold;
 }
+
 .intro p {
   margin-bottom: 1em;
 }
+
+/* --- NOVO --- */
+/* Por padrão, só mostra o primeiro parágrafo */
+.intro p:not(:first-of-type) {
+  display: none;
+}
+
+/* Quando expandido, mostra tudo */
+.intro.expanded p {
+  display: block;
+}
+
+/* Botão "Ler mais / Ler menos" */
+.intro .intro-toggle {
+  display: inline-block;
+  margin-top: 0.8rem;
+  background: #5c3b1e;
+  color: #fff;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.intro .intro-toggle:hover {
+  background: #74492a;
+}
+
+
 
 header.app {
   position: relative;
@@ -212,3 +244,11 @@ figure.tech-figure img { background:#fff; }
   background:rgba(255,255,255,.9); cursor:pointer;
 }
 .img-close:hover{ background:#fff; }
+
+/* Esconde o Índice em telas pequenas */
+@media (max-width: 768px) {
+  .toc {
+    display: none;
+  }
+}
+
