@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - BL Checklist</title>
+  <link rel="stylesheet" href="./css/main.css">
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      height: 100vh;
+      margin: 0;
+      background: #f4f0ea;
+      text-align: center;
+      color: #333;
+    }
+    .offline-box {
+      max-width: 360px;
+      padding: 20px;
+      border: 1px solid #e5dccf;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    }
+    .offline-box h1 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    .offline-box p {
+      margin: 8px 0 16px;
+      font-size: .95rem;
+    }
+    .offline-box button {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #8a623f;
+      color: #fff;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-box">
+    <h1>Você está offline</h1>
+    <p>Alguns recursos podem não estar disponíveis.<br>
+    Conecte-se para carregar imagens e sincronizar dados.</p>
+    <button onclick="location.reload()">Tentar novamente</button>
+  </div>
+</body>
+</html>

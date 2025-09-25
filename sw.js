@@ -1,14 +1,15 @@
-// sw.js — v1.2 (corrige fallback offline para index.html)
-const CACHE_VERSION = 'bl-app-v1.2';
+// sw.js — v2.0 com fallback offline
+const CACHE_VERSION = 'bl-app-v2';
 const APP_SHELL = [
-  './',
+  './',                    // start_url
   './index.html',
+  './offline.html',
   './manifest.webmanifest',
   // CSS
   './css/main.css',
   './css/images-thumbs.css',
   './css/context-bar.css',
-  // JS principais
+  // JS essenciais
   './js/checklist.js',
   './js/step1-toggle.js',
   './js/step2-toc.js',
@@ -33,21 +34,21 @@ const APP_SHELL = [
   './js/step18-persist-fallback.v3.js',
   // Ícones PWA
   './assets/icon-192.png',
-  './assets/icon-512.png',
-  './assets/Logotipo.svg'
+  './assets/icon-512.png'
 ];
 
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 
-// limite de imagens em cache runtime
-const IMG_CACHE_MAX_ENTRIES = 300;
+// Limite de imagens runtime (álbuns/tech) para não explodir o cache
+const IMG_CACHE_MAX_ENTRIES = 300; // aumentei de 120 para 300
 
 // Helpers
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   const cache = await caches.open(cacheName);
   await cache.put(request, response.clone());
 
+  // Se for cache de imagens, controla o número salvo
   if (cacheName === RUNTIME_CACHE && matchPrefixList.length) {
     const keys = await cache.keys();
     const filtered = keys.filter(k => matchPrefixList.some(prefix => k.url.includes(prefix)));
@@ -58,53 +59,52 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   }
 }
 
-// Instalação: pré-cache
+// Instalação: pré-cache do app shell
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(SHELL_CACHE)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
+    caches.open(SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
   );
 });
 
-// Ativação: limpa versões antigas
+// Ativação: limpa caches antigos
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const names = await caches.keys();
     await Promise.all(
-      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n))
-           .map(n => caches.delete(n))
+      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n)).map(n => caches.delete(n))
     );
     await self.clients.claim();
   })());
 });
 
-// Fetch
+// Fetch handler
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
+  // Apenas GET do mesmo domínio
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // 1) Navegação/HTML → network-first, fallback cache
-  if (request.mode === 'navigate') {
+  // 1) Navegação/HTML → network-first, fallback = offline.html
+  if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
     event.respondWith((async () => {
-      const cache = await caches.open(SHELL_CACHE);
       try {
         const net = await fetch(request);
-        cache.put('/index.html', net.clone()); // salva com caminho absoluto
+        const cache = await caches.open(SHELL_CACHE);
+        cache.put('./index.html', net.clone()); // mantém index fresco
         return net;
       } catch {
-        return (await cache.match('/index.html')) 
-            || (await cache.match('./index.html')) 
+        const cache = await caches.open(SHELL_CACHE);
+        return (await cache.match('./index.html'))
+            || (await cache.match('./offline.html'))
             || Response.error();
       }
     })());
     return;
   }
 
-  // 2) CSS/JS/manifest/ícones → stale-while-revalidate
-  if (/\.(css|js|json|webmanifest|png|svg)$/.test(url.pathname)) {
+  // 2) CSS/JS/manifest → stale-while-revalidate
+  if (/\.(css|js|json|webmanifest|png)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
       const cached = await cache.match(request);
@@ -117,7 +117,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3) Imagens de álbuns/tech → cache-first com limite
+  // 3) Imagens de álbuns/tech → cache-first com expiração
   const isAlbumImg = url.pathname.includes('/assets/extras/albuns/');
   const isTechImg  = url.pathname.includes('/assets/tech/');
   if (/\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname) && (isAlbumImg || isTechImg)) {
@@ -136,13 +136,13 @@ self.addEventListener('fetch', (event) => {
         );
         return net;
       } catch {
-        return new Response('', { status: 504, statusText: 'Offline' });
+        return (await caches.match('./offline.html')) || Response.error();
       }
     })());
     return;
   }
 
-  // 4) Outros → cache-first
+  // 4) Outros estáticos → cache-first
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
@@ -152,7 +152,7 @@ self.addEventListener('fetch', (event) => {
       cache.put(request, net.clone());
       return net;
     } catch {
-      return cached || Response.error();
+      return (await caches.match('./offline.html')) || Response.error();
     }
   })());
 });
