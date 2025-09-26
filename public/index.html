@@ -5,13 +5,17 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-
   <meta name="color-scheme" content="light dark" />
   <title>Checklist de Construção de Violão — Baratieri Luthieria</title>
   <meta name="theme-color" content="#7a5a3c" />
 
   <!-- Manifest PWA -->
-  <link rel="manifest" href="/bl-checklist/manifest.webmanifest">
+  <link rel="manifest" href="/bl-checklist/manifest.webmanifest?v=20250926">
+
+  <!-- Apple PWA (iOS) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="apple-touch-icon" href="/bl-checklist/icons/icon-192.png">
 
   <!-- Ícones -->
   <link rel="icon" type="image/png" href="/bl-checklist/icons/icon-192.png">
@@ -38,11 +42,9 @@
   <link rel="stylesheet" href="/bl-checklist/css/project-header.css" />
   <link rel="stylesheet" href="/bl-checklist/css/images-thumbs.css" />
   <link rel="stylesheet" href="/bl-checklist/css/wood-catalog.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/responsive.css">
-
-
- 
+  <link rel="stylesheet" href="/bl-checklist/css/responsive.css" />
 </head>
+
 
 <body>
   <header class="app">
@@ -5346,17 +5348,16 @@
   <script type="module" src="./js/wood-catalog.js"></script>
 
 
-  <!-- Registro do Service Worker -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('./sw.js')
-          .then(reg => console.log('SW registrado ✅', reg))
-          .catch(err => console.error('Erro ao registrar SW:', err));
-      });
-    }
-  </script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
+        .then(reg => console.log('SW registrado ✅', reg))
+        .catch(err => console.error('Erro ao registrar SW:', err));
+    });
+  }
+</script>
+
 
 
 
