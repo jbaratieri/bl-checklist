@@ -9,36 +9,47 @@
   <title>Checklist de Construção de Violão — Baratieri Luthieria</title>
   <meta name="theme-color" content="#7a5a3c" />
 
-  <link rel="manifest" href="./manifest.webmanifest">
+  <!-- Manifest PWA -->
+  <link rel="manifest" href="/bl-checklist/manifest.webmanifest">
 
-  <link rel="icon" type="image/png" href="./icons/icon-192.png">
+  <!-- Ícones -->
+  <link rel="icon" type="image/png" href="/bl-checklist/icons/icon-192.png">
 
-  <script>window.BL_TECH_CFG = { base: './assets/tech/' };</script>
+  <!-- Config global para tech -->
+  <script>window.BL_TECH_CFG = { base: '/bl-checklist/assets/tech/' };</script>
 
-  <!-- CSS base e das etapas -->
-  <link rel="stylesheet" href="./css/checklist.css" />
-  <link rel="stylesheet" href="./css/step1-toggle.css" />
-  <link rel="stylesheet" href="./css/step11-tech.css" />
-  <link rel="stylesheet" href="./css/step12-draw.css" />
-  <link rel="stylesheet" href="./css/step2-toc.css" />
-  <link rel="stylesheet" href="./css/step3-measures.css" />
-  <link rel="stylesheet" href="./css/step6-export.css" />
-  <link rel="stylesheet" href="./css/step9-instrument.css" />
-  <link rel="stylesheet" href="./css/btn-hover-tune.css" />
-  <link rel="stylesheet" href="./css/btn-utilities.css" />
-  <link rel="stylesheet" href="./css/instrument-badge.css" />
-  <link rel="stylesheet" href="./css/measures-presets.css" />
-  <link rel="stylesheet" href="./css/measures-block.css" />
-  <link rel="stylesheet" href="./css/step12-draw.css">
-  <link rel="stylesheet" href="./css/step12-draw-extra.css">
-  <link rel="stylesheet" href="./css/step12-draw.modal.css">
-  <link rel="stylesheet" href="./css/project-header.css">
-  <link rel="stylesheet" href="./css/images-thumbs.css">
-  <link rel="stylesheet" href="./css/wood-catalog.css">
+  <!-- CSS base e etapas -->
+  <link rel="stylesheet" href="/bl-checklist/css/checklist.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step1-toggle.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step11-tech.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step12-draw-extra.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.modal.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step2-toc.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step3-measures.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step6-export.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step9-instrument.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/btn-hover-tune.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/btn-utilities.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/instrument-badge.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/measures-presets.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/measures-block.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/project-header.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/images-thumbs.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/wood-catalog.css" />
 
-
+  <!-- Registro do Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/bl-checklist/sw.js')
+          .then(reg => console.log('[SW] registrado ✅', reg))
+          .catch(err => console.error('[SW] erro ❌', err));
+      });
+    }
+  </script>
 </head>
-
 
 <body>
   <header class="app">
@@ -5342,16 +5353,17 @@
   <script type="module" src="./js/wood-catalog.js"></script>
 
 
- <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
-      .then(reg => console.log('SW registrado ✅', reg))
-      .catch(err => console.error('SW erro ❌', err));
-  });
-}
-</script>
+<!-- Registro do Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('./sw.js')
+          .then(reg => console.log('SW registrado ✅', reg))
+          .catch(err => console.error('Erro ao registrar SW:', err));
+      });
+    }
+  </script>
 
 
 
