@@ -38,22 +38,12 @@
   <link rel="stylesheet" href="/bl-checklist/css/images-thumbs.css" />
   <link rel="stylesheet" href="/bl-checklist/css/wood-catalog.css" />
 
-  <!-- Registro do Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker
-          .register('/bl-checklist/sw.js')
-          .then(reg => console.log('[SW] registrado ✅', reg))
-          .catch(err => console.error('[SW] erro ❌', err));
-      });
-    }
-  </script>
+ 
 </head>
 
 <body>
   <header class="app">
-   <h1>• Checklist</h1>
+    <h1>• Checklist</h1>
     <p>Versão v7.2</p>
 
     <div class="toolbar">
@@ -5353,7 +5343,7 @@
   <script type="module" src="./js/wood-catalog.js"></script>
 
 
-<!-- Registro do Service Worker -->
+  <!-- Registro do Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
