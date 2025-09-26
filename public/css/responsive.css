@@ -166,152 +166,24 @@
    Header / Toolbar
    =========================== */
 
-header.app {
-  background: #fff;
-  border-bottom: 1px solid #e8dfd1;
-  padding: 10px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-header.app h1 {
-  font-size: 1.4rem;
-  margin: 0;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-header.app .inst-badge {
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 8px;
-  margin-left: auto;
-}
-
-header.app p {
-  font-size: 0.85rem;
-  margin: 0;
-  color: #666;
-}
-
-header.app .toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-items: center;
-}
-
-header.app .toolbar .btn {
-  padding: 6px 10px;
-}
-
-header.app .badge {
-  margin-left: auto;
-  font-size: 0.85rem;
-  background: #eee;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-header.app .logo-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-header.app .logo-box img {
-  height: 36px;
-}
-
-header.app .top-progress {
-  flex: 1;
-  height: 6px;
-  border-radius: 4px;
-  background: #eee;
-  overflow: hidden;
-  margin-left: 12px;
-}
-
-header.app .top-progress .fill {
-  background: var(--inst-color, #8a623f);
-  height: 100%;
-}
-
-/* Botão "TABELA DE MEDIDAS" alinhado */
-#btnMeasuresTable {
-  align-self: flex-start;
-}
-
-/* ===========================
-   Mobile ajustes
-   =========================== */
-@media (max-width: 768px) {
-  header.app {
-    align-items: center;
-    text-align: center;
-  }
-
-  header.app h1 {
-    font-size: 1.2rem;
-    justify-content: center;
-  }
-
-  header.app .inst-badge {
-    margin: 8px 0;
-  }
-
-  header.app .toolbar {
-    justify-content: center;
-  }
-
-  header.app .toolbar .btn {
-    flex: 1 1 45%;
-    text-align: center;
-  }
-
-  header.app .logo-box {
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  header.app .top-progress {
-    width: 100%;
-    margin: 8px 0 0;
-  }
-
-  #btnMeasuresTable {
-    width: 100%;
-    margin: 8px 0 0;
-  }
-}
-
-/* ===== Header refinado ===== */
-
+/* Logo destacado */
 header.app .logo-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 header.app .app-logo {
-  height: 48px;
+  height: 72px; /* desktop */
   flex-shrink: 0;
-}
-
-header.app h1 {
-  font-size: 1.5rem;
-  margin: 0;
-  font-weight: 600;
 }
 
 header.app .status-row {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 6px;
+  flex-wrap: wrap;
 }
 
 header.app .status-row .version {
@@ -328,19 +200,25 @@ header.app .status-row .badge {
   border-radius: 6px;
 }
 
-/* Progress bar sempre em linha separada */
-header.app .top-progress {
-  margin: 8px 0;
-  width: 100%;
-  height: 6px;
-  border-radius: 4px;
-  background: #eee;
-  overflow: hidden;
+/* Mobile */
+@media (max-width: 768px) {
+  header.app .logo-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  header.app .app-logo {
+    height: 96px; /* logo ainda maior no mobile */
+    margin-bottom: 8px;
+  }
+
+  header.app .status-row {
+    justify-content: center;
+    gap: 8px;
+  }
+
+  header.app .status-row .badge {
+    margin-left: 0;
+  }
 }
-
-header.app .top-progress .fill {
-  background: var(--inst-color, #8a623f);
-  height: 100%;
-}
-
-
