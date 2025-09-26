@@ -5342,13 +5342,18 @@
   <script type="module" src="./js/wood-catalog.js"></script>
 
 
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(console.error);
-      });
-    }
-  </script>
+ <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/bl-checklist/sw.js') // caminho absoluto no GitHub Pages
+      .then(reg => console.log('SW registrado:', reg))
+      .catch(err => console.error('Erro ao registrar SW:', err));
+  });
+}
+</script>
+
+
 
 
 </body>
