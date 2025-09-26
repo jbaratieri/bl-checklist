@@ -49,34 +49,34 @@
 
 
 <body>
-<header class="app">
-  <!-- Logo principal -->
-  <div class="logo-row">
-    <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo" />
-    
-    <div class="status-row">
-      <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
-        🎸 Violão Clássico
-      </span>
-      <p class="version">Versão v7.2</p>
-      <span class="badge" id="progressBadge">0% concluído</span>
+  <header class="app">
+    <!-- Logo principal -->
+    <div class="logo-row">
+      <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo" />
+
+      <div class="status-row">
+        <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
+          🎸 Violão Clássico
+        </span>
+        <p class="version">Versão v7.2</p>
+        <span class="badge" id="progressBadge">0% concluído</span>
+      </div>
     </div>
-  </div>
 
-  <!-- Barra de progresso -->
-  <div class="top-progress">
-    <div class="fill" id="progressFill" style="width: 0%;"></div>
-  </div>
+    <!-- Barra de progresso -->
+    <div class="top-progress">
+      <div class="fill" id="progressFill" style="width: 0%;"></div>
+    </div>
 
-  <!-- Toolbar -->
-  <div class="toolbar">
-    <button class="btn primary" id="btnPrint" data-has-print="1">Gerar PDF / Imprimir</button>
-    <button class="btn" id="btnExpand">Expandir tudo</button>
-    <button class="btn" id="btnCollapse">Recolher tudo</button>
-    <button class="btn ghost" id="btnReset">Limpar dados</button>
-    <button class="btn btn--pill" id="btnMeasuresTable">TABELA DE MEDIDAS</button>
-  </div>
-</header>
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button class="btn primary" id="btnPrint" data-has-print="1">Gerar PDF / Imprimir</button>
+      <button class="btn" id="btnExpand">Expandir tudo</button>
+      <button class="btn" id="btnCollapse">Recolher tudo</button>
+      <button class="btn ghost" id="btnReset">Limpar dados</button>
+      <button class="btn btn--pill" id="btnMeasuresTable">TABELA DE MEDIDAS</button>
+    </div>
+  </header>
 
 
 
@@ -5358,14 +5358,12 @@
 
   <script src="./js/intro-toggle.js"></script>
 
-
   <script type="module" src="./js/wood-catalog.js"></script>
-
 
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
+        navigator.serviceWorker.register('/bl-checklist/sw.js?v=20250927', { scope: '/bl-checklist/' })
           .then(reg => console.log('SW registrado ✅', reg))
           .catch(err => console.error('Erro ao registrar SW:', err));
       });
