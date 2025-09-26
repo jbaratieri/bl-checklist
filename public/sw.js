@@ -1,4 +1,4 @@
-// sw.js — v2.1 com fallback offline e cache de imagens corrigido
+// sw.js — v2.1 ajustado para GitHub Pages (prefix /bl-checklist/)
 const CACHE_VERSION = 'bl-app-v2.1';
 const APP_SHELL = [
   './',                    // start_url
@@ -40,7 +40,7 @@ const APP_SHELL = [
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 
-// Limite de imagens runtime (álbuns/tech)
+// Limite de imagens runtime (álbuns/tech) para não explodir o cache
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
@@ -48,7 +48,6 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   const cache = await caches.open(cacheName);
   await cache.put(request, response.clone());
 
-  // Aparar excesso de imagens
   if (cacheName === RUNTIME_CACHE && matchPrefixList.length) {
     const keys = await cache.keys();
     const filtered = keys.filter(k => matchPrefixList.some(prefix => k.url.includes(prefix)));
@@ -82,16 +81,15 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Apenas GET do mesmo domínio
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // 1) Navegação/HTML → network-first, fallback = offline.html
+  // 1) Navegação/HTML → network-first, fallback offline.html
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
     event.respondWith((async () => {
       try {
         const net = await fetch(request);
         const cache = await caches.open(SHELL_CACHE);
-        cache.put('./index.html', net.clone()); // mantém index fresco
+        cache.put('./index.html', net.clone());
         return net;
       } catch {
         const cache = await caches.open(SHELL_CACHE);
@@ -117,9 +115,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3) Imagens (albuns/tech) → cache-first com expiração
-  const isAlbumImg = url.pathname.includes('albuns');
-  const isTechImg  = url.pathname.includes('tech');
+  // 3) Imagens de álbuns/tech → cache-first com expiração
+  const isAlbumImg = url.pathname.includes('/bl-checklist/assets/extras/albuns/');
+  const isTechImg  = url.pathname.includes('/bl-checklist/assets/tech/');
   if (/\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname) && (isAlbumImg || isTechImg)) {
     event.respondWith((async () => {
       const cache = await caches.open(RUNTIME_CACHE);
@@ -132,7 +130,7 @@ self.addEventListener('fetch', (event) => {
           RUNTIME_CACHE,
           request,
           net.clone(),
-          ['albuns', 'tech']
+          ['/bl-checklist/assets/extras/albuns/', '/bl-checklist/assets/tech/']
         );
         return net;
       } catch {
