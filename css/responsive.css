@@ -175,7 +175,7 @@ header.app .logo-row {
 }
 
 header.app .app-logo {
-  height: 98px; /* desktop */
+  height: 98./deploypx; /* desktop */
   flex-shrink: 0;
 }
 
