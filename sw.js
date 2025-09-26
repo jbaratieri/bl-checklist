@@ -1,5 +1,5 @@
-// sw.js — v2.0 com fallback offline
-const CACHE_VERSION = 'bl-app-v2';
+// sw.js — v2.1 com fallback offline e cache de imagens corrigido
+const CACHE_VERSION = 'bl-app-v2.1';
 const APP_SHELL = [
   './',                    // start_url
   './index.html',
@@ -40,15 +40,15 @@ const APP_SHELL = [
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 
-// Limite de imagens runtime (álbuns/tech) para não explodir o cache
-const IMG_CACHE_MAX_ENTRIES = 300; // aumentei de 120 para 300
+// Limite de imagens runtime (álbuns/tech)
+const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   const cache = await caches.open(cacheName);
   await cache.put(request, response.clone());
 
-  // Se for cache de imagens, controla o número salvo
+  // Aparar excesso de imagens
   if (cacheName === RUNTIME_CACHE && matchPrefixList.length) {
     const keys = await cache.keys();
     const filtered = keys.filter(k => matchPrefixList.some(prefix => k.url.includes(prefix)));
@@ -117,9 +117,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3) Imagens de álbuns/tech → cache-first com expiração
-  const isAlbumImg = url.pathname.includes('/assets/extras/albuns/');
-  const isTechImg  = url.pathname.includes('/assets/tech/');
+  // 3) Imagens (albuns/tech) → cache-first com expiração
+  const isAlbumImg = url.pathname.includes('albuns');
+  const isTechImg  = url.pathname.includes('tech');
   if (/\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname) && (isAlbumImg || isTechImg)) {
     event.respondWith((async () => {
       const cache = await caches.open(RUNTIME_CACHE);
@@ -132,7 +132,7 @@ self.addEventListener('fetch', (event) => {
           RUNTIME_CACHE,
           request,
           net.clone(),
-          ['/assets/extras/albuns/', '/assets/tech/']
+          ['albuns', 'tech']
         );
         return net;
       } catch {
