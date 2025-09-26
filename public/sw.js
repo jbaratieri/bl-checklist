@@ -1,5 +1,5 @@
-// sw.js — v2.3.1 com fallback offline (HTML + imagens)
-const CACHE_VERSION = 'bl-app-v2.3.1';
+// sw.js — v2.3.2 com fallback offline (HTML + imagens)
+const CACHE_VERSION = 'bl-app-v2.3.2';
 const APP_SHELL = [
   '/bl-checklist/',
   '/bl-checklist/index.html',
@@ -7,25 +7,20 @@ const APP_SHELL = [
   '/bl-checklist/manifest.webmanifest',
   // Ícone fallback p/ imagens
   '/bl-checklist/assets/fallback-image.png',
-  // CSS
-  '/bl-checklist/css/main.css',
+  // CSS principais (revise se todos existem)
+  '/bl-checklist/css/checklist.css',
   '/bl-checklist/css/images-thumbs.css',
   '/bl-checklist/css/context-bar.css',
-  // JS essenciais
+  '/bl-checklist/css/project-header.css',
+  // JS essenciais (revise se todos existem)
   '/bl-checklist/js/checklist.js',
   '/bl-checklist/js/step1-toggle.js',
   '/bl-checklist/js/step2-toc.js',
   '/bl-checklist/js/step6-export.js',
   '/bl-checklist/js/step11-tech.js',
-  '/bl-checklist/js/step9-instrument-bus.js',
-  '/bl-checklist/js/step21-project-bus.js',
-  '/bl-checklist/js/step21-project-unique.js',
-  '/bl-checklist/js/step23-media-context.js',
   '/bl-checklist/js/step9-instrument.js',
   '/bl-checklist/js/step15-instrument-badge.js',
-  '/bl-checklist/js/viewer.global.js',
   '/bl-checklist/js/step14-images-persist.v4.1.js',
-  '/bl-checklist/js/load-assets.patch.js',
   '/bl-checklist/js/step12-draw.v4.1.js',
   '/bl-checklist/js/step17-measures-instrumentos.js',
   '/bl-checklist/js/step16-measures-presets.js',
@@ -34,6 +29,7 @@ const APP_SHELL = [
   '/bl-checklist/js/step19-plan-toggle.js',
   '/bl-checklist/js/step20-context-bar.js',
   '/bl-checklist/js/step18-persist-fallback.v3.js',
+  '/bl-checklist/js/viewer.global.js',
   // Ícones PWA
   '/bl-checklist/assets/icon-192.png',
   '/bl-checklist/assets/icon-512.png'
@@ -58,12 +54,21 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   }
 }
 
-// Install
+// Install (resiliente)
 self.addEventListener('install', (event) => {
   console.log('[SW] Install');
-  event.waitUntil(
-    caches.open(SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
-  );
+  event.waitUntil((async () => {
+    const cache = await caches.open(SHELL_CACHE);
+    for (const url of APP_SHELL) {
+      try {
+        await cache.add(url);
+        console.log('[SW] Cached:', url);
+      } catch (err) {
+        console.warn('[SW] Falha ao adicionar no cache:', url, err);
+      }
+    }
+    await self.skipWaiting();
+  })());
 });
 
 // Activate
@@ -91,7 +96,7 @@ self.addEventListener('fetch', (event) => {
       try {
         const net = await fetch(request);
         const cache = await caches.open(SHELL_CACHE);
-        cache.put(request, net.clone()); // usa event.request, não './index.html'
+        cache.put(request, net.clone());
         return net;
       } catch {
         const cache = await caches.open(SHELL_CACHE);

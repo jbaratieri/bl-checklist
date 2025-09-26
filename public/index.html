@@ -14,6 +14,7 @@
 
   <!-- Apple PWA (iOS) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="apple-touch-icon" href="/bl-checklist/icons/icon-192.png">
 
@@ -5349,14 +5350,14 @@
 
 
   <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
-        .then(reg => console.log('SW registrado ✅', reg))
-        .catch(err => console.error('Erro ao registrar SW:', err));
-    });
-  }
-</script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
+          .then(reg => console.log('SW registrado ✅', reg))
+          .catch(err => console.error('Erro ao registrar SW:', err));
+      });
+    }
+  </script>
 
 
 
