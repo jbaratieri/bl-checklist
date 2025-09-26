@@ -31,12 +31,13 @@ const APP_SHELL = [
   '/bl-checklist/js/step18-persist-fallback.v3.js',
   '/bl-checklist/js/viewer.global.js',
   // Ícones PWA
-  '/bl-checklist/assets/icon-192.png',
-  '/bl-checklist/assets/icon-512.png'
+  '/bl-checklist/icons/icon-192.png',
+  '/bl-checklist/icons/icon-512.png'
+
 ];
 
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
-const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
+const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
@@ -101,8 +102,8 @@ self.addEventListener('fetch', (event) => {
       } catch {
         const cache = await caches.open(SHELL_CACHE);
         return (await cache.match(request))
-            || (await cache.match('/bl-checklist/offline.html'))
-            || Response.error();
+          || (await cache.match('/bl-checklist/offline.html'))
+          || Response.error();
       }
     })());
     return;
