@@ -1,16 +1,18 @@
-Write-Host "🚀 Deploy do BL Checklist para GitHub Pages..." -ForegroundColor Green
+# deploy.ps1 — script estável para publicar no GitHub Pages
 
-# 1) Adiciona todas as mudanças
+Write-Host "🚀 Iniciando deploy do BL Checklist..." -ForegroundColor Cyan
+
+# Adiciona todas as alterações
 git add .
 
-# 2) Cria commit (mesmo se não houver mudanças, usa --allow-empty pra não falhar)
+# Cria um commit (se não houver alterações, não quebra)
 git commit -m "deploy automático" --allow-empty
 
-# 3) Envia para o branch main
+# Envia para a branch main
 git push origin main
 
-# 4) Faz deploy para o GitHub Pages (gh-pages)
+# Publica no GitHub Pages (branch gh-pages com subtree)
 git deploy
 
-Write-Host "✅ Deploy concluído! Site atualizado em:" -ForegroundColor Green
-Write-Host "👉 https://jbaratieri.github.io/bl-checklist/" -ForegroundColor Cyan
+Write-Host "✅ Deploy concluído!"
+Write-Host "👉 Acesse em: https://jbaratieri.github.io/bl-checklist/" -ForegroundColor Green
