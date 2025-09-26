@@ -4,13 +4,16 @@
 
 /* Telas até 768px (tablets e celulares em modo paisagem) */
 @media (max-width: 768px) {
+
   /* Tipografia */
   body {
     font-size: 15px;
     line-height: 1.5;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     font-size: 1.2em;
   }
 
@@ -26,6 +29,7 @@
     flex-wrap: wrap;
     gap: 8px;
   }
+
   .toc-list li {
     flex: 1 1 45%;
     font-size: 0.95em;
@@ -38,6 +42,7 @@
     width: 100%;
     margin-bottom: 10px;
   }
+
   form input,
   .measures-grid input,
   form select,
@@ -52,6 +57,7 @@
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 8px;
   }
+
   .img-row .thumb {
     border-radius: 8px;
   }
@@ -60,11 +66,12 @@
   .btn {
     font-size: 0.95em;
     padding: 10px 14px;
-    border: 1px solid rgba(0,0,0,.15);
+    border: 1px solid rgba(0, 0, 0, .15);
     border-radius: 8px;
   }
+
   .btn:hover {
-    background-color: rgba(0,0,0,.05);
+    background-color: rgba(0, 0, 0, .05);
   }
 }
 
@@ -77,9 +84,11 @@
   h1 {
     font-size: 1.3em;
   }
+
   h2 {
     font-size: 1.1em;
   }
+
   h3 {
     font-size: 1em;
   }
@@ -93,6 +102,7 @@
   .toc-list {
     flex-direction: column;
   }
+
   .toc-list li {
     flex: 1 1 100%;
     text-align: center;
@@ -109,17 +119,23 @@
     margin-bottom: 8px;
   }
 }
+
 /* ==============================
    Ajustes específicos por orientação
    ============================== */
 
 /* Paisagem: otimiza uso horizontal da tela */
 @media (orientation: landscape) {
+
   /* Tipografia um pouco mais compacta para caber melhor */
-  body { font-size: 15px; }
+  body {
+    font-size: 15px;
+  }
 
   /* Header/intro mais enxutos */
-  .intro { padding: 8px 12px; }
+  .intro {
+    padding: 8px 12px;
+  }
 
   /* TOC em duas colunas em paisagem */
   .toc-list {
@@ -127,7 +143,10 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
   }
-  .toc-list li { margin: 0; }
+
+  .toc-list li {
+    margin: 0;
+  }
 
   /* Galeria: mais colunas em paisagem */
   .img-row {
@@ -142,9 +161,12 @@
     grid-template-columns: 1fr 1fr;
     gap: 10px 12px;
   }
+
   /* Garante que inputs ocupem toda a célula */
   .measures-grid label,
-  form label { width: 100%; }
+  form label {
+    width: 100%;
+  }
 
   /* Botões: lado a lado quando houver espaço */
   .btn-group,
@@ -158,8 +180,15 @@
 /* Retrato: prioriza coluna única, já coberto pelos blocos anteriores,
    mas reforçamos aqui a legibilidade em telas estreitas */
 @media (orientation: portrait) and (max-width: 480px) {
-  .toc-list { display: flex; flex-direction: column; gap: 6px; }
-  .btn { width: 100%; }
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }
 
 /* ===========================
@@ -167,6 +196,9 @@
    =========================== */
 
 /* Logo destacado */
+
+
+
 header.app .logo-row {
   display: flex;
   align-items: center;
@@ -175,7 +207,8 @@ header.app .logo-row {
 }
 
 header.app .app-logo {
-  height: 180px;   /* desktop: logo maior e visível */
+  height: 180px;
+  /* desktop: logo maior e visível */
   flex-shrink: 0;
 }
 
@@ -201,6 +234,13 @@ header.app .status-row .badge {
 }
 
 /* Mobile */
+
+/* Header mobile */
+
+
+
+
+
 @media (max-width: 768px) {
   header.app .logo-row {
     flex-direction: column;
@@ -209,7 +249,8 @@ header.app .status-row .badge {
   }
 
   header.app .app-logo {
-    height: 180px; /* mobile: logo ainda maior */
+    height: 180px;
+    /* mobile: logo ainda maior */
     margin-bottom: 8px;
   }
 
@@ -220,5 +261,26 @@ header.app .status-row .badge {
 
   header.app .status-row .badge {
     margin-left: 0;
+  }
+
+  header.app .toolbar {
+    display: flex;
+    flex-direction: column;
+    /* empilha os botões */
+    align-items: center;
+    /* centraliza horizontalmente */
+    justify-content: center;
+    gap: 8px;
+    /* espaço entre botões */
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  header.app .toolbar .btn {
+    width: 90%;
+    /* botões largos, mas não 100% */
+    max-width: 300px;
+    /* não estoura em tablets */
+    text-align: center;
   }
 }

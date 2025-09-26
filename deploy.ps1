@@ -17,3 +17,5 @@ git push origin main
 
 Write-Host "✅ Deploy concluído!"
 Write-Host "👉 Acesse em: https://jbaratieri.github.io/bl-checklist/" -ForegroundColor Green
+Start-Process "https://jbaratieri.github.io/bl-checklist/"
+
