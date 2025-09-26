@@ -1,7 +1,7 @@
-// sw.js — v2.1 ajustado para GitHub Pages (prefix /bl-checklist/)
-const CACHE_VERSION = 'bl-app-v2.1';
+// sw.js — v2.2 (debug: runtime caching de imagens)
+const CACHE_VERSION = 'bl-app-v2.2';
 const APP_SHELL = [
-  './',                    // start_url
+  './',
   './index.html',
   './offline.html',
   './manifest.webmanifest',
@@ -32,15 +32,13 @@ const APP_SHELL = [
   './js/step19-plan-toggle.js',
   './js/step20-context-bar.js',
   './js/step18-persist-fallback.v3.js',
-  // Ícones PWA
+  // Ícones
   './assets/icon-192.png',
   './assets/icon-512.png'
 ];
 
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
-
-// Limite de imagens runtime (álbuns/tech) para não explodir o cache
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
@@ -58,15 +56,17 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   }
 }
 
-// Instalação: pré-cache do app shell
+// Install
 self.addEventListener('install', (event) => {
+  console.log('[SW] Install');
   event.waitUntil(
     caches.open(SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)).then(() => self.skipWaiting())
   );
 });
 
-// Ativação: limpa caches antigos
+// Activate
 self.addEventListener('activate', (event) => {
+  console.log('[SW] Activate');
   event.waitUntil((async () => {
     const names = await caches.keys();
     await Promise.all(
@@ -76,14 +76,14 @@ self.addEventListener('activate', (event) => {
   })());
 });
 
-// Fetch handler
+// Fetch
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // 1) Navegação/HTML → network-first, fallback offline.html
+  // Navegação (HTML)
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
     event.respondWith((async () => {
       try {
@@ -101,7 +101,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 2) CSS/JS/manifest → stale-while-revalidate
+  // CSS/JS/Manifest
   if (/\.(css|js|json|webmanifest|png)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
@@ -115,32 +115,34 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // 3) Imagens de álbuns/tech → cache-first com expiração
-  const isAlbumImg = url.pathname.includes('/bl-checklist/assets/extras/albuns/');
-  const isTechImg  = url.pathname.includes('/bl-checklist/assets/tech/');
-  if (/\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname) && (isAlbumImg || isTechImg)) {
+  // Imagens de /assets/
+  const isImg = /\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname);
+  const isAsset = url.pathname.includes('/assets/extras/albuns/') || url.pathname.includes('/assets/tech/');
+
+  if (isImg && isAsset) {
+    console.log('[SW] interceptando imagem:', url.pathname);
     event.respondWith((async () => {
       const cache = await caches.open(RUNTIME_CACHE);
       const cached = await cache.match(request);
-      if (cached) return cached;
+      if (cached) {
+        console.log('[SW] servindo do cache:', url.pathname);
+        return cached;
+      }
 
       try {
         const net = await fetch(request, { cache: 'no-store' });
-        await putWithTrim(
-          RUNTIME_CACHE,
-          request,
-          net.clone(),
-          ['/bl-checklist/assets/extras/albuns/', '/bl-checklist/assets/tech/']
-        );
+        console.log('[SW] salvando no runtime:', url.pathname);
+        await putWithTrim(RUNTIME_CACHE, request, net.clone(), ['/assets/extras/albuns/', '/assets/tech/']);
         return net;
       } catch {
+        console.warn('[SW] falha ao buscar imagem:', url.pathname);
         return (await caches.match('./offline.html')) || Response.error();
       }
     })());
     return;
   }
 
-  // 4) Outros estáticos → cache-first
+  // Outros arquivos
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
