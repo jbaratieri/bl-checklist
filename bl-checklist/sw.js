@@ -1,5 +1,5 @@
-// sw.js — v2.3.2 com fallback offline (HTML + imagens)
-const CACHE_VERSION = 'bl-app-v2.3.2';
+// sw.js — v2.3.3 com fallback offline (HTML + imagens)
+const CACHE_VERSION = 'bl-app-v2.3.3'; // 👈 incrementado
 const APP_SHELL = [
   '/bl-checklist/',
   '/bl-checklist/index.html',
@@ -7,12 +7,13 @@ const APP_SHELL = [
   '/bl-checklist/manifest.webmanifest',
   // Ícone fallback p/ imagens
   '/bl-checklist/assets/fallback-image.png',
-  // CSS principais (revise se todos existem)
+  // CSS principais
   '/bl-checklist/css/checklist.css',
   '/bl-checklist/css/images-thumbs.css',
   '/bl-checklist/css/context-bar.css',
   '/bl-checklist/css/project-header.css',
-  // JS essenciais (revise se todos existem)
+  '/bl-checklist/css/responsive.css', // 👈 garante que sempre vai puxar o novo
+  // JS essenciais
   '/bl-checklist/js/checklist.js',
   '/bl-checklist/js/step1-toggle.js',
   '/bl-checklist/js/step2-toc.js',
@@ -33,11 +34,10 @@ const APP_SHELL = [
   // Ícones PWA
   '/bl-checklist/icons/icon-192.png',
   '/bl-checklist/icons/icon-512.png'
-
 ];
 
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
-const SHELL_CACHE = `shell-${CACHE_VERSION}`;
+const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 // Helpers
@@ -102,8 +102,8 @@ self.addEventListener('fetch', (event) => {
       } catch {
         const cache = await caches.open(SHELL_CACHE);
         return (await cache.match(request))
-          || (await cache.match('/bl-checklist/offline.html'))
-          || Response.error();
+            || (await cache.match('/bl-checklist/offline.html'))
+            || Response.error();
       }
     })());
     return;
