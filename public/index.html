@@ -48,32 +48,37 @@
 
 
 <body>
- <header class="app">
-  <!-- Linha 1: Logo + título + versão + badge -->
-  <div class="logo-box">
-    <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" />
-    <h1>• Checklist</h1>
-    <p>Versão v7.2</p>
+<header class="app">
+  <!-- Linha 1: Logo + Título -->
+  <div class="logo-row">
+    <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo" />
+    <h1>Baratieri Luthieria Checklist</h1>
+  </div>
+
+  <!-- Linha 2: Badge + versão + progresso -->
+  <div class="status-row">
     <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
       🎸 Violão Clássico
     </span>
+    <p class="version">Versão v7.2</p>
+    <span class="badge" id="progressBadge">0% concluído</span>
   </div>
 
-  <!-- Linha 2: Toolbar -->
+  <!-- Barra de progresso -->
+  <div class="top-progress">
+    <div class="fill" id="progressFill" style="width: 0%;"></div>
+  </div>
+
+  <!-- Toolbar -->
   <div class="toolbar">
     <button class="btn primary" id="btnPrint" data-has-print="1">Gerar PDF / Imprimir</button>
     <button class="btn" id="btnExpand">Expandir tudo</button>
     <button class="btn" id="btnCollapse">Recolher tudo</button>
     <button class="btn ghost" id="btnReset">Limpar dados</button>
     <button class="btn btn--pill" id="btnMeasuresTable">TABELA DE MEDIDAS</button>
-    <span class="badge" id="progressBadge">0% concluído</span>
-  </div>
-
-  <!-- Linha 3: Barra de progresso -->
-  <div class="top-progress">
-    <div class="fill" id="progressFill" style="width: 0%;"></div>
   </div>
 </header>
+
 
   <div class="container">
     <div class="card">
