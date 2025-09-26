@@ -289,31 +289,32 @@
       canvas.addEventListener('touchstart', startDraw, { passive: false });
       canvas.addEventListener('touchend', endDraw);
       canvas.addEventListener('touchmove', draw, { passive: false });
-    }}
-    document.addEventListener('click', e => {
-      const drawBtn = e.target.closest('.draw');
-      if (drawBtn) openDraw();
-    });
+    }
+  }
+  document.addEventListener('click', e => {
+    const drawBtn = e.target.closest('.draw');
+    if (drawBtn) openDraw();
+  });
 
-    // ----- Export Medidas (print to PDF) -----
-    function exportMeasuresPDF() {
-      const data = [];
-      $$('.section').forEach(sec => {
-        const secTitle = sec.querySelector('header h3')?.textContent?.trim() || 'Seção';
-        const rows = [];
-        $$('.step', sec).forEach(step => {
-          const label = step.querySelector('.label')?.textContent?.trim() || 'Subetapa';
-          const sid = step.querySelector('.chk')?.id || '';
-          const w = document.getElementById('w-' + sid)?.value || '';
-          const h = document.getElementById('h-' + sid)?.value || '';
-          const t = document.getElementById('t-' + sid)?.value || '';
-          if (w || h || t) { rows.push({ label, w, h, t }); }
-        });
-        if (rows.length) data.push({ secTitle, rows });
+  // ----- Export Medidas (print to PDF) -----
+  function exportMeasuresPDF() {
+    const data = [];
+    $$('.section').forEach(sec => {
+      const secTitle = sec.querySelector('header h3')?.textContent?.trim() || 'Seção';
+      const rows = [];
+      $$('.step', sec).forEach(step => {
+        const label = step.querySelector('.label')?.textContent?.trim() || 'Subetapa';
+        const sid = step.querySelector('.chk')?.id || '';
+        const w = document.getElementById('w-' + sid)?.value || '';
+        const h = document.getElementById('h-' + sid)?.value || '';
+        const t = document.getElementById('t-' + sid)?.value || '';
+        if (w || h || t) { rows.push({ label, w, h, t }); }
       });
-      if (!data.length) { alert('Nenhuma medida preenchida encontrada.'); return; }
-      const win = window.open('', '_blank');
-      win.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
+      if (rows.length) data.push({ secTitle, rows });
+    });
+    if (!data.length) { alert('Nenhuma medida preenchida encontrada.'); return; }
+    const win = window.open('', '_blank');
+    win.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
       <meta charset="utf-8"><title>Medidas — Relatório</title>
       <style>
         body{font-family:system-ui,Segoe UI,Roboto,Arial;padding:16px;color:#2e2a26}
@@ -325,67 +326,71 @@
         th{background:#f7f2ea}
       </style>
     </head><body>`);
-      win.document.write(`<h1>Relatório de Medidas</h1>
+    win.document.write(`<h1>Relatório de Medidas</h1>
       <div class="muted">Gerado em ${new Date().toLocaleString()}</div>`);
-      data.forEach(group => {
-        win.document.write(`<div class="sec"><h3>${group.secTitle}</h3>
+    data.forEach(group => {
+      win.document.write(`<div class="sec"><h3>${group.secTitle}</h3>
         <table><thead><tr><th>Subetapa</th><th>Largura (mm)</th><th>Altura (mm)</th><th>Espessura (mm)</th></tr></thead><tbody>`);
-        group.rows.forEach(r => {
-          win.document.write(`<tr><td>${r.label}</td><td>${r.w || ''}</td><td>${r.h || ''}</td><td>${r.t || ''}</td></tr>`);
-        });
-        win.document.write(`</tbody></table></div>`);
+      group.rows.forEach(r => {
+        win.document.write(`<tr><td>${r.label}</td><td>${r.w || ''}</td><td>${r.h || ''}</td><td>${r.t || ''}</td></tr>`);
       });
-      win.document.write(`</body></html>`);
-      win.document.close();
-      win.focus();
-      setTimeout(() => win.print(), 300);
-    }
-
-    // ----- SW register -----
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').catch(() => { });
-      });
-    }
-
-    // Init
-    loadAll();
-    initDraw();
-    initAutoGrow();
-    updateProgress();
-    // Open all by default on first load
-    $$('.section').forEach(s => s.classList.add('open'));
-    document.getElementById('btnExportPDF')?.addEventListener('click', exportMeasuresPDF);
-
-    // Lightbox simples ao clicar na miniatura
-    function ensureLightbox() {
-      let lb = document.getElementById('imgLightbox');
-      if (lb) return lb;
-      lb = document.createElement('div');
-      lb.id = 'imgLightbox';
-      lb.setAttribute('aria-hidden', 'true');
-      lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:2000;padding:2vw;';
-      const pic = new Image();
-      pic.id = 'imgLightboxPic';
-      pic.style.cssText = 'max-width:96vw;max-height:96vh;box-shadow:0 10px 30px rgba(0,0,0,.5);border-radius:10px;background:#fff';
-      lb.appendChild(pic);
-      lb.addEventListener('click', () => { lb.style.display = 'none'; lb.setAttribute('aria-hidden', 'true'); });
-      document.body.appendChild(lb);
-      return lb;
-    }
-    function openLightbox(src) {
-      const lb = ensureLightbox();
-      const pic = document.getElementById('imgLightboxPic');
-      pic.src = src;
-      lb.style.display = 'flex';
-      lb.setAttribute('aria-hidden', 'false');
-    }
-    document.addEventListener('click', e => {
-      const img = e.target.closest('.img-pic');
-      if (!img) return;
-      e.preventDefault();
-      openLightbox(img.src);
+      win.document.write(`</tbody></table></div>`);
     });
+    win.document.write(`</body></html>`);
+    win.document.close();
+    win.focus();
+    setTimeout(() => win.print(), 300);
+  }
 
-  }) ();
+  // ----- SW register (ajustado para GitHub Pages) -----
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker
+        .register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
+        .then(reg => console.log('SW registrado ✅', reg))
+        .catch(err => console.error('SW erro ❌', err));
+    });
+  }
+
+
+  // Init
+  loadAll();
+  initDraw();
+  initAutoGrow();
+  updateProgress();
+  // Open all by default on first load
+  $$('.section').forEach(s => s.classList.add('open'));
+  document.getElementById('btnExportPDF')?.addEventListener('click', exportMeasuresPDF);
+
+  // Lightbox simples ao clicar na miniatura
+  function ensureLightbox() {
+    let lb = document.getElementById('imgLightbox');
+    if (lb) return lb;
+    lb = document.createElement('div');
+    lb.id = 'imgLightbox';
+    lb.setAttribute('aria-hidden', 'true');
+    lb.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:2000;padding:2vw;';
+    const pic = new Image();
+    pic.id = 'imgLightboxPic';
+    pic.style.cssText = 'max-width:96vw;max-height:96vh;box-shadow:0 10px 30px rgba(0,0,0,.5);border-radius:10px;background:#fff';
+    lb.appendChild(pic);
+    lb.addEventListener('click', () => { lb.style.display = 'none'; lb.setAttribute('aria-hidden', 'true'); });
+    document.body.appendChild(lb);
+    return lb;
+  }
+  function openLightbox(src) {
+    const lb = ensureLightbox();
+    const pic = document.getElementById('imgLightboxPic');
+    pic.src = src;
+    lb.style.display = 'flex';
+    lb.setAttribute('aria-hidden', 'false');
+  }
+  document.addEventListener('click', e => {
+    const img = e.target.closest('.img-pic');
+    if (!img) return;
+    e.preventDefault();
+    openLightbox(img.src);
+  });
+
+})();
 
