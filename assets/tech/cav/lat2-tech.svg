@@ -1,0 +1,74 @@
+<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-lat1">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Bookmatch & marcações -->
+ <!-- 2) Aquecimento & umidade -->
+ <!-- 3) Dobra no tubo -->
+ <!-- 4) Conferência no molde & “redobra” -->
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_2" d="m20,32c0,-6.52055 5.47945,-12 12,-12l816,0c6.52055,0 12,5.47945 12,12l0,556c0,6.52055 -5.47945,12 -12,12l-816,0c-6.52055,0 -12,-5.47945 -12,-12l0,-556z" opacity="undefined" stroke-width="2" stroke="#c8b596" fill="#f6f1e7"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Dobrar faixas — corte, aquecimento e moldagem (bookmatch &amp; conferência)</text>
+  <text transform="matrix(0.909876 0 0 1 3.60496 0)" stroke="#fff" id="svg_4" stroke-width="2px" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Bookmatch &amp; marcações</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="102" x="39"/>
+   <!-- duas faixas "em livro" -->
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="wood" height="28" width="280" y="132" x="79"/>
+   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="wood" height="28" width="280" y="168" x="79"/>
+   <!-- veios -->
+   <path id="svg_9" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#8a623f" fill="none" class="grain" d="m89,136c20,6 40,6 60,0"/>
+   <path id="svg_10" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#8a623f" fill="none" class="grain" d="m89,172c20,6 40,6 60,0"/>
+   <path id="svg_11" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#8a623f" fill="none" class="grain" d="m209,136c20,6 40,6 60,0"/>
+   <path id="svg_12" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#8a623f" fill="none" class="grain" d="m209,172c20,6 40,6 60,0"/>
+   <!-- marcações dim -->
+   <line id="svg_13" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="126" x2="154" y1="126" x1="79"/>
+   <text id="svg_14" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="120" x="81">90–95 mm (lado braço)</text>
+   <line id="svg_15" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="126" x2="359" y1="126" x1="284"/>
+   <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="120" x="286">95–100 mm (culatra)</text>
+   <line id="svg_17" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="206" x2="359" y1="206" x1="79"/>
+   <text id="svg_18" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="222" x="189">≈ 750 mm</text>
+   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="262" x="39"/>
+   <text id="svg_20" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="276" x="47">alinhar fibras e escolher um bordo 100% reto como referência</text>
+  </g>
+  <text id="svg_21" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Aquecimento &amp; umidade</text>
+  <g id="svg_22">
+   <rect id="svg_23" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="93" x="453"/>
+   <!-- tubo aquecido -->
+   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="heat" rx="15" height="30" width="180" y="137" x="513"/>
+   <text id="svg_25" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="133" x="525">tubo ~120–150 °C</text>
+   <!-- esponja/umidade -->
+   <path id="svg_26" vector-effect="non-scaling-stroke" stroke-dasharray="4,3" stroke="#99c" fill="none" class="steam" d="m713,127c10,-20 40,-20 50,0"/>
+   <text transform="matrix(0.81853 0 0 1.25133 146.496 -36.7019)" stroke="#fff" id="svg_27" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="178.16262" x="654.22638">umedeça a face de contato</text>
+   <rect id="svg_28" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="253" x="453"/>
+   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="267" x="461">calor constante, sem queimar; reidrate sempre que secar</text>
+  </g>
+  <text id="svg_30" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="322" x="44">3) Dobra no tubo</text>
+  <g id="svg_31">
+   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="40"/>
+   <!-- faixa e taco -->
+   <rect id="svg_33" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="wood" height="16" width="220" y="396" x="90"/>
+   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="rule" height="12" width="70" y="380" x="240"/>
+   <text id="svg_35" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="374" x="236">taco auxiliar</text>
+   <!-- movimento -->
+   <line id="svg_36" vector-effect="non-scaling-stroke" marker-end="url(#arr-lat1)" stroke-width="2" stroke="#666" class="dim" y2="426" x2="180" y1="426" x1="120"/>
+   <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="430" x="184">balance E↔D</text>
+   <rect stroke="#ddd" id="svg_38" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="389" y="500" x="40"/>
+   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="48">dobrar por etapas; conferir no molde e voltar ao tubo quando preciso</text>
+  </g>
+  <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="324" x="460">4) Conferência no molde &amp; “redobra”</text>
+  <g id="svg_41">
+   <rect id="svg_42" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="460"/>
+   <!-- contorno do molde -->
+   <path id="svg_43" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m500,454c20,-50 80,-70 130,-50c60,25 130,20 150,-30"/>
+   <!-- faixa assentada -->
+   <path id="svg_44" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#8a623f" class="grain" d="m500,450c20,-44 80,-62 130,-44c60,24 130,20 150,-28"/>
+   <text id="svg_45" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="374" x="506">use a mesma marca zero ao conferir</text>
+   <rect stroke="#ddd" id="svg_46" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="389" y="500" x="460"/>
+   <text id="svg_47" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="468">prenda no molde, aqueça levemente e deixe estabilizar antes de seguir</text>
+  </g>
+ </g>
+</svg>

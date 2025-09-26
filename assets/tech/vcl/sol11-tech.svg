@@ -1,0 +1,74 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="12">
+ <defs>
+  <marker id="a" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+   <polygon points="0,0 6,3 0,6" fill="#666" vector-effect="non-scaling-stroke" id="svg_1"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Marcação do 12º e linha de corte -->
+ <!-- 2) Abrir os slots e respeitar o “pescoço” de 12 mm -->
+ <!-- 3) Pré-usinagem: externo “bruto” e interno acabado -->
+ <!-- Labels adicionais -->
+ <g>
+  <title>Layer 1</title>
+  <rect x="20" y="20" width="840" height="520" rx="12" class="panel" fill="#f6f1e7" stroke="#c8b596" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_2"/>
+  <text x="40" y="48" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_3">Tróculo — slots no 12º e pré-usinagem (método espanhol)</text>
+  <text x="40" y="84" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_4">1) Marcar 12º traste e linha dos slots</text>
+  <g id="svg_5">
+   <!-- vista superior simplificada do braço + tróculo -->
+   <rect x="40" y="128" width="360" height="92" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_6"/>
+   <!-- linha central -->
+   <line x1="40" y1="174" x2="400" y2="174" class="center" stroke="#c33" stroke-width="2" stroke-dasharray="4" vector-effect="non-scaling-stroke" id="svg_7"/>
+   <!-- linha do 12º traste a 90° -->
+   <line x1="260" y1="120" x2="260" y2="230" class="square" stroke="#666" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_8"/>
+   <rect x="141" y="102" width="258.99999" height="20" rx="4" class="labelbox" fill="#fff" vector-effect="non-scaling-stroke" id="svg_9" stroke="#ddd"/>
+   <text x="148" y="115" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_10">12º = metade da escala (ex.: 650 → 325 mm)</text>
+   <!-- dimensão hipotética nut → 12º (indicativa) -->
+   <line x1="80" y1="228" x2="260" y2="228" class="dim" stroke="#666" stroke-width="1.5" marker-start="url(#a)" marker-end="url(#a)" vector-effect="non-scaling-stroke" id="svg_11"/>
+   <rect x="43" y="236" width="207" height="18" rx="4" class="labelbox" fill="#fff" vector-effect="non-scaling-stroke" id="svg_12" stroke="#ddd"/>
+   <text x="55" y="250" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_13">nut até 12º (confirme no seu molde)</text>
+  </g>
+  <text x="460" y="84" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_14">2) Abrir slots e respeitar pescoço ≈ 12 mm</text>
+  <g id="svg_15">
+   <!-- bloco do tróculo -->
+   <rect x="448" y="125" width="360" height="92" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_16"/>
+   <line x1="448" y1="171" x2="808" y2="171" class="center" stroke="#c33" stroke-width="2" stroke-dasharray="4" vector-effect="non-scaling-stroke" id="svg_17"/>
+   <!-- linha do 12º (corte dos slots) -->
+   <line x1="588" y1="117" x2="588" y2="227" class="square" stroke="#666" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_18"/>
+   <!-- slots -->
+   <rect x="588" y="156" width="48" height="32" rx="4" class="slot" fill="#deedff" stroke="#7aa1d1" vector-effect="non-scaling-stroke" id="svg_19"/>
+   <rect x="636" y="155" width="48" height="32" rx="4" class="slot" fill="#deedff" stroke="#7aa1d1" vector-effect="non-scaling-stroke" id="svg_20"/>
+   <rect x="450.00001" y="229" width="336.99999" height="20" rx="4" class="labelbox" fill="#fff" vector-effect="non-scaling-stroke" id="svg_21" stroke="#ddd"/>
+   <text x="456" y="242" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_22">slots iniciam exatamente no 12º (perpendiculares ao topo/escala)</text>
+   <!-- pescoço 12 mm na face inferior -->
+   <rect x="450" y="302" width="360" height="18" class="neck12" fill="#fde6e6" stroke="#e59a9a" vector-effect="non-scaling-stroke" id="svg_23"/>
+   <rect x="455" y="254" width="357.99999" height="18" rx="4" class="labelbox" fill="#fff" vector-effect="non-scaling-stroke" id="svg_24" stroke="#ddd"/>
+   <text transform="matrix(0.997238 0 0 1.0039 2.23728 -1.47585)" stroke="#fff" x="454" y="265" class="note" fill="#333" paint-order="stroke fill" stroke-width="2px" id="svg_25">pescoço do tróculo ≈ 12 mm (6 mm de cada lado da linha central)</text>
+  </g>
+  <text x="40" y="300" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_26">3) Pré-usinagem — externo bruto, interno finalizado</text>
+  <g id="svg_27">
+   <!-- massa do tróculo -->
+   <rect x="40" y="342" width="360" height="92" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_28"/>
+   <line x1="40" y1="388" x2="400" y2="388" class="center" stroke="#c33" stroke-width="2" stroke-dasharray="4" vector-effect="non-scaling-stroke" id="svg_29"/>
+   <!-- região interna (acabada) -->
+   <rect x="260" y="342" width="140" height="92" fill="none" stroke="#7aa1d1" stroke-dasharray="6,4" vector-effect="non-scaling-stroke" id="svg_30"/>
+   <!-- aviso para não cruzar a linha central -->
+   <rect x="40" y="438" width="200" height="20" rx="4" class="labelbox" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_33"/>
+   <text x="48" y="451" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_34">não ultrapasse a linha central ao moldar o externo</text>
+  </g>
+  <g id="labels">
+   <g class="label" id="svg_35">
+    <rect class="labelbox" x="36" y="317" width="380" height="20" rx="4" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_36"/>
+    <text x="44" y="329" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_37">marcação do 12º deve estar perfeitamente a 90° em relação ao topo</text>
+   </g>
+   <g class="label" id="svg_38">
+    <rect class="labelbox" x="450" y="273" width="320" height="20" rx="4" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_39"/>
+    <text x="458" y="285" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_40">se o kerf da serra for pequeno, faça duas passadas controladas</text>
+   </g>
+   <g stroke="null" class="label" id="svg_41">
+    <rect stroke="#ddd" class="labelbox" x="43" y="460" width="343.00001" height="20" rx="4" fill="#fff" vector-effect="non-scaling-stroke" id="svg_42"/>
+    <text transform="matrix(0.961905 0 0 1 1.18095 0)" stroke="#fff" x="49.39604" y="473" class="note" fill="#333" paint-order="stroke fill" stroke-width="2px" id="svg_43">teste a seco: faixas devem encostar sem folga antes da colagem</text>
+   </g>
+  </g>
+ </g>
+</svg>

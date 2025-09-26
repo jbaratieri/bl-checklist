@@ -1,0 +1,92 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-fil1">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Conferência das medidas -->
+ <!-- 2) Setup da tupia -->
+ <!-- 3) Cortes progressivos (secção) -->
+ <!-- 4) Zonas críticas -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Abertura dos canais — binding &amp; purfling</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Conferência das peças (soma e folga)</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="99" x="37"/>
+   <!-- binding e purfling como bloquinhos -->
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="wood" height="20" width="120" y="143" x="73"/>
+   <text id="svg_8" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="139" x="77">Binding ~6,0 × 2,0 mm (ex.)</text>
+   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="wood" height="12" width="40" y="177" x="73"/>
+   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="wood" height="12" width="40" y="177" x="117"/>
+   <text id="svg_11" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="175" x="77">Purfling 1–2 tiras (ex.: 0,8–1,0 mm)</text>
+   <!-- Seta somando larguras -->
+   <line id="svg_12" vector-effect="non-scaling-stroke" marker-end="url(#arr-fil1)" stroke-width="2" stroke="#666" class="dim" y2="211" x2="197" y1="211" x1="73"/>
+   <text id="svg_13" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="225" x="77">Largura total = binding + purfling + 0,1–0,2 mm</text>
+   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="255" x="45"/>
+   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="269" x="53">Teste em offcuts (mesma curvatura) até encaixe “justo sem forçar”.</text>
+  </g>
+  <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Setup da tupia (base &amp; guia)</text>
+  <g id="svg_17">
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="103" x="458"/>
+   <!-- corpo (borda) -->
+   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="wood" height="90" width="10" y="139" x="498"/>
+   <text id="svg_20" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="149" x="514">lateral</text>
+   <!-- base da tupia apoiada -->
+   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="router" height="16" width="220" y="123" x="498"/>
+   <text id="svg_22" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="119" x="504">base 100% apoiada</text>
+   <!-- fresa e rolamento/guia -->
+   <rect id="svg_23" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#ffe7e7" class="bit" height="46" width="8" y="161" x="506"/>
+   <text id="svg_24" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="185" x="520">fresa</text>
+   <!-- guia paralela (simbolizada) -->
+   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="router" height="60" width="8" y="139" x="678"/>
+   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="149" x="694">guia/afastador</text>
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="259" x="466"/>
+   <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="273" x="474">Perpendicularidade e avanço suave (principalmente na cintura).</text>
+  </g>
+  <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Cortes progressivos (seção típica)</text>
+  <g id="svg_30">
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="318" x="40"/>
+   <!-- seção lateral + tampo -->
+   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="wood" height="86" width="12" y="352" x="100"/>
+   <text id="svg_33" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="375" x="124">lateral</text>
+   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="wood" height="8" width="180" y="352" x="100"/>
+   <text id="svg_35" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="360" x="286">tampo/fundo</text>
+   <!-- canal 1 (binding) -->
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="cut" height="22" width="8" y="368" x="100"/>
+   <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="399" x="123">canal binding</text>
+   <!-- canal 2 (purfling) -->
+   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="cut" height="18" width="6" y="368" x="108"/>
+   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="386" x="124">purfling</text>
+   <!-- profundidade e largura (setas) -->
+   <line id="svg_40" vector-effect="non-scaling-stroke" marker-end="url(#arr-fil1)" stroke-width="2" stroke="#666" class="dim" y2="420" x2="100" y1="396" x1="100"/>
+   <text id="svg_41" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="412" x="104">~2,1–2,4 mm</text>
+   <line id="svg_42" vector-effect="non-scaling-stroke" marker-end="url(#arr-fil1)" stroke-width="2" stroke="#666" class="dim" y2="428" x2="114" y1="428" x1="100"/>
+   <text id="svg_43" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="432" x="120">largura total (B+P+folga)</text>
+   <rect id="svg_44" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="474" x="48"/>
+   <text id="svg_45" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="488" x="56">Faça 2–3 passadas elevando a profundidade; evita lascas e “mordidas”.</text>
+  </g>
+  <text id="svg_46" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Zonas críticas (culatra &amp; tróculo)</text>
+  <g id="svg_47">
+   <rect id="svg_48" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="317" x="459"/>
+   <!-- culatra (mitra/união) -->
+   <rect id="svg_49" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="20" width="100" y="347" x="499"/>
+   <text id="svg_50" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="343" x="501">culatra</text>
+   <line id="svg_51" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="367" x2="599" y1="367" x1="499"/>
+   <rect id="svg_52" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="cut" height="10" width="12" y="361" x="499"/>
+   <rect id="svg_53" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="cut" height="8" width="8" y="361" x="511"/>
+   <text id="svg_54" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="402" x="488">ajustar encontro com bisturi e formão</text>
+   <!-- tróculo (região do braço) -->
+   <rect id="svg_55" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="20" width="100" y="347" x="659"/>
+   <text id="svg_56" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="343" x="661">tróculo</text>
+   <line id="svg_57" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="367" x2="759" y1="367" x1="659"/>
+   <rect id="svg_58" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="cut" height="10" width="12" y="361" x="659"/>
+   <rect id="svg_59" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="cut" height="8" width="8" y="361" x="671"/>
+   <text id="svg_60" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="387" x="648">evite quebrar a quina do canal</text>
+   <rect id="svg_61" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="473" x="467"/>
+   <text id="svg_62" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="487" x="475">Encontros limpos = aparência profissional e colagem sem folgas.</text>
+  </g>
+ </g>
+</svg>

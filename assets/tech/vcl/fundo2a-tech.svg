@@ -1,0 +1,77 @@
+<svg width="880" height="520" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="a">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Laminação (CLARO-ESCURO-CLARO) -->
+ <!-- 2) Prensagem plana -->
+ <!-- 3) Corte de tiras paralelas -->
+ <!-- 4) Inserção entre as metades do fundo -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="480" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Adorno central do fundo — laminação, prensa e corte de tiras</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Laminação (claro–escuro–claro)</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="93" x="35"/>
+   <!-- lâminas soltas -->
+   <rect id="svg_7" vector-effect="non-scaling-stroke" fill="#f2e7d5" class="light" height="10" width="220" y="144" x="58"/>
+   <rect id="svg_8" vector-effect="non-scaling-stroke" fill="#8b6b4a" class="dark" height="10" width="220" y="158" x="58"/>
+   <rect id="svg_9" vector-effect="non-scaling-stroke" fill="#f2e7d5" class="light" height="10" width="220" y="172" x="58"/>
+   <!-- flechas para empilhar -->
+   <path id="svg_10" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m288,151l40,0"/>
+   <path id="svg_11" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m288,165l40,0"/>
+   <path id="svg_12" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m288,179l40,0"/>
+   <!-- pacote laminado -->
+   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="32" width="14" y="148" x="328"/>
+   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="241" x="35"/>
+   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="254" x="43">fibras longitudinais; cola em filme fino e uniforme</text>
+  </g>
+  <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Prensagem plana</text>
+  <g id="svg_17">
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="93" x="449"/>
+   <!-- “sanduíche” de prensas -->
+   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#f7f7f7" class="paper" height="12" width="240" y="113" x="489"/>
+   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke="#ccc" fill="#eee" height="20" width="240" y="125" x="489"/>
+   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#f7f7f7" class="paper" height="12" width="240" y="145" x="489"/>
+   <!-- grampos (fantasma) -->
+   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="107" x="479"/>
+   <rect id="svg_23" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="107" x="719"/>
+   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="157" x="479"/>
+   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="157" x="719"/>
+   <rect id="svg_26" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="241" x="449"/>
+   <text id="svg_27" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="254" x="457">tábuas planas + pressão homogênea; cura 24–48 h</text>
+  </g>
+  <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Corte de tiras</text>
+  <g id="svg_29">
+   <rect id="svg_30" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="307" x="37"/>
+   <!-- bloco já curado -->
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="80" width="40" y="337" x="77"/>
+   <!-- cortes paralelos -->
+   <line id="svg_32" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="417" x2="97" y1="337" x1="97"/>
+   <line id="svg_33" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="417" x2="109" y1="337" x1="109"/>
+   <!-- setas para “saindo” tiras -->
+   <path id="svg_34" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m117,377l40,0"/>
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="16" width="12" y="369" x="157"/>
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="16" width="12" y="369" x="177"/>
+   <rect id="svg_37" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="16" width="12" y="369" x="197"/>
+   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="320" y="453" x="37"/>
+   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="466" x="45">tiras ~3 mm de espessura, retas e paralelas (guia ou serra de fita)</text>
+  </g>
+  <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Inserção e largura</text>
+  <g id="svg_41">
+   <rect id="svg_42" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="140" width="320" y="311" x="441"/>
+   <!-- duas metades do fundo e adorno central -->
+   <rect id="svg_43" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="110" y="341" x="481"/>
+   <rect id="svg_44" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="80" width="20" y="341" x="591"/>
+   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="110" y="341" x="611"/>
+   <!-- cotas simplificadas -->
+   <line id="svg_46" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="331" x2="611" y1="331" x1="591"/>
+   <text id="svg_47" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="327" x="593">largura 4–10 mm</text>
+   <rect id="svg_48" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="457" x="441"/>
+   <text id="svg_49" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="470" x="449">ajuste a largura ao instrumento; alinhe ao centro antes da colagem do fundo</text>
+  </g>
+ </g>
+</svg>

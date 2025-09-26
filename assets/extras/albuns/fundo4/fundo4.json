@@ -1,0 +1,40 @@
+{
+  "images": [
+    {
+      "thumb": "thumbs/fundo4-001.webp",
+      "full": "full/fundo4-001.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-002.webp",
+      "full": "full/fundo4-002.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-003.webp",
+      "full": "full/fundo4-003.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-004.webp",
+      "full": "full/fundo4-004.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-005.webp",
+      "full": "full/fundo4-005.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-006.webp",
+      "full": "full/fundo4-006.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-007.webp",
+      "full": "full/fundo4-007.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-008.webp",
+      "full": "full/fundo4-008.webp"
+    },
+    {
+      "thumb": "thumbs/fundo4-009.webp",
+      "full": "full/fundo4-009.webp"
+    }
+  ]
+}

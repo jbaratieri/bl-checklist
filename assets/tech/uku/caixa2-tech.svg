@@ -1,0 +1,66 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui, Segoe UI, Roboto, Arial">
+
+ <!-- Moldura -->
+ <!-- 1) Reengrosso do tampo -->
+ <!-- 2) Reengrosso do fundo -->
+ <!-- 3) Nivelamento para colagem -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_1" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
+  <text id="svg_2" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Reengrosso (linings) — posição, prensagem e nivelamento</text>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Tampo — colagem e prensagem</text>
+  <g id="svg_4">
+   <rect id="svg_5" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="97" x="40"/>
+   <!-- lateral (secção) -->
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="side" height="80" width="10" y="131" x="130"/>
+   <text id="svg_7" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="127" x="110">lateral</text>
+   <!-- reengrosso superior -->
+   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" height="14" width="14" y="131" x="140"/>
+   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" height="14" width="14" y="131" x="155"/>
+   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" height="14" width="14" y="131" x="170"/>
+   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" height="14" width="14" y="131" x="185"/>
+   <text id="svg_12" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="111" x="109">kerf (tampo) 10–15 mm</text>
+   <!-- presilhas -->
+   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="pin" rx="3" height="28" width="12" y="147" x="140"/>
+   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="pin" rx="3" height="28" width="12" y="147" x="170"/>
+   <rect id="svg_15" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="pin" rx="3" height="28" width="12" y="147" x="200"/>
+   <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="167" x="220">molas/presilhas a cada 20–30 mm</text>
+   <rect id="svg_17" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="257" x="40"/>
+   <text id="svg_18" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="48">filme fino de cola; pressione do centro para as pontas; limpe escorridos</text>
+  </g>
+  <text id="svg_19" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Fundo — perfil e colagem</text>
+  <g id="svg_20">
+   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="98" x="453"/>
+   <!-- lateral -->
+   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="side" height="80" width="10" y="132" x="543"/>
+   <!-- reengrosso inferior com leve chanfro -->
+   <polygon id="svg_23" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" points="553,198 567,198 567,212 553,210 "/>
+   <polygon id="svg_24" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" points="568,198 582,198 582,212 568,210 "/>
+   <polygon id="svg_25" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" class="kerf" points="583,198 597,198 597,212 583,210 "/>
+   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="229" x="553">perfilar p/ bombeamento do fundo</text>
+   <!-- presilhas -->
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="pin" rx="3" height="28" width="12" y="170" x="553"/>
+   <rect id="svg_28" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="pin" rx="3" height="28" width="12" y="170" x="583"/>
+   <rect id="svg_29" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="pin" rx="3" height="28" width="12" y="170" x="613"/>
+   <rect stroke="#ddd" id="svg_30" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="406.99998" y="258" x="453"/>
+   <text transform="matrix(0.963477 0 0 1 30.9971 1)" stroke="#fff" id="svg_31" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="270" x="438">se houver raio no fundo, dê chanfro/curvatura no topo do reengrosso inferior</text>
+   <rect stroke="#ddd" id="svg_45" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="307.99997" y="279" x="451"/>
+   <text transform="matrix(0.946258 0 0 1 24.184 0)" stroke="#fff" xml:space="preserve" text-anchor="start" id="svg_44" y="292.79999" x="448.94319" stroke-width="0" fill="#333333">Pode-se optar por chanfar o reengrosso após a colagem</text>
+  </g>
+  <text id="svg_32" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="319" x="43">3) Nivelamento após a cura</text>
+  <g id="svg_33">
+   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="336" x="40"/>
+   <!-- lateral com dois reengrossos -->
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="side" height="80" width="10" y="370" x="130"/>
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" opacity="0.5" class="kerf" height="12" width="60" y="370" x="140"/>
+   <rect id="svg_37" vector-effect="non-scaling-stroke" stroke="#d7b97a" fill="#fef9ef" opacity="0.5" class="kerf" height="12" width="60" y="438" x="140"/>
+   <!-- régua e raspilha -->
+   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="6" width="120" y="358" x="140"/>
+   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="364" x="264">régua/galga (planicidade)</text>
+   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="side" height="10" width="26" y="380" x="230"/>
+   <text id="svg_41" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="389" x="267">raspilha/plaina fina</text>
+   <rect stroke="#ddd" id="svg_42" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="416.99999" y="496" x="40"/>
+   <text id="svg_43" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="510" x="48">topos coplanares e a 90° com a lateral — pronto para colar tampo/fundo</text>
+  </g>
+ </g>
+</svg>

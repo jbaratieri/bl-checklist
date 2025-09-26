@@ -1,0 +1,94 @@
+<svg width="880" height="380" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="a">
+   <polygon id="svg_1" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- A) Lixar até tocar as linhas (duas peças) -->
+ <!-- B) Gabarito de lixa -->
+ <!-- C) Conferência -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="340" width="840" y="20" x="20"/>
+  <text id="svg_3" font-weight="700" fill="#222" class="title" y="48" x="40">Retífica dos planos a 15° — preparação para colagem (scarf)</text>
+  <text id="svg_4" font-weight="700" fill="#222" class="title" y="78" x="40">1) Lixar até “tocar” as linhas (duas peças)</text>
+  <g id="svg_5">
+   <!-- Peça 1 (corpo) -->
+   <polygon id="svg_6" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" points="40,96 320,96 380,140 100,140 "/>
+   <!-- Grã -->
+   <line id="svg_7" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="64" y1="102" x1="64"/>
+   <line id="svg_8" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="88" y1="102" x1="88"/>
+   <line id="svg_9" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="112" y1="102" x1="112"/>
+   <line id="svg_10" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="136" y1="102" x1="136"/>
+   <line id="svg_11" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="160" y1="102" x1="160"/>
+   <line id="svg_12" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="184" y1="102" x1="184"/>
+   <line id="svg_13" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="208" y1="102" x1="208"/>
+   <line id="svg_14" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="232" y1="102" x1="232"/>
+   <line id="svg_15" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="256" y1="102" x1="256"/>
+   <line id="svg_16" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="280" y1="102" x1="280"/>
+   <line id="svg_17" stroke-width="2" stroke="#8a623f" class="grain" y2="134" x2="304" y1="102" x1="304"/>
+   <!-- Linhas de referência -->
+   <line id="svg_18" stroke-dasharray="4" stroke-width="2" stroke="#3a6ea5" class="line-ref" y2="140" x2="150" y1="96" x1="110"/>
+   <line id="svg_19" stroke-dasharray="4" stroke-width="2" stroke="#3a6ea5" class="line-ref" y2="140" x2="320" y1="96" x1="280"/>
+   <!-- Taco de lixa + setas -->
+   <rect id="svg_20" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="18" width="180" y="154" x="150"/>
+   <text id="svg_21" fill="#333" class="note" y="167" x="158">Taco com lixa (60–80 → 120–150)</text>
+   <line id="svg_22" stroke-width="2" stroke="#666" class="sand" y2="144" x2="260" y1="144" x1="180"/>
+   <line id="svg_23" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" y2="144" x2="160" y1="144" x1="200"/>
+   <line id="svg_24" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" y2="144" x2="280" y1="144" x1="240"/>
+   <!-- Peça 2 (mão) -->
+   <g id="svg_25">
+    <polygon id="svg_26" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" points="420,96 500,140 500,188 420,144 "/>
+    <!-- Grã mais densa -->
+    <line id="svg_27" stroke-width="2" stroke="#8a623f" class="grain" y2="182" x2="430" y1="102" x1="430"/>
+    <line id="svg_28" stroke-width="2" stroke="#8a623f" class="grain" y2="186" x2="440" y1="106" x1="440"/>
+    <line id="svg_29" stroke-width="2" stroke="#8a623f" class="grain" y2="188" x2="450" y1="110" x1="450"/>
+    <line id="svg_30" stroke-width="2" stroke="#8a623f" class="grain" y2="188" x2="460" y1="114" x1="460"/>
+    <line id="svg_31" stroke-width="2" stroke="#8a623f" class="grain" y2="188" x2="470" y1="118" x1="470"/>
+    <line id="svg_32" stroke-width="2" stroke="#8a623f" class="grain" y2="188" x2="480" y1="122" x1="480"/>
+    <line id="svg_33" stroke-width="2" stroke="#8a623f" class="grain" y2="188" x2="490" y1="126" x1="490"/>
+    <!-- Linhas de referência -->
+    <line id="svg_34" stroke-dasharray="4" stroke-width="2" stroke="#3a6ea5" class="line-ref" y2="140" x2="470" y1="96" x1="430"/>
+    <line id="svg_35" stroke-dasharray="4" stroke-width="2" stroke="#3a6ea5" class="line-ref" y2="140" x2="498" y1="100" x1="460"/>
+    <!-- Legenda -->
+    <rect stroke="#ddd" id="svg_36" fill="#fff" class="labelbox" rx="4" height="18" width="170" y="170" x="513"/>
+    <text transform="matrix(0.993225 0 0 1 2.85908 0)" stroke="null" id="svg_37" fill="#333" class="note" y="182" x="522.68213">Lixar até encostar nas linhas</text>
+    <line id="svg_38" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" y2="188" x2="470" y1="188" x1="440"/>
+    <line id="svg_39" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" y2="188" x2="450" y1="188" x1="480"/>
+   </g>
+  </g>
+  <text id="svg_40" font-weight="700" fill="#222" class="title" y="226" x="40">2) Gabarito de lixa (shoot board)</text>
+  <g id="svg_41">
+   <!-- Placa -->
+   <rect id="svg_42" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="70" width="260" y="234" x="39"/>
+   <rect id="svg_43" stroke-dasharray="4,4" stroke="#999" fill="none" height="70" width="260" y="234" x="39"/>
+   <!-- Peça sendo esfregada -->
+   <polygon id="svg_44" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" points="59,250 239,250 277,276 97,276 "/>
+   <line id="svg_45" stroke-dasharray="4" stroke-width="2" stroke="#3a6ea5" class="line-ref" y2="276" x2="137" y1="250" x1="99"/>
+   <line id="svg_46" stroke-dasharray="4" stroke-width="2" stroke="#3a6ea5" class="line-ref" y2="276" x2="237" y1="250" x1="199"/>
+   <line id="svg_47" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" y2="290" x2="179" y1="290" x1="129"/>
+   <line id="svg_48" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" y2="290" x2="119" y1="290" x1="169"/>
+   <!-- Rótulos (todos positivos) -->
+   <rect id="svg_49" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="18" width="210" y="312" x="39"/>
+   <text id="svg_50" fill="#555" class="hint" y="325" x="45">placa com lixa 60–80 colada</text>
+   <rect stroke="#ddd" id="svg_51" fill="#fff" class="labelbox" rx="4" height="18" width="359.00002" y="334" x="39"/>
+   <text transform="matrix(0.992747 0 0 1 2.06343 0)" stroke="null" id="svg_52" fill="#333" class="note" y="347" x="45">Esfregue a face mantendo contato total, passadas longas e retas.</text>
+  </g>
+  <text id="svg_53" font-weight="700" fill="#222" class="title" y="226" x="460">3) Conferência de planicidade e esquadro</text>
+  <g id="svg_54">
+   <!-- Peça (levantada) -->
+   <polygon id="svg_55" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" points="460,258 680,258 720,282 500,282 "/>
+   <!-- Régua (agora acima, mas y positivo) -->
+   <line id="svg_56" stroke-width="2" stroke="#444" class="rule" y2="248" x2="680" y1="248" x1="460"/>
+   <!-- Rótulos (abaixo, sem y negativo) -->
+   <rect stroke="#ddd" id="svg_57" fill="#fff" class="labelbox" rx="4" height="18" width="234.00001" y="295" x="482"/>
+   <text id="svg_58" fill="#333" class="note" y="310" x="486">Régua + luz rasante (não deve passar luz)</text>
+   <!-- Esquadro -->
+   <line id="svg_59" stroke-width="2" stroke="#444" class="square" y2="298" x2="440" y1="258" x1="440"/>
+   <line id="svg_60" stroke-width="2" stroke="#444" class="square" y2="298" x2="480" y1="298" x1="440"/>
+   <rect stroke="#ddd" id="svg_61" fill="#fff" class="labelbox" rx="4" height="18" width="235.00001" y="318" x="481"/>
+   <text id="svg_62" fill="#333" class="note" y="331" x="488">Esquadro em 3 pontos ao longo do plano</text>
+  </g>
+ </g>
+</svg>
