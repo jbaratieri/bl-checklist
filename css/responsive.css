@@ -175,7 +175,7 @@ header.app .logo-row {
 }
 
 header.app .app-logo {
-  height: 72px; /* desktop */
+  height: 98px; /* desktop */
   flex-shrink: 0;
 }
 
@@ -209,7 +209,7 @@ header.app .status-row .badge {
   }
 
   header.app .app-logo {
-    height: 96px; /* logo ainda maior no mobile */
+    height: 116px; /* logo ainda maior no mobile */
     margin-bottom: 8px;
   }
 
