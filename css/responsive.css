@@ -203,7 +203,7 @@ header.app .logo-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: 20px;
 }
 
 header.app .app-logo {
