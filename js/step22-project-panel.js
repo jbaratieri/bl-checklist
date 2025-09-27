@@ -16,28 +16,6 @@
     sel.value = BL_PROJECT.get(inst);
   }
 
-  function updateFixedBadge() {
-  const el = document.getElementById('projectFixedBadge');
-  if (!el) return;
-
-  const inst = currInst();
-  const instName = document.querySelector('#selInstrument option:checked')?.textContent || inst;
-
-  const projId = window.BL_PROJECT ? BL_PROJECT.get(inst) : '';
-  const projName = (window.BL_PROJECT ? (BL_PROJECT.list(inst).find(p => p.id===projId)||{}).name : '') || '—';
-
-  const client = document.getElementById('job-client')?.value || 'Cliente não definido';
-
-  const progText = document.getElementById('progressBadge')?.textContent || '0%';
-
-  el.innerHTML = `
-    <span class="inst-badge" style="--inst-color: var(--inst-color, #8a623f);">${instName}</span>
-    <span class="info">${projName} — ${client}</span>
-    <span class="progress-chip">${progText}</span>
-  `;
-}
-
-
   function bindEvents(){
     const selProject = document.querySelector('#selProject');
     const selInstrument = document.querySelector('#selInstrument');
@@ -89,28 +67,11 @@
       BL_PROJECT.remove(inst, cur); refresh();
       window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst } }));
     });
-
-    // input do cliente
-    document.addEventListener('input', (e)=>{
-      if (e.target && e.target.id==='job-client') updateFixedBadge();
-    });
-
-    // reagir a eventos globais
-    window.addEventListener('bl:instrument-change', ()=>{ refresh(); updateFixedBadge(); });
-    window.addEventListener('bl:project-change', ()=>{ refresh(); updateFixedBadge(); });
-
-    // monitorar progresso
-    const progressEl = document.getElementById('progressBadge');
-    if (progressEl) {
-      const observer = new MutationObserver(updateFixedBadge);
-      observer.observe(progressEl, { childList: true, characterData: true, subtree: true });
-    }
   }
 
   function init(){
     bindEvents();
     refresh();
-    updateFixedBadge();
   }
 
   if (document.readyState==='loading'){
