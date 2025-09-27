@@ -239,8 +239,6 @@ header.app .status-row .badge {
 
 
 
-
-
 @media (max-width: 768px) {
   header.app .logo-row {
     flex-direction: column;
@@ -263,24 +261,34 @@ header.app .status-row .badge {
     margin-left: 0;
   }
 
+ 
+  /* Zera o ajuste do desktop e impõe layout em coluna */
   header.app .toolbar {
+    padding-right: 0;               /* importante para “desgrudar” da direita */
     display: flex;
     flex-direction: column;
-    /* empilha os botões */
-    align-items: center;
-    /* centraliza horizontalmente */
-    justify-content: center;
+    align-items: center;            /* alinha itens ao centro no eixo cruzado */
+    justify-content: center;        /* centro no eixo principal */
+    flex-wrap: wrap;
     gap: 8px;
-    /* espaço entre botões */
-    margin-top: 10px;
     width: 100%;
+    margin: 10px 0 0;
   }
 
+  /* Remove margens automáticas que desalinhariam */
+  header.app .toolbar > * {
+    margin-left: 0 !important;      /* mata qualquer ml:auto escondido */
+  }
+
+  /* Botões largos e centralizados visualmente */
   header.app .toolbar .btn {
-    width: 90%;
-    /* botões largos, mas não 100% */
-    max-width: 300px;
-    /* não estoura em tablets */
+    width: min(320px, 90%);
     text-align: center;
+  }
+
+  /* Badge ao final da pilha (se existir) */
+  header.app .toolbar .badge {
+    order: 99;
+    align-self: center;             /* garante centralização da badge */
   }
 }
