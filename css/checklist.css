@@ -137,6 +137,21 @@ header.app .logo-box img {
   width: auto;
 }
 
+/* Alinha logo e status na mesma linha */
+.logo-row {
+  display: flex;
+  justify-content: space-between; /* logo à esquerda, status à direita */
+  align-items: center;
+  gap: 20px;
+}
+
+/* Deixa o status alinhado lado a lado */
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 
 /* adicione em step11-tech.css ou no seu CSS global */
 figure.tech-figure img { background:#fff; }
