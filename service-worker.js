@@ -28,7 +28,6 @@ const APP_SHELL = [
   '/bl-checklist/js/step16-range-support.js',
   '/bl-checklist/js/step19-project-plan.v2.js',
   '/bl-checklist/js/step19-plan-toggle.js',
-  '/bl-checklist/js/step20-context-bar.js',
   '/bl-checklist/js/step18-persist-fallback.v3.js',
   '/bl-checklist/js/viewer.global.js',
   // Ícones PWA
