@@ -21,6 +21,31 @@
   background: var(--inst-color, #8a623f);
   box-shadow: 0 0 0 2px rgba(0,0,0,.05) inset;
 }
+
+/* Badge fixo no canto superior direito */
+.project-badge-fixed {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  z-index: 999; /* fica acima do resto */
+  
+  background: #fff;
+  border: 1px solid #d6c9b9;
+  border-radius: 20px;
+  padding: 6px 14px;
+  
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #5a4635;
+  
+  box-shadow: 0 3px 8px rgba(0,0,0,.08);
+  white-space: nowrap;
+  max-width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 @media (prefers-color-scheme: dark){
   .inst-badge{
     background: #2a2a2a;

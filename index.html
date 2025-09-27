@@ -24,26 +24,39 @@
   <!-- Config global para tech -->
   <script>window.BL_TECH_CFG = { base: '/bl-checklist/assets/tech/' };</script>
 
-  <!-- CSS base e etapas -->
+    <!-- CSS base e etapas -->
   <link rel="stylesheet" href="/bl-checklist/css/checklist.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step1-toggle.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step11-tech.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step12-draw-extra.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.modal.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step2-toc.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step3-measures.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step6-export.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step9-instrument.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step11-tech.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step12-draw-extra.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.modal.css" />
+
+  <!-- Utilitários -->
   <link rel="stylesheet" href="/bl-checklist/css/btn-hover-tune.css" />
   <link rel="stylesheet" href="/bl-checklist/css/btn-utilities.css" />
+
+  <!-- Componentes -->
   <link rel="stylesheet" href="/bl-checklist/css/instrument-badge.css" />
   <link rel="stylesheet" href="/bl-checklist/css/measures-presets.css" />
   <link rel="stylesheet" href="/bl-checklist/css/measures-block.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/project-header.css" />
   <link rel="stylesheet" href="/bl-checklist/css/images-thumbs.css" />
   <link rel="stylesheet" href="/bl-checklist/css/wood-catalog.css" />
+
+  <!-- Layout antigo (pode remover futuramente) -->
+  <link rel="stylesheet" href="/bl-checklist/css/project-header.css" />
+
+  <!-- Responsividade -->
   <link rel="stylesheet" href="/bl-checklist/css/responsive.css?v=20250927-2">
+
+  <!-- Novo painel de projeto -->
+  <link rel="stylesheet" href="/bl-checklist/css/project-panel.css">
+
+
 
 </head>
 
@@ -61,7 +74,12 @@
         <p class="version">Versão v7.2</p>
         <span class="badge" id="progressBadge">0% concluído</span>
       </div>
+      <div class="project-badge-fixed" id="projectFixedBadge">
+        🎸 Violão Clássico — Projeto Padrão — Cliente
+      </div>
     </div>
+
+
 
     <!-- Barra de progresso -->
     <div class="top-progress">
@@ -78,32 +96,57 @@
     </div>
   </header>
 
-  <!-- Context Bar -->
-<div id="contextBar">
-  <div class="row">
-    <div class="group">
+  <section class="project-panel" id="projectPanel">
+    <h3>Projeto</h3>
+
+    <!-- Grupo de seleção -->
+    <div class="project-selectors">
       <label>Instrumento
-        <select id="ctxInstrument">
+        <select id="selInstrument">
           <option value="vcl">Violão Clássico</option>
           <option value="vla">Viola</option>
           <option value="cav">Cavaquinho</option>
           <option value="uku">Ukulele</option>
         </select>
       </label>
+
       <label>Projeto
-        <select id="ctxProject">
-          <option value="default">Projeto 1</option>
+        <select id="selProject" class="persist"></select>
+      </label>
+
+      <div class="project-buttons">
+        <button class="btn" id="btnProjectNew" type="button">Novo</button>
+        <button class="btn" id="btnProjectRen" type="button">Renomear</button>
+        <button class="btn" id="btnProjectDel" type="button">Excluir</button>
+      </div>
+    </div>
+
+    <!-- Dados do projeto -->
+    <div class="project-grid">
+      <label>Cliente
+        <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
+      </label>
+      <label>Início
+        <input class="persist" id="job-start" type="date">
+      </label>
+      <label>Entrega prevista
+        <input class="persist" id="job-due" type="date">
+      </label>
+      <label>Dias/semana
+        <select id="job-days-week">
+          <option value="5" selected>5 (seg–sex)</option>
+          <option value="6">6 (seg–sáb)</option>
         </select>
       </label>
     </div>
-    <div class="group">
-      <button class="btn primary" id="ctxNew">Novo</button>
-      <button class="btn" id="ctxRen">Renomear</button>
-      <button class="btn" id="ctxDel">Excluir</button>
-      <small id="ctxHint">Violão Clássico — 1 projeto(s)</small>
+
+    <!-- Cronograma -->
+    <div class="project-actions">
+      <button class="btn" id="btnPlan">Calcular cronograma</button>
+      <small id="planHint" style="opacity:.8">Defina datas válidas para gerar o cronograma.</small>
     </div>
-  </div>
-</div>
+    <div id="planTable" aria-live="polite"></div>
+  </section>
 
 
 
@@ -5347,9 +5390,10 @@
   <!-- Barramentos (devem vir antes dos consumidores) -->
   <script src="./js/step9-instrument-bus.js"></script>
   <script src="./js/step21-project-bus.js"></script>
-
-  <!-- Regras de projeto (evita nomes duplicados) -->
   <script src="./js/step21-project-unique.js"></script>
+
+  <!-- Painel unificado Instrumento+Projeto -->
+  <script src="./js/step22-project-panel.js"></script>
 
   <!-- Contexto p/ chaves (usa Instrumento + Projeto) -->
   <script src="./js/step23-media-context.js"></script>
@@ -5374,18 +5418,16 @@
   <script src="./js/step19-project-plan.v2.js"></script>
   <script src="./js/step19-plan-toggle.js"></script>
 
-  <!-- Barra unificada Instrumento+Projeto -->
-  <link rel="stylesheet" href="./css/context-bar.css">
-  <script src="./js/step20-context-bar.js"></script>
-
   <!-- Persistência por projeto (somente V3, legado) -->
   <script src="./js/step18-persist-fallback.v3.js"></script>
 
+  <!-- Sincroniza classe do body com instrumento -->
   <script src="./js/step9-bodyclass-sync.js"></script>
 
+  <!-- Outros -->
   <script src="./js/intro-toggle.js"></script>
-
   <script type="module" src="./js/wood-catalog.js"></script>
+
 
   <script>
     if ('serviceWorker' in navigator) {
