@@ -78,6 +78,46 @@
   padding-top: 12px;
 }
 
+/* Aparência uniforme para todos os botões da toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.toolbar .btn {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 8px;
+  line-height: 1.2;
+  height: 38px;              /* altura fixa */
+  min-width: 140px;          /* largura mínima p/ não ficar irregular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Botão principal */
+.toolbar .btn.primary {
+  background: var(--inst-color, #8a623f);
+  border: 1px solid var(--inst-color, #8a623f);
+  color: #fff;
+}
+
+/* Botão ghost */
+.toolbar .btn.ghost {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: #555;
+}
+
+/* Efeito hover */
+.toolbar .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
 
 
 /* Responsividade */

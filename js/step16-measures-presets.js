@@ -2,12 +2,11 @@
    - Se apoia em class="persist" do seu app
    - Atualiza placeholders ao trocar de instrumento (sem F5)
    - Botão global: TABELA DE MEDIDAS
-   
 */
 (function(){
   'use strict';
 
-  // === Presets (edite depois — são apenas ilustrativos) ===
+  // === Presets (exemplos — personalize depois) ===
   window.BL_MEASURE_PRESETS = window.BL_MEASURE_PRESETS || {};
   const base = {
     braco: {
@@ -43,13 +42,13 @@
       largura_casa12: "ex.: 62–63"
     }
   };
-  // Se não houver presets por instrumento, usa base como fallback
+  // fallback por instrumento
   window.BL_MEASURE_PRESETS.vcl = Object.assign({}, base, window.BL_MEASURE_PRESETS.vcl||{});
   window.BL_MEASURE_PRESETS.vla = Object.assign({}, base, window.BL_MEASURE_PRESETS.vla||{});
   window.BL_MEASURE_PRESETS.cav = Object.assign({}, base, window.BL_MEASURE_PRESETS.cav||{});
   window.BL_MEASURE_PRESETS.uku = Object.assign({}, base, window.BL_MEASURE_PRESETS.uku||{});
 
-  // === Engine (robusto) ===
+  // === Engine ===
   if (!window.__BL_MEASURES_ENGINE__){
     window.__BL_MEASURES_ENGINE__ = true;
     (function(){
@@ -120,17 +119,31 @@
         m.style.display='block';
       }
 
-      function findSectionScope(el){ return (el.closest && el.closest('.step, .subetapa, section, .card')) || document; }
       function injectGlobalButton(){
-        if(document.getElementById('btnMeasuresTable')) return;
-        const anchor=document.querySelector('.topbar, header, .app-title, .brand, .header')||document.body;
-        const btn=document.createElement('button'); btn.id='btnMeasuresTable'; btn.className='btn btn--pill'; btn.textContent='TABELA DE MEDIDAS'; btn.style.marginLeft='8px';btn.style.marginTop='8px';
-        anchor.appendChild(btn); btn.addEventListener('click', ()=>openModal(null));
+        // Só injeta se o botão não existir (no HTML principal ele já existe)
+        if(document.getElementById('btnMeasuresTable')) {
+          document.getElementById('btnMeasuresTable').addEventListener('click', ()=>openModal(null));
+          return;
+        }
+        const anchor=document.querySelector('.toolbar')||document.body;
+        const btn=document.createElement('button'); 
+        btn.id='btnMeasuresTable'; 
+        btn.className='btn'; 
+        btn.textContent='TABELA DE MEDIDAS';
+        anchor.appendChild(btn); 
+        btn.addEventListener('click', ()=>openModal(null));
       }
 
-      function boot(){ applyPlaceholders(document); injectGlobalButton(); injectLocalButtons(); }
-      if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded', ()=>{ boot(); setTimeout(boot,300); setTimeout(boot,1000); }); }
-      else { boot(); setTimeout(boot,100); setTimeout(boot,500); }
+      function boot(){ 
+        applyPlaceholders(document); 
+        injectGlobalButton(); 
+      }
+
+      if(document.readyState==='loading'){ 
+        document.addEventListener('DOMContentLoaded', ()=>{ boot(); setTimeout(boot,300); setTimeout(boot,1000); }); 
+      } else { 
+        boot(); setTimeout(boot,100); setTimeout(boot,500); 
+      }
 
       const mo=new MutationObserver(muts=>{
         let touched=false;
@@ -139,7 +152,7 @@
           if(n.hasAttribute && n.hasAttribute('data-measure')) touched=true;
           if(n.querySelector && n.querySelector('[data-measure]')) touched=true;
         })});
-        if(touched){ applyPlaceholders(document); injectLocalButtons(); }
+        if(touched){ applyPlaceholders(document); }
       });
       mo.observe(document.documentElement,{subtree:true, childList:true});
 
@@ -157,8 +170,10 @@
         setInterval(()=>{ const now=INSTR(); if(now!==last){ last=now; refresh(); } }, 800);
       })();
 
-      window.BL_MEASURE_DEBUG=function(){ const inst=INSTR(); const els=$$('[data-measure]');
-        console.groupCollapsed('MEASURES DEBUG'); console.log('Instrumento:',inst,'inputs mapeados:',els.length);
+      window.BL_MEASURE_DEBUG=function(){ 
+        const inst=INSTR(); const els=$$('[data-measure]');
+        console.groupCollapsed('MEASURES DEBUG'); 
+        console.log('Instrumento:',inst,'inputs mapeados:',els.length);
         els.forEach(el=>console.log(el,'→',el.getAttribute('data-measure'),'placeholder=',el.getAttribute('placeholder'),'value=',('value'in el)?el.value:undefined));
         console.groupEnd();
       };
