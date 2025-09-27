@@ -17,24 +17,26 @@
   }
 
   function updateFixedBadge() {
-    const el = document.getElementById('projectFixedBadge');
-    if (!el) return;
+  const el = document.getElementById('projectFixedBadge');
+  if (!el) return;
 
-    const inst = currInst();
-    const instName = document.querySelector('#selInstrument option:checked')?.textContent || inst;
+  const inst = currInst();
+  const instName = document.querySelector('#selInstrument option:checked')?.textContent || inst;
 
-    const projId = window.BL_PROJECT ? BL_PROJECT.get(inst) : '';
-    const projName = (window.BL_PROJECT ? (BL_PROJECT.list(inst).find(p => p.id===projId)||{}).name : '') || '—';
+  const projId = window.BL_PROJECT ? BL_PROJECT.get(inst) : '';
+  const projName = (window.BL_PROJECT ? (BL_PROJECT.list(inst).find(p => p.id===projId)||{}).name : '') || '—';
 
-    const client = document.getElementById('job-client')?.value || 'Cliente não definido';
+  const client = document.getElementById('job-client')?.value || 'Cliente não definido';
 
-    const progText = document.getElementById('progressBadge')?.textContent || '0%';
+  const progText = document.getElementById('progressBadge')?.textContent || '0%';
 
-    el.innerHTML = `
-      <span>${instName} — ${projName} — ${client}</span>
-      <span class="progress-chip">${progText}</span>
-    `;
-  }
+  el.innerHTML = `
+    <span class="inst-badge" style="--inst-color: var(--inst-color, #8a623f);">${instName}</span>
+    <span class="info">${projName} — ${client}</span>
+    <span class="progress-chip">${progText}</span>
+  `;
+}
+
 
   function bindEvents(){
     const selProject = document.querySelector('#selProject');

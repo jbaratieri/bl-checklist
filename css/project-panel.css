@@ -87,22 +87,33 @@
 
   background: #fff;
   border: 2px solid var(--inst-color, #8a623f);
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 6px 14px;
 
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--inst-color, #5a4635);
+  color: #333;
 
   box-shadow: 0 3px 8px rgba(0,0,0,.08);
-  white-space: nowrap;
-  max-width: 45%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+}
+
+.project-badge-fixed .inst-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--inst-color, #8a623f);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.project-badge-fixed .info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-badge-fixed .progress-chip {
