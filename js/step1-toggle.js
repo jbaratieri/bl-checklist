@@ -1,10 +1,11 @@
-// step1-toggle.js — Toggle de DETALHES (botão redondo ＋/−)
+// step1-toggle.js
 (() => {
   'use strict';
 
-  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.btn.toggle');
+    if (!btn) return;
 
-  function toggleDetail(btn) {
     const targetId = btn.dataset.target;
     const detail = document.getElementById(targetId);
     if (!detail) return;
@@ -21,15 +22,5 @@
       const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '＋';
     }
-  }
-
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('.btn.toggle');
-    if (!btn) return;
-
-    // Evita interferir nos botões de medidas
-    if (btn.classList.contains('measures-toggle')) return;
-
-    toggleDetail(btn);
   });
 })();
