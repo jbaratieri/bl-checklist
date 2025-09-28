@@ -1,40 +1,33 @@
-// step16-measures-toggle.js (debug)
+// step16-measures-toggle.js
 (() => {
   'use strict';
 
-  console.log('[measures-toggle] Script carregado ✅');
-
   document.addEventListener('click', e => {
-    const btn = e.target.closest('.btn.measures-toggle');
+    const btn = e.target.closest('button.measures-toggle');
     if (!btn) return;
 
-    console.log('[measures-toggle] Clique detectado no botão:', btn);
-
-    const targetId = btn.dataset.target;
-    console.log('[measures-toggle] data-target =', targetId);
-
+    const targetId = btn.getAttribute('data-target');
     const grid = document.getElementById(targetId);
-    if (!grid) {
-      console.warn('[measures-toggle] Nenhum grid encontrado com id', targetId);
-      return;
-    }
+    if (!grid) return;
 
-    const isHidden = grid.hasAttribute('hidden');
-    console.log('[measures-toggle] Estado atual → hidden?', isHidden);
+    const icon = btn.querySelector('.icon');
+
+    // estado REAL: considera atributo hidden e estilo inline
+    const isHidden = grid.hasAttribute('hidden') || grid.style.display === 'none';
+    console.log('[measures-toggle] Estado real =', isHidden, '→ target:', targetId);
 
     if (isHidden) {
-      grid.removeAttribute('hidden');
+      grid.removeAttribute('hidden');  // remove o atributo
+      grid.style.display = 'grid';     // garante exibição
       btn.classList.add('active');
-      const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '−';
-      console.log('[measures-toggle] Grid ABERTO:', grid);
+      console.log('[measures-toggle] ABERTO:', targetId);
     } else {
-      grid.setAttribute('hidden', '');
+      grid.setAttribute('hidden', ''); // recoloca o atributo
+      grid.style.display = 'none';     // esconde
       btn.classList.remove('active');
-      const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '＋';
-      console.log('[measures-toggle] Grid FECHADO:', grid);
+      console.log('[measures-toggle] FECHADO:', targetId);
     }
   });
 })();
-
