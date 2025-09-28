@@ -1,4 +1,4 @@
-// step1-toggle.js
+// step1-toggle.js — controla abrir/fechar detalhes com hidden
 (() => {
   'use strict';
 
@@ -7,17 +7,18 @@
     if (!btn) return;
 
     const targetId = btn.dataset.target;
-    const detail = document.getElementById(targetId);
-    if (!detail) return;
+    const detailBox = document.getElementById(targetId);
+    if (!detailBox) return;
 
-    const isHidden = detail.hasAttribute('hidden');
+    // Alterna estado
+    const isHidden = detailBox.hasAttribute('hidden');
     if (isHidden) {
-      detail.removeAttribute('hidden');
+      detailBox.removeAttribute('hidden');
       btn.classList.add('active');
       const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '−';
     } else {
-      detail.setAttribute('hidden', '');
+      detailBox.setAttribute('hidden', '');
       btn.classList.remove('active');
       const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '＋';
