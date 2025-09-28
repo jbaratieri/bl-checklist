@@ -1,26 +1,35 @@
-// step1-toggle.js — controla abrir/fechar detalhes com hidden
+// step1-toggle.js
 (() => {
   'use strict';
 
+  // Toggle de SEÇÕES (abre/fecha o corpo da seção)
+  document.addEventListener('click', e => {
+    const header = e.target.closest('.section > header');
+    if (!header) return;
+
+    const section = header.parentElement;
+    section.classList.toggle('open');
+  });
+
+  // Toggle de DETALHES (＋/−)
   document.addEventListener('click', e => {
     const btn = e.target.closest('.btn.toggle');
     if (!btn) return;
 
     const targetId = btn.dataset.target;
-    const detailBox = document.getElementById(targetId);
-    if (!detailBox) return;
+    const detail = document.getElementById(targetId);
+    if (!detail) return;
 
-    // Alterna estado
-    const isHidden = detailBox.hasAttribute('hidden');
+    const isHidden = detail.hasAttribute('hidden');
+    const icon = btn.querySelector('.icon');
+
     if (isHidden) {
-      detailBox.removeAttribute('hidden');
+      detail.removeAttribute('hidden');
       btn.classList.add('active');
-      const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '−';
     } else {
-      detailBox.setAttribute('hidden', '');
+      detail.setAttribute('hidden', '');
       btn.classList.remove('active');
-      const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '＋';
     }
   });

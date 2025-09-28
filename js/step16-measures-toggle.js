@@ -11,15 +11,21 @@
     if (!grid) return;
 
     const icon = btn.querySelector('.icon');
+    const isHidden = grid.hasAttribute('hidden');
 
-    if (grid.hasAttribute('hidden')) {
+    if (isHidden) {
       grid.removeAttribute('hidden');
+      grid.style.display = 'grid'; // garante layout correto
       btn.classList.add('active');
       if (icon) icon.textContent = '−';
+      console.log('[measures-toggle] ABRINDO →', targetId, grid);
     } else {
       grid.setAttribute('hidden', '');
+      grid.style.display = 'none';
       btn.classList.remove('active');
       if (icon) icon.textContent = '＋';
+      console.log('[measures-toggle] FECHANDO →', targetId, grid);
     }
   });
 })();
+
