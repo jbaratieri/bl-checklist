@@ -97,6 +97,11 @@
   display: inline;
 }
 
+.measures-grid[hidden] {
+  display: none !important;
+}
+
+
 /* ======================= */
 /* Responsivo (mobile)     */
 /* ======================= */

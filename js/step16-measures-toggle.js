@@ -3,7 +3,7 @@
   'use strict';
 
   document.addEventListener('click', function(e){
-    const btn = e.target.closest('.btn.measures-toggle');
+    const btn = e.target.closest('button.measures-toggle');
     if (!btn) return;
 
     const targetId = btn.getAttribute('data-target');
