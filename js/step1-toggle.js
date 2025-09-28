@@ -1,5 +1,5 @@
-// Step 1: Toggle por cabeçalho — robusto (força filho direto em todos seletores)
-(function(){
+// Step 1: Toggle por cabeçalho — robusto + botões de detalhe
+(function () {
   'use strict';
   if (window.__BL_TOGGLE_V3__) return;
   window.__BL_TOGGLE_V3__ = true;
@@ -15,25 +15,25 @@
   }
 
   const HEADER_SECTION_CANDIDATES = 'h3, header, .section-header';
-  const HEADER_ETAPA_CANDIDATES   = '.etapa-header';
-  const BODY_SECTION              = '.section-body';
-  const BODY_ETAPA                = '.etapa-body';
-  const OPEN_CLASS                = 'is-open';
+  const HEADER_ETAPA_CANDIDATES = '.etapa-header';
+  const BODY_SECTION = '.section-body';
+  const BODY_ETAPA = '.etapa-body';
+  const OPEN_CLASS = 'is-open';
 
   function ensureA11y(header, container, body) {
     if (!body.id) body.id = (container.id ? container.id + '__body' : 'body-' + Math.random().toString(36).slice(2));
-    header.setAttribute('role','button');
-    header.setAttribute('tabindex','0');
+    header.setAttribute('role', 'button');
+    header.setAttribute('tabindex', '0');
     header.setAttribute('aria-controls', body.id);
     const startOpen = container.classList.contains(OPEN_CLASS) || header.getAttribute('aria-expanded') === 'true';
     container.classList.toggle(OPEN_CLASS, !!startOpen);
     header.setAttribute('aria-expanded', String(!!startOpen));
   }
 
-  function initOnce(root=document){
+  function initOnce(root = document) {
     root.querySelectorAll('div.section, section.etapa').forEach(container => {
       const header = findDirect(container, container.matches('.section') ? HEADER_SECTION_CANDIDATES : HEADER_ETAPA_CANDIDATES);
-      const body   = findDirect(container, container.matches('.section') ? BODY_SECTION : BODY_ETAPA);
+      const body = findDirect(container, container.matches('.section') ? BODY_SECTION : BODY_ETAPA);
       if (!header || !body) return;
       if (header.dataset.blA11y) return;
       ensureA11y(header, container, body);
@@ -41,14 +41,14 @@
     });
   }
 
-  function toggleContainer(container, header){
+  function toggleContainer(container, header) {
     const open = !container.classList.contains(OPEN_CLASS);
     container.classList.toggle(OPEN_CLASS, open);
     if (header) header.setAttribute('aria-expanded', String(open));
   }
 
   // Clique (captura) — só a seção mais próxima reage
-  document.addEventListener('click', function(e){
+  document.addEventListener('click', function (e) {
     const hdr = e.target.closest('h3, header, .section-header, .etapa-header');
     if (!hdr) return;
 
@@ -69,7 +69,7 @@
   }, true);
 
   // Teclado
-  document.addEventListener('keydown', function(e){
+  document.addEventListener('keydown', function (e) {
     if (e.key !== 'Enter' && e.key !== ' ') return;
     const hdr = e.target.closest('h3, header, .section-header, .etapa-header');
     if (!hdr) return;
@@ -85,6 +85,31 @@
     toggleContainer(container, hdr);
   }, true);
 
+  // ===== Novo: Botões de detalhe =====
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.btn.toggle');
+    if (!btn) return;
+
+    const targetId = btn.getAttribute('data-target');
+    const detail = document.getElementById(targetId);
+    if (!detail) return;
+
+    const isOpen = detail.style.display === 'block';
+
+    // alterna display
+    detail.style.display = isOpen ? 'none' : 'block';
+
+    // alterna classe active
+    btn.classList.toggle('active', !isOpen);
+
+    // troca ícone (＋ / −)
+    const iconEl = btn.querySelector('.icon');
+    if (iconEl) {
+      iconEl.textContent = isOpen ? '＋' : '−';
+    }
+  });
+
+
   // Init
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => initOnce());
@@ -94,7 +119,7 @@
 
   // (Opcional) APIs globais para Expandir/Recolher Tudo
   window.BL_ToggleAll = {
-    openAll(){ document.querySelectorAll('.section, .etapa').forEach(c => c.classList.add(OPEN_CLASS)); },
-    closeAll(){ document.querySelectorAll('.section, .etapa').forEach(c => c.classList.remove(OPEN_CLASS)); }
+    openAll() { document.querySelectorAll('.section, .etapa').forEach(c => c.classList.add(OPEN_CLASS)); },
+    closeAll() { document.querySelectorAll('.section, .etapa').forEach(c => c.classList.remove(OPEN_CLASS)); }
   };
 })();

@@ -1,0 +1,67 @@
+/* Botão detalhe compacto */
+.btn.toggle {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+/* Efeito hover */
+.btn.toggle:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+/* Ícone dentro */
+.btn.toggle .icon {
+  pointer-events: none;
+  font-family: monospace;
+}
+
+/* Botão de detalhe (＋/−) */
+.btn.toggle {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 6px;
+}
+
+/* Hover */
+.btn.toggle:hover {
+  background: #f7f7f7;
+  border-color: #aaa;
+  transform: scale(1.05);
+}
+
+/* Estado ativo (quando aberto) */
+.btn.toggle.active {
+  background: var(--inst-color, #8a623f);
+  color: #fff;
+  border-color: var(--inst-color, #8a623f);
+}
+
+/* Ícone dentro */
+.btn.toggle .icon {
+  pointer-events: none;
+  font-family: monospace;
+  font-size: 18px;
+}

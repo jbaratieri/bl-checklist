@@ -346,7 +346,7 @@
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
-        .register('/bl-checklist/sw.js', { scope: '/bl-checklist/' })
+        .register('/bl-checklist/service-worker.js', { scope: '/bl-checklist/' })
         .then(reg => console.log('SW registrado ✅', reg))
         .catch(err => console.error('SW erro ❌', err));
     });

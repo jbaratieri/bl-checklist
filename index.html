@@ -24,7 +24,7 @@
   <!-- Config global para tech -->
   <script>window.BL_TECH_CFG = { base: '/bl-checklist/assets/tech/' };</script>
 
-    <!-- CSS base e etapas -->
+  <!-- CSS base e etapas -->
   <link rel="stylesheet" href="/bl-checklist/css/checklist.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step1-toggle.css" />
   <link rel="stylesheet" href="/bl-checklist/css/step2-toc.css" />
@@ -55,38 +55,41 @@
 
   <!-- Novo painel de projeto -->
   <link rel="stylesheet" href="/bl-checklist/css/project-panel.css">
+  <!--Botoes e detalhes -->
+  <link rel="stylesheet" href="/bl-checklist/css/buttons.css">
+
 </head>
 
 <body>
- <header class="app">
-  <!-- Linha superior: logo à esquerda e status à direita -->
-  <div class="logo-row">
-    <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo">
+  <header class="app">
+    <!-- Linha superior: logo à esquerda e status à direita -->
+    <div class="logo-row">
+      <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo">
 
-    <div class="status-row">
-      <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
-        🎸 Violão Clássico
-      </span>
-      <p class="version">Versão v7.2</p>
-      <span class="badge" id="progressBadge">0% concluído</span>
+      <div class="status-row">
+        <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
+          🎸 Violão Clássico
+        </span>
+        <p class="version">Versão v7.2</p>
+        <span class="badge" id="progressBadge">0% concluído</span>
+      </div>
     </div>
-  </div>
 
-  <!-- Barra de progresso -->
-  <div class="top-progress">
-    <div class="fill" id="progressFill" style="width: 0%;"></div>
-  </div>
+    <!-- Barra de progresso -->
+    <div class="top-progress">
+      <div class="fill" id="progressFill" style="width: 0%;"></div>
+    </div>
 
-  <!-- Toolbar -->
-  <div class="toolbar">
-  <button class="btn primary" id="btnPrint" data-has-print="1">Gerar PDF / Imprimir</button>
-  <button class="btn" id="btnExpand">Expandir tudo</button>
-  <button class="btn" id="btnCollapse">Recolher tudo</button>
-  <button class="btn" id="btnReset">Limpar dados</button>
-  <button class="btn" id="btnMeasuresTable">TABELA DE MEDIDAS</button>
-</div>
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <button class="btn primary" id="btnPrint" data-has-print="1">Gerar PDF / Imprimir</button>
+      <button class="btn" id="btnExpand">Expandir tudo</button>
+      <button class="btn" id="btnCollapse">Recolher tudo</button>
+      <button class="btn" id="btnReset">Limpar dados</button>
+      <button class="btn" id="btnMeasuresTable">TABELA DE MEDIDAS</button>
+    </div>
 
-</header>
+  </header>
 
   <section class="project-panel" id="projectPanel">
     <h3>Projeto</h3>
@@ -210,8 +213,13 @@
           <div class="step" data-step="prep1">
             <input class="chk persist" id="prep1" type="checkbox" />
             <label class="label" for="prep1">Selecionar e climatizar madeiras</label>
-            <button class="btn toggle" data-target="d-prep1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-prep1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+
             <div class="detail" id="d-prep1">
+
 
               <h5>Por que selecionar e climatizar as madeiras é importante?</h5>
               <p>Madeiras bem selecionadas e climatizadas garantem <strong>estabilidade dimensional</strong>, evitando
@@ -318,7 +326,10 @@
           <div class="step" data-step="prep2">
             <input class="chk persist" id="prep2" type="checkbox" />
             <label class="label" for="prep2">Cortar blanks (tampo, fundo, laterais, braço)</label>
-            <button class="btn toggle" data-target="d-prep2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-prep2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-prep2">
 
               <p>Há duas coisas importantes nessa etapa: comprar as madeiras para seu projeto já rusticamente cortadas,
@@ -464,7 +475,10 @@
           <div class="step" data-step="sol1">
             <input class="chk persist" id="sol1" type="checkbox" />
             <label class="label" for="sol1">Moldagem bruta do braço (Espessura e Comprimento)</label>
-            <button class="btn toggle" data-target="d-sol1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol1">
 
               <p>Tradicionalmente, procura-se utilizar uma <strong>peça única</strong> para a confecção do braço,
@@ -579,7 +593,10 @@
           <div class="step" data-step="sol2">
             <input class="chk persist" id="sol2" type="checkbox" />
             <label class="label" for="sol2">Cortar o Headstock (15°)</label>
-            <button class="btn toggle" data-target="d-sol2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol2">
 
               <p>O corte e a colagem do <strong>headstock</strong> com inclinação são etapas críticas na construção
@@ -689,7 +706,10 @@
             <input class="chk persist" id="sol3" type="checkbox" />
             <!-- Corrigido: o 'for' deve apontar para o checkbox 'sol3' -->
             <label class="label" for="sol3">Retificar as partes inclinadas</label>
-            <button class="btn toggle" data-target="d-sol3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-sol3">
               <p>Após o corte inclinado do headstock (scarf), é fundamental <strong>retificar</strong> as duas faces
@@ -764,7 +784,10 @@
           <div class="step" data-step="sol4">
             <input class="chk persist" id="sol4" type="checkbox" />
             <label class="label" for="sol4">Colagem das peças do headstock</label>
-            <button class="btn toggle" data-target="d-sol4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol4">
 
               <h5>O que fazer antes de colar?</h5>
@@ -845,7 +868,10 @@
           <div class="step" data-step="sol5">
             <input class="chk persist" id="sol5" type="checkbox" />
             <label class="label" for="sol5">Preparar o taco do tróculo</label>
-            <button class="btn toggle" data-target="d-sol5" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol5" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol5">
 
               <p>O <strong>tróculo</strong> (taco espanhol) pode ser confeccionado com sobras do próprio braço ou com
@@ -926,7 +952,10 @@
           <div class="step" data-step="sol6">
             <input class="chk persist" id="sol6" type="checkbox" />
             <label class="label" for="sol6">Colar o tróculo no braço</label>
-            <button class="btn toggle" data-target="d-sol6" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol6" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol6">
 
               <p><em>Observação:</em> esta etapa pode ser feita simultaneamente à colagem do headstock.</p>
@@ -1015,7 +1044,10 @@
           <div class="step" data-step="sol7">
             <input class="chk persist" id="sol7" type="checkbox" />
             <label class="label" for="sol7">Colar a soleta no headstock</label>
-            <button class="btn toggle" data-target="d-sol7" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol7" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol7">
 
               <h5>Comprar uma soleta pronta ou fabricar a sua?</h5>
@@ -1147,7 +1179,10 @@
           <div class="step" data-step="sol8">
             <input class="chk persist" id="sol8" type="checkbox" />
             <label class="label" for="sol8">Esquadrejar o braço</label>
-            <button class="btn toggle" data-target="d-sol8" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol8" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol8">
 
               <p><strong>Objetivo:</strong> deixar a base plana e perpendicular às laterais, sem torções.</p>
@@ -1220,7 +1255,10 @@
           <div class="step" data-step="sol8a">
             <input class="chk persist" id="sol8a" type="checkbox" />
             <label class="label" for="sol8a">Planejar e riscar o braço</label>
-            <button class="btn toggle" data-target="d-sol8a" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol8a" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol8a">
 
               <p><strong>Objetivo:</strong> fazer todos os riscos de referência no braço, mão (headstock) e tróculo.
@@ -1334,7 +1372,10 @@
           <div class="step" data-step="sol9">
             <input class="chk persist" id="sol9" type="checkbox" />
             <label class="label" for="sol9">Riscar e usinar a mão</label>
-            <button class="btn toggle" data-target="d-sol9" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol9" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol9">
 
               <p>Após colagens e esquadrejamento, é hora de utilizar <strong>moldes</strong> conforme o instrumento e o
@@ -1429,7 +1470,10 @@
           <div class="step" data-step="sol10">
             <input class="chk persist" id="sol10" type="checkbox" />
             <label class="label" for="sol10">Recortar e furar a mão (headstock) para as tarrachas</label>
-            <button class="btn toggle" data-target="d-sol10" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol10" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol10">
 
               <h5>Antes de começar os cortes</h5>
@@ -1526,7 +1570,10 @@
           <div class="step" data-step="sol11">
             <input class="chk persist" id="sol11" type="checkbox" />
             <label class="label" for="sol11">Cortes e pré-usinagem do tróculo</label>
-            <button class="btn toggle" data-target="d-sol11" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-sol11" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-sol11">
 
               <p>Após riscar o braço com precisão, prepare o <strong>tróculo</strong> para uni-lo à caixa. No método
@@ -1688,7 +1735,10 @@
           <div class="step" data-step="tampo1">
             <input class="chk persist" id="tampo1" type="checkbox" />
             <label class="label" for="tampo1">Retificar juntas</label>
-            <button class="btn toggle" data-target="d-tampo1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo1">
 
 
@@ -1765,7 +1815,10 @@
           <div class="step" data-step="tampo2">
             <input class="chk persist" id="tampo2" type="checkbox" />
             <label class="label" for="tampo2">Colar e raspar</label>
-            <button class="btn toggle" data-target="d-tampo2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo2">
 
               <h5>Objetivo</h5>
@@ -1851,7 +1904,10 @@
           <div class="step" data-step="tampo2a">
             <input class="chk persist" id="tampo2a" type="checkbox" />
             <label class="label" for="tampo2a">Recortar e aproximar contorno</label>
-            <button class="btn toggle" data-target="d-tampo2a" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo2a" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo2a">
 
               <h5>Objetivo</h5>
@@ -1961,7 +2017,10 @@
           <div class="step" data-step="tampo3">
             <input class="chk persist" id="tampo3" type="checkbox" />
             <label class="label" for="tampo3">Incrustar roseta</label>
-            <button class="btn toggle" data-target="d-tampo3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo3">
 
               <h5>Objetivo</h5>
@@ -2041,7 +2100,10 @@
           <div class="step" data-step="tampo4">
             <input class="chk persist" id="tampo4" type="checkbox" />
             <label class="label" for="tampo4">Calibrar tampo (2,0–2,8 mm)</label>
-            <button class="btn toggle" data-target="d-tampo4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo4">
 
               <h5>Objetivo</h5>
@@ -2120,7 +2182,10 @@
           <div class="step" data-step="tampo5">
             <input class="chk persist" id="tampo5" type="checkbox" />
             <label class="label" for="tampo5">Abrir boca (soundhole)</label>
-            <button class="btn toggle" data-target="d-tampo5" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo5" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo5">
 
               <h5>Objetivo</h5>
@@ -2189,7 +2254,10 @@
           <div class="step" data-step="tampo7a">
             <input class="chk persist" id="tampo7a" type="checkbox" />
             <label class="label" for="tampo7a">Preparar Travessas e barras harmônicas</label>
-            <button class="btn toggle" data-target="d-tampo7a" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo7a" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo7a">
 
               <p>As barras harmônicas formam o “esqueleto” acústico do tampo. A qualidade de sua execução influencia
@@ -2267,7 +2335,10 @@
           <div class="step" data-step="tampo7b">
             <input class="chk persist" id="tampo7b" type="checkbox" />
             <label class="label" for="tampo7b">Instalar travessas, reforço da boca e leque harmônico</label>
-            <button class="btn toggle" data-target="d-tampo7b" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo7b" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo7b">
 
 
@@ -2355,7 +2426,10 @@
           <div class="step" data-step="tampo8">
             <input class="chk persist" id="tampo8" type="checkbox" />
             <label class="label" for="tampo8">Ajuste fino e voicing das varetas</label>
-            <button class="btn toggle" data-target="d-tampo8" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-tampo8" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-tampo8">
 
               <h5>Objetivo</h5>
@@ -2463,7 +2537,10 @@
           <div class="step" data-step="fundo1">
             <input class="chk persist" id="fundo1" type="checkbox" />
             <label class="label" for="fundo1">Retificar</label>
-            <button class="btn toggle" data-target="d-fundo1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fundo1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-fundo1">
 
               <h5>Objetivo</h5>
@@ -2534,7 +2611,10 @@
           <div class="step" data-step="fundo2a">
             <input class="chk persist" id="fundo2a" type="checkbox" />
             <label class="label" for="fundo2a">Preparar adorno central</label>
-            <button class="btn toggle" data-target="d-fundo2a" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fundo2a" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-fundo2a">
 
               <p>O adorno central do fundo tem função estrutural e estética: reforça a junção e ajuda a prevenir
@@ -2602,7 +2682,10 @@
           <div class="step" data-step="fundo2">
             <input class="chk persist" id="fundo2" type="checkbox" />
             <label class="label" for="fundo2">Unir e colar fundo</label>
-            <button class="btn toggle" data-target="d-fundo2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fundo2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-fundo2">
 
               <p>Una as duas metades do fundo com o adorno central já preparado, garantindo alinhamento e simetria no
@@ -2671,7 +2754,10 @@
           <div class="step" data-step="fundo3">
             <input class="chk persist" id="fundo3" type="checkbox" />
             <label class="label" for="fundo3">Raspar e nivelar a 3 mm</label>
-            <button class="btn toggle" data-target="d-fundo3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fundo3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-fundo3">
 
               <p>O fundo deve ser desbastado até aproximadamente <strong>2,8–3,0 mm</strong> de espessura, garantindo
@@ -2736,7 +2822,10 @@
           <div class="step" data-step="fundo4">
             <input class="chk persist" id="fundo4" type="checkbox" />
             <label class="label" for="fundo4">Instalar Barras e reforço central</label>
-            <button class="btn toggle" data-target="d-fundo4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fundo4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-fundo4">
 
               <p>A estrutura interna do fundo é composta por duas ou três travessas (<em>back braces</em>) e um reforço
@@ -2853,7 +2942,10 @@
           <div class="step" data-step="lat1">
             <input class="chk persist" id="lat1" type="checkbox" />
             <label class="label" for="lat1">Corte longitudinal, calibragem e preparo das faixas</label>
-            <button class="btn toggle" data-target="d-lat1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-lat1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-lat1">
 
               <h5>Objetivo</h5>
@@ -2943,7 +3035,10 @@
           <div class="step" data-step="lat2">
             <input class="chk persist" id="lat2" type="checkbox" />
             <label class="label" for="lat2">Dobrar as laterais/faixas</label>
-            <button class="btn toggle" data-target="d-lat2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-lat2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-lat2">
 
 
@@ -3080,7 +3175,10 @@
           <div class="step" data-step="caixa1">
             <input class="chk persist" id="caixa1" type="checkbox" />
             <label class="label" for="caixa1">Colar laterais ao taco/Tróculo</label>
-            <button class="btn toggle" data-target="d-caixa1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-caixa1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-caixa1">
 
               <p>No sistema espanhol, o <strong>tróculo</strong> integra o braço. As laterais entram em
@@ -3204,7 +3302,10 @@
           <div class="step" data-step="caixa2">
             <input class="chk persist" id="caixa2" type="checkbox" />
             <label class="label" for="caixa2">Colar reengrosso (linings/contrafaixas) — tampo e fundo</label>
-            <button class="btn toggle" data-target="d-caixa2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-caixa2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-caixa2">
 
@@ -3288,7 +3389,10 @@
           <div class="step" data-step="caixa3">
             <input class="chk persist" id="caixa3" type="checkbox" />
             <label class="label" for="caixa3">Alinhar o braço ao corpo</label>
-            <button class="btn toggle" data-target="d-caixa3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-caixa3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-caixa3">
 
@@ -3361,7 +3465,10 @@
           <div class="step" data-step="caixa4">
             <input class="chk persist" id="caixa4" type="checkbox" />
             <label class="label" for="caixa4">Colar o tampo ao conjunto</label>
-            <button class="btn toggle" data-target="d-caixa4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-caixa4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-caixa4">
 
@@ -3438,7 +3545,10 @@
           <div class="step" data-step="caixa5">
             <input class="chk persist" id="caixa5" type="checkbox" />
             <label class="label" for="caixa5">Colar o fundo</label>
-            <button class="btn toggle" data-target="d-caixa5" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-caixa5" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-caixa5">
 
@@ -3533,7 +3643,10 @@
           <div class="step" data-step="fil1">
             <input class="chk persist" id="fil1" type="checkbox" />
             <label class="label" for="fil1">Abrir canal dos filetes (binding & purfling)</label>
-            <button class="btn toggle" data-target="d-fil1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fil1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-fil1">
 
@@ -3612,7 +3725,10 @@
           <div class="step" data-step="fil2">
             <input class="chk persist" id="fil2" type="checkbox" />
             <label class="label" for="fil2">Instalar filetes / purfling</label>
-            <button class="btn toggle" data-target="d-fil2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fil2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-fil2">
 
@@ -3686,7 +3802,10 @@
           <div class="step" data-step="fil3">
             <input class="chk persist" id="fil3" type="checkbox" />
             <label class="label" for="fil3">Raspar e nivelar filetes (acabamento das bordas)</label>
-            <button class="btn toggle" data-target="d-fil3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fil3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-fil3">
 
@@ -3754,7 +3873,10 @@
           <div class="step" data-step="fil4">
             <input class="chk persist" id="fil4" type="checkbox" />
             <label class="label" for="fil4">Pézinho do tróculo (tapeta do tacão)</label>
-            <button class="btn toggle" data-target="d-fil4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-fil4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-fil4">
 
@@ -3859,7 +3981,10 @@
           <div class="step" data-step="escala1">
             <input class="chk persist" id="escala1" type="checkbox" />
             <label class="label" for="escala1">Preparar a escala & cortar os slots dos trastes</label>
-            <button class="btn toggle" data-target="d-escala1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-escala1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-escala1">
               <p><strong>Objetivo:</strong> calibrar a espessura da escala, esquadrejar um bordo de referência e a face
@@ -3955,7 +4080,10 @@
           <div class="step" data-step="escala2">
             <input class="chk persist" id="escala2" type="checkbox" />
             <label class="label" for="escala2">Instalar marcadores (opcional)</label>
-            <button class="btn toggle" data-target="d-escala2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-escala2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-escala2">
 
               <p>A instalação de marcadores de posição é opcional, mas bastante comum, especialmente em instrumentos
@@ -4018,7 +4146,10 @@
           <div class="step" data-step="escala3">
             <input class="chk persist" id="escala3" type="checkbox" />
             <label class="label" for="escala3">Colar escala no braço</label>
-            <button class="btn toggle" data-target="d-escala3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-escala3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-escala3">
 
@@ -4116,7 +4247,10 @@
           <div class="step" data-step="escala4">
             <input class="chk persist" id="escala4" type="checkbox" />
             <label class="label" for="escala4">Plainar e Lixar Progressivamente</label>
-            <button class="btn toggle" data-target="d-escala4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-escala4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-escala4">
 
               <p>O nivelamento da escala garante a instalação correta dos trastes e evita trastejamentos futuros. Use
@@ -4185,7 +4319,10 @@
           <div class="step" data-step="escala5">
             <input class="chk persist" id="escala5" type="checkbox" />
             <label class="label" for="escala5">Instalar os trastes</label>
-            <button class="btn toggle" data-target="d-escala5" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-escala5" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-escala5">
 
               <p>A instalação dos trastes exige precisão e uniformidade para evitar trastejamentos. Trabalhe com a
@@ -4260,7 +4397,10 @@
           <div class="step" data-step="cav1">
             <input class="chk persist" id="cav1" type="checkbox" />
             <label class="label" for="cav1">Preparar cavalete (alturas, canais, furação)</label>
-            <button class="btn toggle" data-target="d-cav1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-cav1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-cav1">
 
               <p>A preparação do cavalete requer precisão dimensional, simetria e ajuste perfeito ao raio do tampo.
@@ -4349,7 +4489,10 @@
           <div class="step" data-step="cav2">
             <input class="chk persist" id="cav2" type="checkbox" />
             <label class="label" for="cav2">Marcar área de colagem do cavalete (pré-acabamento)</label>
-            <button class="btn toggle" data-target="d-cav2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-cav2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-cav2">
 
               <p>Marcar e mascarar a área de colagem antes do acabamento preserva a madeira crua onde a cola atuará e
@@ -4420,7 +4563,10 @@
           <div class="step" data-step="cav3">
             <input class="chk persist" id="cav3" type="checkbox" />
             <label class="label" for="cav3">Colar o cavalete no tampo</label>
-            <button class="btn toggle" data-target="d-cav3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-cav3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-cav3">
 
               <p>A colagem do cavalete é crítica: define entonação, transmissão de vibração e durabilidade. Faça sobre a
@@ -4512,7 +4658,10 @@
           <div class="step" data-step="cav4">
             <input class="chk persist" id="cav4" type="checkbox" />
             <label class="label" for="cav4">Construir o rastilho (saddle)</label>
-            <button class="btn toggle" data-target="d-cav4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-cav4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-cav4">
 
               <p>O rastilho transmite vibração das cordas para o tampo. Precisa ser <strong>duro</strong>, <strong>bem
@@ -4614,7 +4763,10 @@
           <div class="step" data-step="acab1">
             <input class="chk persist" id="acab1" type="checkbox" />
             <label class="label" for="acab1">Lixamento progressivo</label>
-            <button class="btn toggle" data-target="d-acab1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-acab1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-acab1">
 
               <h5>Objetivo</h5>
@@ -4678,7 +4830,10 @@
           <div class="step" data-step="acab2">
             <input class="chk persist" id="acab2" type="checkbox" />
             <label class="label" for="acab2">Seladora / Pore fill</label>
-            <button class="btn toggle" data-target="d-acab2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-acab2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-acab2">
 
               <h5>Objetivo</h5>
@@ -4758,7 +4913,10 @@
           <div class="step" data-step="acab3">
             <input class="chk persist" id="acab3" type="checkbox" />
             <label class="label" for="acab3">Aplicar acabamento final (verniz / goma-laca)</label>
-            <button class="btn toggle" data-target="d-acab3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-acab3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-acab3">
 
@@ -4855,7 +5013,10 @@
           <div class="step" data-step="mont1">
             <input class="chk persist" id="mont1" type="checkbox" />
             <label class="label" for="mont1">Pestana (nut): dimensionar, canalizar e ajustar</label>
-            <button class="btn toggle" data-target="d-mont1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-mont1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
 
             <div class="detail" id="d-mont1">
 
@@ -4926,7 +5087,10 @@
           <div class="step" data-step="mont2">
             <input class="chk persist" id="mont2" type="checkbox" />
             <label class="label" for="mont2">Encordoamento (amarração, enrolamento e assentamento)</label>
-            <button class="btn toggle" data-target="d-mont2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-mont2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-mont2">
 
               <p>A instalação correta das cordas garante estabilidade, durabilidade da afinação e evita sobrecargas na
@@ -5009,7 +5173,10 @@
           <div class="step" data-step="mont3">
             <input class="chk persist" id="mont3" type="checkbox" />
             <label class="label" for="mont3">Regulagem das cordas (ação, alívio, pestana e rastilho)</label>
-            <button class="btn toggle" data-target="d-mont3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-mont3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-mont3">
 
               <p>A regulagem define conforto, dinâmica e estabilidade. Trabalhe em ciclos curtos: medir → ajustar pouco
@@ -5089,7 +5256,10 @@
           <div class="step" data-step="mont4">
             <input class="chk persist" id="mont4" type="checkbox" />
             <label class="label" for="mont4">Inspeção final (pré-entrega)</label>
-            <button class="btn toggle" data-target="d-mont4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-mont4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-mont4">
 
               <p>Checagem estrutural, geométrica e acústica antes da entrega. Trabalhe em ambiente controlado (≈45–55%
@@ -5173,7 +5343,10 @@
           <div class="step" data-step="reg1">
             <input class="chk persist" id="reg1" type="checkbox" />
             <label class="label" for="reg1">Ajuste final da ação</label>
-            <button class="btn toggle" data-target="d-reg1" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-reg1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-reg1">
 
               <p>Faça a regulagem com cordas novas, instrumento na afinação de trabalho e UR ≈ 45–55%.</p>
@@ -5221,7 +5394,10 @@
           <div class="step" data-step="reg2">
             <input class="chk persist" id="reg2" type="checkbox" />
             <label class="label" for="reg2">Compensação de entonação</label>
-            <button class="btn toggle" data-target="d-reg2" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-reg2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-reg2">
 
               <ul>
@@ -5264,7 +5440,10 @@
           <div class="step" data-step="reg3">
             <input class="chk persist" id="reg3" type="checkbox" />
             <label class="label" for="reg3">Limpeza final e retoques</label>
-            <button class="btn toggle" data-target="d-reg3" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-reg3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-reg3">
 
               <ul>
@@ -5301,7 +5480,10 @@
           <div class="step" data-step="reg4">
             <input class="chk persist" id="reg4" type="checkbox" />
             <label class="label" for="reg4">Etiqueta e registro</label>
-            <button class="btn toggle" data-target="d-reg4" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-reg4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-reg4">
 
               <ul>
@@ -5331,7 +5513,10 @@
           <div class="step" data-step="reg5">
             <input class="chk persist" id="reg5" type="checkbox" />
             <label class="label" for="reg5">Fotos e entrega ao cliente</label>
-            <button class="btn toggle" data-target="d-reg5" type="button">Detalhe</button>
+            <button class="btn toggle" data-target="d-reg5" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
             <div class="detail" id="d-reg5">
 
               <ul>
