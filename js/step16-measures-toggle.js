@@ -10,15 +10,22 @@
     const grid = document.getElementById(targetId);
     if (!grid) return;
 
-    const isOpen = btn.classList.toggle('active');
-    grid.hidden = !isOpen;
-
-    const icon = btn.querySelector('.icon');
-    if (icon) icon.textContent = isOpen ? '−' : '＋';
-
-    console.log('[measures-toggle]', targetId, '→', isOpen ? 'ABERTO' : 'FECHADO');
+    const isOpen = !grid.hidden;
+    if (isOpen) {
+      // Fechar
+      grid.hidden = true;
+      btn.classList.remove('active');
+      btn.querySelector('.icon').textContent = '＋';
+      console.log('[measures-toggle] FECHANDO →', targetId, grid);
+    } else {
+      // Abrir
+      grid.hidden = false;
+      btn.classList.add('active');
+      btn.querySelector('.icon').textContent = '−';
+      console.log('[measures-toggle] ABRINDO →', targetId, grid);
+    }
   });
 
-  // inicia fechado
+  // força iniciar fechado
   document.querySelectorAll('.measures-grid').forEach(g => g.hidden = true);
 })();

@@ -64,7 +64,7 @@
 
   // === Toggle para MEDIDAS ===
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn.measures-toggle');
+    const btn = e.target.closest('.btn.toggle');
     if (!btn) return;
 
     const targetId = btn.getAttribute('data-target');
