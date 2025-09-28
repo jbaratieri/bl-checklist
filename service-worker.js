@@ -26,6 +26,7 @@ const APP_SHELL = [
   '/bl-checklist/js/step17-measures-instrumentos.js',
   '/bl-checklist/js/step16-measures-presets.v3.js',
   '/bl-checklist/js/step16-range-support.js',
+  '/bl-checklist/js/step16-measures-toggle.js',
   '/bl-checklist/js/step19-project-plan.v2.js',
   '/bl-checklist/js/step19-plan-toggle.js',
   '/bl-checklist/js/step18-persist-fallback.v3.js',
