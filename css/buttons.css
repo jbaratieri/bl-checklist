@@ -126,10 +126,37 @@
   background: #f0f0f0;
 }
 
-.btn.togle.measures-toggle .icon {
+.btn.toggle.measures-toggle .icon {
   font-size: 1.1rem;
   font-weight: bold;
   line-height: 1;
+}
+
+/* Botão de medidas — versão final */
+.btn.measures-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: #fff;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 8px;
+}
+
+.btn.measures-toggle .icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.btn.measures-toggle.active {
+  background: var(--inst-color, #8a623f);
+  color: #fff;
+  border-color: var(--inst-color, #8a623f);
 }
 
 
