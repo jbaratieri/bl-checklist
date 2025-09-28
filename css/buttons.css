@@ -107,7 +107,7 @@
 }
 
 /* Botão + Medidas */
-.btn.measures-toggle {
+.btn.toggle.measures-toggle {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -115,18 +115,18 @@
   font-size: 0.95rem;
   font-weight: 600;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 6px;
   background: #fafafa;
   cursor: pointer;
   transition: background 0.2s ease;
   margin-bottom: 8px;
 }
 
-.btn.measures-toggle:hover {
+.btn.toggle.measures-toggle:hover {
   background: #f0f0f0;
 }
 
-.btn.measures-toggle .icon {
+.btn.togle.measures-toggle .icon {
   font-size: 1.1rem;
   font-weight: bold;
   line-height: 1;
