@@ -1,4 +1,3 @@
-
 (() => {
   'use strict';
 
@@ -57,14 +56,7 @@
       const sec = header.parentElement;
       setSectionOpen(sec, !sec.classList.contains('open'));
     }
-    const btn = e.target.closest('.btn.toggle');
-    if (btn) {
-      const id = btn.dataset.target;
-      const step = btn.closest('.step');
-      step.classList.toggle('open');
-      const box = document.getElementById(id);
-      if (box) box.style.display = step.classList.contains('open') ? 'block' : 'none';
-    }
+
     if (e.target.id === 'btnExpand') {
       $$('.section').forEach(s => setSectionOpen(s, true));
     }
@@ -76,9 +68,7 @@
     }
     if (e.target.id === 'btnReset') {
       if (confirm('Remover dados salvos?')) {
-        // Clear legacy storage
         localStorage.removeItem(LS_DATA);
-        // Clear namespaced v1 storage and migration markers
         try {
           const toDelete = [];
           for (let i = 0; i < localStorage.length; i++) {
@@ -115,8 +105,7 @@
     });
   }
 
-
-  // ===== Persistência de imagens via IndexedDB (leve e segura) =====
+  // ===== Persistência de imagens via IndexedDB =====
   (function () {
     const DB = 'bl-images', OS = 'images';
     function openDB() {
@@ -198,7 +187,6 @@
               wrap.setAttribute('data-image-key', key);
               if (window.blImgSave) window.blImgSave(key, img.src);
             } catch (_e) { }
-
             row.appendChild(wrap);
           };
           fr.readAsDataURL(file);
@@ -208,9 +196,7 @@
     }
   });
 
-
-
-  // Persistência: apagar do IndexedDB antes de remover do DOM (fase de captura)
+  // Persistência: apagar do IndexedDB antes de remover do DOM
   document.addEventListener('click', function (e) {
     const btn = e.target.closest('.img-close');
     if (!btn) return;
@@ -219,7 +205,6 @@
     if (key && window.blImgDelete) window.blImgDelete(key);
   }, true);
 
-  // Remover uma imagem específica (FECHAR IMAGEM)
   document.addEventListener('click', e => {
     const btn = e.target.closest('.img-close');
     if (btn) {
@@ -231,12 +216,8 @@
 
   // ----- Drawing modal -----
   let modal, canvas, ctx, drawing = false, penSize, penColor, last = null;
-  function openDraw() {
-    modal.style.display = 'flex';
-  }
-  function closeDraw() {
-    modal.style.display = 'none';
-  }
+  function openDraw() { modal.style.display = 'flex'; }
+  function closeDraw() { modal.style.display = 'none'; }
   function clearCanvas() {
     ctx.fillStyle = '#ffffff';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -246,10 +227,7 @@
     const a = document.createElement('a');
     a.href = url; a.download = 'desenho-tecnico.png'; a.click();
   }
-  function startDraw(e) {
-    drawing = true;
-    last = getPos(e);
-  }
+  function startDraw(e) { drawing = true; last = getPos(e); }
   function endDraw() { drawing = false; last = null; }
   function getPos(e) {
     const rect = canvas.getBoundingClientRect();
@@ -296,7 +274,7 @@
     if (drawBtn) openDraw();
   });
 
-  // ----- Export Medidas (print to PDF) -----
+  // ----- Export Medidas -----
   function exportMeasuresPDF() {
     const data = [];
     $$('.section').forEach(sec => {
@@ -342,7 +320,7 @@
     setTimeout(() => win.print(), 300);
   }
 
-  // ----- SW register (ajustado para GitHub Pages) -----
+  // ----- SW register -----
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker
@@ -352,17 +330,15 @@
     });
   }
 
-
   // Init
   loadAll();
   initDraw();
   initAutoGrow();
   updateProgress();
-  // Open all by default on first load
   $$('.section').forEach(s => s.classList.add('open'));
   document.getElementById('btnExportPDF')?.addEventListener('click', exportMeasuresPDF);
 
-  // Lightbox simples ao clicar na miniatura
+  // Lightbox
   function ensureLightbox() {
     let lb = document.getElementById('imgLightbox');
     if (lb) return lb;
@@ -393,4 +369,3 @@
   });
 
 })();
-
