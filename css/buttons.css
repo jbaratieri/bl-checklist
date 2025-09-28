@@ -101,12 +101,34 @@
    Medidas (botão + grid)
    ========================== */
 
-/* Garante que grids iniciem ocultos */
-.measures-grid[hidden] {
-  display: none !important;
+/* === Botão DETALHES (redondinho) === */
+.btn.toggle {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
-/* Botão + Medidas */
+.btn.toggle:hover {
+  background: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.btn.toggle.active {
+  background: var(--inst-color, #8a623f);
+  color: #fff;
+  border-color: var(--inst-color, #8a623f);
+}
+
+/* === Botão MEDIDAS (retangular com label) === */
 .btn.measures-toggle {
   display: inline-flex;
   align-items: center;
@@ -118,7 +140,7 @@
   background: #fff;
   border: 1px solid #ccc;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
   margin-bottom: 8px;
 }
 

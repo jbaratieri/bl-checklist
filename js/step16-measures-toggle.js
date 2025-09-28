@@ -1,4 +1,4 @@
-// step16-measures-toggle.js — versão limpa e robusta
+// step16-measures-toggle.js
 (() => {
   'use strict';
 
@@ -8,28 +8,17 @@
 
     const targetId = btn.dataset.target;
     const grid = document.getElementById(targetId);
-    if (!grid) {
-      console.warn('[measures-toggle] Grid não encontrado para', targetId);
-      return;
-    }
+    if (!grid) return;
+
+    const isOpen = btn.classList.toggle('active');
+    grid.hidden = !isOpen;
 
     const icon = btn.querySelector('.icon');
-    const isHidden = grid.hasAttribute('hidden') || grid.style.display === 'none';
+    if (icon) icon.textContent = isOpen ? '−' : '＋';
 
-    if (isHidden) {
-      // --- Abrir ---
-      grid.removeAttribute('hidden');
-      grid.style.display = 'grid';
-      btn.classList.add('active');
-      if (icon) icon.textContent = '−';
-      console.log('[measures-toggle] ABRINDO →', targetId, grid);
-    } else {
-      // --- Fechar ---
-      grid.setAttribute('hidden', '');
-      grid.style.display = 'none';
-      btn.classList.remove('active');
-      if (icon) icon.textContent = '＋';
-      console.log('[measures-toggle] FECHANDO →', targetId, grid);
-    }
+    console.log('[measures-toggle]', targetId, '→', isOpen ? 'ABERTO' : 'FECHADO');
   });
+
+  // inicia fechado
+  document.querySelectorAll('.measures-grid').forEach(g => g.hidden = true);
 })();
