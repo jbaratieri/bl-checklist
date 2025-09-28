@@ -65,3 +65,53 @@
   font-family: monospace;
   font-size: 18px;
 }
+/* Toolbar limpa e flexível */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.toolbar .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.toolbar .btn:hover {
+  background: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+.toolbar .btn:active {
+  background: #eee;
+  transform: translateY(0);
+}
+
+/* Ícone */
+.toolbar .btn::first-letter {
+  font-size: 1.1rem;
+}
+
+/* Label (texto ao lado do ícone) */
+.toolbar .label {
+  display: inline;
+}
+
+/* Versão mobile — só ícones */
+@media (max-width: 640px) {
+  .toolbar .label {
+    display: none;
+  }
+  .toolbar {
+    justify-content: space-around;
+  }
+}

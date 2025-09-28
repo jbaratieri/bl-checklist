@@ -82,12 +82,23 @@
 
     <!-- Toolbar -->
     <div class="toolbar">
-      <button class="btn primary" id="btnPrint" data-has-print="1">Gerar PDF / Imprimir</button>
-      <button class="btn" id="btnExpand">Expandir tudo</button>
-      <button class="btn" id="btnCollapse">Recolher tudo</button>
-      <button class="btn" id="btnReset">Limpar dados</button>
-      <button class="btn" id="btnMeasuresTable">TABELA DE MEDIDAS</button>
+      <button class="btn" id="btnPrint" data-has-print="1" title="Gerar PDF / Imprimir">
+        🖨️ <span class="label">Imprimir</span>
+      </button>
+      <button class="btn" id="btnExpand" title="Expandir tudo">
+        ⬇️ <span class="label">Expandir</span>
+      </button>
+      <button class="btn" id="btnCollapse" title="Recolher tudo">
+        ⬆️ <span class="label">Recolher</span>
+      </button>
+      <button class="btn" id="btnReset" title="Limpar dados">
+        🗑️ <span class="label">Limpar</span>
+      </button>
+      <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
+        📏 <span class="label">Medidas</span>
+      </button>
     </div>
+
 
   </header>
 
@@ -433,42 +444,46 @@
           <div class="tick">✔</div>
         </header>
         <div class="section-body">
+          <div class="measures-block">
+            <button class="btn toggle" type="button" data-target="measures-braco">
+              <span class="icon">＋</span> Medidas
+            </button>
+            <div class="measures-grid">
+              <label>
+                Madeira:
+                <input class="persist" id="braco-madeira-sec02" type="text" data-measure="braco.madeira" placeholder="">
+              </label>
 
-          <div class="measures-grid">
-            <label>
-              Madeira:
-              <input class="persist" id="braco-madeira-sec02" type="text" data-measure="braco.madeira" placeholder="">
-            </label>
+              <label>
+                Inclinação Headstock (°):
+                <input class="persist" id="braco-inclinacao-headstock-sec02" type="number" step="0.1"
+                  data-measure="braco.inclinacao_headstock" placeholder="">
+              </label>
 
-            <label>
-              Inclinação Headstock (°):
-              <input class="persist" id="braco-inclinacao-headstock-sec02" type="number" step="0.1"
-                data-measure="braco.inclinacao_headstock" placeholder="">
-            </label>
+              <label>
+                Largura Nut (mm):
+                <input class="persist" id="braco-largura-nut-sec02" type="number" step="0.1"
+                  data-measure="braco.largura_nut" placeholder="">
+              </label>
 
-            <label>
-              Largura Nut (mm):
-              <input class="persist" id="braco-largura-nut-sec02" type="number" step="0.1"
-                data-measure="braco.largura_nut" placeholder="">
-            </label>
+              <label>
+                Largura Casa 12 (mm):
+                <input class="persist" id="braco-largura-casa12-sec02" type="number" step="0.1"
+                  data-measure="braco.largura_casa12" placeholder="">
+              </label>
 
-            <label>
-              Largura Casa 12 (mm):
-              <input class="persist" id="braco-largura-casa12-sec02" type="number" step="0.1"
-                data-measure="braco.largura_casa12" placeholder="">
-            </label>
+              <label>
+                Espessura Nut (mm):
+                <input class="persist" id="braco-espessura-nut-sec02" type="number" step="0.1"
+                  data-measure="braco.espessura_nut" placeholder="">
+              </label>
 
-            <label>
-              Espessura Nut (mm):
-              <input class="persist" id="braco-espessura-nut-sec02" type="number" step="0.1"
-                data-measure="braco.espessura_nut" placeholder="">
-            </label>
-
-            <label>
-              Espessura Casa 10 (mm):
-              <input class="persist" id="braco-espessura-casa10-sec02" type="number" step="0.1"
-                data-measure="braco.espessura_casa10" placeholder="">
-            </label>
+              <label>
+                Espessura Casa 10 (mm):
+                <input class="persist" id="braco-espessura-casa10-sec02" type="number" step="0.1"
+                  data-measure="braco.espessura_casa10" placeholder="">
+              </label>
+            </div>
           </div>
 
           <!-- sol1 -->
@@ -1695,43 +1710,52 @@
           <div class="tick">✔</div>
         </header>
         <div class="section-body">
-          <div class="measures-grid">
 
-            <label>
-              Madeira:
-              <input class="persist" id="tampo-madeira-sec03" type="text" data-measure="tampo.madeira" placeholder="">
-            </label>
+          <div class="measures-block">
+            <button class="btn toggle" type="button" data-target="measures-braco">
+              <span class="icon">＋</span> Medidas
+            </button>
 
-            <label>
-              Comprimento (mm):
-              <input class="persist" id="tampo-comprimento-sec03" type="number" step="0.1"
-                data-measure="tampo.comprimento" placeholder="">
-            </label>
+            <div class="measures-grid">
 
-            <label>
-              Largura Bojo (mm):
-              <input class="persist" id="tampo-largura-bojo-sec03" type="number" step="0.1"
-                data-measure="tampo.largura_bojo" placeholder="">
-            </label>
 
-            <label>
-              Largura Cintura (mm):
-              <input class="persist" id="tampo-largura-cintura-sec03" type="number" step="0.1"
-                data-measure="tampo.largura_cintura" placeholder="">
-            </label>
+              <label>
+                Madeira:
+                <input class="persist" id="tampo-madeira-sec03" type="text" data-measure="tampo.madeira" placeholder="">
+              </label>
 
-            <label>
-              Largura Ombro (mm):
-              <input class="persist" id="tampo-largura-ombro-sec03" type="number" step="0.1"
-                data-measure="tampo.largura_ombro" placeholder="">
-            </label>
+              <label>
+                Comprimento (mm):
+                <input class="persist" id="tampo-comprimento-sec03" type="number" step="0.1"
+                  data-measure="tampo.comprimento" placeholder="">
+              </label>
 
-            <label>
-              Espessura Final (mm):
-              <input class="persist" id="tampo-espessura-final-sec03" type="number" step="0.1"
-                data-measure="tampo.espessura_final" placeholder="">
-            </label>
+              <label>
+                Largura Bojo (mm):
+                <input class="persist" id="tampo-largura-bojo-sec03" type="number" step="0.1"
+                  data-measure="tampo.largura_bojo" placeholder="">
+              </label>
+
+              <label>
+                Largura Cintura (mm):
+                <input class="persist" id="tampo-largura-cintura-sec03" type="number" step="0.1"
+                  data-measure="tampo.largura_cintura" placeholder="">
+              </label>
+
+              <label>
+                Largura Ombro (mm):
+                <input class="persist" id="tampo-largura-ombro-sec03" type="number" step="0.1"
+                  data-measure="tampo.largura_ombro" placeholder="">
+              </label>
+
+              <label>
+                Espessura Final (mm):
+                <input class="persist" id="tampo-espessura-final-sec03" type="number" step="0.1"
+                  data-measure="tampo.espessura_final" placeholder="">
+              </label>
+            </div>
           </div>
+
           <div class="step" data-step="tampo1">
             <input class="chk persist" id="tampo1" type="checkbox" />
             <label class="label" for="tampo1">Retificar juntas</label>
@@ -2519,21 +2543,29 @@
           <div class="tick">✔</div>
         </header>
         <div class="section-body">
-          <div class="measures-grid">
 
-            <label>
-              Madeira:
-              <input class="persist" id="fundo-madeira-sec04" type="text" data-measure="fundo.madeira" placeholder="">
-            </label>
+          <div class="measures-block">
+            <button class="btn toggle" type="button" data-target="measures-braco">
+              <span class="icon">＋</span> Medidas
+            </button>
 
-            <label>
-              Espessura Final (mm):
-              <input class="persist" id="fundo-espessura-final-sec04" type="number" step="0.1"
-                data-measure="fundo.espessura_final" placeholder="">
-            </label>
-            <span><small>A preparação do fundo segue os mesmos princípios aplicados na seção <em>"3)
-                  Tampo"</em>.</small></span>
+            <div class="measures-grid">
+
+              <label>
+                Madeira:
+                <input class="persist" id="fundo-madeira-sec04" type="text" data-measure="fundo.madeira" placeholder="">
+              </label>
+
+              <label>
+                Espessura Final (mm):
+                <input class="persist" id="fundo-espessura-final-sec04" type="number" step="0.1"
+                  data-measure="fundo.espessura_final" placeholder="">
+              </label>
+              <span><small>A preparação do fundo segue os mesmos princípios aplicados na seção <em>"3)
+                    Tampo"</em>.</small></span>
+            </div>
           </div>
+
           <div class="step" data-step="fundo1">
             <input class="chk persist" id="fundo1" type="checkbox" />
             <label class="label" for="fundo1">Retificar</label>
@@ -2912,31 +2944,38 @@
           <div class="tick">✔</div>
         </header>
         <div class="section-body">
-          <div class="measures-grid">
 
-            <label>
-              Madeira:
-              <input class="persist" id="laterais-madeira-sec05" type="text" data-measure="laterais.madeira"
-                placeholder="">
-            </label>
+          <div class="measures-block">
+            <button class="btn toggle" type="button" data-target="measures-braco">
+              <span class="icon">＋</span> Medidas
+            </button>
 
-            <label>
-              Comprimento (mm):
-              <input class="persist" id="laterais-comprimento-sec05" type="number" step="0.1"
-                data-measure="laterais.comprimento" placeholder="">
-            </label>
+            <div class="measures-grid">
 
-            <label>
-              Largura Culatra (mm):
-              <input class="persist" id="laterais-largura-culatra-sec05" type="number" step="0.1"
-                data-measure="laterais.largura_culatra" placeholder="">
-            </label>
+              <label>
+                Madeira:
+                <input class="persist" id="laterais-madeira-sec05" type="text" data-measure="laterais.madeira"
+                  placeholder="">
+              </label>
 
-            <label>
-              Largura Tróculo (mm):
-              <input class="persist" id="laterais-largura-troculo-sec05" type="number" step="0.1"
-                data-measure="laterais.largura_troculo" placeholder="">
-            </label>
+              <label>
+                Comprimento (mm):
+                <input class="persist" id="laterais-comprimento-sec05" type="number" step="0.1"
+                  data-measure="laterais.comprimento" placeholder="">
+              </label>
+
+              <label>
+                Largura Culatra (mm):
+                <input class="persist" id="laterais-largura-culatra-sec05" type="number" step="0.1"
+                  data-measure="laterais.largura_culatra" placeholder="">
+              </label>
+
+              <label>
+                Largura Tróculo (mm):
+                <input class="persist" id="laterais-largura-troculo-sec05" type="number" step="0.1"
+                  data-measure="laterais.largura_troculo" placeholder="">
+              </label>
+            </div>
           </div>
 
           <div class="step" data-step="lat1">
@@ -2968,8 +3007,10 @@
                 </li>
                 <li><strong>Corte manual limpo:</strong> prenda as peças à mesa com régua de alumínio/madeira como
                   batente.
-                  Use serrucho curvo (ou serrote/tico-tico) e passe quantas vezes precisar até separar o excedente.</li>
-                <li><strong>Calibragem da espessura:</strong> marque com calibrador/gabarito (pontos de profundidade) e
+                  Use serrucho curvo (ou serrote/tico-tico) e passe quantas vezes precisar até separar o excedente.
+                </li>
+                <li><strong>Calibragem da espessura:</strong> marque com calibrador/gabarito (pontos de profundidade)
+                  e
                   reduza com
                   plaina de mão (ferro baixo e <em>bem afiado</em>) + raspilha; finalize com lixas em base plana.</li>
                 <li><strong>Fixação e sentido de trabalho:</strong> ao aplainar, trabalhe <em>contra</em> o lado onde
@@ -2996,7 +3037,8 @@
                 plantilla/planta e ao encordoamento.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> ~<strong>1,6–2,0&nbsp;mm</strong>; corpos menores pedem controle fino para
+                <strong>Cavaquinho:</strong> ~<strong>1,6–2,0&nbsp;mm</strong>; corpos menores pedem controle fino
+                para
                 evitar trincas na dobra.
               </p>
               <p class="callout" data-instruments="uku">
@@ -3056,7 +3098,8 @@
                 <li>Escolha um bordo 100% reto como referência e <strong>retifique</strong> se necessário (régua +
                   serrote
                   curvo ou plaina/tupia).</li>
-                <li>Marque <strong>larguras</strong> conforme a plantilla/planta (ex.: violão, ~90–95&nbsp;mm na região
+                <li>Marque <strong>larguras</strong> conforme a plantilla/planta (ex.: violão, ~90–95&nbsp;mm na
+                  região
                   do
                   braço e
                   ~95–100&nbsp;mm na culatra) e
@@ -3069,7 +3112,8 @@
                 <li>Fixe o tubo de dobra além da borda da bancada para ter espaço livre dos dois lados.</li>
                 <li>Regule a chama (mecha ~10&nbsp;mm) ou resistência para manter a superfície do tubo
                   ~<strong>120–150&nbsp;°C</strong>.</li>
-                <li>Umedeça a face que encosta no tubo com <strong>esponja + água</strong>. Evite “deixar de molho” por
+                <li>Umedeça a face que encosta no tubo com <strong>esponja + água</strong>. Evite “deixar de molho”
+                  por
                   1–2&nbsp;dias: enfraquece e deforma.</li>
               </ul>
 
@@ -3081,9 +3125,11 @@
                 <li>Leve a faixa ao tubo exatamente na região marcada e <strong>balance</strong> levemente (E↔D),
                   aplicando
                   pressão gradual com taco auxiliar.</li>
-                <li>Alterne dobrar ⇄ conferir no molde. Se passar do ponto, <strong>desdobre</strong> umedecendo o lado
+                <li>Alterne dobrar ⇄ conferir no molde. Se passar do ponto, <strong>desdobre</strong> umedecendo o
+                  lado
                   oposto.</li>
-                <li>Repita até concluir toda a cintura e bojos. Dobre a segunda faixa espelhando a primeira (confira no
+                <li>Repita até concluir toda a cintura e bojos. Dobre a segunda faixa espelhando a primeira (confira
+                  no
                   molde antes de soltar a primeira).</li>
               </ul>
 
@@ -3114,7 +3160,8 @@
                 ressecamento.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Calor:</strong> ~120–150&nbsp;°C no tubo; marcas escuras indicam excesso — alivie e re-hidrate.
+                <strong>Calor:</strong> ~120–150&nbsp;°C no tubo; marcas escuras indicam excesso — alivie e
+                re-hidrate.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
                 <strong>Guia no molde:</strong> use sempre a mesma <em>marca zero</em> ao conferir o avanço. Evita
@@ -3123,7 +3170,8 @@
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> espessura alvo das faixas ≈ <em>1,7–2,0&nbsp;mm</em>. Larguras típicas
+                <strong>Violão clássico:</strong> espessura alvo das faixas ≈ <em>1,7–2,0&nbsp;mm</em>. Larguras
+                típicas
                 (ajuste à sua plantilla/planta):
                 ~90–95&nbsp;mm (braço) / ~95–100&nbsp;mm (culatra).
               </p>
@@ -3200,13 +3248,15 @@
 
               <h5>2) Marcação das laterais no molde fêmea</h5>
               <ul>
-                <li>Monte as laterais <em>no molde fêmea</em> (solera) e marque uma <strong>referência zero</strong> em
+                <li>Monte as laterais <em>no molde fêmea</em> (solera) e marque uma <strong>referência zero</strong>
+                  em
                   cada lateral, alinhada a um ponto fixo do molde (para garantir repetibilidade).</li>
                 <li>Com o braço posicionado no molde, utilize a marcação do <strong>pescoço do tróculo</strong> (12 mm
                   de largura total, 6 mm de cada lado do centro) como guia.</li>
                 <li>Centralize as laterais no molde e marque nas extremidades o ponto exato de corte, alinhado à
                   marcação do tróculo.</li>
-                <li>Retire as laterais, corte com serrote fino ou tesoura robusta, e ajuste com lima ou raspilha até que
+                <li>Retire as laterais, corte com serrote fino ou tesoura robusta, e ajuste com lima ou raspilha até
+                  que
                   o encaixe fique justo nos slots retos do tróculo.</li>
               </ul>
 
@@ -3214,7 +3264,8 @@
               <ul>
                 <li>Com laterais no molde e o braço no lugar, prenda as laterais contra as paredes da solera. Na
                   culatra, elas ficarão <strong>sobrepostas</strong>.</li>
-                <li>Marque a <strong>linha central</strong> da solera nas duas laterais; retire o conjunto, prolongue a
+                <li>Marque a <strong>linha central</strong> da solera nas duas laterais; retire o conjunto, prolongue
+                  a
                   marca com esquadro e faça o corte a 90°: primeiro no costado externo, depois no interno. Volte ao
                   molde e confira a junção.</li>
               </ul>
@@ -3241,11 +3292,13 @@
               <ul>
                 <li>Faça um leve <strong>chanfro</strong> no bordo que encosta na <strong>tapa</strong> para casar o
                   pequeno bombeamento. (É sutil; ajuda a assentarem sem “calço de cola”.)</li>
-                <li>Se houver <strong>adorno central</strong> na emenda das faixas traseiras, cole primeiro o adorno na
+                <li>Se houver <strong>adorno central</strong> na emenda das faixas traseiras, cole primeiro o adorno
+                  na
                   culatra, bem centralizado. Após a cura, proceda com a colagem das faixas laterais à culatra,
                   incorporando o adorno sem necessidade de abrir slots posteriores.</li>
                 <li>Aplique cola no bordo chanfrado (lado da tapa) e na face curva onde abraça as laterais.</li>
-                <li>Posicione a culatra, proteja com tacos e <strong>grampeie</strong> por dentro; se quiser, um grampo
+                <li>Posicione a culatra, proteja com tacos e <strong>grampeie</strong> por dentro; se quiser, um
+                  grampo
                   externo por cima ajuda a pressionar na tapa (evite marcar).</li>
               </ul>
 
@@ -3325,15 +3378,18 @@
 
               <h5>Sequência recomendada</h5>
               <ul>
-                <li><strong>Conjunto no molde fêmea:</strong> faixa laterais coladas ao tróculo e culatra, então volte o
+                <li><strong>Conjunto no molde fêmea:</strong> faixa laterais coladas ao tróculo e culatra, então volte
+                  o
                   conjunto ao molde fêmea, ajuste-o centralizado, então segue para colagem do reengrosso.
-                <li><strong>Ajuste a seco:</strong> teste o alinhamento ao longo da lateral. Faça recortes/entalhes nos
+                <li><strong>Ajuste a seco:</strong> teste o alinhamento ao longo da lateral. Faça recortes/entalhes
+                  nos
                   encontros com
                   <em>tróculo</em> e <em>culatra</em> para assentar sem folga.
                 </li>
                 <li><strong>Cola (tampo):</strong> filme fino de cola alifática na interface; posicione o reengrosso
                   nivelado com a
-                  borda superior do aro. Prense com presilhas (molas de roupa reforçadas/elásticos), “do centro para as
+                  borda superior do aro. Prense com presilhas (molas de roupa reforçadas/elásticos), “do centro para
+                  as
                   pontas”.</li>
                 <li><strong>Cura:</strong> 2–4&nbsp;h mínimo (ideal 8–12&nbsp;h). Remova escorridos.</li>
                 <li><strong>Cola (fundo):</strong> repita no bordo inferior. Se o fundo tiver <em>bombeamento</em>,
@@ -3364,7 +3420,8 @@
                 ~3–4&nbsp;mm) para curvar fácil.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Prensagem:</strong> molas de roupa com elástico, presilhas de mola ou go-bar. Pressão contínua e
+                <strong>Prensagem:</strong> molas de roupa com elástico, presilhas de mola ou go-bar. Pressão contínua
+                e
                 distribuída.
               </p>
 
@@ -3396,7 +3453,8 @@
 
             <div class="detail" id="d-caixa3">
 
-              <p><strong>Objetivo:</strong> garantir que o <em>eixo do braço</em> coincida com a <em>linha de centro da
+              <p><strong>Objetivo:</strong> garantir que o <em>eixo do braço</em> coincida com a <em>linha de centro
+                  da
                   caixa</em>
                 e que a <strong>projeção do plano da escala</strong> encontre corretamente a <strong>linha do
                   cavalete</strong>.</p>
@@ -3404,7 +3462,8 @@
               <h5>Sequência prática</h5>
               <ul>
                 <li><strong>Conjunto:</strong> Nessa etapa o conjunto (caixa e braço) deve estar no molde fêmea.</li>
-                <li><strong>Centro:</strong> marque uma linha de centro contínua (mão → braço → tróculo → culatra). Com
+                <li><strong>Centro:</strong> marque uma linha de centro contínua (mão → braço → tróculo → culatra).
+                  Com
                   o conjunto na solera,
                   use régua/linha-guia e confirme que a cabeça e a culatra “batem” no mesmo eixo.</li>
                 <li><strong>Simetria lateral:</strong> meça as distâncias das laterais até a linha de centro em 2–3
@@ -3479,7 +3538,8 @@
               <h5>Sequência prática</h5>
               <ul>
 
-                <li><strong>Ensaio a seco:</strong> O conjunto já está com o braço alinhado e acomodado no molde fêmea.
+                <li><strong>Ensaio a seco:</strong> O conjunto já está com o braço alinhado e acomodado no molde
+                  fêmea.
                   Então, posicione o tampo no conjunto onde deverá ser colado e marque no conjunto
                   (linings/blocos) as posições das travessas e confira todos os encaixes.</li>
                 <li><strong>Entalhes/assentos:</strong> Nas marcações, faça traços posicionando uma régua unindo as
@@ -3516,11 +3576,13 @@
                 até encostar por gravidade.
               </p>
               <p class="callout" data-instruments="vcl vla">
-                <strong>Doming:</strong> se usar arqueamento no tampo, confira que linings/blocos acompanham o raio (sem
+                <strong>Doming:</strong> se usar arqueamento no tampo, confira que linings/blocos acompanham o raio
+                (sem
                 forçar).
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Faixa fina:</strong> evite excesso de pressão em curvas fechadas (cintura); prefira mais pontos
+                <strong>Faixa fina:</strong> evite excesso de pressão em curvas fechadas (cintura); prefira mais
+                pontos
                 com menos força.
               </p>
 
@@ -3554,14 +3616,17 @@
 
               <p><strong>Objetivo:</strong> colar o fundo sobre o “rim” (laterais + reengrossos/linings + blocos),
                 preservando o
-                arqueamento (doming) e garantindo contato integral nos assentos das travessas e do reforço central.</p>
+                arqueamento (doming) e garantindo contato integral nos assentos das travessas e do reforço central.
+              </p>
 
               <h5>Sequência prática</h5>
               <ul>
-                <li><strong>Preparar o assento do tróculo:</strong> com o corpo na solera (tampo acomodado na soleira e
+                <li><strong>Preparar o assento do tróculo:</strong> com o corpo na solera (tampo acomodado na soleira
+                  e
                   fixo)
                   rebaixe cuidadosamente o assento do tróculo para que ele venha acomodar o fundo. O rebaixo não deve
-                  ser horizontal e sim meio inclinado, pois o fundo é abaulado e precisa acomodar perfeitamente para que
+                  ser horizontal e sim meio inclinado, pois o fundo é abaulado e precisa acomodar perfeitamente para
+                  que
                   seja colado no assento do tróculo</li>
                 <li><strong>Ensaio a seco:</strong> Agora, com o corpo no molde/solera (tampo acomodado na soleira e
                   fixo)
@@ -3570,7 +3635,8 @@
                   os pontos onde travessas e espelho central encostam.</li>
                 <li><strong>Assentos/entalhes:</strong> abra rebaixos leves nos linings/blocos onde necessário para as
                   travessas.
-                  Tudo deve encostar sem forçar. Se usa <em>radius dish</em>, trabalhe o conjunto apoiado no prato para
+                  Tudo deve encostar sem forçar. Se usa <em>radius dish</em>, trabalhe o conjunto apoiado no prato
+                  para
                   manter o doming.</li>
                 <li><strong>Teste final:</strong> posicione o fundo “a seco” e confira: centro alinhado, sem folgas na
                   cintura e nos bojos,
@@ -3608,7 +3674,8 @@
                 <em>spool clamps</em> ~60–80 mm.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Corpos menores:</strong> mais pontos de pressão com menor carga em cada ponto. Evite concentrar
+                <strong>Corpos menores:</strong> mais pontos de pressão com menor carga em cada ponto. Evite
+                concentrar
                 força na cintura.
               </p>
 
@@ -3663,14 +3730,16 @@
                 <li><strong>Testes:</strong> faça um corpo de prova com recortes da mesma madeira/curvatura. Ajuste
                   altura e afastamento da fresa até o encaixe “justo sem forçar”.</li>
                 <li><strong>Fresagem em duas etapas:</strong> primeiro o canal do binding; depois, regulando a
-                  guia/afastador, o canal do purfling. Prefira <em>passadas rasas</em> (2–3 voltas) do que um corte só.
+                  guia/afastador, o canal do purfling. Prefira <em>passadas rasas</em> (2–3 voltas) do que um corte
+                  só.
                 </li>
                 <li><strong>Base estável:</strong> a base da tupia deve apoiar 100% no tampo/fundo; mantenha-a
                   perpendicular à lateral. Em regiões curvas (cintura), avance devagar e sem “morder” contra o veio.
                 </li>
                 <li><strong>Acertos finos:</strong> nos encontros (culatra/tróculo), conclua com formões pequenos,
                   bisturi e micro-limas, preservando as quinas.</li>
-                <li><strong>Limpeza:</strong> retire rebarbas com raspilha e escova de latão macia; aspire o canal antes
+                <li><strong>Limpeza:</strong> retire rebarbas com raspilha e escova de latão macia; aspire o canal
+                  antes
                   da colagem.</li>
               </ul>
 
@@ -3738,7 +3807,8 @@
 
               <h5>Procedimento recomendado</h5>
               <ul>
-                <li><strong>Pré-forma:</strong> amoleça filetes de <em>madeira</em> em água morna/vapor e pré-dobre nas
+                <li><strong>Pré-forma:</strong> amoleça filetes de <em>madeira</em> em água morna/vapor e pré-dobre
+                  nas
                   curvas (cintura/bojos). Para ABS/celulóide, aqueça levemente (ar quente) — sem água.</li>
                 <li><strong>Ordem:</strong> instale <em>primeiro</em> o purfling (se houver) e <em>depois</em> o
                   binding. Comece pela <strong>culatra</strong> (rabeta), faça as mitras e avance em sentido
@@ -3760,25 +3830,30 @@
 
               <!-- Callouts universais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Mitras na culatra:</strong> marque e corte as mitras do purfling antes do binding; ajuste a seco
+                <strong>Mitras na culatra:</strong> marque e corte as mitras do purfling antes do binding; ajuste a
+                seco
                 até o “V” fechar sem fresta.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Proteção do tampo:</strong> se usar CA, <em>selar</em> o tampo com 1–2 demãos finas de goma-laca
+                <strong>Proteção do tampo:</strong> se usar CA, <em>selar</em> o tampo com 1–2 demãos finas de
+                goma-laca
                 reduz a “névoa” e manchas.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Densidade de fita:</strong> 20–30&nbsp;mm é regra geral; na cintura use 10–15&nbsp;mm e borracha
+                <strong>Densidade de fita:</strong> 20–30&nbsp;mm é regra geral; na cintura use 10–15&nbsp;mm e
+                borracha
                 contínua.
               </p>
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> tiras mais largas; aqueça suavemente nas transições bojo&nbsp;maior/menor
+                <strong>Violão/Viola:</strong> tiras mais largas; aqueça suavemente nas transições
+                bojo&nbsp;maior/menor
                 para evitar “pontas” levantando.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Cavaquinho/Ukulele:</strong> curvas mais fechadas: pré-dobre com molde e use fita mais estreita
+                <strong>Cavaquinho/Ukulele:</strong> curvas mais fechadas: pré-dobre com molde e use fita mais
+                estreita
                 + mais voltas de borracha.
               </p>
 
@@ -3818,9 +3893,11 @@
                 <li><strong>Tampo e fundo:</strong> comece removendo material “de fora → para dentro”, com
                   <em>limatão/lima</em> bem apoiada e levemente inclinada, para não marcar as placas.
                 </li>
-                <li><strong>Ferramentas de corte fino:</strong> raspilha bem afiada, lâmina de vidro ou “cuchilla” para
+                <li><strong>Ferramentas de corte fino:</strong> raspilha bem afiada, lâmina de vidro ou “cuchilla”
+                  para
                   aproximar ao plano. Passes curtos, sempre no sentido favorável das fibras.</li>
-                <li><strong>Laterais:</strong> o mais eficiente é a raspilha/vidro. Apoie o corpo na bancada e trabalhe
+                <li><strong>Laterais:</strong> o mais eficiente é a raspilha/vidro. Apoie o corpo na bancada e
+                  trabalhe
                   por setores, uniformizando o toque visual e tátil.</li>
                 <li><strong>Correções:</strong> pequenas fendas podem ser fechadas com <em>CA</em> média + pó fino da
                   mesma madeira. Raspe assim que gelar para não criar “crista”.</li>
@@ -3837,7 +3914,8 @@
                 <strong>De fora → para dentro:</strong> esta direção evita “morder” o tampo/fundo ao nivelar o filete.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Ângulo da ferramenta:</strong> 5–10° e apoio firme. Passes curtos e controlados reduzem lascas.
+                <strong>Ângulo da ferramenta:</strong> 5–10° e apoio firme. Passes curtos e controlados reduzem
+                lascas.
               </p>
               <p class="callout" data-instruments="cav uku">
                 <strong>Corpos pequenos:</strong> máscara a área do tampo/fundo com fita para não tocar a placa nas
@@ -3886,16 +3964,20 @@
 
               <h5>Procedimento recomendado</h5>
               <ul>
-                <li><strong>Preparar o rebaixo no tróculo:</strong> marque a altura das três linhas decorativas (filetes
-                  dos aros) e faça um rebaixo <em>ligeiramente inclinado</em> (segue o bombeamento do fundo). Comece com
+                <li><strong>Preparar o rebaixo no tróculo:</strong> marque a altura das três linhas decorativas
+                  (filetes
+                  dos aros) e faça um rebaixo <em>ligeiramente inclinado</em> (segue o bombeamento do fundo). Comece
+                  com
                   formão afiado no sentido correto das fibras; finalize com limatão e lima de aço.</li>
                 <li><strong>Tapeta (pezinho):</strong> use madeira compatível (mesma do fundo ou combinando com o
                   binding). Deixe espessura de 3–5&nbsp;mm em bruto para ajustar com folga.</li>
                 <li><strong>Ajuste ao corpo:</strong> com galga/lixa (grão 80–120) dê a inclinação correspondente ao
                   rebaixo e confira contato integral contra a caixa. Marque o contorno no pezinho e recorte (serra de
                   marqueteria ou lixadeira de prato/mesa).</li>
-                <li><strong>Colagem:</strong> aplique cola (Titebond ou CA média) cobrindo inclusive a faixa onde passam
-                  as listras dos aros. Prense com <em>fita adesiva</em> (duas direções) e, se quiser, um calço leve. Não
+                <li><strong>Colagem:</strong> aplique cola (Titebond ou CA média) cobrindo inclusive a faixa onde
+                  passam
+                  as listras dos aros. Prense com <em>fita adesiva</em> (duas direções) e, se quiser, um calço leve.
+                  Não
                   é uma zona de grande tensão.</li>
                 <li><strong>Acabamento:</strong> após 8–12&nbsp;h, remova a fita, confira a continuidade das linhas,
                   acerte contorno com lima fina e finalize em lixa 320→600.</li>
@@ -3907,7 +3989,8 @@
                 confira após a colagem.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Inclinação:</strong> a tapeta prolonga o <em>bombeamento</em> do fundo. Se o fundo for plano, o
+                <strong>Inclinação:</strong> a tapeta prolonga o <em>bombeamento</em> do fundo. Se o fundo for plano,
+                o
                 rebaixo é plano.
               </p>
               <p class="callout" data-instruments="cav uku">
@@ -3952,30 +4035,38 @@
           <div class="tick">✔</div>
         </header>
         <div class="section-body">
-          <div class="measures-grid">
 
-            <label>
-              Madeira:
-              <input class="persist" id="escala-madeira-sec08" type="text" data-measure="escala.madeira" placeholder="">
-            </label>
+          <div class="measures-block">
+            <button class="btn toggle" type="button" data-target="measures-braco">
+              <span class="icon">＋</span> Medidas
+            </button>
 
-            <label>
-              Espessura (mm):
-              <input class="persist" id="escala-espessura-sec08" type="number" step="0.1"
-                data-measure="escala.espessura" placeholder="">
-            </label>
+            <div class="measures-grid">
 
-            <label>
-              Largura Nut (mm):
-              <input class="persist" id="escala-largura-nut-sec08" type="number" step="0.1"
-                data-measure="escala.largura_nut" placeholder="">
-            </label>
+              <label>
+                Madeira:
+                <input class="persist" id="escala-madeira-sec08" type="text" data-measure="escala.madeira"
+                  placeholder="">
+              </label>
 
-            <label>
-              Largura Casa 12 (mm):
-              <input class="persist" id="escala-largura-casa12-sec08" type="number" step="0.1"
-                data-measure="escala.largura_casa12" placeholder="">
-            </label>
+              <label>
+                Espessura (mm):
+                <input class="persist" id="escala-espessura-sec08" type="number" step="0.1"
+                  data-measure="escala.espessura" placeholder="">
+              </label>
+
+              <label>
+                Largura Nut (mm):
+                <input class="persist" id="escala-largura-nut-sec08" type="number" step="0.1"
+                  data-measure="escala.largura_nut" placeholder="">
+              </label>
+
+              <label>
+                Largura Casa 12 (mm):
+                <input class="persist" id="escala-largura-casa12-sec08" type="number" step="0.1"
+                  data-measure="escala.largura_casa12" placeholder="">
+              </label>
+            </div>
           </div>
 
           <div class="step" data-step="escala1">
@@ -3987,30 +4078,39 @@
 
 
             <div class="detail" id="d-escala1">
-              <p><strong>Objetivo:</strong> calibrar a espessura da escala, esquadrejar um bordo de referência e a face
-                da pestana, traçar as casas com precisão e então cortar os <em>slots</em> dos trastes com profundidade e
+              <p><strong>Objetivo:</strong> calibrar a espessura da escala, esquadrejar um bordo de referência e a
+                face
+                da pestana, traçar as casas com precisão e então cortar os <em>slots</em> dos trastes com
+                profundidade e
                 largura corretas.</p>
 
               <h5>1) Calibragem (regrueso) da escala</h5>
               <ul>
-                <li>Material típico: ébano, ipê, "pau-ferro" (madeira densidade alta). <strong>Espessura alvo:</strong>
+                <li>Material típico: ébano, ipê, "pau-ferro" (madeira densidade alta). <strong>Espessura
+                    alvo:</strong>
                   <span class="measure">6–7&nbsp;mm</span>
                   após plano e livre de marcas.
                 </li>
-                <li><strong>Método manual:</strong> fixe a peça com gatos baixos ou num berço; passe galga/taco longo
-                  com lixa <strong>P40</strong> até remover marcas de serra; vire e leve à espessura alvo. Controle com
+                <li><strong>Método manual:</strong> fixe a peça com gatos baixos ou num berço; passe galga/taco
+                  longo
+                  com lixa <strong>P40</strong> até remover marcas de serra; vire e leve à espessura alvo. Controle
+                  com
                   paquímetro/calibrador.</li>
-                <li><strong>Semimanual:</strong> plaina elétrica “com pouco ferro”, lixadeira vibratória/banda; sempre
+                <li><strong>Semimanual:</strong> plaina elétrica “com pouco ferro”, lixadeira vibratória/banda;
+                  sempre
                   finalize com galga/plano longo para garantir planicidade.</li>
-                <li>Acabamento da face onde vão os trastes: refine em <strong>P180→P320</strong>; se desejar, raspe com
+                <li>Acabamento da face onde vão os trastes: refine em <strong>P180→P320</strong>; se desejar, raspe
+                  com
                   cuchilla/vidro e polir levemente com pó-de-pómez.</li>
               </ul>
 
               <h5>2) Esquadrejamento</h5>
               <ul>
-                <li><strong>Escolha e planeie um bordo de referência</strong> (100% reto). Se necessário, use galga P40
+                <li><strong>Escolha e planeie um bordo de referência</strong> (100% reto). Se necessário, use galga
+                  P40
                   para “tirar linha”.</li>
-                <li>No topo (lado da pestana), risque e <strong>corte a 90°</strong> usando o bordo de referência como
+                <li>No topo (lado da pestana), risque e <strong>corte a 90°</strong> usando o bordo de referência
+                  como
                   guia (escuadra). Essa face será a “origem” das medidas das casas.</li>
               </ul>
 
@@ -4022,7 +4122,8 @@
                   <code>L − L/2^(n/12)</code>. Alternativa prática: crie um <em>template</em> em cartolina colada no
                   canto da mesa, marcando com régua e esquadro para ter linhas paralelas e a 90°.
                 </li>
-                <li>Transfira as linhas para a escala: encoste o template ao bordo de referência e alinhe com a face da
+                <li>Transfira as linhas para a escala: encoste o template ao bordo de referência e alinhe com a face
+                  da
                   pestana a 90°.</li>
               </ul>
 
@@ -4043,7 +4144,8 @@
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> escala típica <strong>650&nbsp;mm</strong>; slots ~1,7–1,9&nbsp;mm de
+                <strong>Violão clássico:</strong> escala típica <strong>650&nbsp;mm</strong>; slots ~1,7–1,9&nbsp;mm
+                de
                 profundidade; face superior final em P320 (não “espelhar” demais).
               </p>
               <p class="callout" data-instruments="vla">
@@ -4051,11 +4153,13 @@
                 pestana dupla/mais larga; mantenha slots consistentes para evitar empenos com maior tensão total.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> escala ~330–350&nbsp;mm; verifique o <em>tang</em> do traste — muitos pedem
+                <strong>Cavaquinho:</strong> escala ~330–350&nbsp;mm; verifique o <em>tang</em> do traste — muitos
+                pedem
                 ~1,5–1,7&nbsp;mm de profundidade; mantenha a peça leve.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> soprano ≈346&nbsp;mm, concert ≈380&nbsp;mm, tenor ≈432&nbsp;mm; madeira fina:
+                <strong>Ukulele:</strong> soprano ≈346&nbsp;mm, concert ≈380&nbsp;mm, tenor ≈432&nbsp;mm; madeira
+                fina:
                 prefira serrote bem afiado e cortes suaves para não rachar nas extremidades.
               </p>
 
@@ -4097,7 +4201,8 @@
                 <li>Assente dots (madeira, osso, madrepérola ou resina) com <strong>CA</strong> ou
                   <strong>epóxi</strong>; pressão leve.
                 </li>
-                <li>Após cura, raspe/lixe com taco rígido até <strong>nivelar</strong> com a superfície. Limpe resíduos.
+                <li>Após cura, raspe/lixe com taco rígido até <strong>nivelar</strong> com a superfície. Limpe
+                  resíduos.
                 </li>
                 <li>Opcional: <strong>marcadores laterais</strong> (na quina da escala) após a colagem da escala no
                   braço.</li>
@@ -4118,11 +4223,13 @@
                 afinações.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> padrão comum: 5, 7, <strong>10</strong> e 12 (duplo). Prefira dots menores
+                <strong>Cavaquinho:</strong> padrão comum: 5, 7, <strong>10</strong> e 12 (duplo). Prefira dots
+                menores
                 (2–3&nbsp;mm).
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> 5, 7, <strong>10</strong> e 12 (duplo). Peso baixo: resina/ABS leve funciona
+                <strong>Ukulele:</strong> 5, 7, <strong>10</strong> e 12 (duplo). Peso baixo: resina/ABS leve
+                funciona
                 muito bem.
               </p>
 
@@ -4153,46 +4260,56 @@
 
             <div class="detail" id="d-escala3">
 
-              <p><strong>Objetivo:</strong> colar a escala com posicionamento exato (prova do cercheado/ensaio a seco),
+              <p><strong>Objetivo:</strong> colar a escala com posicionamento exato (prova do cercheado/ensaio a
+                seco),
                 contato integral e pressão uniforme, evitando deslizamento e excesso de cola.</p>
 
               <h5>1) Preparação & ensaio a seco</h5>
               <ul>
-                <li><strong>Prova do cercheado:</strong> confirme as marcas de posição (linha central e referência na
+                <li><strong>Prova do cercheado:</strong> confirme as marcas de posição (linha central e referência
+                  na
                   pestana e 12ª casa) feitas na etapa anterior.</li>
                 <li><strong>Pre-lixamento da tampa:</strong> finalize <em>agora</em> as faixas da tampa ao lado da
                   escala (~<strong>40&nbsp;mm</strong> de cada lado). É muito mais fácil antes da colagem.</li>
-                <li><strong>Mascaramento:</strong> aplique fita de pintor de baixa aderência nos dois lados da escala
+                <li><strong>Mascaramento:</strong> aplique fita de pintor de baixa aderência nos dois lados da
+                  escala
                   (da 12ª casa até o fim) e nas áreas da tampa ao longo do contorno da escala; ajuste a fita <em>à
                     face</em> para conter o squeeze-out.</li>
                 <li><strong>Antiderrapante:</strong> risque levemente as superfícies de colagem (lixa
                   <strong>P80–P100</strong>) no braço e no verso da escala.
                 </li>
-                <li><strong>Guias laterais:</strong> encoste duas ripas/madeiras “batente” alinhadas às bordas de fita
-                  da escala e prenda com gatos leves; isso impede que a escala escorregue quando a cola for aplicada.
+                <li><strong>Guias laterais:</strong> encoste duas ripas/madeiras “batente” alinhadas às bordas de
+                  fita
+                  da escala e prenda com gatos leves; isso impede que a escala escorregue quando a cola for
+                  aplicada.
                 </li>
               </ul>
 
               <h5>2) Pinos-guia pelos slots</h5>
               <ul>
                 <li>Perfure discretamente nos <strong>slots da 1ª e da 12ª</strong> com broca
-                  ~<strong>1,5&nbsp;mm</strong> e use pinos/preguinhos curtos ou pedaços de arame cortados. Eles travam
+                  ~<strong>1,5&nbsp;mm</strong> e use pinos/preguinhos curtos ou pedaços de arame cortados. Eles
+                  travam
                   a escala na posição sem deixar marcas visíveis.</li>
                 <li>Faça um ensaio a seco completo com todos os grampos e tacos internos/externos.</li>
               </ul>
 
               <h5>3) Aplicação da cola & sequência de grampos</h5>
               <ul>
-                <li>Espalhe <strong>Titebond Original</strong> (filme fino e contínuo) na face do braço; evite excessos.
+                <li>Espalhe <strong>Titebond Original</strong> (filme fino e contínuo) na face do braço; evite
+                  excessos.
                 </li>
-                <li>Assente a escala usando os pinos-guia. Inicie a prensagem <strong>na região da boca</strong> usando
-                  <strong>taco interno</strong> (pela boca) para não marcar a barra transversal — o taco interno deve
+                <li>Assente a escala usando os pinos-guia. Inicie a prensagem <strong>na região da boca</strong>
+                  usando
+                  <strong>taco interno</strong> (pela boca) para não marcar a barra transversal — o taco interno
+                  deve
                   ser mais espesso que a barra e caber entre ela e a culatra.
                 </li>
                 <li>Depois, prenda o <strong>tacão</strong> (região do tróculo) com taco externo curvo e proteção no
                   fundo; em seguida, distribua 3–4 grampos ao longo do braço com tacos moldados.</li>
                 <li>Remova a cola que sair pelas laterais imediatamente com dedo/pano úmido.</li>
-                <li><strong>Cura:</strong> deixe prensado por <strong>12–24&nbsp;h</strong> em ambiente estável.</li>
+                <li><strong>Cura:</strong> deixe prensado por <strong>12–24&nbsp;h</strong> em ambiente estável.
+                </li>
               </ul>
 
               <h5>4) Desprensagem & limpeza</h5>
@@ -4215,11 +4332,13 @@
                 tampa) evitam retrabalho pesado de cola seca.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Taco interno pela boca:</strong> sempre use um calço <em>por dentro</em> na região da boca para
+                <strong>Taco interno pela boca:</strong> sempre use um calço <em>por dentro</em> na região da boca
+                para
                 não marcar a barra transversal ao apertar o grampo.
               </p>
               <p class="callout" data-instruments="vcl vla">
-                <strong>Escalas longas:</strong> distribua mais grampos intermediários para pressão homogênea; confirme
+                <strong>Escalas longas:</strong> distribua mais grampos intermediários para pressão homogênea;
+                confirme
                 a linha central com régua longa.
               </p>
               <p class="callout" data-instruments="cav uku">
@@ -4253,21 +4372,24 @@
 
             <div class="detail" id="d-escala4">
 
-              <p>O nivelamento da escala garante a instalação correta dos trastes e evita trastejamentos futuros. Use
+              <p>O nivelamento da escala garante a instalação correta dos trastes e evita trastejamentos futuros.
+                Use
                 superfícies realmente planas e verifique sempre.</p>
 
               <h5>Procedimento</h5>
               <ul>
                 <li>Com um lápis macio, faça uma <strong>malha de riscos</strong> em toda a face. Ela mostrará os
                   altos/baixos durante o desbaste.</li>
-                <li>Use <strong>taco longo, rígido e perfeitamente plano</strong> (30–40 cm), começando em grão 80–100.
+                <li>Use <strong>taco longo, rígido e perfeitamente plano</strong> (30–40 cm), começando em grão
+                  80–100.
                   Passadas longas e paralelas ao comprimento da escala, sem “rockear” o taco nas quinas.</li>
                 <li>Prossiga em <strong>120 → 180 → 320 → 600</strong> (e opcionalmente até 2000) apenas para fechar
                   poros. Refaça a malha de lápis ao subir de grão para checar contato.</li>
                 <li>Cheque retidão com <em>régua de precisão</em>; se quiser, use cálibre de lâminas para confirmar
                   micro folgas. <span class="i" data-instruments="vcl vla">Clássicos costumam ficar absolutamente
                     planos.</span></li>
-                <li><strong>Não arredonde bordas ainda</strong>: preserve quinas a 90 graus; o chanfrado fino vem depois
+                <li><strong>Não arredonde bordas ainda</strong>: preserve quinas a 90 graus; o chanfrado fino vem
+                  depois
                   dos trastes.</li>
                 <li><strong>Reabra a profundidade dos slots</strong> após nivelar: deixe cerca de 0.5–0.8 mm além da
                   altura da “tang” do traste para garantir assentamento.</li>
@@ -4283,19 +4405,23 @@
                 <strong>Malha de lápis:</strong> repita a cada troca de grão; sumiço homogêneo = contato plano.
               </p>
               <p class="callout" data-instruments="vcl vla">
-                <strong>Raio:</strong> normalmente <em>plano</em> (0). Alguns preferem micro <em>fall-away</em> após a
+                <strong>Raio:</strong> normalmente <em>plano</em> (0). Alguns preferem micro <em>fall-away</em> após
+                a
                 12ª (≈0.1–0.2 mm); opcional.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> é comum usar leve raio (≈12"–16"). Use taco <em>radiado</em> e reabra os
+                <strong>Cavaquinho:</strong> é comum usar leve raio (≈12"–16"). Use taco <em>radiado</em> e reabra
+                os
                 slots respeitando esse arco.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> geralmente plano; por ser fino, evite excesso de lixamento no centro. Confirme
+                <strong>Ukulele:</strong> geralmente plano; por ser fino, evite excesso de lixamento no centro.
+                Confirme
                 a espessura mínima antes de subir o grão.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Slots:</strong> depois do nivelamento, confira profundidade real e limpe rebarbas; isso evita
+                <strong>Slots:</strong> depois do nivelamento, confira profundidade real e limpe rebarbas; isso
+                evita
                 traste “alto” por falta de folga da tang.
               </p>
 
@@ -4330,16 +4456,21 @@
 
               <h5>Passo a passo</h5>
               <ul>
-                <li><strong>Preparar slots:</strong> limpe rebarbas, confirme profundidade após o nivelamento e teste a
+                <li><strong>Preparar slots:</strong> limpe rebarbas, confirme profundidade após o nivelamento e
+                  teste a
                   folga com um pedaço de tang.</li>
-                <li><strong>Cortar e ajustar:</strong> meça cada posição, corte o traste com sobra de ~2 mm por lado e
+                <li><strong>Cortar e ajustar:</strong> meça cada posição, corte o traste com sobra de ~2 mm por lado
+                  e
                   desbarbe a base. Pré-curve se a escala tiver raio.</li>
                 <li><strong>Assentar:</strong> encaixe a partir do centro e siga para as extremidades com martelo de
-                  luthier ou prensa com <em>caul</em> plano/radiado. Uma gota de CA nas pontas ajuda a estabilizar.</li>
-                <li><strong>Chanfrar as pontas:</strong> nivele a face lateral, depois faça chanfro a 35–45 graus com
+                  luthier ou prensa com <em>caul</em> plano/radiado. Uma gota de CA nas pontas ajuda a estabilizar.
+                </li>
+                <li><strong>Chanfrar as pontas:</strong> nivele a face lateral, depois faça chanfro a 35–45 graus
+                  com
                   lima guia até ficar uniforme.</li>
                 <li><strong>Nivelar, coroar e polir:</strong> marque as coroas com caneta, passe taco longo com lixa
-                  fina para tocar apenas os altos, recupere a coroa com lima de coroar e poli com lixas finas e palha de
+                  fina para tocar apenas os altos, recupere a coroa com lima de coroar e poli com lixas finas e
+                  palha de
                   aço.</li>
               </ul>
 
@@ -4354,7 +4485,8 @@
                 ~0.55–0.60 mm, valide na sua marca de traste.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> muitas vezes com raio 12"–16". Pré-curve o fio e use <em>caul</em> radiado.
+                <strong>Cavaquinho:</strong> muitas vezes com raio 12"–16". Pré-curve o fio e use <em>caul</em>
+                radiado.
                 Altura do fio ~1.2–1.4 mm.
               </p>
               <p class="callout" data-instruments="uku">
@@ -4362,7 +4494,8 @@
                 madeiras claras.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Escala com binding:</strong> recuar a tang nas pontas com alicate undercutter; a coroa “flutua”
+                <strong>Escala com binding:</strong> recuar a tang nas pontas com alicate undercutter; a coroa
+                “flutua”
                 sobre o binding.
               </p>
 
@@ -4408,16 +4541,22 @@
 
               <h5>Dimensões-base e partes</h5>
               <ul>
-                <li><strong>Blank inicial:</strong> corte uma régua a ~20 × 10 mm e depois um trecho no comprimento do
-                  seu projeto (ex.: violão clássico ~180–190 mm). Plane e deixe todas as faces planas antes de perfilar.
+                <li><strong>Blank inicial:</strong> corte uma régua a ~20 × 10 mm e depois um trecho no comprimento
+                  do
+                  seu projeto (ex.: violão clássico ~180–190 mm). Plane e deixe todas as faces planas antes de
+                  perfilar.
                 </li>
-                <li><strong>Partes do cavalete:</strong> <em>lomo/selleta</em> (onde vai o rastilho), <em>meseta</em>
+                <li><strong>Partes do cavalete:</strong> <em>lomo/selleta</em> (onde vai o rastilho),
+                  <em>meseta</em>
                   (bloco de amarração), <em>valle</em> (vale entre lomo e meseta) e <em>aletas</em> (asas laterais).
                 </li>
-                <li><strong>Slot do rastilho:</strong> largura conforme seu rastilho (ex.: 2.5 mm), profundidade típica
+                <li><strong>Slot do rastilho:</strong> largura conforme seu rastilho (ex.: 2.5 mm), profundidade
+                  típica
                   4 mm; faça em duas passadas guiadas ou com fresa, conferindo paralelismo.</li>
-                <li><strong>Furação das cordas:</strong> fure na meseta com diâmetro adequado ao jogo (ex.: 2.0–2.5 mm
-                  em nylon; 2.5–3.0 mm em aço fino), distribuindo simetricamente. Espaçamento centro a centro típico no
+                <li><strong>Furação das cordas:</strong> fure na meseta com diâmetro adequado ao jogo (ex.: 2.0–2.5
+                  mm
+                  em nylon; 2.5–3.0 mm em aço fino), distribuindo simetricamente. Espaçamento centro a centro típico
+                  no
                   clássico ~11 mm; ajuste ao seu instrumento.</li>
                 <li><strong>Ajuste da base ao tampo:</strong> use taco de lixa curvado espelhando o raio do tampo;
                   marque a base com grafite, assente e lixe até obter contato total (a grafite some de toda a
@@ -4426,17 +4565,23 @@
 
               <h5>Sequência manual (inspirada no método espanhol)</h5>
               <ul>
-                <li>Marque no blank as zonas de lomo, valle e meseta. Faça dois cortes limpos para definir a altura das
-                  aletas (profundidade de referência ~7 mm) e rebaje as aletas com formão afiado, cuidando o sentido da
+                <li>Marque no blank as zonas de lomo, valle e meseta. Faça dois cortes limpos para definir a altura
+                  das
+                  aletas (profundidade de referência ~7 mm) e rebaje as aletas com formão afiado, cuidando o sentido
+                  da
                   fibra.</li>
-                <li>Abra o slot do rastilho com dois cortes paralelos guiados por régua (ou com fresa). Junte os cortes
+                <li>Abra o slot do rastilho com dois cortes paralelos guiados por régua (ou com fresa). Junte os
+                  cortes
                   até a largura final, mantendo o fundo plano e sem ultrapassar a profundidade de referência.</li>
                 <li>Perfis: arredonde o lomo externamente, forme o valle e modele as aletas. Reforce o controle de
                   espessuras usando galga/taco com lixa 80 e depois 120, 220, 320.</li>
-                <li>Fure a meseta com gabarito: marque linha de base e centros; primeiro faça um furo guia fino, depois
-                  traga ao diâmetro final. Quebre arestas internas com broca manual ou escareador para poupar as cordas.
+                <li>Fure a meseta com gabarito: marque linha de base e centros; primeiro faça um furo guia fino,
+                  depois
+                  traga ao diâmetro final. Quebre arestas internas com broca manual ou escareador para poupar as
+                  cordas.
                 </li>
-                <li>Finalize superfícies e cheque simetria: topos iguais das aletas, transições suaves no valle e base
+                <li>Finalize superfícies e cheque simetria: topos iguais das aletas, transições suaves no valle e
+                  base
                   100% conformada ao tampo.</li>
               </ul>
 
@@ -4451,13 +4596,15 @@
                 grafite desaparecer por igual.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Slot reto e paralelo:</strong> faça em duas passadas guiadas; evite folga lateral no rastilho
+                <strong>Slot reto e paralelo:</strong> faça em duas passadas guiadas; evite folga lateral no
+                rastilho
                 para não perder transmissão.
               </p>
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> comprimento do cavalete geralmente 180–190 mm; espaçamento entre cordas
+                <strong>Violão/Viola:</strong> comprimento do cavalete geralmente 180–190 mm; espaçamento entre
+                cordas
                 ~11 mm; mantenha massa moderada nas aletas para equilíbrio entre sustentação e resposta.
               </p>
               <p class="callout" data-instruments="cav">
@@ -4495,12 +4642,14 @@
 
             <div class="detail" id="d-cav2">
 
-              <p>Marcar e mascarar a área de colagem antes do acabamento preserva a madeira crua onde a cola atuará e
+              <p>Marcar e mascarar a área de colagem antes do acabamento preserva a madeira crua onde a cola atuará
+                e
                 garante o posicionamento correto em relação à escala e ao eixo do instrumento.</p>
 
               <h5>Passo a passo</h5>
               <ul>
-                <li><strong>Eixo e referência:</strong> trace a linha central no tampo (centro da roseta). Confirme o
+                <li><strong>Eixo e referência:</strong> trace a linha central no tampo (centro da roseta). Confirme
+                  o
                   centro do cavalete
                   e alinhe-os.</li>
                 <li><strong>Escala e linha da selleta:</strong> meça da pestana até a linha teórica do rastilho
@@ -4508,12 +4657,15 @@
                   (veja callouts) e marque a linha final da selleta.</li>
                 <li><strong>Simulação de cordas:</strong> com barbante ou linha, confira ângulos e alinhamento
                   pestana-rastilho, validando a posição lateral do cavalete.</li>
-                <li><strong>Contorno e máscara:</strong> posicione o cavalete, contorne a peça a lápis e faça a máscara
+                <li><strong>Contorno e máscara:</strong> posicione o cavalete, contorne a peça a lápis e faça a
+                  máscara
                   com fita crepe
                   colada <em>exatamente</em> no limite externo da área de cola. Retire o cavalete.</li>
-                <li><strong>Preparação da superfície:</strong> dentro do contorno, quebre o brilho do verniz inexistente
+                <li><strong>Preparação da superfície:</strong> dentro do contorno, quebre o brilho do verniz
+                  inexistente
                   com lixa 220–320
-                  (ou leve raspagem com estilete) para aumentar aderência. Essa área deve permanecer sem acabamento até
+                  (ou leve raspagem com estilete) para aumentar aderência. Essa área deve permanecer sem acabamento
+                  até
                   a colagem.</li>
                 <li><strong>Notas de referência:</strong> anote distância pestana-rastilho, offset de compensação e
                   ângulo aplicado;
@@ -4527,11 +4679,13 @@
 
               <!-- Callouts -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Não vernizar a área de cola:</strong> mantenha madeira crua sob todo o cavalete. Qualquer filme
+                <strong>Não vernizar a área de cola:</strong> mantenha madeira crua sob todo o cavalete. Qualquer
+                filme
                 de acabamento reduz a adesão.
               </p>
               <p class="callout" data-instruments="vcl vla">
-                <strong>Compensação típica (nylon):</strong> agudas +1.0 a +2.0 mm; graves +2.0 a +3.0 mm em relação à
+                <strong>Compensação típica (nylon):</strong> agudas +1.0 a +2.0 mm; graves +2.0 a +3.0 mm em relação
+                à
                 escala nominal. Ajuste ao seu setup.
               </p>
               <p class="callout" data-instruments="cav">
@@ -4569,7 +4723,8 @@
 
             <div class="detail" id="d-cav3">
 
-              <p>A colagem do cavalete é crítica: define entonação, transmissão de vibração e durabilidade. Faça sobre a
+              <p>A colagem do cavalete é crítica: define entonação, transmissão de vibração e durabilidade. Faça
+                sobre a
                 área
                 previamente mascarada na <em>etapa anterior</em>, com posicionamento e pressão controlados.</p>
 
@@ -4579,9 +4734,11 @@
                   furos do cavalete
                   (apenas com a mão) para remover possíveis resíduos do acabamento/cola. Depois, remova a máscara da
                   área de cola.</li>
-                <li><strong>Desengordurar levinho:</strong> limpe a área de cola no tampo com álcool isopropílico (pano
+                <li><strong>Desengordurar levinho:</strong> limpe a área de cola no tampo com álcool isopropílico
+                  (pano
                   quase seco).</li>
-                <li><strong>Texturização cruzada:</strong> faça micro-riscos em X na base do cavalete e na área crua do
+                <li><strong>Texturização cruzada:</strong> faça micro-riscos em X na base do cavalete e na área crua
+                  do
                   tampo (formão/cútter leve
                   ou lixa 220–320) para aumentar ancoragem — sem atingir o acabamento ao redor.</li>
                 <li><strong>Gabarito e fita-guia:</strong> alinhe com a linha central e linha da selleta (com
@@ -4594,7 +4751,8 @@
                 <li><strong>Ensaio:</strong> monte o “sandwich” de prensagem (taco superior do tamanho do cavalete,
                   barra longa até o braço,
                   taco interno sob a boca). Verifique apoio plano e distribuição de carga nas aletas.</li>
-                <li><strong>Cola:</strong> aplique Titebond em <em>filme fino contínuo</em> apenas na base do cavalete.
+                <li><strong>Cola:</strong> aplique Titebond em <em>filme fino contínuo</em> apenas na base do
+                  cavalete.
                   Posicione com precisão
                   sobre a área mascarada.</li>
                 <li><strong>Prensagem:</strong> feche gradualmente os grampos:
@@ -4603,7 +4761,8 @@
                     <li>2º e 3º nas aletas, usando <em>cunhas</em> se necessário para distribuição;</li>
                     <li>barra longa apoiada no braço para estabilizar e evitar flexão do tampo.</li>
                   </ul>
-                  Acompanhe a saída lenta de cola pelas bordas; quando estabilizar, a pressão tende a estar suficiente.
+                  Acompanhe a saída lenta de cola pelas bordas; quando estabilizar, a pressão tende a estar
+                  suficiente.
                 </li>
                 <li><strong>Cura:</strong> mantenha 12–24 h. Não exceda a pressão — risco de marcar/afundar o tampo.
                 </li>
@@ -4624,7 +4783,8 @@
                 saída abrupta + afundamento do tampo = pressão excessiva.
               </p>
               <p class="callout" data-instruments="vcl vla">
-                <strong>Nylon (clássico/viola):</strong> apoio interno sob a boca protege a travessa. Verifique que o
+                <strong>Nylon (clássico/viola):</strong> apoio interno sob a boca protege a travessa. Verifique que
+                o
                 taco interno
                 fica entre a travessa da boca e o reengrosso traseiro.
               </p>
@@ -4634,7 +4794,8 @@
                 tacos que cubram toda a meseta para não concentrar carga.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> tampo fino: filme de cola mais contido e grampos menores. Evite sobrepressão
+                <strong>Ukulele:</strong> tampo fino: filme de cola mais contido e grampos menores. Evite
+                sobrepressão
                 nas aletas.
               </p>
 
@@ -4664,31 +4825,38 @@
 
             <div class="detail" id="d-cav4">
 
-              <p>O rastilho transmite vibração das cordas para o tampo. Precisa ser <strong>duro</strong>, <strong>bem
+              <p>O rastilho transmite vibração das cordas para o tampo. Precisa ser <strong>duro</strong>,
+                <strong>bem
                   ajustado</strong> ao slot do cavalete e com topo
-                perfilado para correta entonação e conforto.</p>
+                perfilado para correta entonação e conforto.
+              </p>
 
               <h5>Materiais e preparo</h5>
               <ul>
                 <li><strong>Material:</strong> osso bovino bem denso (preferido), osso sintético/“marfim vegetal” ou
                   grafite técnico. Evite peças porosas.</li>
-                <li><strong>Espessura base:</strong> corte a barra e deixe <em>ligeiramente maior</em> que a largura do
+                <li><strong>Espessura base:</strong> corte a barra e deixe <em>ligeiramente maior</em> que a largura
+                  do
                   slot; ajuste no abrasivo até entrar justo, sem folga lateral.
                   <em>Teste “vácuo”:</em> ao empurrar, deve oferecer leve resistência e não tombar.
                 </li>
-                <li><strong>Base perfeitamente plana:</strong> passe num vidro com lixa 320→600. Qualquer convexidade
+                <li><strong>Base perfeitamente plana:</strong> passe num vidro com lixa 320→600. Qualquer
+                  convexidade
                   reduz contato/volume.</li>
               </ul>
 
               <h5>Altura e perfil</h5>
               <ul>
-                <li><strong>Ação desejada</strong> (12ª casa): defina antes (ex.: clássicos 3,0–3,5 mm grave / 2,5–3,0
+                <li><strong>Ação desejada</strong> (12ª casa): defina antes (ex.: clássicos 3,0–3,5 mm grave /
+                  2,5–3,0
                   mm agudo; ajuste ao seu setup).
-                  Para corrigir ação na 12ª: <strong>Δrastilho ≈ 2× Δação na 12ª</strong> (baixar 0,5 mm na 12ª → baixar
+                  Para corrigir ação na 12ª: <strong>Δrastilho ≈ 2× Δação na 12ª</strong> (baixar 0,5 mm na 12ª →
+                  baixar
                   ~1,0 mm no rastilho).</li>
                 <li><strong>Topo “coroado”</strong>: largura da crista ~0,8–1,2 mm. Arredonde levemente, sem criar
                   “planos” que causem zumbidos.</li>
-                <li><strong>Quebra de corda</strong>: garanta ângulo de ~12–15 graus (ajuste rampas dos furos/amarração
+                <li><strong>Quebra de corda</strong>: garanta ângulo de ~12–15 graus (ajuste rampas dos
+                  furos/amarração
                   se preciso).</li>
                 <li><strong>Não colar</strong>: rastilho deve ser removível para futuras regulagens; mantenha apenas
                   encaixe justo.</li>
@@ -4696,18 +4864,21 @@
 
               <h5>Compensação (intonation)</h5>
               <ul>
-                <li><strong>Clássico/Viola (nylon):</strong> linha da selleta quase reta com pequeno recuo nos graves
+                <li><strong>Clássico/Viola (nylon):</strong> linha da selleta quase reta com pequeno recuo nos
+                  graves
                   (E/A/D) e leve avanço nos agudos (B/E). Compensações
                   típicas são discretas (frações a ~1–2 mm), feitas no topo do rastilho.</li>
                 <li><strong>Cavaquinho (aço):</strong> selleta <em>levemente angulada</em> (3–6°) e micro-rampas
                   individuais; controle mais sensível — avance/recuo sob cada curso.</li>
-                <li><strong>Ukulele (nylon/fluorocarbono):</strong> compensações pequenas; muitas vezes apenas recuo do
+                <li><strong>Ukulele (nylon/fluorocarbono):</strong> compensações pequenas; muitas vezes apenas recuo
+                  do
                   G/C e topo ligeiramente deslocado resolve.</li>
               </ul>
 
               <h5>Acabamento</h5>
               <ul>
-                <li>Lixe e pole com 600→1200 (até 2000 se quiser brilho). Quebre arestas que tocam as cordas para evitar
+                <li>Lixe e pole com 600→1200 (até 2000 se quiser brilho). Quebre arestas que tocam as cordas para
+                  evitar
                   desgaste.</li>
                 <li>Desengordure antes de montar. Monte, afine e faça checagem de oitava (12ª casa) para validar
                   compensação.</li>
@@ -4724,11 +4895,13 @@
                 entonação — avance com parcimônia.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> mantenha a selleta firme: folga lateral gera “chorinho” indesejado. Valide
+                <strong>Cavaquinho:</strong> mantenha a selleta firme: folga lateral gera “chorinho” indesejado.
+                Valide
                 oitavas com afinador clip.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> materiais mais leves (osso sintético) funcionam bem; ganhos de timbre vêm mais
+                <strong>Ukulele:</strong> materiais mais leves (osso sintético) funcionam bem; ganhos de timbre vêm
+                mais
                 do ajuste do topo do que do material.
               </p>
 
@@ -4770,14 +4943,16 @@
             <div class="detail" id="d-acab1">
 
               <h5>Objetivo</h5>
-              <p>Preparar madeira e junções para seladora/acabamento, eliminando marcas de ferramenta/cola e deixando a
+              <p>Preparar madeira e junções para seladora/acabamento, eliminando marcas de ferramenta/cola e
+                deixando a
                 superfície uniforme sem arredondar bordas críticas.</p>
 
               <h5>Procedimento recomendado</h5>
               <ul>
                 <li><strong>Sequência de grãos:</strong> 120 → 180 → 220 → 320 → 400/600 (somente se o sistema de
                   acabamento aceitar). Troque de grão apenas quando os riscos do grão anterior sumirem.</li>
-                <li><strong>Tacos corretos:</strong> rígido em planos (tampo/fundo); flexível/espuma em curvas; bordas
+                <li><strong>Tacos corretos:</strong> rígido em planos (tampo/fundo); flexível/espuma em curvas;
+                  bordas
                   com apoio largo para não “comer” filetes.</li>
                 <li><strong>Mapa a lápis:</strong> sombreie levemente a área; lixe até apagar por igual (revela
                   altos/baixos).</li>
@@ -4785,9 +4960,11 @@
                   sentido dominante.</li>
                 <li><strong>Resíduos de cola:</strong> remova 100% (raspilha/cinzel com apoio) especialmente junto à
                   roseta e filetes.</li>
-                <li><strong>Levantamento de fibra (opcional):</strong> umedeça levemente, deixe secar e dê passada fina
+                <li><strong>Levantamento de fibra (opcional):</strong> umedeça levemente, deixe secar e dê passada
+                  fina
                   em 320–400.</li>
-                <li><strong>Limpeza:</strong> pó fora com pano levemente umedecido/álcool isopropílico ou ar comprimido.
+                <li><strong>Limpeza:</strong> pó fora com pano levemente umedecido/álcool isopropílico ou ar
+                  comprimido.
                 </li>
               </ul>
 
@@ -4797,11 +4974,13 @@
                 transição tampo↔filete com apoio largo.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Cavaquinho/Ukulele:</strong> curvas apertadas exigem pressão leve e taco flexível; evite polir
+                <strong>Cavaquinho/Ukulele:</strong> curvas apertadas exigem pressão leve e taco flexível; evite
+                polir
                 demais (grão 320 costuma bastar).
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Luz rasante + máscara:</strong> use luz lateral para achar riscos/cola e máscara PFF2/P2 para o
+                <strong>Luz rasante + máscara:</strong> use luz lateral para achar riscos/cola e máscara PFF2/P2
+                para o
                 pó fino.
               </p>
 
@@ -4837,31 +5016,40 @@
             <div class="detail" id="d-acab2">
 
               <h5>Objetivo</h5>
-              <p>Uniformizar absorção e nivelar poros das madeiras abertas (ex.: jacarandá, mogno, nogueira), preparando
+              <p>Uniformizar absorção e nivelar poros das madeiras abertas (ex.: jacarandá, mogno, nogueira),
+                preparando
                 para o acabamento (goma-laca, nitro, PU, etc.).</p>
 
               <h5>Escolha do sistema</h5>
               <ul>
-                <li><strong>Somente seladora (fechado):</strong> abeto/cedro do tampo normalmente não precisa <em>pore
-                    fill</em>; apenas 1–2 demãos de seladora (dewaxed) para isolar fibras.</li>
-                <li><strong>Seladora + pore fill:</strong> laterais/fundo em poro aberto. Métodos: <em>pó de pedra-pomes
-                    + goma-laca</em>, <em>filler</em> à base d’água, <em>epóxi de baixa viscosidade</em>, ou “slurry”
+                <li><strong>Somente seladora (fechado):</strong> abeto/cedro do tampo normalmente não precisa
+                  <em>pore
+                    fill</em>; apenas 1–2 demãos de seladora (dewaxed) para isolar fibras.
+                </li>
+                <li><strong>Seladora + pore fill:</strong> laterais/fundo em poro aberto. Métodos: <em>pó de
+                    pedra-pomes
+                    + goma-laca</em>, <em>filler</em> à base d’água, <em>epóxi de baixa viscosidade</em>, ou
+                  “slurry”
                   (pó da própria madeira + óleo/seladora).</li>
-                <li><strong>Compatibilidade:</strong> sempre use <em>goma-laca descerada</em> como “barreira universal”
+                <li><strong>Compatibilidade:</strong> sempre use <em>goma-laca descerada</em> como “barreira
+                  universal”
                   entre o pore fill e o topcoat (principalmente antes de nitro/PU).</li>
               </ul>
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> fundo/laterais em jacarandá ou mogno pedem pore fill completo. No tampo
+                <strong>Violão/Viola:</strong> fundo/laterais em jacarandá ou mogno pedem pore fill completo. No
+                tampo
                 (abeto/cedro), apenas selar leve para não “matar” resposta.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Cavaquinho/Ukulele:</strong> por área menor, evite massa excessiva; duas passadas finas costumam
+                <strong>Cavaquinho/Ukulele:</strong> por área menor, evite massa excessiva; duas passadas finas
+                costumam
                 bastar. Priorize baixo peso.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Flamenco (cipreste):</strong> poro mais fechado — pore fill muito leve ou dispensável; foco em
+                <strong>Flamenco (cipreste):</strong> poro mais fechado — pore fill muito leve ou dispensável; foco
+                em
                 selagem e finura do acabamento.
               </p>
 
@@ -4869,14 +5057,18 @@
               <ul>
                 <li><strong>Preparação:</strong> poeira removida, áreas de cola 100% limpas. Mascarar cavidade do
                   cavalete/escala se ainda não colados.</li>
-                <li><strong>Seladora base:</strong> aplique goma-laca descerada 1:1 (álcool 96%) ou seladora nitro bem
+                <li><strong>Seladora base:</strong> aplique goma-laca descerada 1:1 (álcool 96%) ou seladora nitro
+                  bem
                   fina; 1–2 demãos, secando entre elas. Lixada leve 600.</li>
                 <li><strong>Pore fill — escolha um método:</strong>
                   <ul>
-                    <li><em>Goma-laca + pedra-pomes:</em> polir em “oito” com muñequilla carregada; a pedra-pomes vira
-                      pasta com a goma-laca e preenche poros. Raspar o excesso na diagonal com raspilha/tarjeta. Secar e
+                    <li><em>Goma-laca + pedra-pomes:</em> polir em “oito” com muñequilla carregada; a pedra-pomes
+                      vira
+                      pasta com a goma-laca e preenche poros. Raspar o excesso na diagonal com raspilha/tarjeta.
+                      Secar e
                       nivelar em 600.</li>
-                    <li><em>Filler à base d’água:</em> espalhar com espátula cruzando o veio; aguardar secagem indicada;
+                    <li><em>Filler à base d’água:</em> espalhar com espátula cruzando o veio; aguardar secagem
+                      indicada;
                       lixar até restar filler apenas nos poros. Repetir se necessário.</li>
                     <li><em>Epóxi fino 1:1:</em> espalhar com rodo/espátula <em>contra o veio</em>, remover excesso
                       imediatamente. Curar 24 h; lixar até o epóxi ficar só nos poros. Selar com goma-laca antes do
@@ -4885,7 +5077,8 @@
                 </li>
                 <li><strong>Selagem pós-fill:</strong> 1–2 demãos finas de goma-laca descerada para uniformizar e
                   garantir aderência do verniz final.</li>
-                <li><strong>Segurança:</strong> luvas/nitrílica, PFF2/P2; epóxi e solventes pedem ventilação forte.</li>
+                <li><strong>Segurança:</strong> luvas/nitrílica, PFF2/P2; epóxi e solventes pedem ventilação forte.
+                </li>
               </ul>
 
               <!-- Figura técnica -->
@@ -4920,7 +5113,8 @@
 
             <div class="detail" id="d-acab3">
 
-              <p>O acabamento final protege, realça a madeira e pode influenciar sutilmente a resposta. Os dois métodos
+              <p>O acabamento final protege, realça a madeira e pode influenciar sutilmente a resposta. Os dois
+                métodos
                 mais comuns: <strong>goma-laca (French Polish)</strong> e <strong>verniz nitro/PU</strong>.</p>
 
               <h5>Goma-laca (French Polish)</h5>
@@ -4930,18 +5124,22 @@
                 </li>
                 <li>Boneca: estopa envolta em algodão fino; lubrifique a face com 1 gota de óleo mineral quando
                   “agarrar”.</li>
-                <li>Aplicação: movimentos em círculos ou “8”, camadas muito finas, cruzadas. Reponha álcool para manter
+                <li>Aplicação: movimentos em círculos ou “8”, camadas muito finas, cruzadas. Reponha álcool para
+                  manter
                   fluidez.</li>
-                <li>Nivelar levemente entre sessões com palha de aço 0000 ou lixa 1200. Faça 15–30 sessões até cobertura
+                <li>Nivelar levemente entre sessões com palha de aço 0000 ou lixa 1200. Faça 15–30 sessões até
+                  cobertura
                   uniforme.</li>
                 <li>Cura inicial 48–72 h antes de manipular; cura funcional ~7–10 dias.</li>
               </ul>
 
               <h5>Verniz (Nitro / PU)</h5>
               <ul>
-                <li>Selar a madeira (seladora compatível ou goma-laca <em>dewaxed</em> fina). Controle ambiente: 18–25°C
+                <li>Selar a madeira (seladora compatível ou goma-laca <em>dewaxed</em> fina). Controle ambiente:
+                  18–25°C
                   e 40–60% UR.</li>
-                <li>Aplicação com pistola HVLP ou pincel de cerdas finas: demãos finas e paralelas, com sobreposição de
+                <li>Aplicação com pistola HVLP ou pincel de cerdas finas: demãos finas e paralelas, com sobreposição
+                  de
                   50%.</li>
                 <li>Intervalos: nitro 1–3 h entre demãos; PU conforme ficha técnica (geralmente 12–24 h). Lixar leve
                   entre demãos (800–1200) para nivelar.</li>
@@ -4965,7 +5163,8 @@
                 brilho; atenção a “afundamento” em poros profundos.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Compatibilidade:</strong> se usar goma-laca como seladora sob nitro/PU, escolha <em>dewaxed</em>
+                <strong>Compatibilidade:</strong> se usar goma-laca como seladora sob nitro/PU, escolha
+                <em>dewaxed</em>
                 e faça teste de aderência em sobra.
               </p>
 
@@ -5028,21 +5227,26 @@
                   flexíveis.</li>
                 <li><strong>Encaixe:</strong> base perfeitamente plana e justa no slot; use lixa sobre régua para
                   planar.</li>
-                <li><strong>Altura inicial:</strong> como ponto de partida, 0,5 mm na 1ª corda e 0,8 mm na 6ª (medido
+                <li><strong>Altura inicial:</strong> como ponto de partida, 0,5 mm na 1ª corda e 0,8 mm na 6ª
+                  (medido
                   sobre o 1º traste).</li>
-                <li><strong>Canais:</strong> abra com serras/limas do calibre da corda; largura = diâmetro da corda +
+                <li><strong>Canais:</strong> abra com serras/limas do calibre da corda; largura = diâmetro da corda
+                  +
                   0,02 a 0,05 mm. Inclinação suave em direção ao rastilho.</li>
-                <li><strong>Topo da pestana:</strong> após abrir os canais, abaixe o topo para que ~50% do diâmetro da
+                <li><strong>Topo da pestana:</strong> após abrir os canais, abaixe o topo para que ~50% do diâmetro
+                  da
                   corda fique acima do canal (apoio limpo, sem “sitar”).</li>
                 <li><strong>Espaçamento:</strong> distribua por “lacunas iguais” (gaps iguais) ou centros iguais,
                   mantendo margem até a borda da escala de 3,0 a 3,5 mm nos bordos externos.</li>
-                <li><strong>Acabamento e instalação:</strong> grafite 6B nos canais; 1 a 2 microgotas de cola (Titebond
+                <li><strong>Acabamento e instalação:</strong> grafite 6B nos canais; 1 a 2 microgotas de cola
+                  (Titebond
                   ou CA fina) apenas para “segurar”; deve continuar removível.</li>
               </ul>
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> largura de pestana típica 51–53 mm; espaçamento E–E 43–45 mm; alvo no
+                <strong>Violão clássico:</strong> largura de pestana típica 51–53 mm; espaçamento E–E 43–45 mm; alvo
+                no
                 1º traste ~0,45 mm (aguda) e ~0,65–0,75 mm (grave). Escala plana.
               </p>
               <p class="callout" data-instruments="vla">
@@ -5050,7 +5254,8 @@
                 duplos por ordem com leve “V” ou dois semicírculos rasos. Margem lateral 3,5 mm.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> nut 30–33 mm; alvo no 1º traste ~0,35–0,55 mm. Curvas fechadas pedem canais
+                <strong>Cavaquinho:</strong> nut 30–33 mm; alvo no 1º traste ~0,35–0,55 mm. Curvas fechadas pedem
+                canais
                 polidos para evitar emperro ao afinar.
               </p>
               <p class="callout" data-instruments="uku">
@@ -5093,14 +5298,17 @@
 
             <div class="detail" id="d-mont2">
 
-              <p>A instalação correta das cordas garante estabilidade, durabilidade da afinação e evita sobrecargas na
+              <p>A instalação correta das cordas garante estabilidade, durabilidade da afinação e evita sobrecargas
+                na
                 estrutura. Respeite o tipo/tensão compatível com o projeto.</p>
 
               <h5>1) Escolha e preparação</h5>
               <ul>
-                <li>Use tensão leve ou média em tampo leve e bracing tradicional; alta tensão só se o projeto estrutural
+                <li>Use tensão leve ou média em tampo leve e bracing tradicional; alta tensão só se o projeto
+                  estrutural
                   comportar.</li>
-                <li>Limpe rastilho, pestana e cavidades do cavalete; remova rebarbas e passe grafite 6B nos canais.</li>
+                <li>Limpe rastilho, pestana e cavidades do cavalete; remova rebarbas e passe grafite 6B nos canais.
+                </li>
               </ul>
 
               <h5>2) Amarração no cavalete</h5>
@@ -5108,15 +5316,18 @@
                 <li><strong>Tie-block (nylon):</strong> laçada simples nas bordões e dupla nas primas; deixe a
                   “perninha” presa sob a própria volta.</li>
                 <li><strong>12 furos:</strong> uma volta curta por furo; reduz massa e escorregamento.</li>
-                <li><strong>Furo passante / ball-end:</strong> introduza por trás e use nó simples de segurança se não
+                <li><strong>Furo passante / ball-end:</strong> introduza por trás e use nó simples de segurança se
+                  não
                   houver esferas.</li>
               </ul>
 
               <h5>3) Enrolamento nas tarraxas</h5>
               <ul>
-                <li>Insira a ponta pelo furo, faça pré-dobrinha de 90° e enrole mantendo <em>down-wind</em> para criar
+                <li>Insira a ponta pelo furo, faça pré-dobrinha de 90° e enrole mantendo <em>down-wind</em> para
+                  criar
                   ângulo de quebra na pestana.</li>
-                <li>Nylon/fluorocarbono: 2–4 voltas. Aço: 1–2 voltas com “travamento” (lock-wrap) evita escorregar.</li>
+                <li>Nylon/fluorocarbono: 2–4 voltas. Aço: 1–2 voltas com “travamento” (lock-wrap) evita escorregar.
+                </li>
                 <li>Organize as voltas descendo no poste, sem cruzar.</li>
               </ul>
 
@@ -5136,15 +5347,18 @@
                 gradualmente para não deslocar o cavalete.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> aço; 1–1,5 volta com travamento costuma bastar. Proteja o tampo ao amarrar
+                <strong>Cavaquinho:</strong> aço; 1–1,5 volta com travamento costuma bastar. Proteja o tampo ao
+                amarrar
                 se o cavalete for de furo passante.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> fluorocarbono/nylon; 2–3 voltas nas tarraxas. Em tie-bar, nó simples com volta
+                <strong>Ukulele:</strong> fluorocarbono/nylon; 2–3 voltas nas tarraxas. Em tie-bar, nó simples com
+                volta
                 de segurança.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Ângulos de quebra:</strong> mantenha bom ângulo sobre pestana e rastilho sem encostar corda no
+                <strong>Ângulos de quebra:</strong> mantenha bom ângulo sobre pestana e rastilho sem encostar corda
+                no
                 tampo. Voltas descendo no poste ajudam.
               </p>
 
@@ -5179,44 +5393,53 @@
 
             <div class="detail" id="d-mont3">
 
-              <p>A regulagem define conforto, dinâmica e estabilidade. Trabalhe em ciclos curtos: medir → ajustar pouco
+              <p>A regulagem define conforto, dinâmica e estabilidade. Trabalhe em ciclos curtos: medir → ajustar
+                pouco
                 → medir de novo.</p>
 
               <h5>Checklist objetivo</h5>
               <ul>
                 <li><strong>Ação na 12ª casa (medida topo do traste → parte inferior da corda):</strong> referência
                   comum: 1ª corda ≈ 2,5–3,0 mm; 6ª corda ≈ 3,5–4,0 mm.</li>
-                <li><strong>Relação rastilho → 12ª:</strong> toda correção no <em>rastilho</em> reflete ~metade na 12ª
+                <li><strong>Relação rastilho → 12ª:</strong> toda correção no <em>rastilho</em> reflete ~metade na
+                  12ª
                   casa (2:1). Ex.: baixar 0,5 mm na 12ª ⇒ lixar ~1,0 mm na base do rastilho.</li>
                 <li><strong>Alívio do braço (relief):</strong> pressione 1ª e 12ª, meça a folga na 7ª; alvo típico
                   clássico 0,10–0,25 mm.</li>
-                <li><strong>Pestana (nut):</strong> com a corda pressionada na 3ª, a folga sobre a 1ª deve ser mínima
+                <li><strong>Pestana (nut):</strong> com a corda pressionada na 3ª, a folga sobre a 1ª deve ser
+                  mínima
                   (≈0,05–0,10 mm). Sem pressionar, alturas usuais: 1ª ≈ 0,5 mm; 6ª ≈ 0,8 mm.</li>
-                <li><strong>Ângulos e assentamento:</strong> checar quebra sobre pestana/rastilho, rampas no cavalete se
+                <li><strong>Ângulos e assentamento:</strong> checar quebra sobre pestana/rastilho, rampas no
+                  cavalete se
                   necessário, e pontas de traste suaves.</li>
               </ul>
 
               <h5>Procedimento</h5>
               <ul>
-                <li><strong>1) Medir ação atual:</strong> régua milimetrada na 12ª casa (1ª e 6ª cordas). Anote metas.
+                <li><strong>1) Medir ação atual:</strong> régua milimetrada na 12ª casa (1ª e 6ª cordas). Anote
+                  metas.
                 </li>
                 <li><strong>2) Ajustar pelo rastilho:</strong> marque a base, lixe em taco <em>plano</em> mantendo a
                   base perfeitamente reta; aplique a relação 2:1 e teste.</li>
                 <li><strong>3) Checar alívio:</strong> se a folga na 7ª estiver zero (ou muito alta), revise
                   nivelamento/planeamento de escala e trastes; ajuste do tensor apenas se o seu projeto usar.</li>
-                <li><strong>4) Corrigir pestana:</strong> aprofunde canais com limas específicas, mantendo inclinação em
+                <li><strong>4) Corrigir pestana:</strong> aprofunde canais com limas específicas, mantendo
+                  inclinação em
                   direção ao rastilho; avance em décimos de milímetro.</li>
-                <li><strong>5) Refinos finais:</strong> verifique trastes “altos” com fret rocker, arredonde pontas, e
+                <li><strong>5) Refinos finais:</strong> verifique trastes “altos” com fret rocker, arredonde pontas,
+                  e
                   confirme ângulos de quebra das cordas.</li>
               </ul>
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> ação de concerto tende mais alta (≈ 3,0 / 4,0 mm). Nylon assenta em
+                <strong>Violão clássico:</strong> ação de concerto tende mais alta (≈ 3,0 / 4,0 mm). Nylon assenta
+                em
                 24–72 h; regule após estabilizar.
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola caipira (aço):</strong> alvo comum 2,0–2,5 mm nas primas e 2,5–3,5 mm nos bordões; garanta
+                <strong>Viola caipira (aço):</strong> alvo comum 2,0–2,5 mm nas primas e 2,5–3,5 mm nos bordões;
+                garanta
                 <em>lock-wrap</em> nas tarraxas.
               </p>
               <p class="callout" data-instruments="cav">
@@ -5224,11 +5447,13 @@
                 nivelamento de trastes.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> fluorocarbono flexibiliza rápido; alinhe a pestana para ação confortável sem
+                <strong>Ukulele:</strong> fluorocarbono flexibiliza rápido; alinhe a pestana para ação confortável
+                sem
                 “chorado” nas primeiras casas.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Clima:</strong> umidade muda ação. Sempre recheck após 24 h do encordoamento e com instrumento
+                <strong>Clima:</strong> umidade muda ação. Sempre recheck após 24 h do encordoamento e com
+                instrumento
                 no ambiente final.
               </p>
 
@@ -5262,14 +5487,17 @@
 
             <div class="detail" id="d-mont4">
 
-              <p>Checagem estrutural, geométrica e acústica antes da entrega. Trabalhe em ambiente controlado (≈45–55%
+              <p>Checagem estrutural, geométrica e acústica antes da entrega. Trabalhe em ambiente controlado
+                (≈45–55%
                 UR).</p>
 
               <h5>Checklist rápido</h5>
               <ul>
-                <li><strong>Geometria:</strong> centro do tampo → alinhado a roseta, escala, filetes e cavalete; braço
+                <li><strong>Geometria:</strong> centro do tampo → alinhado a roseta, escala, filetes e cavalete;
+                  braço
                   co-linear ao eixo do corpo.</li>
-                <li><strong>Ação &amp; relief:</strong> confirmar alturas na 12ª (1ª/6ª) e folga na 7ª; revisar pestana
+                <li><strong>Ação &amp; relief:</strong> confirmar alturas na 12ª (1ª/6ª) e folga na 7ª; revisar
+                  pestana
                   (testes da 3ª casa) e rastilho.</li>
                 <li><strong>Acústica:</strong> tocar todas as notas em todas as cordas (ataque leve→forte); ouvir
                   trastejamentos, “wolf notes”, zumbidos.</li>
@@ -5279,7 +5507,8 @@
                   roseta/filetes; bordas de traste suaves.</li>
                 <li><strong>Ferragens:</strong> tarraxas firmes e suaves; pinos/parafusos sem folga; cordas bem
                   assentadas.</li>
-                <li><strong>Documentação:</strong> nº de série, data, pesos, ação (1ª/6ª), alturas nut/rastilho, escala,
+                <li><strong>Documentação:</strong> nº de série, data, pesos, ação (1ª/6ª), alturas nut/rastilho,
+                  escala,
                   medidas do cavalete; fotos finais.</li>
               </ul>
 
@@ -5351,14 +5580,16 @@
 
               <p>Faça a regulagem com cordas novas, instrumento na afinação de trabalho e UR ≈ 45–55%.</p>
               <ul>
-                <li>Meça a altura das cordas na 12ª casa (referência comum: 2,8&nbsp;mm na 1ª e 3,8&nbsp;mm na 6ª).</li>
+                <li>Meça a altura das cordas na 12ª casa (referência comum: 2,8&nbsp;mm na 1ª e 3,8&nbsp;mm na 6ª).
+                </li>
                 <li>Lixe a base do rastilho em etapas muito pequenas (taco plano), conferindo a cada ajuste.</li>
                 <li>Revise a pestana se houver desconforto nas 1–3 primeiras casas (teste da “3ª casa”).</li>
                 <li>Cheque leve <em>relief</em> por volta da 7ª (folga mínima ao pressionar 1ª e última casa).</li>
               </ul>
 
               <p class="callout" data-instruments="vcl vla">
-                <strong>Clássico/Viola:</strong> ação-alvo típica 2,7–3,0&nbsp;mm (1ª) / 3,6–4,0&nbsp;mm (6ª) na 12ª.
+                <strong>Clássico/Viola:</strong> ação-alvo típica 2,7–3,0&nbsp;mm (1ª) / 3,6–4,0&nbsp;mm (6ª) na
+                12ª.
               </p>
               <p class="callout" data-instruments="cav">
                 <strong>Cavaquinho:</strong> ação baixa exige trastes impecáveis; alvo 1,8–2,4&nbsp;mm (1ª) /
@@ -5402,11 +5633,13 @@
 
               <ul>
                 <li>Afine a corda; compare nota solta, harmônico na 12ª e nota frettada na 12ª.</li>
-                <li><strong>12ª baixa</strong> (frettada abaixo): encurte o ponto de contato → avance o break-point no
+                <li><strong>12ª baixa</strong> (frettada abaixo): encurte o ponto de contato → avance o break-point
+                  no
                   rastilho.</li>
                 <li><strong>12ª alta</strong> (frettada acima): alongue o ponto de contato → recuar o break-point no
                   rastilho.</li>
-                <li>Trabalhe a compensação por corda (limas finas e polimento), mantendo a coroa limpa e sem rebarbas.
+                <li>Trabalhe a compensação por corda (limas finas e polimento), mantendo a coroa limpa e sem
+                  rebarbas.
                 </li>
               </ul>
 
@@ -5447,10 +5680,12 @@
             <div class="detail" id="d-reg3">
 
               <ul>
-                <li>Limpe com pano de microfibra. Para escala e cavalete, óleo de limão moderado (sem silicone).</li>
+                <li>Limpe com pano de microfibra. Para escala e cavalete, óleo de limão moderado (sem silicone).
+                </li>
                 <li>Remova marcas e resíduos de cola (estilete/raspilha muito plana; retoque com polidor fino se
                   necessário).</li>
-                <li>Retoque pequenas imperfeições no verniz (grão 2000 → polidor) ou goma-laca (passes leves de boneca).
+                <li>Retoque pequenas imperfeições no verniz (grão 2000 → polidor) ou goma-laca (passes leves de
+                  boneca).
                 </li>
               </ul>
 
@@ -5488,7 +5723,8 @@
 
               <ul>
                 <li>Preencha e cole a etiqueta interna (nome, modelo, nº de série, data, madeira, assinatura).</li>
-                <li>Registre medidas finais: ação (1ª/6ª na 12ª), altura nut/rastilho, escala, peso, umidade na entrega.
+                <li>Registre medidas finais: ação (1ª/6ª na 12ª), altura nut/rastilho, escala, peso, umidade na
+                  entrega.
                 </li>
                 <li>Opcional: QR code com link para ficha técnica e plano de manutenção.</li>
               </ul>
@@ -5520,7 +5756,8 @@
             <div class="detail" id="d-reg5">
 
               <ul>
-                <li>Fotografe (frente, fundo, laterais, headstock, roseta, cavalete, filetes, etiqueta) com luz difusa.
+                <li>Fotografe (frente, fundo, laterais, headstock, roseta, cavalete, filetes, etiqueta) com luz
+                  difusa.
                 </li>
                 <li>Entregue com guia de cuidados: UR ideal 45–55%, limpeza, troca de cordas, revisões.</li>
                 <li>Inclua cartão de garantia e recomendações de transporte/umidificação do estojo.</li>

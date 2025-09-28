@@ -118,6 +118,62 @@
   box-shadow: 0 3px 6px rgba(0,0,0,0.15);
 }
 
+/* Painel do Projeto (card centralizado) */
+.project-panel {
+  background: #fff;
+  border: 1px solid #e6e0d8;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1000px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Título */
+.project-panel h3 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+}
+
+/* Grid dos campos */
+.project-panel .project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.project-panel label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #444;
+  gap: 4px;
+}
+
+.project-panel input,
+.project-panel select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ações */
+.project-panel .project-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 
 
 /* Responsividade */
