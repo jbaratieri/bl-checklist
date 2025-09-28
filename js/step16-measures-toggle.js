@@ -1,31 +1,31 @@
-// step16-measures-toggle.js
+// step16-measures-toggle.js — Toggle de MEDIDAS (botão retangular ＋ Medidas / − Medidas)
 (() => {
   'use strict';
 
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('.btn.measures-toggle');
-    if (!btn) return;
-
+  function toggleMeasures(btn) {
     const targetId = btn.dataset.target;
     const grid = document.getElementById(targetId);
     if (!grid) return;
 
-    const isOpen = !grid.hidden;
-    if (isOpen) {
-      // Fechar
-      grid.hidden = true;
-      btn.classList.remove('active');
-      btn.querySelector('.icon').textContent = '＋';
-      console.log('[measures-toggle] FECHANDO →', targetId, grid);
-    } else {
-      // Abrir
-      grid.hidden = false;
+    const isHidden = grid.hasAttribute('hidden');
+    if (isHidden) {
+      grid.removeAttribute('hidden');
+      grid.style.display = 'grid';
       btn.classList.add('active');
-      btn.querySelector('.icon').textContent = '−';
-      console.log('[measures-toggle] ABRINDO →', targetId, grid);
+      const icon = btn.querySelector('.icon');
+      if (icon) icon.textContent = '−';
+    } else {
+      grid.setAttribute('hidden', '');
+      grid.style.display = 'none';
+      btn.classList.remove('active');
+      const icon = btn.querySelector('.icon');
+      if (icon) icon.textContent = '＋';
     }
-  });
+  }
 
-  // força iniciar fechado
-  document.querySelectorAll('.measures-grid').forEach(g => g.hidden = true);
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.btn.measures-toggle');
+    if (!btn) return;
+    toggleMeasures(btn);
+  });
 })();
