@@ -3,31 +3,25 @@
   'use strict';
 
   document.addEventListener('click', e => {
-    const btn = e.target.closest('button.measures-toggle');
+    const btn = e.target.closest('.btn.measures-toggle');
     if (!btn) return;
 
-    const targetId = btn.getAttribute('data-target');
+    const targetId = btn.dataset.target;
     const grid = document.getElementById(targetId);
     if (!grid) return;
 
-    const icon = btn.querySelector('.icon');
-
-    // estado REAL: considera atributo hidden e estilo inline
-    const isHidden = grid.hasAttribute('hidden') || grid.style.display === 'none';
-    console.log('[measures-toggle] Estado real =', isHidden, '→ target:', targetId);
+    const isHidden = grid.hasAttribute('hidden');
 
     if (isHidden) {
-      grid.removeAttribute('hidden');  // remove o atributo
-      grid.style.display = 'grid';     // garante exibição
+      grid.removeAttribute('hidden');
       btn.classList.add('active');
+      const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '−';
-      console.log('[measures-toggle] ABERTO:', targetId);
     } else {
-      grid.setAttribute('hidden', ''); // recoloca o atributo
-      grid.style.display = 'none';     // esconde
+      grid.setAttribute('hidden', '');
       btn.classList.remove('active');
+      const icon = btn.querySelector('.icon');
       if (icon) icon.textContent = '＋';
-      console.log('[measures-toggle] FECHADO:', targetId);
     }
   });
 })();
