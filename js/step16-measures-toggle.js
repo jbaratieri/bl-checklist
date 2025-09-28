@@ -1,18 +1,15 @@
-/* step16-measures-toggle.js — abre/fecha blocos de medidas */
-(function(){
+// step16-measures-toggle.js
+(() => {
   'use strict';
 
-  document.addEventListener('click', function(e){
-    const btn = e.target.closest('button.measures-toggle');
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('.btn.measures-toggle');
     if (!btn) return;
 
-    const targetId = btn.getAttribute('data-target');
-    if (!targetId) return;
-
+    const targetId = btn.dataset.target;
     const grid = document.getElementById(targetId);
     if (!grid) return;
 
-    // alterna visibilidade
     const isHidden = grid.hasAttribute('hidden');
     if (isHidden) {
       grid.removeAttribute('hidden');
