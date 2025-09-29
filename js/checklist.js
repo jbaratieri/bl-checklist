@@ -15,7 +15,8 @@
   }
   function loadAll() {
     try {
-      const raw = localStorage.getItem(LS_DATA); if (!raw) return;
+      const raw = localStorage.getItem(LS_DATA); 
+      if (!raw) return;
       const data = JSON.parse(raw);
       Object.entries(data).forEach(([k, v]) => {
         const el = document.getElementById(k);
@@ -48,59 +49,85 @@
   }
 
   // ----- Sections open/close -----
-function setSectionOpen(sec, open) {
-  sec.classList.toggle('open', open);
-  const body = sec.querySelector(':scope > .section-body');
-  if (body) {
-    body.toggleAttribute('hidden', !open);
-    body.style.display = open ? 'block' : 'none';
-  }
-}
-
-document.addEventListener('click', e => {
-  // Clique no header da seção
-  const header = e.target.closest('.section > header');
-  if (header) {
-    const sec = header.parentElement;
-    const isOpen = sec.classList.contains('open');
-    setSectionOpen(sec, !isOpen);
-  }
-
-  // Botão EXPANDIR
-  if (e.target.id === 'btnExpand') {
-    $$('.section').forEach(s => setSectionOpen(s, true));
-  }
-
-  // Botão RECOLHER
-  if (e.target.id === 'btnCollapse') {
-    $$('.section').forEach(s => setSectionOpen(s, false));
-  }
-
-  // Botão IMPRIMIR
-  if (e.target.id === 'btnPrint') {
-    window.print();
-  }
-
-  // Botão LIMPAR
-  if (e.target.id === 'btnReset') {
-    if (confirm('Remover dados salvos?')) {
-      localStorage.removeItem(LS_DATA);
-      try {
-        const toDelete = [];
-        for (let i = 0; i < localStorage.length; i++) {
-          const k = localStorage.key(i);
-          if (!k) continue;
-          if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
-            toDelete.push(k);
-          }
-        }
-        toDelete.forEach(k => localStorage.removeItem(k));
-      } catch (e) { }
-      location.reload();
+  function setSectionOpen(sec, open) {
+    sec.classList.toggle('open', open);
+    const body = sec.querySelector(':scope > .section-body');
+    if (body) {
+      if (open) {
+        body.removeAttribute('hidden');
+        body.style.display = 'block';
+      } else {
+        body.setAttribute('hidden', '');
+        body.style.display = 'none';
+      }
     }
   }
-});
 
+  document.addEventListener('click', e => {
+    // Clique no header da seção
+    const header = e.target.closest('.section > header');
+    if (header) {
+      const sec = header.parentElement;
+      const isOpen = sec.classList.contains('open');
+      setSectionOpen(sec, !isOpen);
+    }
+
+    // Botão EXPANDIR
+    if (e.target.id === 'btnExpand') {
+      $$('.section').forEach(s => setSectionOpen(s, true));
+    }
+
+    // Botão RECOLHER
+    if (e.target.id === 'btnCollapse') {
+      $$('.section').forEach(s => setSectionOpen(s, false));
+    }
+
+    // Botão IMPRIMIR
+    if (e.target.id === 'btnPrint') {
+      window.print();
+    }
+
+    // Botão LIMPAR
+    if (e.target.id === 'btnReset') {
+      if (confirm('Remover dados salvos?')) {
+        localStorage.removeItem(LS_DATA);
+        try {
+          const toDelete = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (!k) continue;
+            if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
+              toDelete.push(k);
+            }
+          }
+          toDelete.forEach(k => localStorage.removeItem(k));
+        } catch (e) {}
+        location.reload();
+      }
+    }
+
+    // Botões de DETALHE (+ / -)
+    const toggleBtn = e.target.closest('.btn.toggle');
+    if (toggleBtn) {
+      const targetId = toggleBtn.dataset.target;
+      const detail = document.getElementById(targetId);
+      if (!detail) return;
+      const isHidden = detail.hasAttribute('hidden');
+      if (isHidden) {
+        detail.removeAttribute('hidden');
+        detail.style.display = 'block';
+        toggleBtn.classList.add('active');
+        const icon = toggleBtn.querySelector('.icon');
+        if (icon) icon.textContent = '−';
+      } else {
+        detail.setAttribute('hidden', '');
+        detail.style.display = 'none';
+        toggleBtn.classList.remove('active');
+        const icon = toggleBtn.querySelector('.icon');
+        if (icon) icon.textContent = '＋';
+      }
+    }
+  });
 
   // ----- Progress -----
   function updateProgress() {
@@ -122,7 +149,7 @@ document.addEventListener('click', e => {
     });
   }
 
-  // ===== Persistência de imagens via IndexedDB (leve e segura) =====
+  // ===== Persistência de imagens via IndexedDB =====
   (function () {
     const DB = 'bl-images', OS = 'images';
     function openDB() {
@@ -142,13 +169,13 @@ document.addEventListener('click', e => {
       openDB().then(db => {
         const tx = db.transaction(OS, 'readwrite');
         tx.objectStore(OS).put({ key, dataURL, addedAt: Date.now() });
-      }).catch(() => { });
+      }).catch(() => {});
     };
     window.blImgDelete = function (key) {
       openDB().then(db => {
         const tx = db.transaction(OS, 'readwrite');
         tx.objectStore(OS).delete(key);
-      }).catch(() => { });
+      }).catch(() => {});
     };
     window.blImgListPrefix = function (prefix) {
       return openDB().then(db => new Promise((res, rej) => {
