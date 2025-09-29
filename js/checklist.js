@@ -1,3 +1,4 @@
+// checklist.js
 (() => {
   'use strict';
 
@@ -49,7 +50,13 @@
   // ----- Sections open/close -----
   function setSectionOpen(sec, open) {
     sec.classList.toggle('open', open);
+    const body = sec.querySelector(':scope > .section-body');
+    if (body) {
+      body.toggleAttribute('hidden', !open);
+      body.style.display = open ? 'block' : 'none';
+    }
   }
+
   document.addEventListener('click', e => {
     const header = e.target.closest('.section>header');
     if (header) {
@@ -105,7 +112,7 @@
     });
   }
 
-  // ===== Persistência de imagens via IndexedDB =====
+  // ===== Persistência de imagens via IndexedDB (leve e segura) =====
   (function () {
     const DB = 'bl-images', OS = 'images';
     function openDB() {
@@ -150,195 +157,12 @@
     };
   })();
 
-  // ----- Images per step -----
-  document.addEventListener('click', e => {
-    const add = e.target.closest('.add-img, .add-image');
-    if (add) {
-      const step = add.closest('.step');
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'image/*';
-      input.multiple = true;
-      input.onchange = () => {
-        const row = step.querySelector('.img-row');
-        Array.from(input.files).forEach(file => {
-          const fr = new FileReader();
-          fr.onload = () => {
-            const img = new Image();
-            img.src = fr.result;
-            img.style.cssText = 'max-width:140px;max-height:140px;border:1px solid #eadfce;border-radius:10px;margin:6px;background:#fff;object-fit:cover';
-            const wrap = document.createElement('div');
-            wrap.className = 'img-thumb';
-            img.className = 'img-pic';
-            img.alt = 'Imagem adicionada';
-            img.loading = 'lazy';
-            const close = document.createElement('button');
-            close.type = 'button';
-            close.className = 'img-close';
-            close.setAttribute('aria-label', 'Fechar imagem');
-            close.textContent = 'FECHAR IMAGEM';
-            wrap.appendChild(img);
-            wrap.appendChild(close);
-            try {
-              const inst = localStorage.getItem('bl:instrument') || 'vcl';
-              const scope = step || add.closest('.step') || document;
-              const token = (scope.querySelector('.open-draw[data-subetapa]')?.getAttribute('data-subetapa')) || (scope.getAttribute && scope.getAttribute('data-step')) || (scope.id) || 'root';
-              const key = inst + ':' + token + ':' + Date.now() + ':' + Math.random().toString(36).slice(2, 8);
-              wrap.setAttribute('data-image-key', key);
-              if (window.blImgSave) window.blImgSave(key, img.src);
-            } catch (_e) { }
-            row.appendChild(wrap);
-          };
-          fr.readAsDataURL(file);
-        });
-      };
-      input.click();
-    }
-  });
-
-  // Persistência: apagar do IndexedDB antes de remover do DOM
-  document.addEventListener('click', function (e) {
-    const btn = e.target.closest('.img-close');
-    if (!btn) return;
-    const wrap = btn.closest('.img-thumb');
-    const key = wrap && wrap.getAttribute('data-image-key');
-    if (key && window.blImgDelete) window.blImgDelete(key);
-  }, true);
-
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('.img-close');
-    if (btn) {
-      e.preventDefault();
-      const thumb = btn.closest('.img-thumb');
-      if (thumb) thumb.remove();
-    }
-  });
-
-  // ----- Drawing modal -----
-  let modal, canvas, ctx, drawing = false, penSize, penColor, last = null;
-  function openDraw() { modal.style.display = 'flex'; }
-  function closeDraw() { modal.style.display = 'none'; }
-  function clearCanvas() {
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-  function savePNG() {
-    const url = canvas.toDataURL('image/png');
-    const a = document.createElement('a');
-    a.href = url; a.download = 'desenho-tecnico.png'; a.click();
-  }
-  function startDraw(e) { drawing = true; last = getPos(e); }
-  function endDraw() { drawing = false; last = null; }
-  function getPos(e) {
-    const rect = canvas.getBoundingClientRect();
-    const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-    const y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    return { x: x * scaleX, y: y * scaleY };
-  }
-  function draw(e) {
-    if (!drawing) return;
-    const p = getPos(e);
-    ctx.strokeStyle = penColor.value;
-    ctx.lineWidth = parseInt(penSize.value, 10);
-    ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(last.x, last.y);
-    ctx.lineTo(p.x, p.y);
-    ctx.stroke();
-    last = p;
-    e.preventDefault();
-  }
-  function initDraw() {
-    modal = $('#drawModal');
-    const canvas = document.getElementById('drawCanvas');
-    if (canvas && canvas.getContext) {
-      const ctx = canvas.getContext('2d');
-      penSize = $('#penSize'); penColor = $('#penColor');
-      clearCanvas();
-      $('#btnClear').addEventListener('click', clearCanvas);
-      $('#btnSavePNG').addEventListener('click', savePNG);
-      $('#btnCloseDraw').addEventListener('click', closeDraw);
-      canvas.addEventListener('mousedown', startDraw);
-      canvas.addEventListener('mouseup', endDraw);
-      canvas.addEventListener('mouseleave', endDraw);
-      canvas.addEventListener('mousemove', draw);
-      canvas.addEventListener('touchstart', startDraw, { passive: false });
-      canvas.addEventListener('touchend', endDraw);
-      canvas.addEventListener('touchmove', draw, { passive: false });
-    }
-  }
-  document.addEventListener('click', e => {
-    const drawBtn = e.target.closest('.draw');
-    if (drawBtn) openDraw();
-  });
-
-  // ----- Export Medidas -----
-  function exportMeasuresPDF() {
-    const data = [];
-    $$('.section').forEach(sec => {
-      const secTitle = sec.querySelector('header h3')?.textContent?.trim() || 'Seção';
-      const rows = [];
-      $$('.step', sec).forEach(step => {
-        const label = step.querySelector('.label')?.textContent?.trim() || 'Subetapa';
-        const sid = step.querySelector('.chk')?.id || '';
-        const w = document.getElementById('w-' + sid)?.value || '';
-        const h = document.getElementById('h-' + sid)?.value || '';
-        const t = document.getElementById('t-' + sid)?.value || '';
-        if (w || h || t) { rows.push({ label, w, h, t }); }
-      });
-      if (rows.length) data.push({ secTitle, rows });
-    });
-    if (!data.length) { alert('Nenhuma medida preenchida encontrada.'); return; }
-    const win = window.open('', '_blank');
-    win.document.write(`<!DOCTYPE html><html lang="pt-BR"><head>
-      <meta charset="utf-8"><title>Medidas — Relatório</title>
-      <style>
-        body{font-family:system-ui,Segoe UI,Roboto,Arial;padding:16px;color:#2e2a26}
-        h1{margin:0 0 6px}
-        .muted{color:#666;font-size:12px;margin-bottom:12px}
-        .sec{margin:12px 0 18px}
-        table{border-collapse:collapse;width:100%}
-        th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:13px}
-        th{background:#f7f2ea}
-      </style>
-    </head><body>`);
-    win.document.write(`<h1>Relatório de Medidas</h1>
-      <div class="muted">Gerado em ${new Date().toLocaleString()}</div>`);
-    data.forEach(group => {
-      win.document.write(`<div class="sec"><h3>${group.secTitle}</h3>
-        <table><thead><tr><th>Subetapa</th><th>Largura (mm)</th><th>Altura (mm)</th><th>Espessura (mm)</th></tr></thead><tbody>`);
-      group.rows.forEach(r => {
-        win.document.write(`<tr><td>${r.label}</td><td>${r.w || ''}</td><td>${r.h || ''}</td><td>${r.t || ''}</td></tr>`);
-      });
-      win.document.write(`</tbody></table></div>`);
-    });
-    win.document.write(`</body></html>`);
-    win.document.close();
-    win.focus();
-    setTimeout(() => win.print(), 300);
-  }
-
-  // ----- SW register -----
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker
-        .register('/bl-checklist/service-worker.js', { scope: '/bl-checklist/' })
-        .then(reg => console.log('SW registrado ✅', reg))
-        .catch(err => console.error('SW erro ❌', err));
-    });
-  }
-
-  // Init
+  // ----- Init -----
   loadAll();
-  initDraw();
   initAutoGrow();
   updateProgress();
-  $$('.section').forEach(s => s.classList.add('open'));
-  document.getElementById('btnExportPDF')?.addEventListener('click', exportMeasuresPDF);
 
-  // Lightbox
+  // Lightbox simples
   function ensureLightbox() {
     let lb = document.getElementById('imgLightbox');
     if (lb) return lb;
