@@ -48,49 +48,59 @@
   }
 
   // ----- Sections open/close -----
-  function setSectionOpen(sec, open) {
-    sec.classList.toggle('open', open);
-    const body = sec.querySelector(':scope > .section-body');
-    if (body) {
-      body.toggleAttribute('hidden', !open);
-      body.style.display = open ? 'block' : 'none';
-    }
+function setSectionOpen(sec, open) {
+  sec.classList.toggle('open', open);
+  const body = sec.querySelector(':scope > .section-body');
+  if (body) {
+    body.toggleAttribute('hidden', !open);
+    body.style.display = open ? 'block' : 'none';
+  }
+}
+
+document.addEventListener('click', e => {
+  // Clique no header da seção
+  const header = e.target.closest('.section > header');
+  if (header) {
+    const sec = header.parentElement;
+    const isOpen = sec.classList.contains('open');
+    setSectionOpen(sec, !isOpen);
   }
 
-  document.addEventListener('click', e => {
-    const header = e.target.closest('.section>header');
-    if (header) {
-      const sec = header.parentElement;
-      setSectionOpen(sec, !sec.classList.contains('open'));
-    }
+  // Botão EXPANDIR
+  if (e.target.id === 'btnExpand') {
+    $$('.section').forEach(s => setSectionOpen(s, true));
+  }
 
-    if (e.target.id === 'btnExpand') {
-      $$('.section').forEach(s => setSectionOpen(s, true));
-    }
-    if (e.target.id === 'btnCollapse') {
-      $$('.section').forEach(s => setSectionOpen(s, false));
-    }
-    if (e.target.id === 'btnPrint') {
-      window.print();
-    }
-    if (e.target.id === 'btnReset') {
-      if (confirm('Remover dados salvos?')) {
-        localStorage.removeItem(LS_DATA);
-        try {
-          const toDelete = [];
-          for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (!k) continue;
-            if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
-              toDelete.push(k);
-            }
+  // Botão RECOLHER
+  if (e.target.id === 'btnCollapse') {
+    $$('.section').forEach(s => setSectionOpen(s, false));
+  }
+
+  // Botão IMPRIMIR
+  if (e.target.id === 'btnPrint') {
+    window.print();
+  }
+
+  // Botão LIMPAR
+  if (e.target.id === 'btnReset') {
+    if (confirm('Remover dados salvos?')) {
+      localStorage.removeItem(LS_DATA);
+      try {
+        const toDelete = [];
+        for (let i = 0; i < localStorage.length; i++) {
+          const k = localStorage.key(i);
+          if (!k) continue;
+          if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
+            toDelete.push(k);
           }
-          toDelete.forEach(k => localStorage.removeItem(k));
-        } catch (e) { }
-        location.reload();
-      }
+        }
+        toDelete.forEach(k => localStorage.removeItem(k));
+      } catch (e) { }
+      location.reload();
     }
-  });
+  }
+});
+
 
   // ----- Progress -----
   function updateProgress() {
