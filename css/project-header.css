@@ -1,69 +1,128 @@
 /* project-header.css — ficha do projeto + cronograma */
-.project-header{
-  margin: 10px 0 18px;
-  padding: 14px 16px;
-  border: 1px solid #e5dccf;
+.project-header {
+  max-width: 1100px;                     /* largura unificada */
+  margin: 20px auto;                     /* centraliza */
+  padding: 16px 20px;
+  border: 1px solid #e8dfd1;
   border-radius: 12px;
   background: #faf7f2;
+  box-shadow: 0 4px 12px rgba(0,0,0,.04); /* leve sombra */
+  box-sizing: border-box;
 }
-.project-header h3{
-  margin: 0 0 10px;
-  font-size: 1.1rem;
+
+.project-header h3 {
+  margin: 0 0 14px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  color: #333;
   letter-spacing: .2px;
 }
-.project-grid{
+
+.project-header .project-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
 }
-.project-grid label{ display:flex; align-items:center; gap:.5rem; }
-.project-grid input, .project-grid select{
-  flex:1 1 auto; min-width:0;
+
+.project-header .project-grid label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  font-size: .9rem;
+  color: #444;
+  gap: 4px;
+}
+
+.project-header .project-grid input,
+.project-header .project-grid select {
+  flex: 1 1 auto;
+  min-width: 0;
   padding: 8px 10px;
-  border: 1px solid #e0d7c8;
-  border-radius: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   background: #fff;
-}
-.project-actions{ margin-top: 10px; display:flex; gap:8px; align-items:center; }
-#planTable{ margin-top: 12px; }
-#planTable table{ width:100%; border-collapse: collapse; }
-#planTable th, #planTable td{
-  border-top:1px solid #eadfce;
-  padding: 8px 10px; text-align:left; font-size:.95rem;
-}
-#planTable thead th{ background:#efe6d9; }
-#planTable tfoot td{ font-weight:600; }
-.badge-current-instrument{
-  display:inline-block; margin-left:8px; padding:2px 8px; font-size:.8rem;
-  background:#efe6d9; border:1px solid #e0d7c8; border-radius:999px;
+  font-size: .9rem;
 }
 
-/* impressão: mostra planTable no topo com bordas suaves */
-@media print{
-  .project-header{ border: none; background: transparent; padding: 0 0 8px; }
-  #planTable th, #planTable td{ border-color:#ddd; }
+.project-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
 }
 
-/* Ajustes responsivos para telas menores */
+#planTable {
+  margin-top: 12px;
+}
+
+#planTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#planTable th,
+#planTable td {
+  border-top: 1px solid #eadfce;
+  padding: 8px 10px;
+  text-align: left;
+  font-size: .95rem;
+}
+
+#planTable thead th {
+  background: #efe6d9;
+}
+
+#planTable tfoot td {
+  font-weight: 600;
+}
+
+.badge-current-instrument {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 8px;
+  font-size: .8rem;
+  background: #efe6d9;
+  border: 1px solid #e0d7c8;
+  border-radius: 999px;
+}
+
+/* impressão */
+@media print {
+  .project-header {
+    border: none;
+    background: transparent;
+    padding: 0 0 8px;
+    box-shadow: none;
+  }
+  #planTable th,
+  #planTable td {
+    border-color: #ddd;
+  }
+}
+
+/* Responsividade */
 @media (max-width: 1024px) {
-  .project-grid {
+  .project-header .project-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  .project-grid {
+  .project-header .project-grid {
     grid-template-columns: 1fr;
   }
 
-  .project-grid label {
+  .project-header .project-grid label {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.3rem;
   }
 
-  .project-grid input,
-  .project-grid select {
+  .project-header .project-grid input,
+  .project-header .project-grid select {
     width: 100%;
   }
 }

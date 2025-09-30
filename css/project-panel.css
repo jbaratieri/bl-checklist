@@ -1,20 +1,31 @@
-/* project-panel.css — estilo unificado para painel de projeto */
-
+/* =========================
+   Layout base dos containers
+   ========================= */
+.container,
 .project-panel {
-  margin: 20px auto;
-  padding: 16px 20px;
-  background: #faf8f5;
-  border: 1px solid #e8dfd1;
+  max-width: 1100px;      /* largura padrão unificada */
+  margin: 20px auto;      /* centraliza no meio da tela */
+  padding: 20px 16px;     /* espaçamento interno */
+  box-sizing: border-box; /* evita estourar a largura */
+}
+
+/* =========================
+   Painel do Projeto
+   ========================= */
+.project-panel {
+  background: #fff;
+  border: 1px solid #e6e0d8;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
 }
 
 .project-panel h3 {
-  font-size: 1.25rem;
-  margin-bottom: 12px;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 8px;
+  color: #333;
 }
 
 /* Linha de seleção */
@@ -41,113 +52,12 @@
 /* Grid de dados */
 .project-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.project-grid label {
-  display: flex;
-  flex-direction: column;
-  font-size: .9rem;
-}
-
-.project-grid input,
-.project-grid select {
-  padding: 6px 8px;
-  border: 1px solid #d6c9b9;
-  border-radius: 6px;
-  background: #fff;
-}
-
-/* Ações do projeto */
-.project-actions {
-  margin-top: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.project-actions .btn {
-  align-self: flex-start;
-}
-
-#planTable {
-  margin-top: 12px;
-  border-top: 1px solid #e8dfd1;
-  padding-top: 12px;
-}
-
-/* Aparência uniforme para todos os botões da toolbar */
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.toolbar .btn {
-  padding: 8px 14px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 8px;
-  line-height: 1.2;
-  height: 38px;              /* altura fixa */
-  min-width: 140px;          /* largura mínima p/ não ficar irregular */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Botão principal */
-.toolbar .btn.primary {
-  background: var(--inst-color, #8a623f);
-  border: 1px solid var(--inst-color, #8a623f);
-  color: #fff;
-}
-
-/* Botão ghost */
-.toolbar .btn.ghost {
-  background: transparent;
-  border: 1px solid #ccc;
-  color: #555;
-}
-
-/* Efeito hover */
-.toolbar .btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-}
-
-/* Painel do Projeto (card centralizado) */
-.project-panel {
-  background: #fff;
-  border: 1px solid #e6e0d8;
-  border-radius: 12px;
-  padding: 20px;
-  margin: 20px auto;
-  max-width: 1000px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-/* Título */
-.project-panel h3 {
-  font-size: 1.2rem;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #333;
-}
-
-/* Grid dos campos */
-.project-panel .project-grid {
-  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 16px;
   margin-bottom: 16px;
 }
 
-.project-panel label {
+.project-grid label {
   display: flex;
   flex-direction: column;
   font-weight: 500;
@@ -156,14 +66,15 @@
   gap: 4px;
 }
 
-.project-panel input,
-.project-panel select {
+.project-grid input,
+.project-grid select {
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 6px 8px;
   font-size: 0.9rem;
   width: 100%;
   box-sizing: border-box;
+  background: #fff;
 }
 
 /* Ações */
@@ -174,7 +85,11 @@
   margin-top: 8px;
 }
 
-
+#planTable {
+  margin-top: 12px;
+  border-top: 1px solid #e8dfd1;
+  padding-top: 12px;
+}
 
 /* Responsividade */
 @media (max-width: 600px) {

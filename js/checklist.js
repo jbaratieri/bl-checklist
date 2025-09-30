@@ -15,7 +15,7 @@
   }
   function loadAll() {
     try {
-      const raw = localStorage.getItem(LS_DATA); 
+      const raw = localStorage.getItem(LS_DATA);
       if (!raw) return;
       const data = JSON.parse(raw);
       Object.entries(data).forEach(([k, v]) => {
@@ -48,102 +48,26 @@
     });
   }
 
-  // ----- Sections open/close -----
-  function setSectionOpen(sec, open) {
-    sec.classList.toggle('open', open);
-    const body = sec.querySelector(':scope > .section-body');
-    if (body) {
-      if (open) {
-        body.removeAttribute('hidden');
-        body.style.display = 'block';
-      } else {
-        body.setAttribute('hidden', '');
-        body.style.display = 'none';
-      }
-    }
-  }
-
-  document.addEventListener('click', e => {
-    // Clique no header da seção
-    const header = e.target.closest('.section > header');
-    if (header) {
-      const sec = header.parentElement;
-      const isOpen = sec.classList.contains('open');
-      setSectionOpen(sec, !isOpen);
-    }
-
-    // Botão EXPANDIR
-    if (e.target.id === 'btnExpand') {
-      $$('.section').forEach(s => setSectionOpen(s, true));
-    }
-
-    // Botão RECOLHER
-    if (e.target.id === 'btnCollapse') {
-      $$('.section').forEach(s => setSectionOpen(s, false));
-    }
-
-    // Botão IMPRIMIR
-    if (e.target.id === 'btnPrint') {
-      window.print();
-    }
-
-    // Botão LIMPAR
-    if (e.target.id === 'btnReset') {
-      if (confirm('Remover dados salvos?')) {
-        localStorage.removeItem(LS_DATA);
-        try {
-          const toDelete = [];
-          for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (!k) continue;
-            if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
-              toDelete.push(k);
-            }
-          }
-          toDelete.forEach(k => localStorage.removeItem(k));
-        } catch (e) {}
-        location.reload();
-      }
-    }
-
-    // Botões de DETALHE (+ / -)
-    const toggleBtn = e.target.closest('.btn.toggle');
-    if (toggleBtn) {
-      const targetId = toggleBtn.dataset.target;
-      const detail = document.getElementById(targetId);
-      if (!detail) return;
-      const isHidden = detail.hasAttribute('hidden');
-      if (isHidden) {
-        detail.removeAttribute('hidden');
-        detail.style.display = 'block';
-        toggleBtn.classList.add('active');
-        const icon = toggleBtn.querySelector('.icon');
-        if (icon) icon.textContent = '−';
-      } else {
-        detail.setAttribute('hidden', '');
-        detail.style.display = 'none';
-        toggleBtn.classList.remove('active');
-        const icon = toggleBtn.querySelector('.icon');
-        if (icon) icon.textContent = '＋';
-      }
-    }
-  });
+  // ----- Helpers de estado -----
+  const setSectionOpen = (sec, open) => sec.classList.toggle('open', open);
+  const setStepOpen    = (step, open) => step.classList.toggle('open', open);
+  const setMeasuresOpen = (block, open) => block.classList.toggle('open', open);
 
   // ----- Progress -----
   function updateProgress() {
     const all = $$('.chk');
     const done = all.filter(c => c.checked).length;
     const pct = Math.round((done / Math.max(1, all.length)) * 100);
-    $('#progressBadge').textContent = pct + '% concluído';
-    $('#progressFill').style.width = pct + '%';
+    const badge = $('#progressBadge');
+    const fill  = $('#progressFill');
+    if (badge) badge.textContent = pct + '% concluído';
+    if (fill)  fill.style.width = pct + '%';
 
-    // Section-level
     $$('.section').forEach(sec => {
       const checks = $$('.chk', sec);
       const d = checks.filter(c => c.checked).length;
       const t = checks.length;
       const p = sec.querySelector('.progress');
-      const tick = sec.querySelector('.tick');
       if (p) p.textContent = `${d}/${t}`;
       if (t > 0 && d === t) sec.classList.add('done'); else sec.classList.remove('done');
     });
@@ -178,7 +102,7 @@
       }).catch(() => {});
     };
     window.blImgListPrefix = function (prefix) {
-      return openDB().then(db => new Promise((res, rej) => {
+      return openDB().then(db => new Promise((res) => {
         const out = [];
         const tx = db.transaction(OS, 'readonly');
         const st = tx.objectStore(OS);
@@ -194,12 +118,7 @@
     };
   })();
 
-  // ----- Init -----
-  loadAll();
-  initAutoGrow();
-  updateProgress();
-
-  // Lightbox simples
+  // ----- Lightbox -----
   function ensureLightbox() {
     let lb = document.getElementById('imgLightbox');
     if (lb) return lb;
@@ -222,11 +141,85 @@
     lb.style.display = 'flex';
     lb.setAttribute('aria-hidden', 'false');
   }
-  document.addEventListener('click', e => {
+
+  // ----- ÚNICO LISTENER GLOBAL -----
+  document.addEventListener('click', (e) => {
+    // 0) Lightbox (img)
     const img = e.target.closest('.img-pic');
-    if (!img) return;
-    e.preventDefault();
-    openLightbox(img.src);
+    if (img) { e.preventDefault(); openLightbox(img.src); return; }
+
+    // 1) Clique no header da seção → toggle
+    const header = e.target.closest('.section > header');
+    if (header) {
+      const sec = header.parentElement;
+      sec.classList.toggle('open');
+      return;
+    }
+
+    // 2) Expandir/Recolher tudo
+    if (e.target.closest('#btnExpand, #btnExpandAll')) {
+      $$('.section').forEach(s => setSectionOpen(s, true));
+      return;
+    }
+    if (e.target.closest('#btnCollapse, #btnCollapseAll')) {
+      $$('.section').forEach(s => setSectionOpen(s, false));
+      return;
+    }
+
+    // 3) Imprimir
+    if (e.target.closest('#btnPrint')) {
+      window.print();
+      return;
+    }
+
+    // 4) Reset
+    if (e.target.closest('#btnReset')) {
+      if (confirm('Remover dados salvos?')) {
+        localStorage.removeItem(LS_DATA);
+        try {
+          const toDelete = [];
+          for (let i = 0; i < localStorage.length; i++) {
+            const k = localStorage.key(i);
+            if (!k) continue;
+            if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
+              toDelete.push(k);
+            }
+          }
+          toDelete.forEach(k => localStorage.removeItem(k));
+        } catch (e) {}
+        location.reload();
+      }
+      return;
+    }
+
+    // 5) Detalhe (abre/fecha a .step)
+    const toggleBtn = e.target.closest('.btn.toggle');
+    if (toggleBtn) {
+      const step = toggleBtn.closest('.step');
+      if (step) setStepOpen(step, !step.classList.contains('open'));
+      return;
+    }
+
+    // 6) Medidas (abre/fecha o .measures-block)
+    const measuresToggle = e.target.closest('.btn.measures-toggle');
+    if (measuresToggle) {
+      const block = measuresToggle.closest('.measures-block');
+      if (block) {
+        const willOpen = !block.classList.contains('open');
+        setMeasuresOpen(block, willOpen);
+        const icon = measuresToggle.querySelector('.icon');
+        if (icon) icon.textContent = willOpen ? '−' : '＋';
+      }
+      return;
+    }
   });
+
+  // ----- Init -----
+  loadAll();
+  initAutoGrow();
+  updateProgress();
+
+  // 🔧 Patch: garante que medidas começam fechadas
+  document.querySelectorAll('.measures-block').forEach(b => b.classList.remove('open'));
 
 })();

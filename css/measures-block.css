@@ -1,5 +1,9 @@
-/* Grid de medidas */
-.measures-grid {
+/* ==============================
+   measures-block.css (limpo)
+   ============================== */
+
+/* Bloco de medidas: fechado por padrão */
+.measures-block .measures-grid {
   display: none; /* escondido por padrão */
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 14px 18px;
@@ -10,11 +14,12 @@
   background: #fafafa;
 }
 
-/* Quando NÃO está hidden */
-.measures-grid:not([hidden]) {
+/* Quando o bloco está aberto */
+.measures-block.open .measures-grid {
   display: grid;
 }
 
+/* Cabeçalho opcional dentro do grid */
 .measures-grid h5 {
   grid-column: 1 / -1;
   margin: 4px 0 2px;
@@ -23,6 +28,7 @@
   opacity: .85;
 }
 
+/* Campos de input */
 .measures-grid input[type="text"],
 .measures-grid input[type="number"] {
   flex: 1 1 auto;
@@ -34,6 +40,7 @@
   box-shadow: 0 1px 4px rgba(0,0,0,.03) inset;
 }
 
+/* Rótulos */
 .measures-grid label {
   display: flex;
   flex-direction: column;
@@ -44,14 +51,18 @@
 }
 
 /* Mobile */
-@media (max-width: 820px){
-  .measures-grid { grid-template-columns: 1fr; }
+@media (max-width: 820px) {
+  .measures-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Dark mode */
-@media (prefers-color-scheme: dark){
+@media (prefers-color-scheme: dark) {
   .measures-grid input[type="text"],
-  .measures-grid input[type="number"]{
-    background:#1f1f1f; border-color: rgba(255,255,255,.12); color:#f2f2f2;
+  .measures-grid input[type="number"] {
+    background: #1f1f1f;
+    border-color: rgba(255,255,255,.12);
+    color: #f2f2f2;
   }
 }
