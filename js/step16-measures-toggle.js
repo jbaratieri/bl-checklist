@@ -1,4 +1,4 @@
-// step16-measures-toggle.js
+// step16-measures-toggle.js — toggle com ícone 📏/🔽 e legenda dinâmica
 (() => {
   'use strict';
 
@@ -10,22 +10,22 @@
     const grid = document.getElementById(targetId);
     if (!grid) return;
 
-    const icon = btn.querySelector('.icon');
+    const icon  = btn.querySelector('.icon');
+    const label = btn.querySelector('.label');
     const isHidden = grid.hasAttribute('hidden');
 
     if (isHidden) {
       grid.removeAttribute('hidden');
       grid.style.display = 'grid'; // garante layout correto
       btn.classList.add('active');
-      if (icon) icon.textContent = '−';
-      console.log('[measures-toggle] ABRINDO →', targetId, grid);
+      if (icon)  icon.textContent  = '🔽';
+      if (label) label.textContent = 'Recolher';
     } else {
       grid.setAttribute('hidden', '');
       grid.style.display = 'none';
       btn.classList.remove('active');
-      if (icon) icon.textContent = '＋';
-      console.log('[measures-toggle] FECHANDO →', targetId, grid);
+      if (icon)  icon.textContent  = '📏';
+      if (label) label.textContent = 'Medidas';
     }
   });
 })();
-

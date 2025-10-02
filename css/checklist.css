@@ -206,12 +206,11 @@ canvas{display:block;width:100%;height:auto;max-height:65vh}
 header.app{position:relative}
 header.app .toolbar{
   display:flex;align-items:center;gap:0.5em;
-  padding-right:140px
 }
-header.app .logo-box{
+/*header.app .logo-box{
   position:absolute;top:50%;right:12px;transform:translateY(-50%)
 }
-header.app .logo-box img{height:200px;width:auto}
+header.app .logo-box img{height:200px;width:auto}*/
 
 .logo-row{display:flex;justify-content:space-between;align-items:center;gap:20px}
 .status-row{display:flex;align-items:center;gap:12px}

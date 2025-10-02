@@ -172,47 +172,25 @@
       return;
     }
 
-    // 4) Reset
-    if (e.target.closest('#btnReset')) {
-      if (confirm('Remover dados salvos?')) {
-        localStorage.removeItem(LS_DATA);
-        try {
-          const toDelete = [];
-          for (let i = 0; i < localStorage.length; i++) {
-            const k = localStorage.key(i);
-            if (!k) continue;
-            if (k.startsWith('bl:v1:') || k.startsWith('bl:migrated:') || k === 'bl:instrument') {
-              toDelete.push(k);
-            }
-          }
-          toDelete.forEach(k => localStorage.removeItem(k));
-        } catch (e) {}
-        location.reload();
-      }
-      return;
-    }
+    // 4) (Removido: botão reset global)
 
-    // 5) Detalhe (abre/fecha a .step)
-    const toggleBtn = e.target.closest('.btn.toggle');
-    if (toggleBtn) {
-      const step = toggleBtn.closest('.step');
-      if (step) setStepOpen(step, !step.classList.contains('open'));
-      return;
-    }
+   // 5) Detalhe (abre/fecha a .step)
+const toggleBtn = e.target.closest('.btn.toggle');
+if (toggleBtn) {
+  const step = toggleBtn.closest('.step');
+  if (step) {
+    const willOpen = !step.classList.contains('open');
+    setStepOpen(step, willOpen);
 
-    // 6) Medidas (abre/fecha o .measures-block)
-    const measuresToggle = e.target.closest('.btn.measures-toggle');
-    if (measuresToggle) {
-      const block = measuresToggle.closest('.measures-block');
-      if (block) {
-        const willOpen = !block.classList.contains('open');
-        setMeasuresOpen(block, willOpen);
-        const icon = measuresToggle.querySelector('.icon');
-        if (icon) icon.textContent = willOpen ? '−' : '＋';
-      }
-      return;
-    }
-  });
+    // Atualiza ícone + legenda
+    const icon = toggleBtn.querySelector('.icon');
+    if (icon) icon.textContent = willOpen ? '−' : '＋';
+    toggleBtn.setAttribute('aria-label', willOpen ? 'Fechar detalhes' : 'Abrir detalhes');
+  }
+  return;
+}})
+
+// 6) Medidas (abre/fecha) - migrado para step16-measures-toggle.js
 
   // ----- Init -----
   loadAll();

@@ -10,53 +10,50 @@
   <meta name="theme-color" content="#7a5a3c" />
 
   <!-- Manifest PWA -->
-  <link rel="manifest" href="/bl-checklist/manifest.webmanifest?v=20250926">
+  <link rel="manifest" href="/bl-chscklist/manifest.webmanifest?v=20250926">
 
   <!-- Apple PWA (iOS) -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  <link rel="apple-touch-icon" href="/bl-checklist/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="/bl-chscklist/icons/icon-192.png">
 
   <!-- Ícones -->
-  <link rel="icon" type="image/png" href="/bl-checklist/icons/icon-192.png">
+  <link rel="icon" type="image/png" href="/bl-chscklist/icons/icon-192.png">
 
   <!-- Config global para tech -->
-  <script>window.BL_TECH_CFG = { base: '/bl-checklist/assets/tech/' };</script>
+  <script>window.BL_TECH_CFG = { base: '/bl-chscklist/assets/tech/' };</script>
 
   <!-- CSS base e etapas -->
-  <link rel="stylesheet" href="/bl-checklist/css/checklist.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step1-toggle.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step2-toc.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step3-measures.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step6-export.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step9-instrument.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step11-tech.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step12-draw-extra.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/step12-draw.modal.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/checklist.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step1-toggle.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step2-toc.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step3-measures.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step6-export.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step9-instrument.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step11-tech.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step12-draw.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step12-draw-extra.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/step12-draw.modal.css" />
 
   <!-- Utilitários -->
-  <link rel="stylesheet" href="/bl-checklist/css/btn-hover-tune.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/btn-utilities.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/btn-hover-tune.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/btn-utilities.css" />
 
   <!-- Componentes -->
-  <link rel="stylesheet" href="/bl-checklist/css/instrument-badge.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/measures-presets.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/measures-block.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/images-thumbs.css" />
-  <link rel="stylesheet" href="/bl-checklist/css/wood-catalog.css" />
-
+  <link rel="stylesheet" href="/bl-chscklist/css/instrument-badge.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/measures-presets.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/measures-block.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/images-thumbs.css" />
+  <link rel="stylesheet" href="/bl-chscklist/css/wood-catalog.css" />
   <!-- Layout antigo (pode remover futuramente) -->
-  <link rel="stylesheet" href="/bl-checklist/css/project-header.css" />
-
-  <!-- Responsividade -->
-  <link rel="stylesheet" href="/bl-checklist/css/responsive.css?v=20250927-2">
-
+  <link rel="stylesheet" href="/bl-chscklist/css/project-header.css" />
   <!-- Novo painel de projeto -->
-  <link rel="stylesheet" href="/bl-checklist/css/project-panel.css">
+  <link rel="stylesheet" href="/bl-chscklist/css/project-panel.css">
   <!--Botoes e detalhes -->
-  <link rel="stylesheet" href="/bl-checklist/css/buttons.css">
+  <link rel="stylesheet" href="/bl-chscklist/css/buttons.css">
+  <!-- Responsividade -->
+  <link rel="stylesheet" href="/bl-chscklist/css/responsive.css">
 
 </head>
 
@@ -64,7 +61,7 @@
   <header class="app">
     <!-- Linha superior: logo à esquerda e status à direita -->
     <div class="logo-row">
-      <img src="/bl-checklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo">
+      <img src="/bl-chscklist/assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo">
 
       <div class="status-row">
         <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
@@ -91,72 +88,78 @@
       <button class="btn" id="btnCollapse" title="Recolher tudo">
         ⬆️ <span class="label">Recolher</span>
       </button>
-      <button class="btn" id="btnReset" title="Limpar dados">
-        🗑️ <span class="label">Limpar</span>
-      </button>
       <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
         📏 <span class="label">Medidas</span>
       </button>
     </div>
-
-
   </header>
 
-  <section class="project-panel" id="projectPanel">
-    <h3>Projeto</h3>
-
-    <!-- Grupo de seleção -->
-    <div class="project-selectors">
-      <label>Instrumento
-        <select id="selInstrument">
-          <option value="vcl">Violão Clássico</option>
-          <option value="vla">Viola</option>
-          <option value="cav">Cavaquinho</option>
-          <option value="uku">Ukulele</option>
-        </select>
-      </label>
-
-      <label>Projeto
-        <select id="selProject" class="persist"></select>
-      </label>
-
-      <div class="project-buttons">
-        <button class="btn" id="btnProjectNew" type="button">Novo</button>
-        <button class="btn" id="btnProjectRen" type="button">Renomear</button>
-        <button class="btn" id="btnProjectDel" type="button">Excluir</button>
-      </div>
-    </div>
-
-    <!-- Dados do projeto -->
-    <div class="project-grid">
-      <label>Cliente
-        <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
-      </label>
-      <label>Início
-        <input class="persist" id="job-start" type="date">
-      </label>
-      <label>Entrega prevista
-        <input class="persist" id="job-due" type="date">
-      </label>
-      <label>Dias/semana
-        <select id="job-days-week">
-          <option value="5" selected>5 (seg–sex)</option>
-          <option value="6">6 (seg–sáb)</option>
-        </select>
-      </label>
-    </div>
-
-    <!-- Cronograma -->
-    <div class="project-actions">
-      <button class="btn" id="btnPlan">Calcular cronograma</button>
-      <small id="planHint" style="opacity:.8">Defina datas válidas para gerar o cronograma.</small>
-    </div>
-    <div id="planTable" aria-live="polite"></div>
-  </section>
-
-
-
   <div class="container">
+    <section class="project-panel" id="projectPanel">
+      <h3>Projeto</h3>
+
+      <!-- Grupo de seleção -->
+      <div class="project-selectors">
+        <label>Instrumento
+          <select id="selInstrument">
+            <option value="vcl">Violão Clássico</option>
+            <option value="vla">Viola</option>
+            <option value="cav">Cavaquinho</option>
+            <option value="uku">Ukulele</option>
+          </select>
+        </label>
+
+        <label>Projeto
+          <select id="selProject" class="persist"></select>
+        </label>
+
+        <div class="project-buttons">
+          <button class="btn" id="btnProjectNew" type="button">
+            <span class="icon">➕</span> Novo
+          </button>
+          <button class="btn" id="btnProjectRen" type="button">
+            <span class="icon">✏️</span> Renomear
+          </button>
+          <button class="btn" id="btnProjectDel" type="button">
+            <span class="icon">🗑️</span> Excluir
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Dados do projeto -->
+      <div class="project-grid">
+        <label>Cliente
+          <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
+        </label>
+        <label>Início
+          <input class="persist" id="job-start" type="date">
+        </label>
+        <label>Entrega prevista
+          <input class="persist" id="job-due" type="date">
+        </label>
+        <label>Dias/semana
+          <select id="job-days-week">
+            <option value="5" selected>5 (seg–sex)</option>
+            <option value="6">6 (seg–sáb)</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- Cronograma -->
+      <div class="project-actions">
+        <button class="btn" id="btnPlan">
+          <span class="icon">🗓️</span>
+          <span class="label">Cronograma</span>
+        </button>
+        <small id="planHint" style="opacity:.8">Defina datas para gerar o cronograma.</small>
+      </div>
+      <div id="planTable" aria-live="polite"></div>
+    </section>
+
+  
+
+
     <div class="card">
 
       <section class="intro">
@@ -446,9 +449,10 @@
         <div class="section-body">
           <div class="measures-block">
             <button class="btn measures-toggle" type="button" data-target="measures-braco">
-              <span class="icon">＋</span> Medidas
+              <span class="icon">📏</span> 
+              <span class="label">Medidas</span>
             </button>
-            <div class="measures-grid" id="measures-braco">
+            <div class="measures-grid" id="measures-braco" hidden>
               <label>
                 Madeira:
                 <input class="persist" id="braco-madeira-sec02" type="text" data-measure="braco.madeira" placeholder="">
@@ -1713,10 +1717,11 @@
 
           <div class="measures-block">
             <button class="btn measures-toggle" type="button" data-target="measures-tampo">
-              <span class="icon">＋</span> Medidas
+              <span class="icon">📏</span> 
+              <span class="label">Medidas</span>
             </button>
 
-            <div class="measures-grid" id="measures-tampo">
+            <div class="measures-grid" id="measures-tampo"hidden>
 
 
               <label>
@@ -2546,10 +2551,11 @@
 
           <div class="measures-block">
             <button class="btn measures-toggle" type="button" data-target="measures-fundo">
-              <span class="icon">＋</span> Medidas
+              <span class="icon">📏</span> 
+              <span class="label">Medidas</span>
             </button>
 
-            <div class="measures-grid" id="measures-fundo">
+            <div class="measures-grid" id="measures-fundo" hidden>
 
               <label>
                 Madeira:
@@ -2947,10 +2953,11 @@
 
           <div class="measures-block">
             <button class="btn measures-toggle" type="button" data-target="measures-laterais">
-              <span class="icon">＋</span> Medidas
+              <span class="icon">📏</span> 
+              <span class="label">Medidas</span>
             </button>
 
-            <div class="measures-grid" id="measures-laterais">
+            <div class="measures-grid" id="measures-laterais" hidden>
 
               <label>
                 Madeira:
@@ -4038,10 +4045,10 @@
 
           <div class="measures-block">
             <button class="btn measures-toggle" type="button" data-target="measures-escala">
-              <span class="icon">＋</span> Medidas
+              <span class="icon">📏</span> 
+              <span class="label">Medidas</span>
             </button>
-
-            <div class="measures-grid" id="measures-escala">
+            <div class="measures-grid" id="measures-escala" hidden>
 
               <label>
                 Madeira:
@@ -5826,7 +5833,7 @@
 
   <!-- Plano do projeto (cronograma) -->
   <script src="./js/step19-project-plan.v7.js"></script>
- 
+
   <!-- Persistência por projeto (somente V3, legado) -->
   <script src="./js/step18-persist-fallback.v3.js"></script>
 
@@ -5841,7 +5848,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/bl-checklist/service-worker.js?v=20250927', { scope: '/bl-checklist/' })
+        navigator.serviceWorker.register('./service-worker.js?v=20250927', { scope: './' })
           .then(reg => console.log('SW registrado ✅', reg))
           .catch(err => console.error('Erro ao registrar SW:', err));
       });

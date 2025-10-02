@@ -2,6 +2,19 @@
    responsive.css — ajustes Mobile First
    ============================== */
 
+/* ===========================
+   Header / Toolbar + Logo
+   =========================== */
+
+/* Desktop (padrão) */
+header.app .app-logo {
+  max-width: 220px;
+  /* largura máxima no desktop */
+  height: auto;
+  /* altura ajustada proporcional */
+  flex-shrink: 0;
+}
+
 /* Telas até 768px (tablets e celulares em modo paisagem) */
 @media (max-width: 768px) {
 
@@ -62,16 +75,26 @@
     border-radius: 8px;
   }
 
-  /* Botões */
-  .btn {
-    font-size: 0.95em;
-    padding: 10px 14px;
-    border: 1px solid rgba(0, 0, 0, .15);
-    border-radius: 8px;
+  /* Toolbar responsiva */
+  header.app .toolbar {
+    justify-content: center;
+    /* centraliza botões */
+    gap: 8px;
   }
 
-  .btn:hover {
-    background-color: rgba(0, 0, 0, .05);
+  header.app .toolbar .btn {
+    flex: 1 1 45%;
+    /* ocupa até metade da largura */
+    min-width: unset;
+    /* remove largura mínima */
+    max-width: 200px;
+    /* evita botões largos demais */
+  }
+
+  header.app .app-logo {
+    max-width: 160px;
+    /* menor em tablets */
+    margin-bottom: 8px;
   }
 }
 
@@ -79,6 +102,11 @@
 @media (max-width: 480px) {
   body {
     font-size: 14px;
+  }
+
+  header.app .app-logo {
+    max-width: 120px;
+    /* ainda menor */
   }
 
   h1 {
@@ -112,11 +140,28 @@
   .img-row {
     grid-template-columns: repeat(2, 1fr);
   }
+}
 
-  /* Botões em coluna única */
-  .btn {
+/* Toolbar em grade 2xN */
+@media (max-width: 480px) {
+  header.app .toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
     width: 100%;
-    margin-bottom: 8px;
+    max-width: 320px;
+    /* largura máxima da grade */
+    margin: 0 auto;
+    /* centraliza a grade no header */
+    justify-content: center;
+  }
+
+  header.app .toolbar .btn {
+    flex: unset;
+    width: 100%;
+    max-width: none;
+    margin-bottom: 0;
+    /* remove espaçamento extra */
   }
 }
 
@@ -127,17 +172,14 @@
 /* Paisagem: otimiza uso horizontal da tela */
 @media (orientation: landscape) {
 
-  /* Tipografia um pouco mais compacta para caber melhor */
   body {
     font-size: 15px;
   }
 
-  /* Header/intro mais enxutos */
   .intro {
     padding: 8px 12px;
   }
 
-  /* TOC em duas colunas em paisagem */
   .toc-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -148,13 +190,11 @@
     margin: 0;
   }
 
-  /* Galeria: mais colunas em paisagem */
   .img-row {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 8px;
   }
 
-  /* Formulários lado a lado quando couber */
   .measures-grid,
   form .fields {
     display: grid;
@@ -162,13 +202,11 @@
     gap: 10px 12px;
   }
 
-  /* Garante que inputs ocupem toda a célula */
   .measures-grid label,
   form label {
     width: 100%;
   }
 
-  /* Botões: lado a lado quando houver espaço */
   .btn-group,
   .actions-row {
     display: grid;
@@ -177,8 +215,7 @@
   }
 }
 
-/* Retrato: prioriza coluna única, já coberto pelos blocos anteriores,
-   mas reforçamos aqui a legibilidade em telas estreitas */
+/* Retrato reforçado */
 @media (orientation: portrait) and (max-width: 480px) {
   .toc-list {
     display: flex;
@@ -188,107 +225,5 @@
 
   .btn {
     width: 100%;
-  }
-}
-
-/* ===========================
-   Header / Toolbar
-   =========================== */
-
-/* Logo destacado */
-
-
-
-header.app .logo-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-header.app .app-logo {
-  height: 180px;
-  /* desktop: logo maior e visível */
-  flex-shrink: 0;
-}
-
-header.app .status-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-header.app .status-row .version {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0;
-}
-
-header.app .status-row .badge {
-  margin-left: auto;
-  background: #eee;
-  font-size: 0.85rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-/* Mobile */
-
-/* Header mobile */
-
-
-
-@media (max-width: 768px) {
-  header.app .logo-row {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  header.app .app-logo {
-    height: 180px;
-    /* mobile: logo ainda maior */
-    margin-bottom: 8px;
-  }
-
-  header.app .status-row {
-    justify-content: center;
-    gap: 8px;
-  }
-
-  header.app .status-row .badge {
-    margin-left: 0;
-  }
-
- 
-  /* Zera o ajuste do desktop e impõe layout em coluna */
-  header.app .toolbar {
-    padding-right: 0;               /* importante para “desgrudar” da direita */
-    display: flex;
-    flex-direction: column;
-    align-items: center;            /* alinha itens ao centro no eixo cruzado */
-    justify-content: center;        /* centro no eixo principal */
-    flex-wrap: wrap;
-    gap: 8px;
-    width: 100%;
-    margin: 10px 0 0;
-  }
-
-  /* Remove margens automáticas que desalinhariam */
-  header.app .toolbar > * {
-    margin-left: 0 !important;      /* mata qualquer ml:auto escondido */
-  }
-
-  /* Botões largos e centralizados visualmente */
-  header.app .toolbar .btn {
-    width: min(320px, 90%);
-    text-align: center;
-  }
-
-  /* Badge ao final da pilha (se existir) */
-  header.app .toolbar .badge {
-    order: 99;
-    align-self: center;             /* garante centralização da badge */
   }
 }

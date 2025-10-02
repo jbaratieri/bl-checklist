@@ -57,14 +57,23 @@
     const days=parseInt($('#job-days-week')?.value||'5',10);
     const hint=$('#planHint'), box=$('#planTable');
 
-    if(!start||!due||due<start){ if(box) box.innerHTML=''; if(hint) hint.textContent='Defina datas válidas.'; return false; }
+    if(!start||!due||due<start){ 
+      if(box) box.innerHTML=''; 
+      if(hint) hint.textContent='Defina datas válidas.'; 
+      return false; 
+    }
 
     const totalWD=workingDaysInRange(start,due,days);
-    if(totalWD<=0){ if(box) box.innerHTML=''; if(hint) hint.textContent='Intervalo sem dias úteis.'; return false; }
+    if(totalWD<=0){ 
+      if(box) box.innerHTML=''; 
+      if(hint) hint.textContent='Intervalo sem dias úteis.'; 
+      return false; 
+    }
     if(hint) hint.textContent=`${totalWD} dias úteis no período.`;
 
     const dist=distribute(totalWD, PLAN_WEIGHTS.map(x=>x.peso));
-    let cursor=new Date(start); while(!isWorkday(cursor,days)) cursor.setDate(cursor.getDate()+1);
+    let cursor=new Date(start); 
+    while(!isWorkday(cursor,days)) cursor.setDate(cursor.getDate()+1);
 
     let rows='';
     PLAN_WEIGHTS.forEach((it,idx)=>{
@@ -89,7 +98,10 @@
     }
 
     const btn=$('#btnPlan');
-    if(btn) btn.textContent='Cronograma (Recolher)';
+    if(btn){
+      const icon = btn.querySelector('.icon');
+      if(icon) icon.textContent = '⬆️'; // mostra recolher
+    }
     return true;
   }
 
@@ -98,27 +110,43 @@
     ev.preventDefault();
     const box=$('#planTable'), btn=$('#btnPlan');
     if(!box||!btn) return;
-    if(box.innerHTML.trim()===''){ if(renderPlan()) btn.textContent='Cronograma (Recolher)'; }
+    const icon = btn.querySelector('.icon');
+
+    if(box.innerHTML.trim()===''){ 
+      if(renderPlan() && icon) icon.textContent = '⬆️';
+    }
     else{
       const open=box.dataset.open==='1';
       box.style.display=open?'none':'';
       box.dataset.open=open?'0':'1';
-      btn.textContent=open?'Cronograma (Expandir)':'Cronograma (Recolher)';
+      if(icon) icon.textContent = open ? '🗓️' : '⬆️';
     }
   }
 
   // ===== Boot =====
   function boot(){
-    // garante datas sugestivas
+    // datas iniciais sugeridas
     const start=$('#job-start'), due=$('#job-due');
     if(start && !start.value) start.value=asDateInputValue(new Date());
-    if(due && !due.value){ const d=new Date(); d.setDate(d.getDate()+30); due.value=asDateInputValue(d); }
+    if(due && !due.value){ 
+      const d=new Date(); 
+      d.setDate(d.getDate()+30); 
+      due.value=asDateInputValue(d); 
+    }
 
     $('#btnPlan')?.addEventListener('click', togglePlan);
 
     // recalcula quando trocar de projeto ou instrumento
     window.addEventListener('bl:project-change', ()=> setTimeout(renderPlan,150));
     window.addEventListener('bl:instrument-change', ()=> setTimeout(renderPlan,150));
+
+    // 🔄 recalcula automaticamente ao alterar as datas ou dias/semana
+    ['#job-start', '#job-due', '#job-days-week'].forEach(sel => {
+      const el = $(sel);
+      if (el) el.addEventListener('change', () => {
+        renderPlan();
+      });
+    });
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
