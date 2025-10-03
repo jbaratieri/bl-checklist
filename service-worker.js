@@ -1,5 +1,5 @@
-// sw.js — v2.3.5 com fallback offline (HTML + imagens)
-const CACHE_VERSION = 'bl-app-v2.3.5'; // 👈 incrementado
+// sw.js — v2.3.6 com fallback offline (HTML + imagens)
+const CACHE_VERSION = 'bl-app-v2.3.6'; // 👈 incrementado
 const APP_SHELL = [
   '/bl-checklist/',
   '/bl-checklist/index.html',
@@ -12,10 +12,10 @@ const APP_SHELL = [
   '/bl-checklist/css/images-thumbs.css',
   '/bl-checklist/css/context-bar.css',
   '/bl-checklist/css/project-header.css',
-  '/bl-checklist/css/responsive.css', // 👈 garante que sempre vai puxar o novo
+  '/bl-checklist/css/step12-draw.css',   // 👈 incluído
+  '/bl-checklist/css/responsive.css',
   // JS essenciais
   '/bl-checklist/js/checklist.js',
-  '/bl-checklist/js/step1-toggle.js',
   '/bl-checklist/js/step2-toc.js',
   '/bl-checklist/js/step6-export.js',
   '/bl-checklist/js/step11-tech.js',
@@ -54,7 +54,7 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   }
 }
 
-// Install (resiliente)
+// Install
 self.addEventListener('install', (event) => {
   console.log('[SW] Install');
   event.waitUntil((async () => {
@@ -122,7 +122,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Imagens (qualquer coisa em /assets/)
+  // Imagens (assets/)
   const isImg = /\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname);
   const isAsset = url.pathname.includes('/assets/');
 
@@ -144,7 +144,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Outros arquivos
+  // Outros
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
