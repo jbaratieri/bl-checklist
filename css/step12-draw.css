@@ -1,8 +1,152 @@
+/* step12-draw.css — modal de desenho técnico */
 
-/* step12-draw.css — compat para garantir modal visível */
-#drawModal.modal{ position:fixed; inset:0; display:none; z-index:2000; background:rgba(0,0,0,.5); align-items:center; justify-content:center; padding:12px; }
-#drawModal.modal[aria-hidden="false"]{ display:flex; }
-#drawModal .panel{ width:min(96vw,1280px); max-height:92vh; background:#fff; border-radius:14px; border:1px solid #e8dfd1; box-shadow:0 20px 50px rgba(0,0,0,.35); display:flex; flex-direction:column; overflow:hidden; }
-#drawModal .canvas-toolbar{ display:flex; gap:8px; align-items:center; padding:8px 12px; border-top:1px solid #f0e8da; border-bottom:1px solid #f0e8da; background:#fff; position:sticky; top:0; z-index:2; }
-#drawModal .canvas-wrap{ padding:10px; overflow:auto; background:#faf7f2; flex:1 1 auto; }
-#drawCanvas{ display:block; background:#fff; border:1px solid #e8dfd1; border-radius:8px; width:min(1200px,100%); height:auto; touch-action:none; }
+/* ===== Modal base ===== */
+#drawModal.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 2000;
+  background: rgba(0,0,0,.5);
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+#drawModal.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+#drawModal .dialog {
+  width: min(96vw, 1280px);
+  max-height: 92vh;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e8dfd1;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== Cabeçalho ===== */
+#drawModal .title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid #eee1cc;
+  background: #faf7f2;
+  color: #333;
+}
+
+/* ===== Toolbar ===== */
+#drawModal .toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0e8da;
+  background: #fff;
+}
+#drawModal .toolbar button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+#drawModal .toolbar button.active {
+  background: #f6f2ec;
+  border-color: #b89b6c;
+}
+#drawModal .toolbar input[type="color"] {
+  width: 34px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid #d9cdbd;
+  border-radius: 8px;
+}
+#drawModal .toolbar input[type="range"] {
+  width: 120px;
+}
+
+/* ===== Área do Canvas ===== */
+#drawModal .canvas-wrap {
+  flex: 1 1 auto;
+  padding: 12px;
+  background: #faf7f2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+}
+#drawCanvas {
+  display: block;
+  background: #fff;
+  border: 1px solid #e8dfd1;
+  border-radius: 8px;
+  width: min(1200px, 100%);
+  height: auto;
+  touch-action: none;
+}
+
+/* ===== Ações ===== */
+#drawModal .actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-top: 1px solid #eee1cc;
+  background: #fafafa;
+}
+#drawModal .actions button {
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+#drawModal .actions button:hover {
+  background: #f6f2ec;
+}
+
+/* ===== Mobile ===== */
+@media (max-width: 600px) {
+  #drawModal .dialog {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    max-height: none;
+  }
+
+  #drawModal .toolbar {
+    gap: 6px;
+  }
+  #drawModal .toolbar button,
+  #drawModal .toolbar input {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+  }
+
+  #drawModal .canvas-wrap {
+    flex: unset;
+    min-height: auto;
+    padding: 8px;
+  }
+  #drawCanvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 55vh; /* ocupa metade da tela no mobile */
+  }
+
+  #drawModal .actions {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+  }
+  #drawModal .actions button {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+}
