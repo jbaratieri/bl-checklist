@@ -7,3 +7,15 @@
   width: 34px; height: 28px; padding:0;
   border:1px solid #d9cdbd; border-radius:8px;
 }
+
+
+/* Ajuste responsivo do modal de desenho */
+@media (max-width: 600px) {
+  #drawModal .dialog { width:100%; height:100%; border-radius:0; padding:8px; }
+  #drawModal .toolbar { flex-wrap:wrap; gap:6px; }
+  #drawModal .toolbar button,
+  #drawModal .toolbar input { font-size:0.8rem; padding:4px 6px; }
+  #drawModal .actions button { font-size:0.8rem; padding:6px 8px; }
+  #drawModal .canvas-wrap { flex:1; min-height:60vh; }
+  #drawCanvas { width:100%!important; height:auto!important; max-width:100%; }
+}

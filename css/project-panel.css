@@ -55,7 +55,9 @@
   outline: none;
 }
 
-/* Botões (estilo igual ao header) */
+/* =========================
+   Botões
+   ========================= */
 .project-buttons {
   display: flex;
   gap: 10px;
@@ -88,9 +90,26 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+/* Botão excluir */
+.project-buttons #btnProjectDel {
+  border-color: #c33;
+  color: #c33;
+}
+.project-buttons #btnProjectDel:hover {
+  background: #fbeaea;
+  color: #a00;
+}
+
 /* =========================
-   Botão do Cronograma
+   Ações do cronograma
    ========================= */
+.project-panel .project-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
 .project-actions .btn {
   display: inline-flex;
   align-items: center;
@@ -117,7 +136,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Estado padrão = abrir cronograma */
+/* Estado do botão Cronograma */
 #btnPlan[data-state="open"] {
   background: var(--inst-color, #8a623f);
   border-color: var(--inst-color, #8a623f);
@@ -126,8 +145,6 @@
 #btnPlan[data-state="open"]:hover {
   background: #7a5637;
 }
-
-/* Estado alternativo = recolher cronograma */
 #btnPlan[data-state="close"] {
   background: transparent;
   border: 1px solid #bbb;
@@ -137,19 +154,9 @@
   background: #f0f0f0;
 }
 
-
-
-/* Botão excluir = destaque */
-.project-buttons #btnProjectDel {
-  border-color: #c33;
-  color: #c33;
-}
-.project-buttons #btnProjectDel:hover {
-  background: #fbeaea;
-  color: #a00;
-}
-
-/* Grid de dados */
+/* =========================
+   Grid de dados
+   ========================= */
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -177,21 +184,33 @@
   background: #fff;
 }
 
-/* Ações do cronograma */
-.project-panel .project-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-}
-
+/* =========================
+   Cronograma
+   ========================= */
 #planTable {
   margin-top: 12px;
   border-top: 1px solid #e8dfd1;
   padding-top: 12px;
+
+  /* responsividade */
+  width: 100%;
+  overflow-x: auto;                  /* rolagem horizontal */
+  -webkit-overflow-scrolling: touch; /* rolagem suave iOS */
 }
 
-/* Responsividade */
+#planTable table {
+  min-width: 480px;                  /* evita esmagar colunas */
+  border-collapse: collapse;
+}
+
+#planTable th,
+#planTable td {
+  white-space: nowrap;               /* impede quebra feia */
+}
+
+/* =========================
+   Responsividade
+   ========================= */
 @media (max-width: 600px) {
   .project-selectors {
     flex-direction: column;
@@ -206,5 +225,11 @@
   .project-buttons .btn {
     flex: 1 1 45%; /* 2 colunas no mobile */
     min-width: 120px;
+  }
+
+  #planTable th,
+  #planTable td {
+    font-size: 0.8rem;
+    padding: 6px 8px;
   }
 }

@@ -1,10 +1,7 @@
-/* Step 12 — Desenho Técnico v4.2 (hotfix)
-   - Remove fallback "__body" (não tenta mais sol9-tech__body.*)
-   - Mantém suporte a múltiplas extensões (svg, png, jpg, webp, jpeg)
-   - Silencia logs (só loga se window.BL_DEBUG_DRAW = true)
-   - Evita warning de aria-hidden: usa atributo 'inert' quando oculto; remove antes de focar
-   - Fecha com blur antes de aria-hidden=true (evita foco dentro de modal escondido)
-   - Em file:// ignora base via <link rel="manifest"> (evita aviso de CORS do navegador)
+/* Step 12 — Desenho Técnico v4.3
+   - Ajuste mobile: imagem ocupa mais espaço (cover no <=600px)
+   - Remove botões: Resetar / Exportar / Salvar (auto-save já ativo)
+   - Toolbar compacta no mobile
 */
 (function(){
   'use strict';
@@ -21,8 +18,6 @@
   };
 
   function dbg(){ if (window.BL_DEBUG_DRAW) try{ console.info.apply(console, arguments); }catch(_){ } }
-  function warn(){ if (window.BL_DEBUG_DRAW) try{ console.warn.apply(console, arguments); }catch(_){ } }
-
   function normInst(code){
     if (!code) return 'vcl';
     var k = String(code).toLowerCase();
@@ -53,9 +48,6 @@
 
   function storeKeyNew(inst, proj, token){
     return STORE_PREFIX + ':' + inst + ':' + proj + ':draw:' + token;
-  }
-  function storeKeyOld(inst, token){
-    return STORE_PREFIX + ':' + inst + ':draw:' + token;
   }
 
   // Modal helpers
@@ -96,11 +88,8 @@
       + '  <div class="actions">'
       + '    <div class="left">'
       + '      <button type="button" id="btnClear">Limpar</button>'
-      + '      <button type="button" id="btnReset">Resetar para fundo</button>'
       + '    </div>'
       + '    <div class="right">'
-      + '      <button type="button" id="btnExport">Exportar PNG</button>'
-      + '      <button type="button" id="btnSave" class="primary">Salvar</button>'
       + '      <button type="button" id="btnCloseDraw">Fechar</button>'
       + '    </div>'
       + '  </div>'
@@ -114,83 +103,20 @@
     el.textContent = msg || '';
   }
 
+  // 🔧 Cover no mobile, Contain no desktop
   function drawContain(ctx, img, W, H){
     var iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
     if (!iw || !ih) return;
-    var k  = Math.min(W/iw, H/ih);
+    var k;
+    if (window.innerWidth <= 600) {
+      k = Math.max(W/iw, H/ih); // cover
+    } else {
+      k = Math.min(W/iw, H/ih); // contain
+    }
     var dw = Math.round(iw*k), dh = Math.round(ih*k);
     var dx = Math.round((W - dw)/2), dy = Math.round((H - dh)/2);
     ctx.clearRect(0,0,W,H);
     ctx.drawImage(img, dx, dy, dw, dh);
-  }
-
-  function messageOverlay(ctx, W, H, text){
-    ctx.save();
-    ctx.fillStyle = '#fafafa';
-    ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = '#333';
-    ctx.font = '20px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(text, Math.round(W/2), Math.round(H/2));
-    ctx.restore();
-  }
-
-  function basesForAssets(){
-    var bases = [];
-    try{
-      if (window.BL_TECH_CFG && typeof BL_TECH_CFG.base === 'string'){
-        var b = BL_TECH_CFG.base.trim();
-        if (b && !/\/$/.test(b)) b += '/';
-        if (b) bases.push(b);
-      }
-    }catch(_){}
-    if (location.protocol !== 'file:'){
-      try{
-        var link = document.querySelector('link[rel="manifest"]');
-        if (link){
-          var href = link.getAttribute('href') || '';
-          if (href && !/^[a-z]+:/i.test(href)){
-            var a = document.createElement('a'); a.href = href; href = a.getAttribute('href');
-          }
-          var pub = href.replace(/manifest\.json.*$/,'');
-          if (pub && !/\/$/.test(pub)) pub += '/';
-          bases.push(pub + 'assets/tech/');
-        }
-      }catch(_){}
-    }
-    bases.push('assets/tech/');
-    bases.push('../public/assets/tech/');
-    bases.push('/assets/tech/');
-    var seen = {}; var out = [];
-    for (var i=0;i<bases.length;i++){
-      var k = (bases[i]||'').toLowerCase();
-      if (k && !seen[k]){ seen[k]=1; out.push(bases[i]); }
-    }
-    return out;
-  }
-
-  // 🔧 Corrigido: não tenta mais "__body"
-  function assetsFor(inst, keyOrPath){
-    if (/[\\/]/.test(keyOrPath) || /\.\w{2,5}$/.test(keyOrPath)){
-      return [keyOrPath];
-    }
-    var names = [keyOrPath]; // só o nome exato
-    var exts = FALLBACKS.slice();
-    var bases = basesForAssets();
-    var list = [];
-    for (var b=0;b<bases.length;b++){
-      for (var n=0;n<names.length;n++){
-        for (var e=0;e<exts.length;e++){
-          var base = bases[b];
-          if (/assets\/tech\/$/i.test(base)){
-            list.push(base + inst + '/' + names[n] + '.' + exts[e]);
-          } else {
-            list.push(base + names[n] + '.' + exts[e]);
-          }
-        }
-      }
-    }
-    return list;
   }
 
   function saveOverlayToStore(inst, token, overlay){
@@ -204,63 +130,14 @@
     }catch(e){ console.error('Falha ao salvar overlay:', e); }
   }
 
-  function tryLoad(keys, overlay, done){
-    if (!keys.length) return done && done(false);
-    var key = keys.shift();
-    try{
-      var v = localStorage.getItem(key);
-      if (!v) return tryLoad(keys, overlay, done);
-      var img = new Image();
-      img.onload = function(){
-        overlay.ctx.clearRect(0,0,overlay.canvas.width, overlay.canvas.height);
-        overlay.ctx.drawImage(img, 0, 0);
-        done && done(true);
-      };
-      img.onerror = function(){ tryLoad(keys, overlay, done); };
-      img.src = v;
-    }catch(e){
-      tryLoad(keys, overlay, done);
-    }
-  }
-
-  function loadOverlayFromStore(inst, token, overlay, done){
-    var proj = getProj(inst);
-    var keys = [storeKeyNew(inst, proj, token), storeKeyOld(inst, token)];
-    tryLoad(keys, overlay, done);
-  }
-
   var saveTimer = null;
   function autoSaveSoon(){
     if (saveTimer) clearTimeout(saveTimer);
     saveTimer = setTimeout(function(){
       if (state.overlay && state.token && state.inst){
-        if (typeof window.__BL_SAVE_OVERLAY__ === 'function'){
-          try { window.__BL_SAVE_OVERLAY__(state.token, state.overlay.canvas); return; } catch(_){}
-        }
         saveOverlayToStore(state.inst, state.token, state.overlay);
       }
     }, 500);
-  }
-
-  function exportCompositePNG(canvas, bgImg, overlay){
-    var W = canvas.width, H = canvas.height;
-    var temp = document.createElement('canvas'); temp.width = W; temp.height = H;
-    var tctx = temp.getContext('2d');
-    if (bgImg && (bgImg.naturalWidth || bgImg.width)){
-      drawContain(tctx, bgImg, W, H);
-    } else {
-      tctx.fillStyle = '#fff'; tctx.fillRect(0,0,W,H);
-    }
-    tctx.drawImage(overlay.canvas, 0, 0);
-    var url = temp.toDataURL('image/png');
-    var a = document.createElement('a'); a.href = url; a.download = (state.token||'desenho') + '.png';
-    a.click();
-  }
-
-  function pt(canvas, e){
-    var rect = canvas.getBoundingClientRect();
-    return { x: (e.clientX - rect.left) * (canvas.width/rect.width),
-             y: (e.clientY - rect.top)  * (canvas.height/rect.height) };
   }
 
   function redraw(baseCtx, canvas){
@@ -339,45 +216,13 @@
     })();
 
     state.bgImg = new Image();
-    var srcs = assetsFor(state.inst, state.assetKey);
-    var idx  = 0;
-
-    state.bgImg.onload = function(){
-      redraw(base, canvas);
-      var restore = function(found){ redraw(base, canvas); setStatus(found ? 'Anotações restauradas' : ''); };
-      if (typeof window.__BL_LOAD_OVERLAY__ === 'function'){
-        try { window.__BL_LOAD_OVERLAY__(state.token, function(img){ if (img){ state.overlay.ctx.drawImage(img,0,0); restore(true);} else restore(false); }); }
-        catch(_){ loadOverlayFromStore(state.inst, state.token, state.overlay, restore); }
-      } else {
-        loadOverlayFromStore(state.inst, state.token, state.overlay, restore);
-      }
-    };
-    state.bgImg.onerror = function(){
-      idx++; if (idx < srcs.length){ state.bgImg.src = srcs[idx]; }
-      else {
-        messageOverlay(base, canvas.width, canvas.height, 'Arquivo não encontrado: ' + state.assetKey);
-        var restore = function(found){ redraw(base, canvas); setStatus(found ? 'Anotações restauradas' : ''); };
-        loadOverlayFromStore(state.inst, state.token, state.overlay, restore);
-      }
-    };
-    if (location.protocol !== 'file:'){
-      state.bgImg.referrerPolicy = 'no-referrer';
-      state.bgImg.crossOrigin = 'anonymous';
-    }
-    state.bgImg.src = srcs[0];
-    dbg('[draw] tentando assets:', srcs);
+    state.bgImg.onload = function(){ redraw(base, canvas); };
+    state.bgImg.src = assetKey;
 
     var sizeInput  = modal.querySelector('#drawSize');
     var colorInput = modal.querySelector('#drawColor');
-
-    if (sizeInput){
-      sizeInput.value = state.size;
-      sizeInput.oninput = function(){ state.size = parseInt(sizeInput.value || '4', 10); };
-    }
-    if (colorInput){
-      colorInput.value = state.color;
-      colorInput.oninput = function(){ state.color = colorInput.value || '#000000'; };
-    }
+    if (sizeInput){ sizeInput.value = state.size; sizeInput.oninput = () => state.size = parseInt(sizeInput.value||'4',10); }
+    if (colorInput){ colorInput.value = state.color; colorInput.oninput = () => state.color = colorInput.value||'#000000'; }
 
     Array.prototype.forEach.call(modal.querySelectorAll('[data-tool]'), function(btn){
       btn.classList.toggle('active', btn.getAttribute('data-tool') === state.tool);
@@ -389,92 +234,32 @@
       };
     });
 
-    function onDown(e){
-      if (state.tool === 'text') return;
-      e.preventDefault();
-      canvas.setPointerCapture && e.pointerId && canvas.setPointerCapture(e.pointerId);
-      state.drawing = true; state.last = pt(canvas, e);
-      beginStroke();
-      state.overlay.ctx.moveTo(state.last.x, state.last.y);
+    function pt(canvas, e){
+      var rect = canvas.getBoundingClientRect();
+      return { x: (e.clientX - rect.left) * (canvas.width/rect.width),
+               y: (e.clientY - rect.top)  * (canvas.height/rect.height) };
     }
-    function onMove(e){
-      if (!state.drawing) return;
-      var p = pt(canvas, e);
-      state.overlay.ctx.lineTo(p.x, p.y);
-      state.overlay.ctx.stroke();
-      state.last = p;
-      redraw(base, canvas);
-    }
-    function onUp(){
-      if (!state.drawing) return;
-      state.drawing = false; state.last = null;
-      redraw(base, canvas);
-      autoSaveSoon();
-    }
+    function onDown(e){ if (state.tool==='text') return; e.preventDefault(); state.drawing=true; state.last=pt(canvas,e); beginStroke(); state.overlay.ctx.moveTo(state.last.x,state.last.y); }
+    function onMove(e){ if (!state.drawing) return; var p=pt(canvas,e); state.overlay.ctx.lineTo(p.x,p.y); state.overlay.ctx.stroke(); state.last=p; redraw(base,canvas); }
+    function onUp(){ if (!state.drawing) return; state.drawing=false; redraw(base,canvas); autoSaveSoon(); }
     canvas.addEventListener('pointerdown', onDown);
     canvas.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup',   onUp);
 
-    function onClickForText(e){
-      if (state.tool !== 'text') return;
-      var txt = prompt('Texto a inserir:');
-      if (!txt) return;
-      var p = pt(canvas, e);
-      var x = state.overlay.ctx;
-      x.save();
-      x.globalCompositeOperation = 'source-over';
-      x.fillStyle = state.color;
-      var px = Math.max(10, Math.round(8 + state.size * 2));
-      x.font = px + 'px Inter, Arial, sans-serif';
-      x.textBaseline = 'top';
-      x.fillText(txt, p.x, p.y);
-      x.restore();
-      redraw(base, canvas);
-      autoSaveSoon();
-    }
-    canvas.addEventListener('click', onClickForText);
+    canvas.addEventListener('click', function(e){
+      if (state.tool!=='text') return;
+      var txt = prompt('Texto a inserir:'); if (!txt) return;
+      var p = pt(canvas,e); var x=state.overlay.ctx;
+      x.save(); x.globalCompositeOperation='source-over'; x.fillStyle=state.color;
+      var px=Math.max(10,Math.round(8+state.size*2));
+      x.font=px+'px Inter, Arial, sans-serif'; x.textBaseline='top'; x.fillText(txt,p.x,p.y);
+      x.restore(); redraw(base,canvas); autoSaveSoon();
+    });
 
-    var btnSave  = modal.querySelector('#btnSave');
-    var btnClose = modal.querySelector('#btnCloseDraw') || modal.querySelector('#btnClose');
     var btnClear = modal.querySelector('#btnClear');
-    var btnReset = modal.querySelector('#btnReset');
-    var btnExport= modal.querySelector('#btnExport');
-
-    function doSave(){
-      if (state.overlay && state.token && state.inst){
-        if (typeof window.__BL_SAVE_OVERLAY__ === 'function'){
-          try { window.__BL_SAVE_OVERLAY__(state.token, state.overlay.canvas); return; } catch(_){}
-        }
-        saveOverlayToStore(state.inst, state.token, state.overlay);
-      }
-    }
-    if (btnSave)  btnSave.onclick  = function(){ doSave(); };
-    if (btnClear) btnClear.onclick = function(){ state.overlay.ctx.clearRect(0,0,state.overlay.canvas.width,state.overlay.canvas.height); redraw(base, canvas); autoSaveSoon(); };
-    if (btnReset) btnReset.onclick = function(){ state.overlay.ctx.clearRect(0,0,state.overlay.canvas.width,state.overlay.canvas.height); redraw(base, canvas); autoSaveSoon(); };
-    if (btnExport)btnExport.onclick= function(){ exportCompositePNG(canvas, state.bgImg, state.overlay); };
-
-    if (btnClose) btnClose.onclick = function(){
-      doSave();
-      hideModal(modal);
-      canvas.removeEventListener('pointerdown', onDown);
-      canvas.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup',   onUp);
-      canvas.removeEventListener('click', onClickForText);
-    };
-
-    // Ctrl+S e ESC
-    function onKey(e){
-      if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')){
-        e.preventDefault(); doSave();
-      }
-      if (e.key === 'Escape'){
-        btnClose && btnClose.click();
-      }
-    }
-    window.addEventListener('keydown', onKey);
-
-    var modalClick = function(e){ if (e.target === modal){ doSave(); btnClose && btnClose.click(); } };
-    modal.addEventListener('click', modalClick);
+    var btnClose = modal.querySelector('#btnCloseDraw');
+    if (btnClear) btnClear.onclick = () => { state.overlay.ctx.clearRect(0,0,state.overlay.canvas.width,state.overlay.canvas.height); redraw(base,canvas); autoSaveSoon(); };
+    if (btnClose) btnClose.onclick = () => { hideModal(modal); canvas.replaceWith(canvas.cloneNode(true)); };
   }
 
   document.addEventListener('click', function(e){
@@ -482,15 +267,7 @@
     if (!btn) return;
     e.preventDefault();
     e.stopPropagation();
-    var token = btn.getAttribute('data-subetapa');
-    if (!token){
-      var step = btn.closest('[data-step]');
-      if (step) token = step.getAttribute('data-step');
-      if (!token){
-        var sec = btn.closest('[id^="sec-"]');
-        token = sec ? sec.id : 'root';
-      }
-    }
+    var token = btn.getAttribute('data-subetapa') || btn.closest('[data-step]')?.dataset.step || 'root';
     var assetKey = btn.getAttribute('data-tech') || btn.getAttribute('data-asset') || token;
     openCanvasForToken(token, assetKey);
   }, true);
