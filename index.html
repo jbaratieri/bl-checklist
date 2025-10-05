@@ -44,6 +44,7 @@
   <link rel="stylesheet" href="/bl-checklist/css/measures-block.css" />
   <link rel="stylesheet" href="/bl-checklist/css/images-thumbs.css" />
   <link rel="stylesheet" href="/bl-checklist/css/wood-catalog.css" />
+  <link rel="stylesheet" href="/bl-checklist/css/footer.css">
   <!-- Layout antigo (pode remover futuramente) -->
   <link rel="stylesheet" href="/bl-checklist/css/project-header.css" />
   <!-- Novo painel de projeto -->
@@ -59,13 +60,14 @@
   <header class="app">
     <!-- Linha superior: logo à esquerda e status à direita -->
     <div class="logo-row">
-      <img src="./assets/Logotipo.svg" alt="Baratieri Luthieria" class="app-logo">
+      <img src="./assets/logos/logo-luthierpro.png" alt="Baratieri Luthieria" class="app-logo">
+      
 
       <div class="status-row">
         <span id="instBadge" class="inst-badge" data-code="vcl" style="--inst-color: #8a623f;">
           🎸 Violão Clássico
         </span>
-        <p class="version">Versão v7.2</p>
+         <!--<p class="version">Versão v7.2</p>-->
         <span class="badge" id="progressBadge">0% concluído</span>
       </div>
     </div>
@@ -158,41 +160,7 @@
   
 
 
-    <div class="card">
-
-      <section class="intro">
-        <h2>Checklist Interativo de Luteria</h2>
-        <p>
-          Este aplicativo foi criado para acompanhar, de forma clara e organizada,
-          todas as etapas da construção artesanal de instrumentos de cordas.
-        </p>
-        <p>
-          A proposta é unir <strong>tradição</strong> e <strong>inovação</strong>:
-          preservar os métodos clássicos de construção, transmitidos por grandes
-          mestres da luteria, ao mesmo tempo em que aproveitamos a tecnologia
-          para tornar o caminho mais acessível e interativo.
-        </p>
-        <p>
-          Cada subetapa pode ser acompanhada com imagens, desenhos técnicos,
-          medidas e observações, permitindo não apenas concluir um instrumento,
-          mas também construir um verdadeiro diário de aprendizado e evolução.
-        </p>
-        <p>
-          Há, também, para complementar o aprendizado, link do Google Fotos com a galeria de fotos de cada etapa, que
-          funciona online.
-        </p>
-        <p>
-          O objetivo é que este checklist seja um <em>companheiro de bancada</em>,
-          ajudando o luthier — iniciante ou experiente — a manter a disciplina
-          das etapas, registrar detalhes importantes e, acima de tudo, celebrar
-          a arte de dar vida à madeira através da música.
-        </p>
-
-        <button class="btn intro-toggle">Ler mais</button>
-      </section>
-
-
-    </div>
+    
     <nav class="toc">
       <strong>Índice</strong>
       <ul>
@@ -5776,15 +5744,23 @@
     </main>
   </div>
 
-  <div class="credits">
-    <p>As fotografias utilizadas neste checklist são parte do livro
-      <em>Manual para el lutier novel — Tecnología de la lutería, Tomos 1 e 2</em>,
-      de <strong>José María Gil Chueca</strong>, Lutier e investigador desde 1979.
-      Primeira edição 2007, corrigida e aumentada em 2016.
-    </p>
-    <p>Imagens utilizadas com autorização expressa do autor.
-      Todos os direitos reservados. Reprodução não autorizada é proibida por lei.</p>
-  </div>
+ <footer class="app-footer">
+  <p><strong>LuthierPro</strong> — Guia Interativo de Luthieria</p>
+  <p>Um projeto da <strong>Baratieri Luthieria</strong></p>
+  
+  <nav class="footer-nav">
+    <a href="#" onclick="openModal('modalIntro')">O Guia</a>
+    <a href="#" onclick="openModal('modalSobre')">Sobre</a>
+    <a href="#" onclick="openModal('modalCreditos')">Créditos</a>
+    <a href="#" onclick="openModal('modalContato')">Contato</a>
+  </nav>
+  
+  <p class="copyright">© 2025 Todos os direitos reservados</p>
+</footer>
+
+
+
+
 
   <div id="drawModal" class="modal" aria-="true"></div>
 
@@ -5855,6 +5831,60 @@
 
 
 
+<!-- Modal Sobre -->
+<!-- Modal Intro -->
+<div id="modalIntro" class="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <h2>O Guia LuthierPro</h2>
+    <p><strong>LuthierPro</strong> é um guia interativo de lutheria, criado para apoiar
+    o luthier em cada etapa da construção de instrumentos de cordas.</p>
+    <p>O aplicativo organiza medidas, imagens, desenhos técnicos e observações
+    em um fluxo claro, atuando como um verdadeiro companheiro de bancada.</p>
+    <p>O foco é unir <em>tradição</em> e <em>inovação</em>:
+    respeitar os métodos clássicos da luthieria e, ao mesmo tempo,
+    aproveitar a tecnologia para facilitar o aprendizado e a prática.</p>
+    <button class="btn-close" onclick="closeModal('modalIntro')">Fechar</button>
+  </div>
+</div>
+
+<!-- Modal Sobre -->
+<div id="modalSobre" class="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <h2>Sobre a Baratieri Luthieria</h2>
+    <p>A <strong>Baratieri Luthieria</strong>, fundada por <strong>Jacir Paulo Baratieri</strong>,
+    nasceu da paixão por instrumentos artesanais e pela tradição da música de cordas.</p>
+    <p>Cada instrumento é construído de forma manual e dedicada, seguindo técnicas tradicionais,
+    mas sempre com espaço para pesquisa, estudo e inovação.</p>
+    <p>O <strong>LuthierPro</strong> é fruto dessa mesma filosofia: compartilhar conhecimento,
+    valorizar a arte da luthieria e tornar o processo acessível para quem deseja aprender e criar.</p>
+    <button class="btn-close" onclick="closeModal('modalSobre')">Fechar</button>
+  </div>
+</div>
+
+<!-- Modal Créditos -->
+<div id="modalCreditos" class="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <h2>Créditos</h2>
+    <p>As fotografias utilizadas neste guia são parte do livro
+    <em>Manual para el lutier novel — Tecnología de la lutería, Tomos 1 e 2</em>,
+    de <strong>José María Gil Chueca</strong>, Lutier e investigador desde 1979.
+    Primeira edição 2007, corrigida e aumentada em 2016.</p>
+    <p>Imagens utilizadas com autorização expressa do autor.
+    Todos os direitos reservados. Reprodução não autorizada é proibida por lei.</p>
+    <button class="btn-close" onclick="closeModal('modalCreditos')">Fechar</button>
+  </div>
+</div>
+
+<!-- Modal Contato -->
+<div id="modalContato" class="modal" aria-hidden="true">
+  <div class="modal-dialog">
+    <h2>Contato</h2>
+    <p>📧 bararieriluthieria@gmail.com</p>
+    <p>📱 (45) 92002-8659</p>
+    <p>📍 Terra Roxa – PR, Brasil</p>
+    <button class="btn-close" onclick="closeModal('modalContato')">Fechar</button>
+  </div>
+</div>
 
 </body>
 

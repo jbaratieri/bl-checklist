@@ -126,6 +126,55 @@ header.app .toolbar .btn.primary:hover {
   background: #7a5637;
 }
 
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 20px;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+.modal-dialog {
+  background: #fff;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.25);
+  text-align: left;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-dialog h2 {
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: #8a623f;
+}
+
+.btn-close {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  background: #8a623f;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-close:hover {
+  background: #6d4d31;
+}
+
+
 /* ==========================
    Responsividade
    ========================== */

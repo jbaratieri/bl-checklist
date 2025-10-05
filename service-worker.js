@@ -14,6 +14,7 @@ const APP_SHELL = [
   '/bl-checklist/css/project-header.css',
   '/bl-checklist/css/step12-draw.css',   // 👈 incluído
   '/bl-checklist/css/responsive.css',
+  '/bl-checklist/css/footer.css',
   // JS essenciais
   '/bl-checklist/js/checklist.js',
   '/bl-checklist/js/step2-toc.js',

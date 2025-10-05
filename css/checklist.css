@@ -213,7 +213,8 @@ header.app .toolbar{
 header.app .logo-box img{height:200px;width:auto}*/
 
 .logo-row{display:flex;justify-content:space-between;align-items:center;gap:20px}
-.status-row{display:flex;align-items:center;gap:12px}
+.status-row{display:flex;align-items:center;gap:12px; justify-content: center;
+    text-align: center;}
 
 /* adicione em step11-tech.css ou no seu CSS global */
 figure.tech-figure img{background:#fff}

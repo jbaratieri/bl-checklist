@@ -201,3 +201,16 @@ if (toggleBtn) {
   document.querySelectorAll('.measures-block').forEach(b => b.classList.remove('open'));
 
 })();
+
+
+// Controle do modal footer
+function openModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeModal(id) {
+  const modal = document.getElementById(id);
+  if (modal) modal.setAttribute('aria-hidden', 'true');
+}
+

@@ -1,0 +1,33 @@
+.app-footer {
+  background: #faf7f2;
+  border-top: 1px solid #e0d7c8;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.app-footer strong {
+  color: #8a623f;
+}
+
+.footer-nav {
+  margin: 10px 0;
+}
+
+.footer-nav a {
+  color: #8a623f;
+  text-decoration: none;
+  margin: 0 10px;
+  font-weight: 500;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
+}
+
+.app-footer .copyright {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #666;
+}

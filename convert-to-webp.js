@@ -1,3 +1,10 @@
+//rode no terminal: npm install sharp
+//Depois, ajuste o caminho do diretorio das imagens
+//Rode: node convert-to-webp.js
+
+
+
+
 const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
