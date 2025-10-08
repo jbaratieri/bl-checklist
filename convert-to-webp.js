@@ -9,7 +9,7 @@ const sharp = require("sharp");
 const fs = require("fs");
 const path = require("path");
 
-const inputDir = path.join(__dirname, "assets/tech");
+const inputDir = path.join(__dirname, "assets/logos");
 
 // Qualidade padrão (0–100)
 const QUALITY = 80;
