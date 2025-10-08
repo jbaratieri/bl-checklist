@@ -1,4 +1,4 @@
-// sw.js — v2.3.6 com fallback offline (HTML + imagens)
+// sw.js — v2.3.7 com fallback offline (HTML + imagens)
 const CACHE_VERSION = 'bl-app-v2.3.7'; // 👈 incrementado
 const APP_SHELL = [
   '/bl-checklist/',
