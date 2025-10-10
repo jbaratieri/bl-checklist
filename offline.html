@@ -57,6 +57,13 @@
       margin-bottom: 1.6em;
     }
 
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6em;
+      align-items: center;
+    }
+
     button {
       padding: 10px 20px;
       border: none;
@@ -67,6 +74,7 @@
       font-weight: 500;
       cursor: pointer;
       transition: background 0.2s ease, transform 0.1s ease;
+      width: 180px;
     }
 
     button:hover {
@@ -82,6 +90,7 @@
     @media (max-width: 480px) {
       body { padding: 1.5em; }
       .offline-box { padding: 1.5em; }
+      button { width: 100%; }
     }
   </style>
 </head>
@@ -91,7 +100,12 @@
     <h1>Você está offline</h1>
     <p>O <strong>LuthierPro</strong> continua funcionando mesmo sem internet.<br>
        Alguns recursos, como imagens adicionais ou atualizações, exigem conexão.</p>
-    <button onclick="location.reload()">🔄 Tentar novamente</button>
+
+    <div class="btn-group">
+      <button onclick="location.reload()">🔄 Tentar novamente</button>
+      <button onclick="window.location.href='./index.html'">🏠 Voltar ao app</button>
+    </div>
   </main>
 </body>
 </html>
+
