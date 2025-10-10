@@ -5897,6 +5897,62 @@
     </div>
   </div>
 
+  <!-- Botão de instalação do LuthierPro -->
+<style>
+  #btnInstall {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    background: #8a623f;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 1em;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.15s ease;
+    z-index: 9999;
+  }
+  #btnInstall:hover {
+    background: #5c3b1e;
+    transform: scale(1.04);
+  }
+  #btnInstall:active {
+    transform: scale(0.98);
+  }
+</style>
+
+<button id="btnInstall" hidden>📲 Instalar LuthierPro</button>
+
+<script>
+  let deferredPrompt;
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Impede o Chrome de mostrar o prompt automático
+    e.preventDefault();
+    deferredPrompt = e;
+    const btn = document.getElementById('btnInstall');
+    btn.hidden = false; // exibe o botão
+
+    btn.addEventListener('click', async () => {
+      btn.hidden = true; // esconde após clique
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      console.log(`Usuário escolheu: ${outcome}`);
+      deferredPrompt = null;
+    });
+  });
+
+  // Esconde o botão se o app já estiver instalado
+  window.addEventListener('appinstalled', () => {
+    document.getElementById('btnInstall').hidden = true;
+    console.log('✅ LuthierPro instalado!');
+  });
+</script>
+
+
 </body>
 
 </html>
