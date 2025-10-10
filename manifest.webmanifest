@@ -16,10 +16,10 @@
   "categories": ["productivity", "education", "utilities"],
 
   "icons": [
-    { "src": "/bl-checklist/icon/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/bl-checklist/icon/icon-192.webp", "sizes": "192x192", "type": "image/webp", "purpose": "any" },
    
-    { "src": "/bl-checklist/icon/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
-    { "src": "/bl-checklist/icon/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/bl-checklist/icon/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    { "src": "/bl-checklist/icon/icon-192-maskable.webp", "sizes": "192x192", "type": "image/webp", "purpose": "maskable" },
+    { "src": "/bl-checklist/icon/icon-512.webp", "sizes": "512x512", "type": "image/webp", "purpose": "any" },
+    { "src": "/bl-checklist/icon/icon-512-maskable.webp", "sizes": "512x512", "type": "image/webp", "purpose": "maskable" }
   ]
 }

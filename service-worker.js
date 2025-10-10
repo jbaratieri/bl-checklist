@@ -32,8 +32,8 @@ const APP_SHELL = [
   '/bl-checklist/js/step18-persist-fallback.v3.js',
   '/bl-checklist/js/viewer.global.js',
   // Ícones PWA
-  '/bl-checklist/icon/icon-192.png',
-  '/bl-checklist/icon/icon-512.png'
+  '/bl-checklist/icon/icon-192.webp',
+  '/bl-checklist/icon/icon-512.webp'
 ];
 
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
