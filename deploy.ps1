@@ -10,7 +10,7 @@ git pull origin main
 git add .
 
 # Cria um commit (se não houver alterações, não quebra)
-git commit -m "deploy automático - Inclusão do footer" --allow-empty
+git commit -m "deploy automático - inclusão de todas as pastas com imagens do projeto" --allow-empty
 
 # Envia para a branch main (GitHub Pages já publica direto da main)
 git push origin main
