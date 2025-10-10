@@ -1,46 +1,53 @@
-// sw.js — v2.3.7 com fallback offline (HTML + imagens)
-const CACHE_VERSION = 'bl-app-v2.3.8'; // 👈 incrementado
-const APP_SHELL = [
-  '/bl-checklist/',
-  '/bl-checklist/index.html',
-  '/bl-checklist/offline.html',
-  '/bl-checklist/manifest.webmanifest',
-  // Ícone fallback p/ imagens
-  '/bl-checklist/assets/fallback-image.png',
-  // CSS principais
-  '/bl-checklist/css/checklist.css',
-  '/bl-checklist/css/images-thumbs.css',
-  '/bl-checklist/css/context-bar.css',
-  '/bl-checklist/css/project-header.css',
-  '/bl-checklist/css/step12-draw.css',   // 👈 incluído
-  '/bl-checklist/css/responsive.css',
-  '/bl-checklist/css/footer.css',
-  // JS essenciais
-  '/bl-checklist/js/checklist.js',
-  '/bl-checklist/js/step2-toc.js',
-  '/bl-checklist/js/step6-export.js',
-  '/bl-checklist/js/step11-tech.js',
-  '/bl-checklist/js/step9-instrument.js',
-  '/bl-checklist/js/step15-instrument-badge.js',
-  '/bl-checklist/js/step14-images-persist.v4.1.js',
-  '/bl-checklist/js/step12-draw.v4.1.js',
-  '/bl-checklist/js/step17-measures-instrumentos.js',
-  '/bl-checklist/js/step16-measures-presets.v3.js',
-  '/bl-checklist/js/step16-range-support.js',
-  '/bl-checklist/js/step16-measures-toggle.js',
-  '/bl-checklist/js/step19-project-plan.v7.js',
-  '/bl-checklist/js/step18-persist-fallback.v3.js',
-  '/bl-checklist/js/viewer.global.js',
-  // Ícones PWA
-  '/bl-checklist/icon/icon-192.webp',
-  '/bl-checklist/icon/icon-512.webp'
-];
-
+// service-worker.js — LuthierPro v2.3.9
+const CACHE_VERSION = 'luthierpro-v2.3.9';
+const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
-const SHELL_CACHE   = `shell-${CACHE_VERSION}`;
 const IMG_CACHE_MAX_ENTRIES = 300;
 
-// Helpers
+const APP_SHELL = [
+  './',
+  './index.html',
+  './login.html',
+  './offline.html',
+  './manifest.webmanifest',
+
+  // Ícone fallback (para imagens offline)
+  './assets/fallback-image.png',
+
+  // CSS
+  './css/checklist.css',
+  './css/images-thumbs.css',
+  './css/context-bar.css',
+  './css/project-header.css',
+  './css/step12-draw.css',
+  './css/responsive.css',
+  './css/footer.css',
+  './css/login.css',
+
+  // JS principais
+  './src/js/checklist.js',
+  './src/js/step2-toc.js',
+  './src/js/step6-export.js',
+  './src/js/step11-tech.js',
+  './src/js/step9-instrument.js',
+  './src/js/step15-instrument-badge.js',
+  './src/js/step14-images-persist.v4.1.js',
+  './src/js/step12-draw.v4.1.js',
+  './src/js/step17-measures-instrumentos.js',
+  './src/js/step16-measures-presets.v3.js',
+  './src/js/step16-range-support.js',
+  './src/js/step16-measures-toggle.js',
+  './src/js/step19-project-plan.v7.js',
+  './src/js/step18-persist-fallback.v3.js',
+  './src/js/viewer.global.js',
+  './src/js/login.js',
+
+  // Ícones PWA
+  './icon/icon-192.webp',
+  './icon/icon-512.webp'
+];
+
+// Helper para limitar quantidade de imagens cacheadas
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   const cache = await caches.open(cacheName);
   await cache.put(request, response.clone());
@@ -55,43 +62,42 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   }
 }
 
-// Install
+// INSTALL
 self.addEventListener('install', (event) => {
-  console.log('[SW] Install');
+  console.log('[Service Worker] Install v2.3.9');
   event.waitUntil((async () => {
     const cache = await caches.open(SHELL_CACHE);
     for (const url of APP_SHELL) {
       try {
         await cache.add(url);
-        console.log('[SW] Cached:', url);
+        console.log('[Service Worker] Cached:', url);
       } catch (err) {
-        console.warn('[SW] Falha ao adicionar no cache:', url, err);
+        console.warn('[Service Worker] Falha ao adicionar no cache:', url, err);
       }
     }
     await self.skipWaiting();
   })());
 });
 
-// Activate
+// ACTIVATE
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activate');
+  console.log('[Service Worker] Activate');
   event.waitUntil((async () => {
     const names = await caches.keys();
-    await Promise.all(
-      names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n)).map(n => caches.delete(n))
-    );
+    await Promise.all(names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n)).map(n => caches.delete(n)));
     await self.clients.claim();
   })());
 });
 
-// Fetch
+// FETCH
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
+  // Ignorar requisições externas e POST
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
-  // Navegação (HTML)
+  // Navegação HTML
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
     event.respondWith((async () => {
       try {
@@ -102,7 +108,7 @@ self.addEventListener('fetch', (event) => {
       } catch {
         const cache = await caches.open(SHELL_CACHE);
         return (await cache.match(request))
-            || (await cache.match('/bl-checklist/offline.html'))
+            || (await cache.match('./offline.html'))
             || Response.error();
       }
     })());
@@ -110,7 +116,7 @@ self.addEventListener('fetch', (event) => {
   }
 
   // CSS/JS/Manifest
-  if (/\.(css|js|json|webmanifest|png)$/.test(url.pathname)) {
+  if (/\.(css|js|json|webmanifest|png|webp)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
       const cached = await cache.match(request);
@@ -123,10 +129,9 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Imagens (assets/)
+  // Imagens em /assets/
   const isImg = /\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname);
   const isAsset = url.pathname.includes('/assets/');
-
   if (isImg && isAsset) {
     event.respondWith((async () => {
       const cache = await caches.open(RUNTIME_CACHE);
@@ -138,24 +143,25 @@ self.addEventListener('fetch', (event) => {
         await putWithTrim(RUNTIME_CACHE, request, net.clone(), ['/assets/']);
         return net;
       } catch {
-        console.warn('[SW] imagem offline → usando fallback');
-        return await caches.match('/bl-checklist/assets/fallback-image.png');
+        console.warn('[Service Worker] imagem offline → usando fallback');
+        return await caches.match('./assets/fallback-image.png');
       }
     })());
     return;
   }
 
-  // Outros
+  // Outros arquivos
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
     if (cached) return cached;
+
     try {
       const net = await fetch(request);
       cache.put(request, net.clone());
       return net;
     } catch {
-      return (await caches.match('/bl-checklist/offline.html')) || Response.error();
+      return (await caches.match('./offline.html')) || Response.error();
     }
   })());
 });
