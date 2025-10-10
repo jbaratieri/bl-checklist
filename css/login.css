@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  background: url("../assets/textura-madeira.webp") center/cover no-repeat fixed;
+  color: #3b2a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-wrapper {
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  padding: 40px 30px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+}
+
+.logo {
+  width: 140px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 5px 0 8px;
+  font-weight: 600;
+  color: #2c1a0b;
+}
+
+p {
+  margin: 6px 0;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 12px 0;
+  font-size: 1rem;
+  border: 1px solid #a87b4c;
+  border-radius: 8px;
+  outline: none;
+  text-align: center;
+  color: #3b2a1a;
+}
+
+button {
+  background: linear-gradient(180deg, #c89c65 0%, #a87b4c 100%);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.msg {
+  color: #a40000;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 0.75rem;
+  color: #5a4633;
+}

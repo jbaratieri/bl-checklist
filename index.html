@@ -57,6 +57,15 @@
 </head>
 
 <body>
+
+  <script>
+  if (localStorage.getItem("lp_auth") !== "ok") {
+    window.location.href = "login.html";
+  }
+</script>
+
+
+
   <header class="app">
     <!-- Linha superior: logo à esquerda e status à direita -->
     <div class="logo-row">
