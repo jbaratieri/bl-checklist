@@ -10,7 +10,7 @@
     window.BL_MEASURE_PRESETS[code] = Object.assign({}, window.BL_MEASURE_PRESETS[code] || {}, data);
   }
 
-  // === Violão Clássico (vcl) ===
+  // === Violão (vcl) ===
   merge('vcl', {
     braco: {
       madeira: "Cedro",

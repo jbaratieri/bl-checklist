@@ -1,12 +1,12 @@
 /* step15-instrument-badge.js — v2
-   - Corrige mapeamento: vcl → "Violão Clássico"
+   - Corrige mapeamento: vcl → "Violão"
    - Permite override por window.BL_INSTRUMENT_LABELS ou localStorage 'bl:instrumentLabel:<code>'
 */
 (function(){
   'use strict';
 
   const DEFAULT_MAP = {
-    vcl: { label: 'Violão Clássico', color: '#8a623f', emoji: '🎸' },
+    vcl: { label: 'Violão',          color: '#8a623f', emoji: '🎸' },
     vla: { label: 'Viola',           color: '#8a623f', emoji: '🎻' },
     cav: { label: 'Cavaquinho',      color: '#cf995f', emoji: '🎸' },
     uku: { label: 'Ukulele',         color: '#cf995f', emoji: '🎸' }

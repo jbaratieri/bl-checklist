@@ -5,7 +5,7 @@
   // ---- Config ----
   const INST_KEY = 'bl:instrument'; // vcl|vla|cav|uku
   const INST_NAMES = {
-    vcl: 'Violão Clássico',
+    vcl: 'Violão',
     vla: 'Viola Caipira',
     cav: 'Cavaquinho',
     uku: 'Ukulele'

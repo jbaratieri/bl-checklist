@@ -5,7 +5,7 @@
   const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
   const $  = (s, c = document) => c.querySelector(s);
 
-  const INSTR_NAMES = { vcl: 'Violão Clássico', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
+  const INSTR_NAMES = { vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
   const PLAN_WEIGHTS = [
     { id: 'sec-02', nome: 'Braço / Taco Espanhol', peso: 18 },
     { id: 'sec-03', nome: 'Tampo', peso: 22 },

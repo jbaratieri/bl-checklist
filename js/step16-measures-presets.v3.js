@@ -100,7 +100,7 @@
       }
 
       function openModal(sectionFilter=null){
-        const m=ensureModal(); const code=INSTR(); const names={vcl:'Violão Clássico', vla:'Viola', cav:'Cavaquinho', uku:'Ukulele'};
+        const m=ensureModal(); const code=INSTR(); const names={vcl:'Violão', vla:'Viola', cav:'Cavaquinho', uku:'Ukulele'};
         $('#measuresInst',m).textContent=names[code]||code.toUpperCase();
         const body=$('#measuresBody',m); body.innerHTML='';
         const secs=(window.BL_MEASURE_PRESETS&&window.BL_MEASURE_PRESETS[code])||{};
