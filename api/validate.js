@@ -1,11 +1,9 @@
 // api/validate.js — LuthierPro License Validator (Vercel Serverless)
-const fetch = require('node-fetch');
-
 const AIRTABLE_BASE = process.env.AIRTABLE_BASE;
 const AIRTABLE_KEY  = process.env.AIRTABLE_KEY;
 const TABLE         = 'licenses';
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
   try {
     const { code } = req.body || {};
@@ -21,12 +19,12 @@ module.exports = async (req, res) => {
     const f = rec.fields;
     const now = new Date();
 
-    // 2️⃣ Verifica expiração (só para plano mensal)
+    // 2️⃣ Verifica expiração
     if (f.plan_type !== 'vitalício' && f.expires_at && new Date(f.expires_at) < now) {
       return res.status(403).json({ ok: false, msg: 'Assinatura expirada.' });
     }
 
-    // 3️⃣ Registra IP e uso
+    // 3️⃣ Telemetria leve (registra IP e data)
     const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || 'unknown';
     const useCount = (f.use_count || 0) + 1;
     const flagged = useCount >= 3 ? true : false;
@@ -48,7 +46,7 @@ module.exports = async (req, res) => {
       })
     });
 
-    // 4️⃣ Retorna o resultado para o app
+    // 4️⃣ Retorna resultado
     return res.json({
       ok: true,
       msg: f.plan_type === 'vitalício'
@@ -62,4 +60,4 @@ module.exports = async (req, res) => {
     console.error('Erro validate:', err);
     return res.status(500).json({ ok: false, msg: 'Erro no servidor.' });
   }
-};
+}
