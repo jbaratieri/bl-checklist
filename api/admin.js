@@ -1,98 +1,73 @@
-// api/admin.js — Painel Administrativo Seguro (LuthierPro)
-// ✅ Compatível com Vercel Edge Runtime (sem node-fetch)
+// api/admin.js — Painel Administrativo LuthierPro (compatível com Node runtime)
 
-export const config = {
-  runtime: "edge",
-};
-
-export default async function handler(req) {
-  const { method, nextUrl } = req;
-  const url = new URL(nextUrl);
-  const key = url.searchParams.get("key");
-
-  // 🔐 Verifica a senha de administrador
-  if (!key || key !== process.env.ADMIN_KEY) {
-    return new Response(JSON.stringify({ ok: false, msg: "Acesso negado" }), {
-      status: 403,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const base = process.env.AIRTABLE_BASE;
-  const token = process.env.AIRTABLE_KEY;
-  const table = "licenses";
-  const headers = {
-    Authorization: `Bearer ${token}`,
-    "Content-Type": "application/json",
-  };
-
+export default async function handler(req, res) {
   try {
-    if (method === "GET") {
+    const key = req.query.key;
+    if (!key || key !== process.env.ADMIN_KEY) {
+      return res.status(403).json({ ok: false, msg: "Acesso negado" });
+    }
+
+    const base = process.env.AIRTABLE_BASE;
+    const token = process.env.AIRTABLE_KEY;
+    const table = "licenses";
+
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+
+    if (req.method === "GET") {
       // 📄 Listar todas as licenças
       const r = await fetch(
         `https://api.airtable.com/v0/${base}/${table}?sort[0][field]=code`,
         { headers }
       );
       const data = await r.json();
-      return new Response(JSON.stringify({ ok: true, records: data.records || [] }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(200).json({ ok: true, records: data.records || [] });
     }
 
-    if (method === "DELETE") {
-      // 🗑️ Deletar uma licença
-      const body = await req.json();
-      const { id } = body;
-      if (!id)
-        return new Response(JSON.stringify({ ok: false, msg: "ID ausente" }), {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        });
+    if (req.method === "DELETE") {
+      // 🗑️ Excluir uma licença
+      const { id } = req.body;
+      if (!id) return res.status(400).json({ ok: false, msg: "ID ausente" });
 
       const r = await fetch(`https://api.airtable.com/v0/${base}/${table}/${id}`, {
         method: "DELETE",
         headers,
       });
-
       const result = await r.json();
-      return new Response(JSON.stringify({ ok: true, result }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(200).json({ ok: true, result });
     }
 
-    if (method === "POST") {
+    if (req.method === "POST") {
       // ➕ Criar nova licença
-      const body = await req.json();
-      const { code, plan, expires_at, flagged, notes } = body;
-      if (!code)
-        return new Response(JSON.stringify({ ok: false, msg: "Código obrigatório" }), {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        });
+      const { code, plan, expires_at, flagged, notes } = req.body;
+      if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+
+      const body = {
+        fields: {
+          code,
+          plan_type: plan || "mensal",
+          expires_at,
+          flagged: !!flagged,
+          notes,
+        },
+      };
 
       const r = await fetch(`https://api.airtable.com/v0/${base}/${table}`, {
         method: "POST",
         headers,
-        body: JSON.stringify({
-          fields: { code, plan_type: plan || "mensal", expires_at, flagged: !!flagged, notes },
-        }),
+        body: JSON.stringify(body),
       });
-
       const result = await r.json();
-      return new Response(JSON.stringify({ ok: true, result }), {
-        headers: { "Content-Type": "application/json" },
-      });
+      return res.status(200).json({ ok: true, result });
     }
 
-    return new Response(JSON.stringify({ ok: false, msg: "Método não permitido" }), {
-      status: 405,
-      headers: { "Content-Type": "application/json" },
-    });
+    return res.status(405).json({ ok: false, msg: "Método não permitido" });
   } catch (err) {
-    console.error("Erro no admin API:", err);
-    return new Response(
-      JSON.stringify({ ok: false, msg: "Erro interno no servidor", detail: err.message }),
-      { status: 500, headers: { "Content-Type": "application/json" } }
-    );
+    console.error("💥 Erro no admin API:", err);
+    return res
+      .status(500)
+      .json({ ok: false, msg: "Erro interno no servidor", detail: err.message });
   }
 }
