@@ -117,9 +117,15 @@
   }
 
   // 🔹 Salvar edição (PATCH)
-  window.saveEdit = async function(id) {
+  window.saveEdit = async function (id) {
     const plan = document.getElementById(`plan_${id}`).value.trim();
-    const exp = document.getElementById(`exp_${id}`).value.trim();
+    let exp = document.getElementById(`exp_${id}`).value.trim();
+
+    // 🧭 Converte DD/MM/YYYY → YYYY-MM-DD (Airtable format)
+    if (exp && exp.includes("/")) {
+      const [d, m, y] = exp.split("/");
+      if (d && m && y) exp = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+    }
 
     msg.textContent = "🔄 Atualizando registro...";
     msg.style.color = "#555";
