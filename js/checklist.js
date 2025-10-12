@@ -50,7 +50,7 @@
 
   // ----- Helpers de estado -----
   const setSectionOpen = (sec, open) => sec.classList.toggle('open', open);
-  const setStepOpen    = (step, open) => step.classList.toggle('open', open);
+  const setStepOpen = (step, open) => step.classList.toggle('open', open);
   const setMeasuresOpen = (block, open) => block.classList.toggle('open', open);
 
   // ----- Progress -----
@@ -59,9 +59,9 @@
     const done = all.filter(c => c.checked).length;
     const pct = Math.round((done / Math.max(1, all.length)) * 100);
     const badge = $('#progressBadge');
-    const fill  = $('#progressFill');
+    const fill = $('#progressFill');
     if (badge) badge.textContent = pct + '% concluído';
-    if (fill)  fill.style.width = pct + '%';
+    if (fill) fill.style.width = pct + '%';
 
     $$('.section').forEach(sec => {
       const checks = $$('.chk', sec);
@@ -144,11 +144,9 @@
 
   // ----- ÚNICO LISTENER GLOBAL -----
   document.addEventListener('click', (e) => {
-    // 0) Lightbox (img)
     const img = e.target.closest('.img-pic');
     if (img) { e.preventDefault(); openLightbox(img.src); return; }
 
-    // 1) Clique no header da seção → toggle
     const header = e.target.closest('.section > header');
     if (header) {
       const sec = header.parentElement;
@@ -156,7 +154,6 @@
       return;
     }
 
-    // 2) Expandir/Recolher tudo
     if (e.target.closest('#btnExpand, #btnExpandAll')) {
       $$('.section').forEach(s => setSectionOpen(s, true));
       return;
@@ -166,51 +163,87 @@
       return;
     }
 
-    // 3) Imprimir
     if (e.target.closest('#btnPrint')) {
       window.print();
       return;
     }
 
-    // 4) (Removido: botão reset global)
-
-   // 5) Detalhe (abre/fecha a .step)
-const toggleBtn = e.target.closest('.btn.toggle');
-if (toggleBtn) {
-  const step = toggleBtn.closest('.step');
-  if (step) {
-    const willOpen = !step.classList.contains('open');
-    setStepOpen(step, willOpen);
-
-    // Atualiza ícone + legenda
-    const icon = toggleBtn.querySelector('.icon');
-    if (icon) icon.textContent = willOpen ? '−' : '＋';
-    toggleBtn.setAttribute('aria-label', willOpen ? 'Fechar detalhes' : 'Abrir detalhes');
-  }
-  return;
-}})
-
-// 6) Medidas (abre/fecha) - migrado para step16-measures-toggle.js
+    const toggleBtn = e.target.closest('.btn.toggle');
+    if (toggleBtn) {
+      const step = toggleBtn.closest('.step');
+      if (step) {
+        const willOpen = !step.classList.contains('open');
+        setStepOpen(step, willOpen);
+        const icon = toggleBtn.querySelector('.icon');
+        if (icon) icon.textContent = willOpen ? '−' : '＋';
+        toggleBtn.setAttribute('aria-label', willOpen ? 'Fechar detalhes' : 'Abrir detalhes');
+      }
+      return;
+    }
+  });
 
   // ----- Init -----
   loadAll();
   initAutoGrow();
   updateProgress();
 
-  // 🔧 Patch: garante que medidas começam fechadas
   document.querySelectorAll('.measures-block').forEach(b => b.classList.remove('open'));
 
 })();
-
 
 // Controle do modal footer
 function openModal(id) {
   const modal = document.getElementById(id);
   if (modal) modal.setAttribute('aria-hidden', 'false');
 }
-
 function closeModal(id) {
   const modal = document.getElementById(id);
   if (modal) modal.setAttribute('aria-hidden', 'true');
 }
 
+// ======================================================
+// 🔐 LuthierPro — Revalidação Automática de Licença (v2.0 seguro via /api/validate)
+// ======================================================
+(async () => {
+  const LAST_CHECK_KEY = "lp_last_license_check";
+  const AUTH_KEY = "lp_auth";
+  const CODE_KEY = "lp_code";
+
+  const lastCheck = localStorage.getItem(LAST_CHECK_KEY);
+  const now = Date.now();
+  const daysSince = lastCheck ? (now - parseInt(lastCheck)) / (1000 * 60 * 60 * 24) : 999;
+
+  if (daysSince >= 7 && localStorage.getItem(AUTH_KEY) === "ok") {
+    const code = localStorage.getItem(CODE_KEY);
+    if (!code) return;
+
+    const banner = document.createElement("div");
+    banner.textContent = "🔄 Verificando licença ativa...";
+    banner.style = "position:fixed;top:0;left:0;width:100%;background:#5c3b1e;color:#fff;padding:8px;text-align:center;font-size:14px;z-index:9999;";
+    document.body.appendChild(banner);
+
+    try {
+      const res = await fetch("/api/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code })
+      });
+
+      const data = await res.json();
+
+      if (!data.ok) {
+        localStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem(CODE_KEY);
+        alert("⚠️ Sua licença expirou ou foi revogada.\nFaça login novamente para renovar o acesso.");
+        window.location.href = "./login.html";
+      } else {
+        localStorage.setItem(LAST_CHECK_KEY, String(now));
+        console.log(`[LuthierPro] Licença válida: plano=${data.plan}, expira=${data.expires}`);
+      }
+    } catch (err) {
+      console.warn("[LuthierPro] Erro na revalidação automática:", err);
+    } finally {
+      setTimeout(() => banner.remove(), 2000);
+    }
+  }
+})();

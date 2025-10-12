@@ -10,7 +10,7 @@ git pull origin main
 git add .
 
 # Cria um commit (se não houver alterações, não quebra)
-git commit -m "service worker atualizado e caminhos ajustados para vercel" --allow-empty
+git commit -m "ajustes no checklis.js para vercel/airtable" --allow-empty
 
 # Envia para a branch main (GitHub Pages já publica direto da main)
 git push origin main
