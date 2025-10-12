@@ -54,6 +54,9 @@
       console.error("Erro:", err);
     }
   }
+  window.loadLicenses = loadLicenses;
+window.currentKey = currentKey;
+
 
   // 🔹 Renderizar tabela de licenças
   function renderLicenses(records) {
