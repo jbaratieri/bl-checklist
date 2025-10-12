@@ -46,3 +46,20 @@ export default async function handler(req, res) {
       if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
 
       const r = await fetch(`https://api.airtable.com/v0/${base}/${table}`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          fields: { code, plan_type: plan || "mensal", expires_at, flagged: !!flagged, notes },
+        }),
+      });
+
+      const result = await r.json();
+      return res.status(201).json({ ok: true, result });
+    }
+
+    return res.status(405).json({ ok: false, msg: "Método não permitido" });
+  } catch (err) {
+    console.error("Erro no admin API:", err);
+    return res.status(500).json({ ok: false, msg: "Erro interno no servidor" });
+  }
+}
