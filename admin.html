@@ -15,22 +15,22 @@
     <button id="btnLogin">Acessar</button>
     <p id="msg" class="msg"></p>
 
-    <!-- 🆕 Formulário de nova licença -->
-<div class="new-license">
-  <h3>➕ Criar nova licença</h3>
-  <div class="form-row">
-    <input type="text" id="newCode" placeholder="Código da licença" />
-    <input type="email" id="newEmail" placeholder="E-mail (opcional)" />
-    <select id="newPlan">
-      <option value="mensal">Mensal</option>
-      <option value="vitalicio">Vitalício</option>
-    </select>
-    <input type="date" id="newExp" />
-    <button id="btnAdd">Adicionar</button>
-  </div>
-</div>
+    <!-- 🆕 Novo registro -->
+    <div class="new-license">
+      <h3>➕ Criar nova licença</h3>
+      <div class="form-row">
+        <input type="text" id="newCode" placeholder="Código da licença" />
+        <input type="email" id="newEmail" placeholder="E-mail (opcional)" />
+        <select id="newPlan">
+          <option value="mensal">Mensal</option>
+          <option value="vitalicio">Vitalício</option>
+        </select>
+        <input type="date" id="newExp" />
+        <button id="btnAdd">Adicionar</button>
+      </div>
+    </div>
 
-
+    <!-- 📋 Tabela -->
     <table id="licensesTable" class="licenses">
       <thead>
         <tr>
@@ -42,6 +42,7 @@
           <th>Usos</th>
           <th>Último uso</th>
           <th>Status</th>
+          <th></th>
         </tr>
       </thead>
       <tbody></tbody>

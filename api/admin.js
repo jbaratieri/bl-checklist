@@ -1,4 +1,4 @@
-// api/admin.js — Painel Administrativo LuthierPro (versão revisada 1.1.0, compatível com Node runtime)
+// api/admin.js — Painel Administrativo LuthierPro (v1.5, compatível com campo texto)
 
 export default async function handler(req, res) {
   try {
@@ -16,8 +16,8 @@ export default async function handler(req, res) {
       "Content-Type": "application/json",
     };
 
+    // 📄 Listar licenças
     if (req.method === "GET") {
-      // 📄 Listar todas as licenças
       const r = await fetch(
         `https://api.airtable.com/v0/${base}/${table}?sort[0][field]=code`,
         { headers }
@@ -26,8 +26,8 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, records: data.records || [] });
     }
 
+    // 🗑️ Excluir licença
     if (req.method === "DELETE") {
-      // 🗑️ Excluir uma licença
       const { id } = req.body;
       if (!id) return res.status(400).json({ ok: false, msg: "ID ausente" });
 
@@ -39,19 +39,17 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, result });
     }
 
+    // ➕ Criar nova licença
     if (req.method === "POST") {
-      // ➕ Criar nova licença
       const { code, plan, expires_at, flagged, notes } = req.body;
-      if (!code) {
+      if (!code)
         return res.status(400).json({ ok: false, msg: "Código obrigatório" });
-      }
 
-      // 🔧 Garante que o plan_type seja um objeto válido (Single Select)
       const planValue = plan || "mensal";
       const body = {
         fields: {
           code,
-          plan_type: { name: planValue },
+          plan_type: planValue, // ← agora é texto puro
           expires_at,
           flagged: !!flagged,
           notes,

@@ -1,73 +1,43 @@
 body {
   font-family: system-ui, sans-serif;
-  background: #f8f4ec;
+  background: #f5f0e6;
   margin: 0;
-  padding: 30px;
-  color: #3a2a18;
+  padding: 20px;
+}
+
+.admin-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 h1 {
-  text-align: center;
-  color: #5c3b1e;
-  text-shadow: 0 1px 0 #fff;
-  margin-bottom: 20px;
+  margin-top: 0;
+  color: #543c1e;
 }
 
-.section {
-  max-width: 900px;
-  margin: 0 auto;
-  background: linear-gradient(180deg, #fdfaf4 0%, #f1e3c8 100%);
-  border: 1px solid #d9c7aa;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-}
-
-input, button {
-  font-size: 1rem;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: 1px solid #d1b98a;
-  outline: none;
-}
-
-button {
-  background: linear-gradient(180deg, #e9d7bf 0%, #f5eadb 100%);
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s ease;
-}
-
-button:hover {
-  background: linear-gradient(180deg, #f5eadb 0%, #e9d7bf 100%);
-}
+.msg { margin: 8px 0; }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 15px;
+  display: none;
 }
 
 th, td {
   padding: 8px;
-  border-bottom: 1px solid #d9c7aa;
+  border-bottom: 1px solid #e0d7c8;
   text-align: left;
 }
 
-tr:hover {
-  background: rgba(255, 255, 255, 0.6);
+button {
+  cursor: pointer;
 }
 
-.msg {
-  margin-top: 10px;
-  color: #b33;
-}
-
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+/* Formulário de nova licença */
 .new-license {
   margin-bottom: 1em;
   padding: 10px;
@@ -96,7 +66,6 @@ tr:hover {
   color: white;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
 }
 .new-license button:hover {
   background: #91723b;
