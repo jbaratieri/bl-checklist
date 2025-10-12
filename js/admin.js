@@ -1,4 +1,4 @@
-// admin.js — Painel administrativo LuthierPro v1.7.2
+// admin.js — Painel administrativo LuthierPro
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -8,14 +8,16 @@
 
   let currentKey = null;
 
-  // 🔄 Botão de atualizar
+  // 🔄 Botão de recarregar
   const reloadBtn = document.createElement("button");
   reloadBtn.textContent = "🔄 Atualizar lista";
   reloadBtn.style.display = "none";
   reloadBtn.style.marginLeft = "10px";
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
-  // ======== Carrega licenças ========
+  // ==============================
+  // 🔹 Carregar licenças do Airtable
+  // ==============================
   async function loadLicenses(adminKey) {
     msg.textContent = "🔄 Carregando licenças...";
     msg.style.color = "#555";
@@ -55,7 +57,9 @@
     }
   }
 
-  // ======== Renderiza tabela ========
+  // ==============================
+  // 🔹 Renderizar tabela
+  // ==============================
   function renderLicenses(records) {
     if (!tbody) return;
     tbody.innerHTML = "";
@@ -74,12 +78,12 @@
         <td>${i + 1}</td>
         <td><code>${f.code || "-"}</code></td>
         <td>${f.email || "-"}</td>
-        <td><input id="plan_${rec.id}" type="text" value="${plan}" size="9"></td>
-        <td><input id="exp_${rec.id}" type="text" value="${exp}" size="10"></td>
+        <td>${plan} ${vital}</td>
+        <td>${exp}</td>
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
         <td>${f.flagged ? "⚠️" : "✅"}</td>
-        <td><button class="edit-btn" data-id="${rec.id}">✏️ Salvar</button></td>
+        <td><button class="edit-btn" data-id="${rec.id}">✏️ Editar</button></td>
       `;
 
       tbody.appendChild(tr);
@@ -87,80 +91,107 @@
 
     table.style.display = "table";
 
-    // Vincula botões após renderizar
-    tbody.querySelectorAll(".edit-btn").forEach(btn => {
-      btn.addEventListener("click", () => saveEdit(btn.dataset.id));
+    // Liga os botões de edição
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", () => startEdit(btn.dataset.id));
     });
   }
 
-  // ======== Editar / Salvar ========
-  async function saveEdit(id) {
-    if (!currentKey) {
-      alert("Chave de administrador não encontrada. Faça login novamente.");
-      return;
-    }
+  // ==============================
+  // 🔹 Iniciar edição inline
+  // ==============================
+  function startEdit(id) {
+    const row = document.querySelector(`button[data-id="${id}"]`)?.closest("tr");
+    if (!row) return;
 
-    const planInput = document.getElementById(`plan_${id}`);
-    const expInput = document.getElementById(`exp_${id}`);
+    const cells = row.querySelectorAll("td");
+    const code = cells[1].innerText.trim();
+    const email = cells[2].innerText.trim();
+    const plan = cells[3].innerText.replace("✨", "").trim();
+    const expires = cells[4].innerText.trim();
 
-    let plan = planInput?.value || "";
-    let exp = expInput?.value || "";
+    row.innerHTML = `
+      <td>📝</td>
+      <td><code>${code}</code></td>
+      <td>${email}</td>
+      <td>
+        <select id="editPlan">
+          <option value="mensal" ${plan.startsWith("mensal") ? "selected" : ""}>Mensal</option>
+          <option value="vitalicio" ${plan.startsWith("vital") ? "selected" : ""}>Vitalício</option>
+        </select>
+      </td>
+      <td><input id="editExp" type="date" value="${formatDateInput(expires)}"></td>
+      <td colspan="3">
+        <button id="saveEdit" class="btn-save">💾 Salvar</button>
+        <button id="cancelEdit" class="btn-cancel">❌ Cancelar</button>
+      </td>
+      <td></td>
+    `;
 
-    // 🔧 Normaliza plano
-    plan = plan
-      .replace(/["']/g, "")
-      .trim()
-      .toLowerCase();
-    if (plan.startsWith("mens")) plan = "mensal";
-    else if (plan.startsWith("vit")) plan = "vitalicio";
-    else {
-      alert("Tipo de plano inválido. Use apenas 'mensal' ou 'vitalicio'.");
-      return;
-    }
+    document.getElementById("saveEdit").onclick = () => {
+      const plan_type = document.getElementById("editPlan").value;
+      const expires_at = document.getElementById("editExp").value;
+      updateRecord(id, { plan_type, expires_at });
+    };
 
-    // 🧭 Converte data DD/MM/YYYY → YYYY-MM-DD
-    if (exp && exp.includes("/")) {
-      const [d, m, y] = exp.split("/");
-      if (d && m && y) exp = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
-    }
+    document.getElementById("cancelEdit").onclick = () => reloadBtn.click();
+  }
 
-    msg.textContent = "💾 Salvando alterações...";
-    msg.style.color = "#555";
-
+  // ==============================
+  // 🔹 Atualizar registro (POST JSON)
+  // ==============================
+  async function updateRecord(id, fields) {
     try {
-      const res = await fetch(`/api/admin-update?id=${id}`, {
+      console.log("🧩 Enviando atualização:", { id, fields });
+
+      const res = await fetch(`/api/admin-update?key=${encodeURIComponent(currentKey)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan_type: plan, expires_at: exp, adminKey: currentKey }),
+        body: JSON.stringify({ id, fields })
       });
 
       const text = await res.text();
-      console.log("Update response:", text);
+      console.log("📩 Resposta bruta do servidor:", text);
+
       let data;
       try {
         data = JSON.parse(text);
       } catch {
-        msg.textContent = "⚠️ Erro: resposta inesperada.";
+        msg.textContent = "⚠️ Erro: resposta inválida do servidor.";
         msg.style.color = "red";
         return;
       }
 
+      console.log("Update response:", data);
+
       if (data.ok) {
-        msg.textContent = "✅ Registro atualizado!";
+        msg.textContent = "✅ Licença atualizada com sucesso!";
         msg.style.color = "green";
-        setTimeout(() => loadLicenses(currentKey), 800);
+        reloadBtn.click();
       } else {
-        msg.textContent = "❌ Erro ao atualizar: " + (data.msg || "desconhecido");
+        msg.textContent = `❌ Falha ao atualizar: ${data.msg}`;
         msg.style.color = "red";
       }
     } catch (err) {
-      console.error("Erro ao salvar:", err);
-      msg.textContent = "❌ Falha de conexão com o servidor.";
+      console.error("Erro updateRecord:", err);
+      msg.textContent = "❌ Erro de conexão ao atualizar.";
       msg.style.color = "red";
     }
   }
 
-  // ======== Eventos ========
+  // ==============================
+  // 🔹 Utilitários
+  // ==============================
+  function formatDateInput(dateStr) {
+    if (!dateStr || dateStr === "-") return "";
+    const [d, m, y] = dateStr.split("/");
+    if (!y) return "";
+    return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  }
+
+  // ==============================
+  // 🔹 Eventos
+  // ==============================
   if (btnLogin) {
     btnLogin.addEventListener("click", () => {
       const key = keyInput.value.trim();
