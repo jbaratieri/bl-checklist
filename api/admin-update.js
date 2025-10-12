@@ -1,13 +1,11 @@
-// api/admin-update.js — Atualização de licenças Airtable (LuthierPro)
+// api/admin-update.js — Atualização de licenças (LuthierPro)
 import Airtable from "airtable";
 
-// 🔑 Inicializa conexão
 const base = new Airtable({
   apiKey: process.env.AIRTABLE_KEY
 }).base(process.env.AIRTABLE_BASE);
 
 export default async function handler(req, res) {
-  // Aceita apenas POST (enviado pelo painel)
   if (req.method !== "POST") {
     return res.status(405).json({ ok: false, msg: "Método não permitido" });
   }
@@ -16,63 +14,57 @@ export default async function handler(req, res) {
     const { id } = req.query;
     const { plan_type, expires_at, adminKey } = req.body || {};
 
-    // 🧩 Validação básica
-    if (!id) {
-      return res.status(400).json({ ok: false, msg: "ID do registro ausente" });
-    }
-
-    if (!adminKey || adminKey !== process.env.ADMIN_KEY) {
+    if (!id) return res.status(400).json({ ok: false, msg: "ID ausente" });
+    if (!adminKey || adminKey !== process.env.ADMIN_KEY)
       return res.status(403).json({ ok: false, msg: "Acesso negado" });
-    }
 
-    // 🔧 Prepara campos válidos para atualizar
+    // 🔧 Normaliza campos
     const fields = {};
 
-    // Normaliza tipo de plano (precisa casar com as opções do Airtable)
-    if (plan_type) {
+    // ---- Tipo de plano ----
+    if (plan_type && typeof plan_type === "string") {
       const plan = plan_type.toLowerCase().trim();
-      if (["mensal", "vitalicio"].includes(plan)) {
-        fields.plan_type = plan;
+      if (plan.startsWith("men")) fields.plan_type = "mensal    "; // deve casar com Airtable
+      else if (plan.startsWith("vit")) fields.plan_type = "vitalicio";
+    }
+
+    // ---- Data de expiração ----
+    if (expires_at && typeof expires_at === "string") {
+      let isoDate = null;
+
+      // Formato DD/MM/YYYY → converte
+      if (expires_at.includes("/")) {
+        const [d, m, y] = expires_at.split("/").map((x) => x.trim());
+        if (y && m && d) isoDate = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
       } else {
-        return res.status(400).json({
-          ok: false,
-          msg: `Tipo de plano inválido: ${plan_type}`,
-        });
+        // Formato ISO ou YYYY-MM-DD
+        isoDate = expires_at.split("T")[0];
+      }
+
+      // Só define se for data válida
+      if (!isNaN(Date.parse(isoDate))) {
+        fields.expires_at = isoDate;
       }
     }
 
-    // Valida e converte data (ISO)
-    if (expires_at) {
-      const iso = new Date(expires_at);
-      if (isNaN(iso.getTime())) {
-        return res.status(400).json({
-          ok: false,
-          msg: `Data inválida: ${expires_at}`,
-        });
-      }
-      fields.expires_at = iso.toISOString().split("T")[0];
-    }
+    console.log("🔧 Atualizando registro:", id, fields);
 
-    // ⚙️ Atualiza registro no Airtable
-    const updated = await base("licenses").update([
-      {
-        id,
-        fields,
-      },
-    ]);
+    // ---- Executa atualização no Airtable ----
+    const updated = await base("licenses").update([{ id, fields }]);
 
-    res.status(200).json({
+    return res.status(200).json({
       ok: true,
       msg: "Registro atualizado com sucesso",
       record: updated[0],
     });
   } catch (err) {
-    console.error("Erro ao atualizar registro:", err);
-    res.status(500).json({
+    console.error("❌ Erro interno ao atualizar:", err);
+    return res.status(500).json({
       ok: false,
       msg: "Erro ao atualizar no Airtable",
-      data: err,
+      data: err?.message || err,
     });
   }
 }
+
 
