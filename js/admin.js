@@ -118,7 +118,13 @@
 
   // 🔹 Salvar edição (PATCH)
   window.saveEdit = async function (id) {
-    const plan = document.getElementById(`plan_${id}`).value.trim();
+
+    let plan = document.getElementById(`plan_${id}`).value.trim().toLowerCase();
+
+    // 🔧 Normaliza opções conhecidas
+    if (plan.includes("mens")) plan = "mensal";
+    else if (plan.includes("vital")) plan = "vitalicio";
+
     let exp = document.getElementById(`exp_${id}`).value.trim();
 
     // 🧭 Converte DD/MM/YYYY → YYYY-MM-DD (Airtable format)
