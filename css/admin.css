@@ -68,3 +68,36 @@ tr:hover {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+.new-license {
+  margin-bottom: 1em;
+  padding: 10px;
+  background: #f8f5f1;
+  border-radius: 10px;
+  border: 1px solid #ddd0b8;
+}
+.new-license h3 {
+  margin-top: 0;
+  color: #503c1b;
+}
+.new-license .form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.new-license input, .new-license select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+.new-license button {
+  padding: 6px 12px;
+  background: #785a28;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.new-license button:hover {
+  background: #91723b;
+}

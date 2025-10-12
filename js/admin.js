@@ -179,6 +179,65 @@
     }
   }
 
+    // ==============================
+  // 🔹 Criar nova licença
+  // ==============================
+  const btnAdd = document.getElementById("btnAdd");
+  if (btnAdd) {
+    btnAdd.addEventListener("click", async () => {
+      const code = document.getElementById("newCode").value.trim();
+      const email = document.getElementById("newEmail").value.trim();
+      const plan = document.getElementById("newPlan").value.trim();
+      const expires_at = document.getElementById("newExp").value.trim();
+
+      if (!code) {
+        msg.textContent = "⚠️ O campo Código é obrigatório.";
+        msg.style.color = "red";
+        return;
+      }
+
+      msg.textContent = "⏳ Criando nova licença...";
+      msg.style.color = "#555";
+
+      try {
+        const res = await fetch(`/api/admin?key=${encodeURIComponent(currentKey)}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code,
+            plan,
+            expires_at,
+            notes: email || "",
+            flagged: false,
+          }),
+        });
+
+        const text = await res.text();
+        console.log("📩 Resposta bruta (criação):", text);
+        const data = JSON.parse(text);
+
+        if (data.ok) {
+          msg.textContent = "✅ Licença criada com sucesso!";
+          msg.style.color = "green";
+
+          // limpa campos e recarrega
+          document.getElementById("newCode").value = "";
+          document.getElementById("newEmail").value = "";
+          document.getElementById("newExp").value = "";
+          reloadBtn.click();
+        } else {
+          msg.textContent = "❌ Falha ao criar: " + (data.error || data.msg);
+          msg.style.color = "red";
+        }
+      } catch (err) {
+        console.error("Erro ao criar:", err);
+        msg.textContent = "❌ Erro de conexão ao criar licença.";
+        msg.style.color = "red";
+      }
+    });
+  }
+
+
   // ==============================
   // 🔹 Utilitários
   // ==============================
