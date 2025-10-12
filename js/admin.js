@@ -7,6 +7,7 @@
   const tbody = table ? table.querySelector("tbody") : null;
 
   let currentKey = null;
+  window.currentKey = null; // 🔧 deixa visível globalmente
 
   // 🔄 Cria botão de atualizar dinamicamente
   const reloadBtn = document.createElement("button");
@@ -47,6 +48,7 @@
       renderLicenses(data.records);
 
       currentKey = adminKey;
+      window.currentKey = adminKey; // 🔧 sincroniza globalmente
       reloadBtn.style.display = "inline-block";
     } catch (err) {
       msg.textContent = "❌ Falha de conexão com o servidor.";
@@ -54,9 +56,7 @@
       console.error("Erro:", err);
     }
   }
-  window.loadLicenses = loadLicenses;
-window.currentKey = currentKey;
-
+  window.loadLicenses = loadLicenses; // 🔧 permite uso global pelo botão Cancelar
 
   // 🔹 Renderizar tabela de licenças
   function renderLicenses(records) {
@@ -87,8 +87,8 @@ window.currentKey = currentKey;
     });
 
     // Reanexa listeners aos botões de edição
-    document.querySelectorAll('.edit-btn').forEach(btn => {
-      btn.addEventListener('click', () => startEdit(btn.dataset.id));
+    document.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", () => startEdit(btn.dataset.id));
     });
 
     table.style.display = "table";
@@ -106,12 +106,12 @@ window.currentKey = currentKey;
     const expires = cells[4].innerText.trim();
 
     row.innerHTML = `
-      <td colspan="9">
-        <strong>${code}</strong><br>
-        <label>Plano: <input id="plan_${id}" value="${plan}"></label>
-        <label>Expira em: <input id="exp_${id}" value="${expires}"></label>
+      <td colspan="9" style="background:#faf9f6;padding:10px;border-radius:6px;">
+        <strong>${code}</strong> <small>(${email})</small><br><br>
+        <label>Plano: <input id="plan_${id}" value="${plan}" style="margin-right:10px"></label>
+        <label>Expira em: <input id="exp_${id}" value="${expires}" style="margin-right:10px"></label>
         <button onclick="saveEdit('${id}')">💾 Salvar</button>
-        <button onclick="loadLicenses(currentKey)">❌ Cancelar</button>
+        <button onclick="loadLicenses(window.currentKey)">❌ Cancelar</button>
       </td>
     `;
   }
@@ -128,14 +128,17 @@ window.currentKey = currentKey;
       const res = await fetch(`/api/admin-update?id=${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan_type: plan, expires_at: exp, key: currentKey }),
+        body: JSON.stringify({ plan_type: plan, expires_at: exp, key: window.currentKey }),
       });
 
-      const data = await res.json();
+      const text = await res.text();
+      console.log("Update response:", text);
+
+      const data = JSON.parse(text);
       if (data.ok) {
         msg.textContent = "✅ Registro atualizado!";
         msg.style.color = "green";
-        loadLicenses(currentKey);
+        loadLicenses(window.currentKey);
       } else {
         msg.textContent = "⚠️ Falha ao atualizar.";
         msg.style.color = "red";
@@ -161,6 +164,6 @@ window.currentKey = currentKey;
   }
 
   reloadBtn.addEventListener("click", () => {
-    if (currentKey) loadLicenses(currentKey);
+    if (window.currentKey) loadLicenses(window.currentKey);
   });
 })();

@@ -1,4 +1,4 @@
-// api/admin-update.js — Atualiza plano e data de expiração no Airtable
+// api/admin-update.js — Atualiza plano e expiração no Airtable
 export default async function handler(req, res) {
   if (req.method !== "PATCH") {
     return res.status(405).json({ ok: false, msg: "Método não permitido" });
@@ -12,11 +12,11 @@ export default async function handler(req, res) {
   }
 
   if (key !== process.env.ADMIN_KEY) {
-    return res.status(401).json({ ok: false, msg: "Chave de administrador inválida" });
+    return res.status(403).json({ ok: false, msg: "Acesso negado" });
   }
 
   try {
-    const resAir = await fetch(
+    const airtableRes = await fetch(
       `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE}/licenses/${id}`,
       {
         method: "PATCH",
@@ -33,12 +33,13 @@ export default async function handler(req, res) {
       }
     );
 
-    const data = await resAir.json();
+    const data = await airtableRes.json();
+    console.log("Airtable update response:", data);
+
     if (data.id) {
       return res.status(200).json({ ok: true, msg: "Registro atualizado com sucesso" });
     } else {
-      console.error("Airtable update error:", data);
-      return res.status(500).json({ ok: false, msg: "Erro ao atualizar no Airtable" });
+      return res.status(500).json({ ok: false, msg: "Erro ao atualizar no Airtable", data });
     }
   } catch (err) {
     console.error("Erro no admin-update.js:", err);
