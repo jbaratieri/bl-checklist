@@ -6,7 +6,7 @@ body {
 }
 
 .admin-container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   background: #fff;
   border-radius: 12px;
@@ -14,11 +14,7 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-h1 {
-  margin-top: 0;
-  color: #543c1e;
-}
-
+h1 { margin-top: 0; color: #543c1e; }
 .msg { margin: 8px 0; }
 
 table {
@@ -31,13 +27,11 @@ th, td {
   padding: 8px;
   border-bottom: 1px solid #e0d7c8;
   text-align: left;
+  vertical-align: middle;
 }
 
-button {
-  cursor: pointer;
-}
+button { cursor: pointer; }
 
-/* Formulário de nova licença */
 .new-license {
   margin-bottom: 1em;
   padding: 10px;
@@ -45,10 +39,7 @@ button {
   border-radius: 10px;
   border: 1px solid #ddd0b8;
 }
-.new-license h3 {
-  margin-top: 0;
-  color: #503c1b;
-}
+.new-license h3 { margin-top: 0; color: #503c1b; }
 .new-license .form-row {
   display: flex;
   flex-wrap: wrap;
@@ -67,6 +58,4 @@ button {
   border: none;
   border-radius: 6px;
 }
-.new-license button:hover {
-  background: #91723b;
-}
+.new-license button:hover { background: #91723b; }

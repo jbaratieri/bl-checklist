@@ -1,4 +1,4 @@
-// api/admin-update.js — Atualização de registros (v1.5, compatível com campo texto)
+// api/admin-update.js — Atualização de registros (v1.6, compatível com TEXT)
 import Airtable from "airtable";
 
 export default async function handler(req, res) {
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       process.env.AIRTABLE_BASE
     );
 
-    // ⚙️ Normaliza strings (texto puro)
+    // normaliza strings (mantém TEXT puro para plan_type)
     const cleanFields = {};
     for (const [k, v] of Object.entries(fields)) {
       cleanFields[k] = typeof v === "string" ? v.trim().replace(/^"+|"+$/g, "") : v;

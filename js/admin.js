@@ -1,4 +1,4 @@
-// admin.js — Painel administrativo LuthierPro (versão 1.4.1 revisada)
+// admin.js — Painel administrativo LuthierPro (v1.6, com nome/email + CRUD)
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -7,6 +7,7 @@
   const tbody = table ? table.querySelector("tbody") : null;
 
   let currentKey = null;
+  let cachedRecords = [];
 
   // 🔄 Botão de recarregar
   const reloadBtn = document.createElement("button");
@@ -27,12 +28,8 @@
     try {
       const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}`);
       const text = await res.text();
-      console.log("Raw response:", text);
-
       let data;
-      try {
-        data = JSON.parse(text);
-      } catch {
+      try { data = JSON.parse(text); } catch {
         msg.textContent = "⚠️ Erro: resposta inesperada do servidor.";
         msg.style.color = "red";
         return;
@@ -44,9 +41,10 @@
         return;
       }
 
-      msg.textContent = `✅ ${data.records.length} licenças carregadas.`;
+      cachedRecords = data.records || [];
+      msg.textContent = `✅ ${cachedRecords.length} licenças carregadas.`;
       msg.style.color = "green";
-      renderLicenses(data.records);
+      renderLicenses(cachedRecords);
 
       currentKey = adminKey;
       reloadBtn.style.display = "inline-block";
@@ -65,25 +63,26 @@
     tbody.innerHTML = "";
 
     records.forEach((rec, i) => {
-      const f = rec.fields;
+      const f = rec.fields || {};
       const tr = document.createElement("tr");
 
-      const exp = f.expires_at
-        ? new Date(f.expires_at).toLocaleDateString("pt-BR")
-        : "-";
-      const plan = (f.plan_type?.name || f.plan_type || "-").trim();
-      const vital = plan.toLowerCase().includes("vital") ? "✨" : "";
+      const exp = f.expires_at ? new Date(f.expires_at).toLocaleDateString("pt-BR") : "-";
+      const plan = (f.plan_type || "-").trim();
 
       tr.innerHTML = `
         <td>${i + 1}</td>
-        <td><code>${f.code || "-"}</code></td>
+        <td>${f.name || "-"}</td>
         <td>${f.email || "-"}</td>
-        <td>${plan} ${vital}</td>
+        <td><code>${f.code || "-"}</code></td>
+        <td>${plan}</td>
         <td>${exp}</td>
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
         <td>${f.flagged ? "⚠️" : "✅"}</td>
-        <td><button class="edit-btn" data-id="${rec.id}">✏️ Editar</button></td>
+        <td>
+          <button class="edit-btn" data-id="${rec.id}">✏️ Editar</button>
+          <button class="del-btn" data-id="${rec.id}" title="Excluir">🗑️</button>
+        </td>
       `;
 
       tbody.appendChild(tr);
@@ -91,29 +90,34 @@
 
     table.style.display = "table";
 
-    // Liga os botões de edição
-    document.querySelectorAll(".edit-btn").forEach(btn => {
+    // Eventos
+    tbody.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", () => startEdit(btn.dataset.id));
+    });
+    tbody.querySelectorAll(".del-btn").forEach(btn => {
+      btn.addEventListener("click", () => handleDelete(btn.dataset.id));
     });
   }
 
   // ==============================
-  // 🔹 Iniciar edição inline
+  // 🔹 Edição inline (nome, email, plano, validade)
   // ==============================
   function startEdit(id) {
-    const row = document.querySelector(`button[data-id="${id}"]`)?.closest("tr");
+    const row = document.querySelector(`button.edit-btn[data-id="${id}"]`)?.closest("tr");
     if (!row) return;
 
     const cells = row.querySelectorAll("td");
-    const code = cells[1].innerText.trim();
+    const name = cells[1].innerText.trim();
     const email = cells[2].innerText.trim();
-    const plan = cells[3].innerText.replace("✨", "").trim();
-    const expires = cells[4].innerText.trim();
+    const code = cells[3].innerText.replace(/<[^>]+>/g, "").trim();
+    const plan = cells[4].innerText.trim();
+    const expires = cells[5].innerText.trim();
 
     row.innerHTML = `
       <td>📝</td>
+      <td><input id="editName" type="text" value="${escapeAttr(name)}"></td>
+      <td><input id="editEmail" type="email" value="${escapeAttr(email)}"></td>
       <td><code>${code}</code></td>
-      <td>${email}</td>
       <td>
         <select id="editPlan">
           <option value="mensal" ${plan.startsWith("mensal") ? "selected" : ""}>Mensal</option>
@@ -129,21 +133,23 @@
     `;
 
     document.getElementById("saveEdit").onclick = () => {
-      const plan_type = document.getElementById("editPlan").value;
-      const expires_at = document.getElementById("editExp").value;
-      updateRecord(id, { plan_type, expires_at });
+      const fields = {
+        name: document.getElementById("editName").value.trim(),
+        email: document.getElementById("editEmail").value.trim(),
+        plan_type: document.getElementById("editPlan").value,
+        expires_at: document.getElementById("editExp").value,
+      };
+      updateRecord(id, fields);
     };
 
     document.getElementById("cancelEdit").onclick = () => reloadBtn.click();
   }
 
   // ==============================
-  // 🔹 Atualizar registro (POST JSON)
+  // 🔹 Atualizar registro
   // ==============================
   async function updateRecord(id, fields) {
     try {
-      console.log("🧩 Enviando atualização:", { id, fields });
-
       const res = await fetch(`/api/admin-update?key=${encodeURIComponent(currentKey)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -151,18 +157,10 @@
       });
 
       const text = await res.text();
-      console.log("📩 Resposta bruta do servidor:", text);
-
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch {
+      let data; try { data = JSON.parse(text); } catch {
         msg.textContent = "⚠️ Erro: resposta inválida do servidor.";
-        msg.style.color = "red";
-        return;
+        msg.style.color = "red"; return;
       }
-
-      console.log("Update response:", data);
 
       if (data.ok) {
         msg.textContent = "✅ Licença atualizada com sucesso!";
@@ -179,19 +177,47 @@
     }
   }
 
-    // ==============================
+  // ==============================
+  // 🔹 Excluir registro
+  // ==============================
+  async function handleDelete(id) {
+    if (!confirm("Confirma excluir esta licença?")) return;
+    try {
+      const res = await fetch(`/api/admin?key=${encodeURIComponent(currentKey)}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        msg.textContent = "🗑️ Licença excluída.";
+        msg.style.color = "green";
+        reloadBtn.click();
+      } else {
+        msg.textContent = "❌ Falha ao excluir.";
+        msg.style.color = "red";
+      }
+    } catch (e) {
+      console.error(e);
+      msg.textContent = "❌ Erro de conexão ao excluir.";
+      msg.style.color = "red";
+    }
+  }
+
+  // ==============================
   // 🔹 Criar nova licença
   // ==============================
   const btnAdd = document.getElementById("btnAdd");
   if (btnAdd) {
     btnAdd.addEventListener("click", async () => {
-      const code = document.getElementById("newCode").value.trim();
+      const name = document.getElementById("newName").value.trim();
       const email = document.getElementById("newEmail").value.trim();
+      const code = document.getElementById("newCode").value.trim();
       const plan = document.getElementById("newPlan").value.trim();
       const expires_at = document.getElementById("newExp").value.trim();
 
-      if (!code) {
-        msg.textContent = "⚠️ O campo Código é obrigatório.";
+      if (!code || !name) {
+        msg.textContent = "⚠️ Nome e Código são obrigatórios.";
         msg.style.color = "red";
         return;
       }
@@ -205,25 +231,21 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             code,
+            name,
+            email,
             plan,
             expires_at,
-            notes: email || "",
             flagged: false,
           }),
         });
 
         const text = await res.text();
-        console.log("📩 Resposta bruta (criação):", text);
         const data = JSON.parse(text);
 
         if (data.ok) {
           msg.textContent = "✅ Licença criada com sucesso!";
           msg.style.color = "green";
-
-          // limpa campos e recarrega
-          document.getElementById("newCode").value = "";
-          document.getElementById("newEmail").value = "";
-          document.getElementById("newExp").value = "";
+          ["newName", "newEmail", "newCode", "newExp"].forEach(id => (document.getElementById(id).value = ""));
           reloadBtn.click();
         } else {
           msg.textContent = "❌ Falha ao criar: " + (data.error || data.msg);
@@ -237,15 +259,17 @@
     });
   }
 
-
   // ==============================
-  // 🔹 Utilitários
+  // 🔹 Utils
   // ==============================
   function formatDateInput(dateStr) {
     if (!dateStr || dateStr === "-") return "";
     const [d, m, y] = dateStr.split("/");
     if (!y) return "";
     return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  }
+  function escapeAttr(v) {
+    return String(v || "").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
   }
 
   // ==============================

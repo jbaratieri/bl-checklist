@@ -1,4 +1,4 @@
-// api/admin.js — Painel Administrativo LuthierPro (v1.5, compatível com campo texto)
+// api/admin.js — Painel Administrativo LuthierPro (v1.6, Airtable com plan_type TEXT)
 
 export default async function handler(req, res) {
   try {
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
       "Content-Type": "application/json",
     };
 
-    // 📄 Listar licenças
+    // 📄 Listar
     if (req.method === "GET") {
       const r = await fetch(
         `https://api.airtable.com/v0/${base}/${table}?sort[0][field]=code`,
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, records: data.records || [] });
     }
 
-    // 🗑️ Excluir licença
+    // 🗑️ Excluir
     if (req.method === "DELETE") {
       const { id } = req.body;
       if (!id) return res.status(400).json({ ok: false, msg: "ID ausente" });
@@ -39,20 +39,22 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true, result });
     }
 
-    // ➕ Criar nova licença
+    // ➕ Criar
     if (req.method === "POST") {
-      const { code, plan, expires_at, flagged, notes } = req.body;
-      if (!code)
-        return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+      const { code, plan, expires_at, flagged, name, email } = req.body;
+      if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+      if (!name) return res.status(400).json({ ok: false, msg: "Nome obrigatório" });
 
       const planValue = plan || "mensal";
+
       const body = {
         fields: {
           code,
-          plan_type: planValue, // ← agora é texto puro
+          name,
+          email,
+          plan_type: planValue, // ← TEXT
           expires_at,
           flagged: !!flagged,
-          notes,
         },
       };
 

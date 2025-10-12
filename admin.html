@@ -19,8 +19,9 @@
     <div class="new-license">
       <h3>➕ Criar nova licença</h3>
       <div class="form-row">
+        <input type="text" id="newName" placeholder="Nome completo" />
+        <input type="email" id="newEmail" placeholder="E-mail do usuário" />
         <input type="text" id="newCode" placeholder="Código da licença" />
-        <input type="email" id="newEmail" placeholder="E-mail (opcional)" />
         <select id="newPlan">
           <option value="mensal">Mensal</option>
           <option value="vitalicio">Vitalício</option>
@@ -35,8 +36,9 @@
       <thead>
         <tr>
           <th>#</th>
-          <th>Código</th>
+          <th>Nome</th>
           <th>Email</th>
+          <th>Código</th>
           <th>Plano</th>
           <th>Validade</th>
           <th>Usos</th>
