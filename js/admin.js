@@ -15,6 +15,7 @@
   reloadBtn.style.marginLeft = "10px";
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
+  // 🔹 Carregar licenças do servidor
   async function loadLicenses(adminKey) {
     msg.textContent = "🔄 Carregando licenças...";
     msg.style.color = "#555";
@@ -23,7 +24,7 @@
 
     try {
       const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}`);
-      const text = await res.text(); // <- evita crash de JSON malformado
+      const text = await res.text();
       console.log("Raw response:", text);
 
       let data;
@@ -54,6 +55,7 @@
     }
   }
 
+  // 🔹 Renderizar tabela de licenças
   function renderLicenses(records) {
     if (!tbody) return;
     tbody.innerHTML = "";
@@ -75,15 +77,74 @@
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
         <td>${f.flagged ? "⚠️" : "✅"}</td>
+        <td><button class="edit-btn" data-id="${rec.id}">✏️ Editar</button></td>
       `;
 
       tbody.appendChild(tr);
     });
 
+    // Reanexa listeners aos botões de edição
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', () => startEdit(btn.dataset.id));
+    });
+
     table.style.display = "table";
   }
 
-  // 🧩 Eventos
+  // 🔹 Iniciar edição inline
+  function startEdit(id) {
+    const row = document.querySelector(`button[data-id="${id}"]`)?.closest("tr");
+    if (!row) return;
+
+    const cells = row.querySelectorAll("td");
+    const code = cells[1].innerText;
+    const email = cells[2].innerText;
+    const plan = cells[3].innerText.trim().replace("✨", "");
+    const expires = cells[4].innerText.trim();
+
+    row.innerHTML = `
+      <td colspan="9">
+        <strong>${code}</strong><br>
+        <label>Plano: <input id="plan_${id}" value="${plan}"></label>
+        <label>Expira em: <input id="exp_${id}" value="${expires}"></label>
+        <button onclick="saveEdit('${id}')">💾 Salvar</button>
+        <button onclick="loadLicenses(currentKey)">❌ Cancelar</button>
+      </td>
+    `;
+  }
+
+  // 🔹 Salvar edição (PATCH)
+  window.saveEdit = async function(id) {
+    const plan = document.getElementById(`plan_${id}`).value.trim();
+    const exp = document.getElementById(`exp_${id}`).value.trim();
+
+    msg.textContent = "🔄 Atualizando registro...";
+    msg.style.color = "#555";
+
+    try {
+      const res = await fetch(`/api/admin-update?id=${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ plan_type: plan, expires_at: exp, key: currentKey }),
+      });
+
+      const data = await res.json();
+      if (data.ok) {
+        msg.textContent = "✅ Registro atualizado!";
+        msg.style.color = "green";
+        loadLicenses(currentKey);
+      } else {
+        msg.textContent = "⚠️ Falha ao atualizar.";
+        msg.style.color = "red";
+      }
+    } catch (err) {
+      console.error(err);
+      msg.textContent = "❌ Erro de conexão.";
+      msg.style.color = "red";
+    }
+  };
+
+  // 🧩 Eventos de login e atualização
   if (btnLogin) {
     btnLogin.addEventListener("click", () => {
       const key = keyInput.value.trim();
