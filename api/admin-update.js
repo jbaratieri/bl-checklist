@@ -1,4 +1,4 @@
-// api/admin-update.js — Atualização de registros (v1.7)
+// api/admin-update.js — Atualização de registros (v1.8)
 // - plan_type TEXT
 // - se expires_at vier "", envia null pra limpar no Airtable
 import Airtable from "airtable";
@@ -21,13 +21,11 @@ export default async function handler(req, res) {
       process.env.AIRTABLE_BASE
     );
 
-    // normaliza strings
     const cleanFields = {};
     for (const [k, v] of Object.entries(fields)) {
       cleanFields[k] = typeof v === "string" ? v.trim().replace(/^"+|"+$/g, "") : v;
     }
 
-    // limpa validade para vitalício ou string vazia
     if ("expires_at" in cleanFields) {
       if (cleanFields.expires_at === "" || cleanFields.expires_at === null) {
         cleanFields.expires_at = null; // limpa no Airtable
@@ -46,9 +44,14 @@ export default async function handler(req, res) {
       },
     ]);
 
+    // marcar também respostas como no-store
+    res.setHeader("Cache-Control", "no-store, max-age=0");
+    res.setHeader("Pragma", "no-cache");
     return res.status(200).json({ ok: true, record: updated });
   } catch (err) {
     console.error("❌ Erro detalhado no admin-update:", err);
+    res.setHeader("Cache-Control", "no-store, max-age=0");
+    res.setHeader("Pragma", "no-cache");
     return res.status(500).json({
       ok: false,
       msg: "Erro ao atualizar no Airtable",
@@ -56,4 +59,5 @@ export default async function handler(req, res) {
     });
   }
 }
+
 

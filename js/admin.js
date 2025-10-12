@@ -1,6 +1,6 @@
-// admin.js — Painel administrativo LuthierPro (v1.7)
-// - vitalício desabilita/limpa data
-// - fallback created_at <- rec.createdTime
+// admin.js — Painel administrativo LuthierPro (v1.8)
+// - GET com cache-buster e no-store
+// - reload duplo após criar/editar para “pegar” eventual atraso do Airtable
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -11,16 +11,12 @@
   let currentKey = null;
   let cachedRecords = [];
 
-  // 🔄 Botão de recarregar
   const reloadBtn = document.createElement("button");
   reloadBtn.textContent = "🔄 Atualizar lista";
   reloadBtn.style.display = "none";
   reloadBtn.style.marginLeft = "10px";
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
-  // ==============================
-  // 🔹 Carregar licenças
-  // ==============================
   async function loadLicenses(adminKey) {
     msg.textContent = "🔄 Carregando licenças...";
     msg.style.color = "#555";
@@ -28,7 +24,9 @@
     reloadBtn.style.display = "none";
 
     try {
-      const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}`);
+      const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}&_=${Date.now()}`, {
+        cache: "no-store",
+      });
       const text = await res.text();
       let data;
       try { data = JSON.parse(text); } catch {
@@ -57,9 +55,6 @@
     }
   }
 
-  // ==============================
-  // 🔹 Renderizar tabela
-  // ==============================
   function renderLicenses(records) {
     if (!tbody) return;
     tbody.innerHTML = "";
@@ -95,7 +90,6 @@
 
     table.style.display = "table";
 
-    // Eventos
     tbody.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", () => startEdit(btn.dataset.id));
     });
@@ -104,9 +98,6 @@
     });
   }
 
-  // ==============================
-  // 🔹 Edição inline
-  // ==============================
   function startEdit(id) {
     const row = document.querySelector(`button.edit-btn[data-id="${id}"]`)?.closest("tr");
     if (!row) return;
@@ -158,8 +149,7 @@
         name: document.getElementById("editName").value.trim(),
         email: document.getElementById("editEmail").value.trim(),
         plan_type: editPlanEl.value,
-        // se desabilitado (vitalício) manda string vazia; backend converte em null
-        expires_at: editExpEl.disabled ? "" : editExpEl.value,
+        expires_at: editExpEl.disabled ? "" : editExpEl.value, // "" -> backend põe null
       };
       updateRecord(id, fields);
     };
@@ -167,14 +157,12 @@
     document.getElementById("cancelEdit").onclick = () => reloadBtn.click();
   }
 
-  // ==============================
-  // 🔹 Atualizar registro
-  // ==============================
   async function updateRecord(id, fields) {
     try {
-      const res = await fetch(`/api/admin-update?key=${encodeURIComponent(currentKey)}`, {
+      const res = await fetch(`/api/admin-update?key=${encodeURIComponent(currentKey)}&_=${Date.now()}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         body: JSON.stringify({ id, fields })
       });
 
@@ -187,7 +175,9 @@
       if (data.ok) {
         msg.textContent = "✅ Licença atualizada com sucesso!";
         msg.style.color = "green";
+        // revalida duas vezes pra driblar eventual latência do Airtable
         reloadBtn.click();
+        setTimeout(() => reloadBtn.click(), 600);
       } else {
         msg.textContent = `❌ Falha ao atualizar: ${data.msg || data.error}`;
         msg.style.color = "red";
@@ -199,15 +189,13 @@
     }
   }
 
-  // ==============================
-  // 🔹 Excluir registro
-  // ==============================
   async function handleDelete(id) {
     if (!confirm("Confirma excluir esta licença?")) return;
     try {
-      const res = await fetch(`/api/admin?key=${encodeURIComponent(currentKey)}`, {
+      const res = await fetch(`/api/admin?key=${encodeURIComponent(currentKey)}&_=${Date.now()}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
+        cache: "no-store",
         body: JSON.stringify({ id })
       });
       const data = await res.json();
@@ -215,6 +203,7 @@
         msg.textContent = "🗑️ Licença excluída.";
         msg.style.color = "green";
         reloadBtn.click();
+        setTimeout(() => reloadBtn.click(), 600);
       } else {
         msg.textContent = "❌ Falha ao excluir.";
         msg.style.color = "red";
@@ -226,9 +215,6 @@
     }
   }
 
-  // ==============================
-  // 🔹 Criar nova licença
-  // ==============================
   const btnAdd = document.getElementById("btnAdd");
   const newPlanEl = document.getElementById("newPlan");
   const newExpEl  = document.getElementById("newExp");
@@ -264,16 +250,16 @@
       msg.style.color = "#555";
 
       try {
-        const res = await fetch(`/api/admin?key=${encodeURIComponent(currentKey)}`, {
+        const res = await fetch(`/api/admin?key=${encodeURIComponent(currentKey)}&_=${Date.now()}`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          cache: "no-store",
           body: JSON.stringify({
             code,
             name,
             email,
             plan,
-            // se vitalício ou vazio, backend envia null
-            expires_at,
+            expires_at, // backend transformará ""/vitalício em null
             flagged: false,
           }),
         });
@@ -287,6 +273,7 @@
           ["newName", "newEmail", "newCode", "newExp"].forEach(id => (document.getElementById(id).value = ""));
           if (newExpEl) newExpEl.disabled = (newPlanEl?.value === "vitalicio");
           reloadBtn.click();
+          setTimeout(() => reloadBtn.click(), 600);
         } else {
           msg.textContent = "❌ Falha ao criar: " + (data.error || data.msg);
           msg.style.color = "red";
@@ -299,9 +286,6 @@
     });
   }
 
-  // ==============================
-  // 🔹 Utils
-  // ==============================
   function formatDateInput(dateStr) {
     if (!dateStr || dateStr === "-") return "";
     const [d, m, y] = dateStr.split("/");
@@ -312,9 +296,6 @@
     return String(v || "").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
   }
 
-  // ==============================
-  // 🔹 Eventos
-  // ==============================
   if (btnLogin) {
     btnLogin.addEventListener("click", () => {
       const key = keyInput.value.trim();
