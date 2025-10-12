@@ -1,4 +1,4 @@
-// admin.js — Painel administrativo LuthierPro
+// admin.js — Painel administrativo LuthierPro v1.7.2
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -7,16 +7,15 @@
   const tbody = table ? table.querySelector("tbody") : null;
 
   let currentKey = null;
-  window.currentKey = null; // 🔧 deixa visível globalmente
 
-  // 🔄 Cria botão de atualizar dinamicamente
+  // 🔄 Botão de atualizar
   const reloadBtn = document.createElement("button");
   reloadBtn.textContent = "🔄 Atualizar lista";
   reloadBtn.style.display = "none";
   reloadBtn.style.marginLeft = "10px";
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
-  // 🔹 Carregar licenças do servidor
+  // ======== Carrega licenças ========
   async function loadLicenses(adminKey) {
     msg.textContent = "🔄 Carregando licenças...";
     msg.style.color = "#555";
@@ -48,7 +47,6 @@
       renderLicenses(data.records);
 
       currentKey = adminKey;
-      window.currentKey = adminKey; // 🔧 sincroniza globalmente
       reloadBtn.style.display = "inline-block";
     } catch (err) {
       msg.textContent = "❌ Falha de conexão com o servidor.";
@@ -56,9 +54,8 @@
       console.error("Erro:", err);
     }
   }
-  window.loadLicenses = loadLicenses; // 🔧 permite uso global pelo botão Cancelar
 
-  // 🔹 Renderizar tabela de licenças
+  // ======== Renderiza tabela ========
   function renderLicenses(records) {
     if (!tbody) return;
     tbody.innerHTML = "";
@@ -67,7 +64,9 @@
       const f = rec.fields;
       const tr = document.createElement("tr");
 
-      const exp = f.expires_at ? new Date(f.expires_at).toLocaleDateString("pt-BR") : "-";
+      const exp = f.expires_at
+        ? new Date(f.expires_at).toLocaleDateString("pt-BR")
+        : "-";
       const plan = (f.plan_type || "-").trim();
       const vital = plan.toLowerCase().includes("vital") ? "✨" : "";
 
@@ -75,94 +74,93 @@
         <td>${i + 1}</td>
         <td><code>${f.code || "-"}</code></td>
         <td>${f.email || "-"}</td>
-        <td>${plan} ${vital}</td>
-        <td>${exp}</td>
+        <td><input id="plan_${rec.id}" type="text" value="${plan}" size="9"></td>
+        <td><input id="exp_${rec.id}" type="text" value="${exp}" size="10"></td>
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
         <td>${f.flagged ? "⚠️" : "✅"}</td>
-        <td><button class="edit-btn" data-id="${rec.id}">✏️ Editar</button></td>
+        <td><button class="edit-btn" data-id="${rec.id}">✏️ Salvar</button></td>
       `;
 
       tbody.appendChild(tr);
     });
 
-    // Reanexa listeners aos botões de edição
-    document.querySelectorAll(".edit-btn").forEach(btn => {
-      btn.addEventListener("click", () => startEdit(btn.dataset.id));
-    });
-
     table.style.display = "table";
+
+    // Vincula botões após renderizar
+    tbody.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", () => saveEdit(btn.dataset.id));
+    });
   }
 
-  // 🔹 Iniciar edição inline
-  function startEdit(id) {
-    const row = document.querySelector(`button[data-id="${id}"]`)?.closest("tr");
-    if (!row) return;
+  // ======== Editar / Salvar ========
+  async function saveEdit(id) {
+    if (!currentKey) {
+      alert("Chave de administrador não encontrada. Faça login novamente.");
+      return;
+    }
 
-    const cells = row.querySelectorAll("td");
-    const code = cells[1].innerText;
-    const email = cells[2].innerText;
-    const plan = cells[3].innerText.trim().replace("✨", "");
-    const expires = cells[4].innerText.trim();
+    const planInput = document.getElementById(`plan_${id}`);
+    const expInput = document.getElementById(`exp_${id}`);
 
-    row.innerHTML = `
-      <td colspan="9" style="background:#faf9f6;padding:10px;border-radius:6px;">
-        <strong>${code}</strong> <small>(${email})</small><br><br>
-        <label>Plano: <input id="plan_${id}" value="${plan}" style="margin-right:10px"></label>
-        <label>Expira em: <input id="exp_${id}" value="${expires}" style="margin-right:10px"></label>
-        <button onclick="saveEdit('${id}')">💾 Salvar</button>
-        <button onclick="loadLicenses(window.currentKey)">❌ Cancelar</button>
-      </td>
-    `;
-  }
+    let plan = planInput?.value || "";
+    let exp = expInput?.value || "";
 
-  // 🔹 Salvar edição (PATCH)
-  window.saveEdit = async function (id) {
+    // 🔧 Normaliza plano
+    plan = plan
+      .replace(/["']/g, "")
+      .trim()
+      .toLowerCase();
+    if (plan.startsWith("mens")) plan = "mensal";
+    else if (plan.startsWith("vit")) plan = "vitalicio";
+    else {
+      alert("Tipo de plano inválido. Use apenas 'mensal' ou 'vitalicio'.");
+      return;
+    }
 
-    let plan = document.getElementById(`plan_${id}`).value.trim().toLowerCase();
-
-    // 🔧 Normaliza opções conhecidas
-    if (plan.includes("mens")) plan = "mensal";
-    else if (plan.includes("vital")) plan = "vitalicio";
-
-    let exp = document.getElementById(`exp_${id}`).value.trim();
-
-    // 🧭 Converte DD/MM/YYYY → YYYY-MM-DD (Airtable format)
+    // 🧭 Converte data DD/MM/YYYY → YYYY-MM-DD
     if (exp && exp.includes("/")) {
       const [d, m, y] = exp.split("/");
       if (d && m && y) exp = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
     }
 
-    msg.textContent = "🔄 Atualizando registro...";
+    msg.textContent = "💾 Salvando alterações...";
     msg.style.color = "#555";
 
     try {
       const res = await fetch(`/api/admin-update?id=${id}`, {
-        method: "PATCH",
+        method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ plan_type: plan, expires_at: exp, key: window.currentKey }),
+        body: JSON.stringify({ plan_type: plan, expires_at: exp, adminKey: currentKey }),
       });
 
       const text = await res.text();
       console.log("Update response:", text);
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        msg.textContent = "⚠️ Erro: resposta inesperada.";
+        msg.style.color = "red";
+        return;
+      }
 
-      const data = JSON.parse(text);
       if (data.ok) {
         msg.textContent = "✅ Registro atualizado!";
         msg.style.color = "green";
-        loadLicenses(window.currentKey);
+        setTimeout(() => loadLicenses(currentKey), 800);
       } else {
-        msg.textContent = "⚠️ Falha ao atualizar.";
+        msg.textContent = "❌ Erro ao atualizar: " + (data.msg || "desconhecido");
         msg.style.color = "red";
       }
     } catch (err) {
-      console.error(err);
-      msg.textContent = "❌ Erro de conexão.";
+      console.error("Erro ao salvar:", err);
+      msg.textContent = "❌ Falha de conexão com o servidor.";
       msg.style.color = "red";
     }
-  };
+  }
 
-  // 🧩 Eventos de login e atualização
+  // ======== Eventos ========
   if (btnLogin) {
     btnLogin.addEventListener("click", () => {
       const key = keyInput.value.trim();
@@ -176,6 +174,6 @@
   }
 
   reloadBtn.addEventListener("click", () => {
-    if (window.currentKey) loadLicenses(window.currentKey);
+    if (currentKey) loadLicenses(currentKey);
   });
 })();
