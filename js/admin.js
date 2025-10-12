@@ -1,4 +1,4 @@
-// admin.js — Painel administrativo LuthierPro (v1.6, com nome/email + CRUD)
+// admin.js — Painel administrativo LuthierPro (v1.6.1, com nome/email + CRUD + created_at)
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -67,6 +67,7 @@
       const tr = document.createElement("tr");
 
       const exp = f.expires_at ? new Date(f.expires_at).toLocaleDateString("pt-BR") : "-";
+      const created = f.created_at ? new Date(f.created_at).toLocaleDateString("pt-BR") : "-"; // 👈 novo
       const plan = (f.plan_type || "-").trim();
 
       tr.innerHTML = `
@@ -76,6 +77,7 @@
         <td><code>${f.code || "-"}</code></td>
         <td>${plan}</td>
         <td>${exp}</td>
+        <td>${created}</td>          <!-- 👈 novo: coluna "Criado em" -->
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
         <td>${f.flagged ? "⚠️" : "✅"}</td>
@@ -107,6 +109,7 @@
     if (!row) return;
 
     const cells = row.querySelectorAll("td");
+    // Índices seguem iguais porque "Criado em" vem depois da Validade e não é editado
     const name = cells[1].innerText.trim();
     const email = cells[2].innerText.trim();
     const code = cells[3].innerText.replace(/<[^>]+>/g, "").trim();

@@ -46,14 +46,16 @@ export default async function handler(req, res) {
       if (!name) return res.status(400).json({ ok: false, msg: "Nome obrigatório" });
 
       const planValue = plan || "mensal";
+      const nowIso = new Date().toISOString(); // 👈 carimbo de aquisição
 
       const body = {
         fields: {
           code,
           name,
           email,
-          plan_type: planValue, // ← TEXT
+          plan_type: planValue,  // TEXT
           expires_at,
+          created_at: nowIso,    // 👈 salvo na criação
           flagged: !!flagged,
         },
       };
