@@ -1,46 +1,72 @@
-// /api/admin-update.js — Atualização de registros no Airtable
 import Airtable from "airtable";
 
 export default async function handler(req, res) {
   try {
+    // ✅ Só aceita POST
     if (req.method !== "POST") {
       return res.status(405).json({ ok: false, msg: "Método não permitido" });
     }
 
-    const { id } = req.query;
-    const { fields } = req.body;
+    // ✅ Leitura de variáveis de ambiente
+    const { AIRTABLE_KEY, AIRTABLE_BASE, ADMIN_KEY } = process.env;
+    if (!AIRTABLE_KEY || !AIRTABLE_BASE) {
+      console.error("❌ Variáveis de ambiente ausentes");
+      return res.status(500).json({ ok: false, msg: "Configuração do servidor incompleta" });
+    }
 
-    if (!id || !fields) {
+    // ✅ Autenticação simples por chave administrativa
+    const keyParam = req.query.key || req.headers["x-admin-key"];
+    if (keyParam !== ADMIN_KEY) {
+      return res.status(403).json({ ok: false, msg: "Acesso negado" });
+    }
+
+    // ✅ Extrai o corpo JSON
+    const body = req.body ? (typeof req.body === "string" ? JSON.parse(req.body) : req.body) : null;
+
+    if (!body || !body.id || !body.fields) {
+      console.error("⚠️ Corpo inválido recebido:", body);
       return res.status(400).json({ ok: false, msg: "ID e fields são obrigatórios" });
     }
 
-    const apiKey = (process.env.AIRTABLE_KEY || "").trim();
-    const baseId = (process.env.AIRTABLE_BASE || "").trim();
+    console.log("🧩 Atualizando registro Airtable:", body);
 
-    if (!apiKey || !baseId) {
-      console.error("❌ Variáveis de ambiente ausentes:");
-      console.error("AIRTABLE_KEY =", apiKey ? "✔️ presente" : "❌ ausente");
-      console.error("AIRTABLE_BASE =", baseId ? "✔️ presente" : "❌ ausente");
-      return res.status(500).json({ ok: false, msg: "Faltam variáveis de ambiente" });
+    // ✅ Configura cliente Airtable
+    const base = new Airtable({ apiKey: AIRTABLE_KEY }).base(AIRTABLE_BASE);
+
+    // 🔧 Formata campo de data (evita erro 400 por formato incorreto)
+    if (body.fields.expires_at) {
+      try {
+        // Se vier "20/11/2025", converte pra ISO 8601 (2025-11-20)
+        const [dia, mes, ano] = body.fields.expires_at.split("/");
+        if (dia && mes && ano) body.fields.expires_at = `${ano}-${mes}-${dia}`;
+      } catch (e) {
+        console.warn("Data de expiração não precisa conversão:", body.fields.expires_at);
+      }
     }
 
-    console.log("🔑 Chave Airtable iniciando atualização:", apiKey.slice(0, 10) + "...");
+    // 🔧 Normaliza campo plan_type (evita criar opção nova)
+    if (body.fields.plan_type) {
+      const plan = body.fields.plan_type.toLowerCase().trim();
+      body.fields.plan_type =
+        plan.includes("vital") ? "vitalicio" : "mensal";
+    }
 
-    const base = new Airtable({ apiKey }).base(baseId);
+    // ✅ Executa atualização
+    const result = await base("licenses").update([
+      { id: body.id, fields: body.fields }
+    ]);
 
-    console.log("🧩 Atualizando registro Airtable:", { id, fields });
+    console.log("✅ Atualizado com sucesso:", result);
 
-    const updated = await base("licenses").update(id, fields);
-
-    console.log("✅ Sucesso:", updated.id);
-    return res.json({ ok: true, id: updated.id });
+    return res.status(200).json({ ok: true, result });
   } catch (err) {
-    console.error("❌ Erro detalhado no admin-update:", err.message);
+    console.error("❌ Erro detalhado no admin-update:", err);
     return res.status(500).json({
       ok: false,
       msg: "Erro ao atualizar no Airtable",
-      error: err.message,
+      error: err.message || err.toString()
     });
   }
 }
+
 
