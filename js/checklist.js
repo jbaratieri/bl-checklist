@@ -261,9 +261,16 @@ function closeModal(id) {
 
   try {
     const lic = JSON.parse(raw);
-    const date = new Date(lic.expires).toLocaleDateString("pt-BR");
-    el.textContent = `🔐 Licença ativa (${lic.plan.trim()} • até ${date})`;
-    el.classList.add("ok");
+    const plan = lic.plan?.trim().toLowerCase() || "indefinido";
+    const exp = lic.expires ? new Date(lic.expires).toLocaleDateString("pt-BR") : null;
+
+    if (exp) {
+      el.textContent = `🔐 Licença ativa (${plan} • até ${exp})`;
+      el.classList.add("ok");
+    } else {
+      el.textContent = `🔐 Licença vitalícia (${plan})`;
+      el.classList.add("vital");
+    }
   } catch {
     el.textContent = "⚠️ Erro ao ler licença";
     el.classList.add("err");
