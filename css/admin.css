@@ -6,7 +6,7 @@ body {
 }
 
 .admin-container {
-  max-width: 1000px;
+  max-width: 1280px;   /* + espaço pra tabela */
   margin: 0 auto;
   background: #fff;
   border-radius: 12px;
@@ -59,3 +59,46 @@ button { cursor: pointer; }
   border-radius: 6px;
 }
 .new-license button:hover { background: #91723b; }
+
+/* —— Tabela mais “larga” e sem quebras chatas —— */
+.licenses {
+  table-layout: auto;
+}
+
+.licenses td code {
+  white-space: nowrap; /* não quebrar o código */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+/* Última coluna: ações lado a lado, sem quebra */
+.licenses td:last-child {
+  white-space: nowrap;
+}
+.licenses td:last-child button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+}
+.licenses td:last-child button + button {
+  margin-left: 8px;
+}
+
+/* Larguras mínimas por coluna (ajuste fino) */
+.licenses th:nth-child(2), .licenses td:nth-child(2) { min-width: 180px; } /* Nome */
+.licenses th:nth-child(3), .licenses td:nth-child(3) { min-width: 220px; } /* Email */
+.licenses th:nth-child(4), .licenses td:nth-child(4) { min-width: 140px; } /* Código */
+.licenses th:nth-child(5), .licenses td:nth-child(5) { min-width: 120px; } /* Plano */
+.licenses th:nth-child(6), .licenses td:nth-child(6) { min-width: 130px; } /* Validade */
+.licenses th:nth-child(7), .licenses td:nth-child(7) { min-width: 130px; } /* Criado em */
+.licenses th:nth-child(8), .licenses td:nth-child(8) { min-width: 80px; }  /* Usos */
+.licenses th:nth-child(9), .licenses td:nth-child(9) { min-width: 130px; } /* Último uso */
+.licenses th:nth-child(10), .licenses td:nth-child(10){ min-width: 90px; }  /* Status */
+.licenses th:nth-child(11), .licenses td:nth-child(11){ min-width: 140px; } /* Ações */
+
+/* Rolagem horizontal em telas menores (sem quebrar layout) */
+@media (max-width: 900px) {
+  .admin-container { overflow-x: auto; }
+  .licenses { display: block; overflow-x: auto; }
+}
+
