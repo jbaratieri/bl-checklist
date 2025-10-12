@@ -7,36 +7,29 @@
   <link rel="stylesheet" href="./css/admin.css" />
 </head>
 <body>
-  <div class="admin-wrapper">
-    <h1>🔐 LuthierPro — Painel de Licenças</h1>
+  <div class="admin-container">
+    <h1>🛠️ Painel Administrativo</h1>
+    <p>Gerencie licenças registradas no Airtable</p>
 
-    <div id="loginSection" class="section">
-      <p>Insira a senha de administrador para acessar as licenças:</p>
-      <input id="adminKey" type="password" placeholder="Senha de administrador" />
-      <button id="btnLogin">Acessar</button>
-      <p id="msg" class="msg"></p>
-    </div>
+    <input id="adminKey" type="password" placeholder="Senha de administrador" />
+    <button id="btnLogin">Acessar</button>
+    <p id="msg" class="msg"></p>
 
-    <div id="panelSection" class="section" style="display:none;">
-      <div class="toolbar">
-        <button id="btnReload">🔄 Atualizar lista</button>
-        <button id="btnNew">➕ Nova licença</button>
-      </div>
-
-      <table id="licensesTable">
-        <thead>
-          <tr>
-            <th>Código</th>
-            <th>Plano</th>
-            <th>Expiração</th>
-            <th>Flagged</th>
-            <th>Notas</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
+    <table id="licensesTable" class="licenses">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Código</th>
+          <th>Email</th>
+          <th>Plano</th>
+          <th>Validade</th>
+          <th>Usos</th>
+          <th>Último uso</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <script src="./js/admin.js"></script>
