@@ -1,8 +1,8 @@
-// api/admin-update.js — Atualização de licenças (LuthierPro)
+// api/admin-update.js — Atualização segura no Airtable (LuthierPro)
 import Airtable from "airtable";
 
 const base = new Airtable({
-  apiKey: process.env.AIRTABLE_KEY
+  apiKey: process.env.AIRTABLE_KEY,
 }).base(process.env.AIRTABLE_BASE);
 
 export default async function handler(req, res) {
@@ -18,51 +18,47 @@ export default async function handler(req, res) {
     if (!adminKey || adminKey !== process.env.ADMIN_KEY)
       return res.status(403).json({ ok: false, msg: "Acesso negado" });
 
-    // 🔧 Normaliza campos
+    // 🔧 Monta campos válidos
     const fields = {};
 
-    // ---- Tipo de plano ----
+    // ---- Plano ----
     if (plan_type && typeof plan_type === "string") {
-      const plan = plan_type.toLowerCase().trim();
-      if (plan.startsWith("men")) fields.plan_type = "mensal    "; // deve casar com Airtable
-      else if (plan.startsWith("vit")) fields.plan_type = "vitalicio";
+      const p = plan_type.toLowerCase().trim();
+      if (p.startsWith("men")) fields.plan_type = "mensal    "; // deve casar com Airtable
+      else if (p.startsWith("vit")) fields.plan_type = "vitalicio";
     }
 
-    // ---- Data de expiração ----
+    // ---- Data ----
     if (expires_at && typeof expires_at === "string") {
-      let isoDate = null;
-
-      // Formato DD/MM/YYYY → converte
+      let iso = expires_at;
       if (expires_at.includes("/")) {
-        const [d, m, y] = expires_at.split("/").map((x) => x.trim());
-        if (y && m && d) isoDate = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
-      } else {
-        // Formato ISO ou YYYY-MM-DD
-        isoDate = expires_at.split("T")[0];
+        const [d, m, y] = expires_at.split("/");
+        if (d && m && y) iso = `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
       }
-
-      // Só define se for data válida
-      if (!isNaN(Date.parse(isoDate))) {
-        fields.expires_at = isoDate;
-      }
+      if (!isNaN(Date.parse(iso))) fields.expires_at = iso.split("T")[0];
     }
 
-    console.log("🔧 Atualizando registro:", id, fields);
+    console.log("🧩 Atualizando registro Airtable:", { id, fields });
 
-    // ---- Executa atualização no Airtable ----
-    const updated = await base("licenses").update([{ id, fields }]);
+    const result = await base("licenses").update([{ id, fields }]);
 
+    console.log("✅ Sucesso:", result[0].id);
     return res.status(200).json({
       ok: true,
       msg: "Registro atualizado com sucesso",
-      record: updated[0],
+      record: result[0],
     });
   } catch (err) {
-    console.error("❌ Erro interno ao atualizar:", err);
+    const errMsg =
+      err?.error?.message ||
+      err?.message ||
+      JSON.stringify(err, Object.getOwnPropertyNames(err));
+
+    console.error("❌ Erro detalhado no admin-update:", errMsg);
     return res.status(500).json({
       ok: false,
       msg: "Erro ao atualizar no Airtable",
-      data: err?.message || err,
+      error: errMsg,
     });
   }
 }
