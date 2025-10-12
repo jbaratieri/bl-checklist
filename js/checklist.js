@@ -247,3 +247,25 @@ function closeModal(id) {
     }
   }
 })();
+// Atualiza o badge de licença no rodapé
+(() => {
+  const el = document.getElementById("licenseStatus");
+  if (!el) return;
+
+  const raw = localStorage.getItem("lp_license");
+  if (!raw) {
+    el.textContent = "🔒 Licença não encontrada";
+    el.classList.add("err");
+    return;
+  }
+
+  try {
+    const lic = JSON.parse(raw);
+    const date = new Date(lic.expires).toLocaleDateString("pt-BR");
+    el.textContent = `🔐 Licença ativa (${lic.plan.trim()} • até ${date})`;
+    el.classList.add("ok");
+  } catch {
+    el.textContent = "⚠️ Erro ao ler licença";
+    el.classList.add("err");
+  }
+})();

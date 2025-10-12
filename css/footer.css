@@ -31,3 +31,31 @@
   font-size: 0.8rem;
   color: #666;
 }
+
+/* ===== LuthierPro — Badge de Licença Integrado ===== */
+.app-footer .license-badge {
+  margin-top: 10px;
+  display: inline-block;
+  background: linear-gradient(180deg, #f6f0e3 0%, #e9d7bf 100%);
+  border: 1px solid #d9c7aa;
+  border-radius: 20px;
+  padding: 4px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #5a4633;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
+}
+
+.app-footer .license-badge.ok {
+  color: #2a7a2a;
+  border-color: #b5d9b5;
+  background: linear-gradient(180deg, #f2fdf2 0%, #d8f1d8 100%);
+}
+
+.app-footer .license-badge.err {
+  color: #b33;
+  border-color: #e1b2b2;
+  background: linear-gradient(180deg, #fff5f5 0%, #f9dede 100%);
+}
+
