@@ -1,4 +1,6 @@
-// admin.js — Painel administrativo LuthierPro (v1.6.1, com nome/email + CRUD + created_at)
+// admin.js — Painel administrativo LuthierPro (v1.7)
+// - vitalício desabilita/limpa data
+// - fallback created_at <- rec.createdTime
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -17,7 +19,7 @@
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
   // ==============================
-  // 🔹 Carregar licenças do Airtable
+  // 🔹 Carregar licenças
   // ==============================
   async function loadLicenses(adminKey) {
     msg.textContent = "🔄 Carregando licenças...";
@@ -67,7 +69,8 @@
       const tr = document.createElement("tr");
 
       const exp = f.expires_at ? new Date(f.expires_at).toLocaleDateString("pt-BR") : "-";
-      const created = f.created_at ? new Date(f.created_at).toLocaleDateString("pt-BR") : "-"; // 👈 novo
+      const createdRaw = f.created_at || rec.createdTime; // fallback
+      const created = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
       const plan = (f.plan_type || "-").trim();
 
       tr.innerHTML = `
@@ -77,7 +80,7 @@
         <td><code>${f.code || "-"}</code></td>
         <td>${plan}</td>
         <td>${exp}</td>
-        <td>${created}</td>          <!-- 👈 novo: coluna "Criado em" -->
+        <td>${created}</td>
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
         <td>${f.flagged ? "⚠️" : "✅"}</td>
@@ -102,14 +105,13 @@
   }
 
   // ==============================
-  // 🔹 Edição inline (nome, email, plano, validade)
+  // 🔹 Edição inline
   // ==============================
   function startEdit(id) {
     const row = document.querySelector(`button.edit-btn[data-id="${id}"]`)?.closest("tr");
     if (!row) return;
 
     const cells = row.querySelectorAll("td");
-    // Índices seguem iguais porque "Criado em" vem depois da Validade e não é editado
     const name = cells[1].innerText.trim();
     const email = cells[2].innerText.trim();
     const code = cells[3].innerText.replace(/<[^>]+>/g, "").trim();
@@ -127,7 +129,9 @@
           <option value="vitalicio" ${plan.startsWith("vital") ? "selected" : ""}>Vitalício</option>
         </select>
       </td>
-      <td><input id="editExp" type="date" value="${formatDateInput(expires)}"></td>
+      <td>
+        <input id="editExp" type="date" value="${formatDateInput(expires)}">
+      </td>
       <td colspan="3">
         <button id="saveEdit" class="btn-save">💾 Salvar</button>
         <button id="cancelEdit" class="btn-cancel">❌ Cancelar</button>
@@ -135,12 +139,27 @@
       <td></td>
     `;
 
+    const editPlanEl = document.getElementById("editPlan");
+    const editExpEl  = document.getElementById("editExp");
+
+    function toggleEditExp() {
+      if (editPlanEl.value === "vitalicio") {
+        editExpEl.value = "";
+        editExpEl.disabled = true;
+      } else {
+        editExpEl.disabled = false;
+      }
+    }
+    toggleEditExp();
+    editPlanEl.addEventListener("change", toggleEditExp);
+
     document.getElementById("saveEdit").onclick = () => {
       const fields = {
         name: document.getElementById("editName").value.trim(),
         email: document.getElementById("editEmail").value.trim(),
-        plan_type: document.getElementById("editPlan").value,
-        expires_at: document.getElementById("editExp").value,
+        plan_type: editPlanEl.value,
+        // se desabilitado (vitalício) manda string vazia; backend converte em null
+        expires_at: editExpEl.disabled ? "" : editExpEl.value,
       };
       updateRecord(id, fields);
     };
@@ -211,6 +230,22 @@
   // 🔹 Criar nova licença
   // ==============================
   const btnAdd = document.getElementById("btnAdd");
+  const newPlanEl = document.getElementById("newPlan");
+  const newExpEl  = document.getElementById("newExp");
+
+  if (newPlanEl && newExpEl) {
+    function toggleNewExp() {
+      if (newPlanEl.value === "vitalicio") {
+        newExpEl.value = "";
+        newExpEl.disabled = true;
+      } else {
+        newExpEl.disabled = false;
+      }
+    }
+    toggleNewExp();
+    newPlanEl.addEventListener("change", toggleNewExp);
+  }
+
   if (btnAdd) {
     btnAdd.addEventListener("click", async () => {
       const name = document.getElementById("newName").value.trim();
@@ -237,6 +272,7 @@
             name,
             email,
             plan,
+            // se vitalício ou vazio, backend envia null
             expires_at,
             flagged: false,
           }),
@@ -249,6 +285,7 @@
           msg.textContent = "✅ Licença criada com sucesso!";
           msg.style.color = "green";
           ["newName", "newEmail", "newCode", "newExp"].forEach(id => (document.getElementById(id).value = ""));
+          if (newExpEl) newExpEl.disabled = (newPlanEl?.value === "vitalicio");
           reloadBtn.click();
         } else {
           msg.textContent = "❌ Falha ao criar: " + (data.error || data.msg);

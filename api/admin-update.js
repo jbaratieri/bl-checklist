@@ -1,4 +1,6 @@
-// api/admin-update.js — Atualização de registros (v1.6, compatível com TEXT)
+// api/admin-update.js — Atualização de registros (v1.7)
+// - plan_type TEXT
+// - se expires_at vier "", envia null pra limpar no Airtable
 import Airtable from "airtable";
 
 export default async function handler(req, res) {
@@ -19,10 +21,20 @@ export default async function handler(req, res) {
       process.env.AIRTABLE_BASE
     );
 
-    // normaliza strings (mantém TEXT puro para plan_type)
+    // normaliza strings
     const cleanFields = {};
     for (const [k, v] of Object.entries(fields)) {
       cleanFields[k] = typeof v === "string" ? v.trim().replace(/^"+|"+$/g, "") : v;
+    }
+
+    // limpa validade para vitalício ou string vazia
+    if ("expires_at" in cleanFields) {
+      if (cleanFields.expires_at === "" || cleanFields.expires_at === null) {
+        cleanFields.expires_at = null; // limpa no Airtable
+      }
+    }
+    if (cleanFields.plan_type === "vitalicio" && !cleanFields.expires_at) {
+      cleanFields.expires_at = null; // garantia extra
     }
 
     console.log("🧩 Atualizando registro Airtable:", { id, fields: cleanFields });
@@ -44,3 +56,4 @@ export default async function handler(req, res) {
     });
   }
 }
+
