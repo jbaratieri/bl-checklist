@@ -1,0 +1,15 @@
+{
+  "name": "bl-checklist",
+  "version": "1.0.0",
+  "description": "Checklist de luteria para violão, viola caipira, cavaquinho e ukulele.  \r Projeto desenvolvido para estudo e organização do processo de construção de instrumentos, rodando como **PWA** via GitHub Pages.",
+  "main": "service-worker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.12.2"
+  }
+}
