@@ -1,13 +1,21 @@
 // api/admin.js — Painel Administrativo Seguro (LuthierPro)
-import fetch from "node-fetch";
+// ✅ Compatível com Vercel Edge Runtime (sem node-fetch)
 
-export default async function handler(req, res) {
-  const { method } = req;
-  const { key } = req.query || req.body || {};
+export const config = {
+  runtime: "edge",
+};
 
-  // 🔐 Verifica a senha de administrador (ADMIN_KEY configurada no Vercel)
+export default async function handler(req) {
+  const { method, nextUrl } = req;
+  const url = new URL(nextUrl);
+  const key = url.searchParams.get("key");
+
+  // 🔐 Verifica a senha de administrador
   if (!key || key !== process.env.ADMIN_KEY) {
-    return res.status(403).json({ ok: false, msg: "Acesso negado" });
+    return new Response(JSON.stringify({ ok: false, msg: "Acesso negado" }), {
+      status: 403,
+      headers: { "Content-Type": "application/json" },
+    });
   }
 
   const base = process.env.AIRTABLE_BASE;
@@ -21,15 +29,25 @@ export default async function handler(req, res) {
   try {
     if (method === "GET") {
       // 📄 Listar todas as licenças
-      const r = await fetch(`https://api.airtable.com/v0/${base}/${table}?sort[0][field]=code`, { headers });
+      const r = await fetch(
+        `https://api.airtable.com/v0/${base}/${table}?sort[0][field]=code`,
+        { headers }
+      );
       const data = await r.json();
-      return res.status(200).json({ ok: true, records: data.records || [] });
+      return new Response(JSON.stringify({ ok: true, records: data.records || [] }), {
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     if (method === "DELETE") {
       // 🗑️ Deletar uma licença
-      const { id } = req.body;
-      if (!id) return res.status(400).json({ ok: false, msg: "ID ausente" });
+      const body = await req.json();
+      const { id } = body;
+      if (!id)
+        return new Response(JSON.stringify({ ok: false, msg: "ID ausente" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
 
       const r = await fetch(`https://api.airtable.com/v0/${base}/${table}/${id}`, {
         method: "DELETE",
@@ -37,13 +55,20 @@ export default async function handler(req, res) {
       });
 
       const result = await r.json();
-      return res.status(200).json({ ok: true, result });
+      return new Response(JSON.stringify({ ok: true, result }), {
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
     if (method === "POST") {
       // ➕ Criar nova licença
-      const { code, plan, expires_at, flagged, notes } = req.body;
-      if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+      const body = await req.json();
+      const { code, plan, expires_at, flagged, notes } = body;
+      if (!code)
+        return new Response(JSON.stringify({ ok: false, msg: "Código obrigatório" }), {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        });
 
       const r = await fetch(`https://api.airtable.com/v0/${base}/${table}`, {
         method: "POST",
@@ -54,12 +79,20 @@ export default async function handler(req, res) {
       });
 
       const result = await r.json();
-      return res.status(201).json({ ok: true, result });
+      return new Response(JSON.stringify({ ok: true, result }), {
+        headers: { "Content-Type": "application/json" },
+      });
     }
 
-    return res.status(405).json({ ok: false, msg: "Método não permitido" });
+    return new Response(JSON.stringify({ ok: false, msg: "Método não permitido" }), {
+      status: 405,
+      headers: { "Content-Type": "application/json" },
+    });
   } catch (err) {
     console.error("Erro no admin API:", err);
-    return res.status(500).json({ ok: false, msg: "Erro interno no servidor" });
+    return new Response(
+      JSON.stringify({ ok: false, msg: "Erro interno no servidor", detail: err.message }),
+      { status: 500, headers: { "Content-Type": "application/json" } }
+    );
   }
 }
