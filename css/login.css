@@ -1,7 +1,6 @@
 body {
   margin: 0;
   font-family: "Georgia", "Times New Roman", serif;
-  background: url("../assets/textura-madeira.webp") center/cover no-repeat fixed;
   color: #3b2a1a;
   display: flex;
   justify-content: center;
