@@ -1,4 +1,4 @@
-// api/admin.js — Painel Administrativo LuthierPro (compatível com Node runtime)
+// api/admin.js — Painel Administrativo LuthierPro (versão revisada 1.1.0, compatível com Node runtime)
 
 export default async function handler(req, res) {
   try {
@@ -42,12 +42,16 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
       // ➕ Criar nova licença
       const { code, plan, expires_at, flagged, notes } = req.body;
-      if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+      if (!code) {
+        return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+      }
 
+      // 🔧 Garante que o plan_type seja um objeto válido (Single Select)
+      const planValue = plan || "mensal";
       const body = {
         fields: {
           code,
-          plan_type: plan || "mensal",
+          plan_type: { name: planValue },
           expires_at,
           flagged: !!flagged,
           notes,
@@ -60,6 +64,15 @@ export default async function handler(req, res) {
         body: JSON.stringify(body),
       });
       const result = await r.json();
+
+      if (!r.ok) {
+        return res.status(500).json({
+          ok: false,
+          msg: "Erro ao criar licença no Airtable",
+          error: result.error?.message || result,
+        });
+      }
+
       return res.status(200).json({ ok: true, result });
     }
 

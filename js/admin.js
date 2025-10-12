@@ -1,4 +1,4 @@
-// admin.js — Painel administrativo LuthierPro
+// admin.js — Painel administrativo LuthierPro (versão 1.4.1 revisada)
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin = document.getElementById("btnLogin");
@@ -71,7 +71,7 @@
       const exp = f.expires_at
         ? new Date(f.expires_at).toLocaleDateString("pt-BR")
         : "-";
-      const plan = (f.plan_type || "-").trim();
+      const plan = (f.plan_type?.name || f.plan_type || "-").trim();
       const vital = plan.toLowerCase().includes("vital") ? "✨" : "";
 
       tr.innerHTML = `
@@ -169,7 +169,7 @@
         msg.style.color = "green";
         reloadBtn.click();
       } else {
-        msg.textContent = `❌ Falha ao atualizar: ${data.msg}`;
+        msg.textContent = `❌ Falha ao atualizar: ${data.msg || data.error}`;
         msg.style.color = "red";
       }
     } catch (err) {
