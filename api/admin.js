@@ -18,24 +18,51 @@ export default async function handler(req, res) {
     };
 
     if (req.method === "GET") {
-      // força não cachear essa resposta
-      res.setHeader("Cache-Control", "no-store, max-age=0");
-      res.setHeader("Pragma", "no-cache");
+  // força não cachear essa resposta
+  res.setHeader("Cache-Control", "no-store, max-age=0");
+  res.setHeader("Pragma", "no-cache");
 
-      const ts = Date.now(); // cache-buster
-      const url =
-        `https://api.airtable.com/v0/${base}/${table}` +
-        `?sort[0][field]=created_at&sort[0][direction]=desc` +
-        `&sort[1][field]=code` +
-        `&ts=${ts}`;
+  const ts = Date.now(); // cache-buster
+  const url =
+    `https://api.airtable.com/v0/${base}/${table}` +
+    `?sort[0][field]=created_at&sort[0][direction]=desc` +
+    `&sort[1][field]=code` +
+    `&ts=${ts}`;
 
-      const r = await fetch(url, {
-        headers,
-        cache: "no-store",
+  try {
+    const r = await fetch(url, { headers, cache: "no-store" });
+    const text = await r.text();
+
+    if (!r.ok) {
+      // erro do Airtable / upstream
+      let payload;
+      try { payload = JSON.parse(text); } catch { payload = {}; }
+      return res.status(502).json({
+        ok: false,
+        msg: "Falha ao consultar a base de licenças. Tente novamente.",
+        error: payload?.error?.message || `Upstream ${r.status}`,
       });
-      const data = await r.json();
-      return res.status(200).json({ ok: true, records: data.records || [] });
     }
+
+    let data;
+    try { data = JSON.parse(text); } catch {
+      return res.status(502).json({
+        ok: false,
+        msg: "Resposta inesperada do serviço de dados.",
+        error: "Invalid JSON from upstream",
+      });
+    }
+
+    return res.status(200).json({ ok: true, records: data.records || [] });
+  } catch (e) {
+    return res.status(502).json({
+      ok: false,
+      msg: "Serviço temporariamente indisponível. Tente novamente.",
+      error: e.message,
+    });
+  }
+}
+
 
     if (req.method === "DELETE") {
       const { id } = req.body;

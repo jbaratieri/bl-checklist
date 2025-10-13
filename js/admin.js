@@ -18,42 +18,53 @@
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
   async function loadLicenses(adminKey) {
-    msg.textContent = "🔄 Carregando licenças...";
-    msg.style.color = "#555";
-    table.style.display = "none";
-    reloadBtn.style.display = "none";
+  msg.textContent = "🔄 Carregando licenças...";
+  msg.style.color = "#555";
+  table.style.display = "none";
+  reloadBtn.style.display = "none";
 
-    try {
-      const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}&_=${Date.now()}`, {
-        cache: "no-store",
-      });
-      const text = await res.text();
-      let data;
-      try { data = JSON.parse(text); } catch {
-        msg.textContent = "⚠️ Erro: resposta inesperada do servidor.";
-        msg.style.color = "red";
-        return;
-      }
+  try {
+    const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}&_=${Date.now()}`, {
+      cache: "no-store",
+    });
+    const text = await res.text();
 
-      if (!data.ok) {
-        msg.textContent = "Acesso negado ou chave incorreta.";
-        msg.style.color = "red";
-        return;
-      }
-
-      cachedRecords = data.records || [];
-      msg.textContent = `✅ ${cachedRecords.length} licenças carregadas.`;
-      msg.style.color = "green";
-      renderLicenses(cachedRecords);
-
-      currentKey = adminKey;
-      reloadBtn.style.display = "inline-block";
-    } catch (err) {
-      msg.textContent = "❌ Falha de conexão com o servidor.";
+    if (!res.ok) {
+      msg.textContent = "⚠️ Erro ao buscar licenças. Tente novamente em alguns segundos.";
       msg.style.color = "red";
-      console.error("Erro:", err);
+      console.error("Falha GET /api/admin:", res.status, text);
+      return;
     }
+
+    let data;
+    try { data = JSON.parse(text); } catch {
+      msg.textContent = "⚠️ Resposta inesperada do servidor.";
+      msg.style.color = "red";
+      console.error("Resposta inválida:", text);
+      return;
+    }
+
+    if (!data.ok) {
+      msg.textContent = `⚠️ ${data.msg || "Falha ao carregar licenças."}`;
+      msg.style.color = "red";
+      console.error("Payload erro:", data);
+      return;
+    }
+
+    cachedRecords = data.records || [];
+    msg.textContent = `✅ ${cachedRecords.length} licenças carregadas.`;
+    msg.style.color = "green";
+    renderLicenses(cachedRecords);
+
+    currentKey = adminKey;
+    reloadBtn.style.display = "inline-block";
+  } catch (err) {
+    msg.textContent = "❌ Sem conexão. Verifique sua internet e tente novamente.";
+    msg.style.color = "red";
+    console.error("Erro fetch:", err);
   }
+}
+
 
   function renderLicenses(records) {
     if (!tbody) return;
