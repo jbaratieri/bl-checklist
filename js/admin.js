@@ -67,47 +67,64 @@
 
 
   function renderLicenses(records) {
-    if (!tbody) return;
-    tbody.innerHTML = "";
+  if (!tbody) return;
+  tbody.innerHTML = "";
 
-    records.forEach((rec, i) => {
-      const f = rec.fields || {};
-      const tr = document.createElement("tr");
+  records.forEach((rec, i) => {
+    const f = rec.fields || {};
+    const tr = document.createElement("tr");
 
-      const exp = f.expires_at ? new Date(f.expires_at).toLocaleDateString("pt-BR") : "-";
-      const createdRaw = f.created_at || rec.createdTime; // fallback
-      const created = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
-      const plan = (f.plan_type || "-").trim();
+    const planRaw = (f.plan_type || "-").toString().trim();
+    const planNorm = planRaw.toLowerCase()
+      .normalize("NFD").replace(/\p{Diacritic}/gu, "");
+    const isVitalicio = planNorm === "vitalicio";
 
-      tr.innerHTML = `
-        <td>${i + 1}</td>
-        <td>${f.name || "-"}</td>
-        <td>${f.email || "-"}</td>
-        <td><code>${f.code || "-"}</code></td>
-        <td>${plan}</td>
-        <td>${exp}</td>
-        <td>${created}</td>
-        <td>${f.use_count ?? 0}</td>
-        <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
-        <td>${f.flagged ? "⚠️" : "✅"}</td>
-        <td>
-          <button class="edit-btn" data-id="${rec.id}">✏️ Editar</button>
-          <button class="del-btn" data-id="${rec.id}" title="Excluir">🗑️</button>
-        </td>
-      `;
+    const expDate = f.expires_at ? new Date(f.expires_at) : null;
+    const expStr  = expDate ? expDate.toLocaleDateString("pt-BR") : "-";
+    const createdRaw = f.created_at || rec.createdTime;
+    const createdStr = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
 
-      tbody.appendChild(tr);
-    });
+    // regra de status
+    let status = "ATIVO";
+    if (f.flagged === true) status = "BLOQUEADO";
+    else if (!isVitalicio && expDate && Date.now() > expDate.getTime()) status = "EXPIRADO";
 
-    table.style.display = "table";
+    // badge class
+    const badgeClass =
+      status === "BLOQUEADO" ? "badge blocked" :
+      status === "EXPIRADO"  ? "badge expired" :
+                               "badge active";
 
-    tbody.querySelectorAll(".edit-btn").forEach(btn => {
-      btn.addEventListener("click", () => startEdit(btn.dataset.id));
-    });
-    tbody.querySelectorAll(".del-btn").forEach(btn => {
-      btn.addEventListener("click", () => handleDelete(btn.dataset.id));
-    });
-  }
+    tr.innerHTML = `
+      <td>${i + 1}</td>
+      <td>${f.name || "-"}</td>
+      <td>${f.email || "-"}</td>
+      <td><code>${f.code || "-"}</code></td>
+      <td>${planRaw}</td>
+      <td>${expStr}</td>
+      <td>${createdStr}</td>
+      <td>${f.use_count ?? 0}</td>
+      <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
+      <td><span class="${badgeClass}">${status}</span></td>
+      <td>
+        <button class="edit-btn" data-id="${rec.id}">✏️ Editar</button>
+        <button class="del-btn" data-id="${rec.id}" title="Excluir">🗑️</button>
+      </td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  table.style.display = "table";
+
+  tbody.querySelectorAll(".edit-btn").forEach(btn => {
+    btn.addEventListener("click", () => startEdit(btn.dataset.id));
+  });
+  tbody.querySelectorAll(".del-btn").forEach(btn => {
+    btn.addEventListener("click", () => handleDelete(btn.dataset.id));
+  });
+}
+
 
   function startEdit(id) {
     const row = document.querySelector(`button.edit-btn[data-id="${id}"]`)?.closest("tr");

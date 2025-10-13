@@ -96,6 +96,41 @@ button { cursor: pointer; }
 .licenses th:nth-child(10), .licenses td:nth-child(10){ min-width: 90px; }  /* Status */
 .licenses th:nth-child(11), .licenses td:nth-child(11){ min-width: 140px; } /* Ações */
 
+/* Badges de status */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.badge.active {
+  background: #e6f7ec;
+  color: #1a7f37;
+  border: 1px solid #bde5cb;
+}
+
+.badge.expired {
+  background: #fff4e5;
+  color: #ad5f00;
+  border: 1px solid #ffd8a8;
+}
+
+.badge.blocked {
+  background: #ffe8e8;
+  color: #b42318;
+  border: 1px solid #ffb3b3;
+}
+
+/* opcional: alinhar melhor as células de ações */
+.licenses td:last-child button {
+  margin-right: 6px;
+}
+
+
 /* Rolagem horizontal em telas menores (sem quebrar layout) */
 @media (max-width: 900px) {
   .admin-container { overflow-x: auto; }
