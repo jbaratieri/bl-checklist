@@ -1,27 +1,68 @@
-// admin.js — Painel administrativo LuthierPro (v1.8)
-// - GET com cache-buster e no-store
-// - reload duplo após criar/editar para “pegar” eventual atraso do Airtable
+// admin.js — Painel administrativo LuthierPro (v2.0)
+// - GET com cache-buster e no-store + erros amigáveis
+// - Reload duplo pós salvar/excluir
+// - Badge de status (Ativo / Expirado / Bloqueado)
+// - NOVO: Filtro por status, busca por nome/email/código, exportar CSV
 (() => {
   const keyInput = document.getElementById("adminKey");
-  const btnLogin = document.getElementById("btnLogin");
-  const msg = document.getElementById("msg");
-  const table = document.getElementById("licensesTable");
-  const tbody = table ? table.querySelector("tbody") : null;
+  const btnLogin  = document.getElementById("btnLogin");
+  const msg       = document.getElementById("msg");
+  const table     = document.getElementById("licensesTable");
+  const tbody     = table ? table.querySelector("tbody") : null;
+
+  // Toolbar
+  const toolbar      = document.getElementById("adminToolbar");
+  const filterStatus = document.getElementById("filterStatus");
+  const searchBox    = document.getElementById("searchBox");
+  const btnExport    = document.getElementById("btnExport");
 
   let currentKey = null;
   let cachedRecords = [];
+  let currentFilter = "all";
+  let currentQuery  = "";
 
+  // 🔄 Botão de recarregar
   const reloadBtn = document.createElement("button");
   reloadBtn.textContent = "🔄 Atualizar lista";
   reloadBtn.style.display = "none";
   reloadBtn.style.marginLeft = "10px";
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
+  // ============= Utils base =============
+  const norm = s => (s || "").toString()
+    .toLowerCase()
+    .normalize("NFD").replace(/\p{Diacritic}/gu, "");
+
+  function formatDateInput(dateStr) {
+    if (!dateStr || dateStr === "-") return "";
+    const [d, m, y] = dateStr.split("/");
+    if (!y) return "";
+    return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
+  }
+  function escapeAttr(v) {
+    return String(v || "").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
+  }
+
+  // Status helper (usa mesma regra da renderização)
+  function computeStatus(rec) {
+    const f = rec.fields || {};
+    const planRaw = (f.plan_type || "-").toString().trim();
+    const planNorm = norm(planRaw);
+    const isVitalicio = planNorm === "vitalicio";
+    const expDate = f.expires_at ? new Date(f.expires_at) : null;
+
+    if (f.flagged === true) return "BLOQUEADO";
+    if (!isVitalicio && expDate && Date.now() > expDate.getTime()) return "EXPIRADO";
+    return "ATIVO";
+  }
+
+  // ============= Carregar/Aparecer =============
   async function loadLicenses(adminKey) {
     msg.textContent = "🔄 Carregando licenças...";
     msg.style.color = "#555";
     table.style.display = "none";
     reloadBtn.style.display = "none";
+    if (toolbar) toolbar.style.display = "none";
 
     try {
       const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}&_=${Date.now()}`, {
@@ -54,10 +95,12 @@
       cachedRecords = data.records || [];
       msg.textContent = `✅ ${cachedRecords.length} licenças carregadas.`;
       msg.style.color = "green";
-      renderLicenses(cachedRecords);
 
       currentKey = adminKey;
       reloadBtn.style.display = "inline-block";
+      if (toolbar) toolbar.style.display = "flex";
+
+      applyFilters(); // render inicial com filtros/busca atuais
     } catch (err) {
       msg.textContent = "❌ Sem conexão. Verifique sua internet e tente novamente.";
       msg.style.color = "red";
@@ -65,7 +108,88 @@
     }
   }
 
+  // ============= Filtros/Busca/CSV =============
+  function applyFilters() {
+    let list = [...cachedRecords];
 
+    // Filtro por status
+    if (currentFilter !== "all") {
+      list = list.filter(r => computeStatus(r) === currentFilter);
+    }
+
+    // Busca por nome/email/código (case/acento-insensitive)
+    if (currentQuery.trim() !== "") {
+      const q = norm(currentQuery);
+      list = list.filter(r => {
+        const f = r.fields || {};
+        return (
+          norm(f.name).includes(q) ||
+          norm(f.email).includes(q) ||
+          norm(f.code).includes(q)
+        );
+      });
+    }
+
+    renderLicenses(list);
+  }
+
+  function exportToCSV() {
+    // Usa a lista já filtrada
+    let list = [...cachedRecords];
+    if (currentFilter !== "all") list = list.filter(r => computeStatus(r) === currentFilter);
+    if (currentQuery.trim() !== "") {
+      const q = norm(currentQuery);
+      list = list.filter(r => {
+        const f = r.fields || {};
+        return norm(f.name).includes(q) || norm(f.email).includes(q) || norm(f.code).includes(q);
+      });
+    }
+
+    const headers = [
+      "name","email","code","plan_type",
+      "expires_at","created_at","use_count",
+      "last_used","flagged","status"
+    ];
+
+    const rows = list.map(rec => {
+      const f = rec.fields || {};
+      const status = computeStatus(rec);
+      return [
+        (f.name || ""),
+        (f.email || ""),
+        (f.code || ""),
+        (f.plan_type || ""),
+        (f.expires_at || ""),
+        (f.created_at || rec.createdTime || ""),
+        (f.use_count ?? 0),
+        (f.last_used || ""),
+        (f.flagged ? "true" : "false"),
+        status
+      ];
+    });
+
+    const csv = [headers, ...rows]
+      .map(r => r.map(val => {
+        const s = String(val ?? "");
+        return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+      }).join(";"))
+      .join("\n");
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href = url;
+    const dt = new Date().toISOString().slice(0,19).replace(/[:T]/g,"-");
+    a.download = `licenses-${dt}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      a.remove();
+    }, 0);
+  }
+
+  // ============= Render da tabela =============
   function renderLicenses(records) {
     if (!tbody) return;
     tbody.innerHTML = "";
@@ -75,42 +199,37 @@
       const tr = document.createElement("tr");
 
       const planRaw = (f.plan_type || "-").toString().trim();
-      const planNorm = planRaw.toLowerCase()
-        .normalize("NFD").replace(/\p{Diacritic}/gu, "");
+      const planNorm = norm(planRaw);
       const isVitalicio = planNorm === "vitalicio";
 
       const expDate = f.expires_at ? new Date(f.expires_at) : null;
-      const expStr = expDate ? expDate.toLocaleDateString("pt-BR") : "-";
+      const expStr  = expDate ? expDate.toLocaleDateString("pt-BR") : "-";
       const createdRaw = f.created_at || rec.createdTime;
       const createdStr = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
 
-      // regra de status
-      let status = "ATIVO";
-      if (f.flagged === true) status = "BLOQUEADO";
-      else if (!isVitalicio && expDate && Date.now() > expDate.getTime()) status = "EXPIRADO";
-
-      // badge class
+      // status e badge
+      const status = computeStatus(rec);
       const badgeClass =
         status === "BLOQUEADO" ? "badge blocked" :
-          status === "EXPIRADO" ? "badge expired" :
-            "badge active";
+        status === "EXPIRADO"  ? "badge expired" :
+                                  "badge active";
 
       tr.innerHTML = `
-      <td>${i + 1}</td>
-      <td>${f.name || "-"}</td>
-      <td>${f.email || "-"}</td>
-      <td><code>${f.code || "-"}</code></td>
-      <td>${planRaw}</td>
-      <td>${expStr}</td>
-      <td>${createdStr}</td>
-      <td>${f.use_count ?? 0}</td>
-      <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
-      <td><span class="${badgeClass}">${status}</span></td>
-      <td>
-        <button class="edit-btn" data-id="${rec.id}">✏️ Editar</button>
-        <button class="del-btn" data-id="${rec.id}" title="Excluir">🗑️</button>
-      </td>
-    `;
+        <td>${i + 1}</td>
+        <td>${f.name || "-"}</td>
+        <td>${f.email || "-"}</td>
+        <td><code>${f.code || "-"}</code></td>
+        <td>${planRaw}</td>
+        <td>${expStr}</td>
+        <td>${createdStr}</td>
+        <td>${f.use_count ?? 0}</td>
+        <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
+        <td><span class="${badgeClass}">${status}</span></td>
+        <td>
+          <button class="edit-btn" data-id="${rec.id}">✏️ Editar</button>
+          <button class="del-btn" data-id="${rec.id}" title="Excluir">🗑️</button>
+        </td>
+      `;
 
       tbody.appendChild(tr);
     });
@@ -125,7 +244,7 @@
     });
   }
 
-
+  // ============= Edição inline =============
   function startEdit(id) {
     const row = document.querySelector(`button.edit-btn[data-id="${id}"]`)?.closest("tr");
     if (!row) return;
@@ -159,7 +278,7 @@
     `;
 
     const editPlanEl = document.getElementById("editPlan");
-    const editExpEl = document.getElementById("editExp");
+    const editExpEl  = document.getElementById("editExp");
 
     function toggleEditExp() {
       if (editPlanEl.value === "vitalicio") {
@@ -174,7 +293,7 @@
 
     document.getElementById("saveEdit").onclick = () => {
       const planSel = document.getElementById("editPlan").value;
-      const expVal = document.getElementById("editExp").value;
+      const expVal  = document.getElementById("editExp").value;
 
       if (planSel === "mensal" && !expVal) {
         msg.textContent = "⚠️ Para plano mensal, informe a data de validade.";
@@ -191,10 +310,10 @@
       updateRecord(id, fields);
     };
 
-
     document.getElementById("cancelEdit").onclick = () => reloadBtn.click();
   }
 
+  // ============= Update / Delete =============
   async function updateRecord(id, fields) {
     try {
       const res = await fetch(`/api/admin-update?key=${encodeURIComponent(currentKey)}&_=${Date.now()}`, {
@@ -213,7 +332,6 @@
       if (data.ok) {
         msg.textContent = "✅ Licença atualizada com sucesso!";
         msg.style.color = "green";
-        // revalida duas vezes pra driblar eventual latência do Airtable
         reloadBtn.click();
         setTimeout(() => reloadBtn.click(), 600);
       } else {
@@ -253,8 +371,9 @@
     }
   }
 
-  const btnAdd = document.getElementById("btnAdd");
-  const newPlanEl = document.getElementById("newPlan");
+  // ============= Criar nova licença =============
+  const btnAdd   = document.getElementById("btnAdd");
+  const newPlanEl= document.getElementById("newPlan");
   const newExpEl = document.getElementById("newExp");
 
   if (newPlanEl && newExpEl) {
@@ -272,10 +391,10 @@
 
   if (btnAdd) {
     btnAdd.addEventListener("click", async () => {
-      const name = document.getElementById("newName").value.trim();
+      const name  = document.getElementById("newName").value.trim();
       const email = document.getElementById("newEmail").value.trim();
-      const code = document.getElementById("newCode").value.trim();
-      const plan = document.getElementById("newPlan").value.trim();
+      const code  = document.getElementById("newCode").value.trim();
+      const plan  = document.getElementById("newPlan").value.trim();
       const expires_at = document.getElementById("newExp").value.trim();
 
       if (!code || !name) {
@@ -283,8 +402,6 @@
         msg.style.color = "red";
         return;
       }
-
-      // ✅ Regra: plano mensal DEVE ter data de validade
       if (plan === "mensal" && !expires_at) {
         msg.textContent = "⚠️ Para plano mensal, informe a data de validade.";
         msg.style.color = "red";
@@ -305,8 +422,7 @@
             name,
             email,
             plan,
-            // vitalício: manda "" (o backend converte pra null); mensal: manda a data
-            expires_at,
+            expires_at, // backend transformará ""/vitalício em null
             flagged: false,
           }),
         });
@@ -333,17 +449,7 @@
     });
   }
 
-
-  function formatDateInput(dateStr) {
-    if (!dateStr || dateStr === "-") return "";
-    const [d, m, y] = dateStr.split("/");
-    if (!y) return "";
-    return `${y}-${m.padStart(2, "0")}-${d.padStart(2, "0")}`;
-  }
-  function escapeAttr(v) {
-    return String(v || "").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
-  }
-
+  // ============= Eventos globais =============
   if (btnLogin) {
     btnLogin.addEventListener("click", () => {
       const key = keyInput.value.trim();
@@ -359,4 +465,29 @@
   reloadBtn.addEventListener("click", () => {
     if (currentKey) loadLicenses(currentKey);
   });
+
+  // Filtro por status
+  if (filterStatus) {
+    filterStatus.addEventListener("change", () => {
+      currentFilter = filterStatus.value;
+      applyFilters();
+    });
+  }
+
+  // Busca (com leve debounce)
+  let searchT;
+  if (searchBox) {
+    searchBox.addEventListener("input", () => {
+      clearTimeout(searchT);
+      searchT = setTimeout(() => {
+        currentQuery = searchBox.value || "";
+        applyFilters();
+      }, 200);
+    });
+  }
+
+  // Export CSV
+  if (btnExport) {
+    btnExport.addEventListener("click", exportToCSV);
+  }
 })();

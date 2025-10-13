@@ -130,6 +130,36 @@ button { cursor: pointer; }
   margin-right: 6px;
 }
 
+/* Toolbar de filtros e ações */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0 12px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin: 10px 0 14px;
+}
+
+.toolbar-left, .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#searchBox {
+  min-width: 260px;
+  padding: 6px 8px;
+}
+
+#filterStatus, #btnExport {
+  padding: 6px 8px;
+}
+
+/* Espaço para os badges já existentes */
+.badge { vertical-align: middle; }
+
 
 /* Rolagem horizontal em telas menores (sem quebrar layout) */
 @media (max-width: 900px) {
