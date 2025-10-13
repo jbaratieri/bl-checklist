@@ -201,58 +201,123 @@ function closeModal(id) {
   if (modal) modal.setAttribute('aria-hidden', 'true');
 }
 
+// // ======================================================
+// 🔐 LuthierPro — Revalidação Automática de Licença (v2.1)
 // ======================================================
-// 🔐 LuthierPro — Revalidação Automática de Licença (v2.0 seguro via /api/validate)
-// ======================================================
+// - Tenta revalidar 1x/dia (ou se já passou do TTL offline).
+// - Se o servidor disser "inválido/expirado/bloqueado": bloqueia NA HORA.
+// - Se for erro de rede, respeita janela offline de 7 dias desde a última validação OK.
+// - Salva snapshot em lp_license p/ badge não ficar “Licença não encontrada”.
+
 (async () => {
-  const LAST_CHECK_KEY = "lp_last_license_check";
-  const AUTH_KEY = "lp_auth";
-  const CODE_KEY = "lp_code";
+  const LAST_CHECK_KEY = "lp_last_license_check"; // timestamp da ÚLTIMA validação ONLINE bem-sucedida
+  const AUTH_KEY = "lp_auth";                     // "ok" quando autenticado
+  const CODE_KEY = "lp_code";                     // código salvo pós-login
+  const LICENSE_KEY = "lp_license";               // snapshot para a UI do rodapé
 
-  const lastCheck = localStorage.getItem(LAST_CHECK_KEY);
+  const OFFLINE_TTL_DAYS = 7; // janela de confiança offline
+  const CHECK_EVERY_DAYS  = 1; // tentar revalidar 1x/dia
+
   const now = Date.now();
-  const daysSince = lastCheck ? (now - parseInt(lastCheck)) / (1000 * 60 * 60 * 24) : 999;
+  const lastOk = parseInt(localStorage.getItem(LAST_CHECK_KEY) || "0", 10) || 0;
+  const daysSinceOk = (now - lastOk) / (1000 * 60 * 60 * 24);
 
-  if (daysSince >= 7 && localStorage.getItem(AUTH_KEY) === "ok") {
-    const code = localStorage.getItem(CODE_KEY);
-    if (!code) return;
-
-    const banner = document.createElement("div");
-    banner.textContent = "🔄 Verificando licença ativa...";
-    banner.style = "position:fixed;top:0;left:0;width:100%;background:#5c3b1e;color:#fff;padding:8px;text-align:center;font-size:14px;z-index:9999;";
-    document.body.appendChild(banner);
-
-    try {
-      const res = await fetch("/api/validate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code })
-      });
-
-      const data = await res.json();
-
-      if (!data.ok) {
-        localStorage.removeItem(AUTH_KEY);
-        localStorage.removeItem(CODE_KEY);
-        alert("⚠️ Sua licença expirou ou foi revogada.\nFaça login novamente para renovar o acesso.");
-        window.location.href = "./login.html";
-      } else {
-        localStorage.setItem(LAST_CHECK_KEY, String(now));
-        console.log(`[LuthierPro] Licença válida: plano=${data.plan}, expira=${data.expires}`);
+  // Se a licença local já está expirada, forçar tentativa agora
+  let forceRevalidate = false;
+  try {
+    const rawLic = localStorage.getItem(LICENSE_KEY);
+    if (rawLic) {
+      const lic = JSON.parse(rawLic);
+      if (lic?.expires) {
+        const exp = new Date(lic.expires).getTime();
+        if (!Number.isNaN(exp) && now > exp) {
+          forceRevalidate = true; // venceu localmente → tenta já
+        }
       }
-    } catch (err) {
-      console.warn("[LuthierPro] Erro na revalidação automática:", err);
-    } finally {
-      setTimeout(() => banner.remove(), 2000);
     }
+  } catch {}
+
+  // tentar revalidar: 1x/dia OU se já passou do TTL OU se venceu localmente
+  const shouldAttempt =
+    forceRevalidate || daysSinceOk >= CHECK_EVERY_DAYS || daysSinceOk >= OFFLINE_TTL_DAYS;
+
+  // Só tenta se estiver autenticado e houver código salvo
+  if (!shouldAttempt || localStorage.getItem(AUTH_KEY) !== "ok") return;
+  const code = localStorage.getItem(CODE_KEY);
+  if (!code) return;
+
+  const banner = document.createElement("div");
+  banner.textContent = "🔄 Verificando licença ativa...";
+  banner.style = "position:fixed;top:0;left:0;width:100%;background:#5c3b1e;color:#fff;padding:8px;text-align:center;font-size:14px;z-index:9999;";
+  document.body.appendChild(banner);
+
+  try {
+    const res = await fetch(`/api/validate?_=${Date.now()}`, {
+      method: "POST",
+      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ code })
+    });
+
+    // Se a API responder 4xx/5xx → tratar como inválido e bloquear
+    if (!res.ok) {
+      localStorage.removeItem(AUTH_KEY);
+      localStorage.removeItem(CODE_KEY);
+      localStorage.removeItem(LICENSE_KEY);
+      alert("⚠️ Sua licença não é válida. Faça login novamente.");
+      window.location.href = "./login.html";
+      return;
+    }
+
+    const data = await res.json(); // { ok, plan, expires, flagged, server_time, ... }
+
+    if (!data.ok) {
+      // Servidor disse inválido/expirado/bloqueado → bloquear já
+      localStorage.removeItem(AUTH_KEY);
+      localStorage.removeItem(CODE_KEY);
+      localStorage.removeItem(LICENSE_KEY);
+      alert("⚠️ Sua licença expirou ou foi revogada.\nFaça login novamente para renovar o acesso.");
+      window.location.href = "./login.html";
+      return;
+    }
+
+    // ✅ OK online → atualiza relógio com hora do servidor (se vier)
+    const serverNow = data.server_time ? Date.parse(data.server_time) : now;
+    localStorage.setItem(LAST_CHECK_KEY, String(serverNow));
+
+    // Atualiza snapshot para a UI (badge)
+    localStorage.setItem(LICENSE_KEY, JSON.stringify({
+      plan: data.plan,
+      expires: data.expires || null
+    }));
+
+    console.log(`[LuthierPro] Licença válida: plano=${data.plan}, expira=${data.expires || "—"}`);
+  } catch (err) {
+    // Erro de REDE → só bloqueia se estourou o TTL offline
+    if (daysSinceOk >= OFFLINE_TTL_DAYS) {
+      localStorage.removeItem(AUTH_KEY);
+      localStorage.removeItem(CODE_KEY);
+      localStorage.removeItem(LICENSE_KEY);
+      alert("⚠️ Não foi possível validar sua licença e o período offline expirou.\nConecte-se e faça login novamente.");
+      window.location.href = "./login.html";
+    } else {
+      console.warn("[LuthierPro] Revalidação falhou (rede). Mantendo acesso dentro da janela offline:", err);
+    }
+  } finally {
+    setTimeout(() => banner.remove(), 1500);
   }
 })();
-// Atualiza o badge de licença no rodapé
+
+// ======================================================
+// 🏷️ Badge de status no rodapé (usa snapshot salvo)
+// ======================================================
 (() => {
   const el = document.getElementById("licenseStatus");
   if (!el) return;
 
-  const raw = localStorage.getItem("lp_license");
+  const LICENSE_KEY = "lp_license";
+  const raw = localStorage.getItem(LICENSE_KEY);
+
   if (!raw) {
     el.textContent = "🔒 Licença não encontrada";
     el.classList.add("err");
@@ -261,13 +326,20 @@ function closeModal(id) {
 
   try {
     const lic = JSON.parse(raw);
-    const plan = lic.plan?.trim().toLowerCase() || "indefinido";
-    const exp = lic.expires ? new Date(lic.expires).toLocaleDateString("pt-BR") : null;
+    const plan = (lic?.plan || "indefinido").toString().trim().toLowerCase();
+    const expMs = lic?.expires ? new Date(lic.expires).getTime() : null;
 
-    if (exp) {
-      el.textContent = `🔐 Licença ativa (${plan} • até ${exp})`;
-      el.classList.add("ok");
+    if (expMs && !Number.isNaN(expMs)) {
+      const expStr = new Date(expMs).toLocaleDateString("pt-BR");
+      if (Date.now() > expMs) {
+        el.textContent = `⛔ Licença expirada (era até ${expStr})`;
+        el.classList.add("err");
+      } else {
+        el.textContent = `🔐 Licença ativa (${plan} • até ${expStr})`;
+        el.classList.add("ok");
+      }
     } else {
+      // sem expires ⇒ tratar como vitalício
       el.textContent = `🔐 Licença vitalícia (${plan})`;
       el.classList.add("vital");
     }
@@ -276,3 +348,4 @@ function closeModal(id) {
     el.classList.add("err");
   }
 })();
+
