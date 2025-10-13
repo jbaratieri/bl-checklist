@@ -18,84 +18,84 @@
   document.querySelector(".admin-container")?.appendChild(reloadBtn);
 
   async function loadLicenses(adminKey) {
-  msg.textContent = "🔄 Carregando licenças...";
-  msg.style.color = "#555";
-  table.style.display = "none";
-  reloadBtn.style.display = "none";
+    msg.textContent = "🔄 Carregando licenças...";
+    msg.style.color = "#555";
+    table.style.display = "none";
+    reloadBtn.style.display = "none";
 
-  try {
-    const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}&_=${Date.now()}`, {
-      cache: "no-store",
-    });
-    const text = await res.text();
+    try {
+      const res = await fetch(`/api/admin?key=${encodeURIComponent(adminKey)}&_=${Date.now()}`, {
+        cache: "no-store",
+      });
+      const text = await res.text();
 
-    if (!res.ok) {
-      msg.textContent = "⚠️ Erro ao buscar licenças. Tente novamente em alguns segundos.";
+      if (!res.ok) {
+        msg.textContent = "⚠️ Erro ao buscar licenças. Tente novamente em alguns segundos.";
+        msg.style.color = "red";
+        console.error("Falha GET /api/admin:", res.status, text);
+        return;
+      }
+
+      let data;
+      try { data = JSON.parse(text); } catch {
+        msg.textContent = "⚠️ Resposta inesperada do servidor.";
+        msg.style.color = "red";
+        console.error("Resposta inválida:", text);
+        return;
+      }
+
+      if (!data.ok) {
+        msg.textContent = `⚠️ ${data.msg || "Falha ao carregar licenças."}`;
+        msg.style.color = "red";
+        console.error("Payload erro:", data);
+        return;
+      }
+
+      cachedRecords = data.records || [];
+      msg.textContent = `✅ ${cachedRecords.length} licenças carregadas.`;
+      msg.style.color = "green";
+      renderLicenses(cachedRecords);
+
+      currentKey = adminKey;
+      reloadBtn.style.display = "inline-block";
+    } catch (err) {
+      msg.textContent = "❌ Sem conexão. Verifique sua internet e tente novamente.";
       msg.style.color = "red";
-      console.error("Falha GET /api/admin:", res.status, text);
-      return;
+      console.error("Erro fetch:", err);
     }
-
-    let data;
-    try { data = JSON.parse(text); } catch {
-      msg.textContent = "⚠️ Resposta inesperada do servidor.";
-      msg.style.color = "red";
-      console.error("Resposta inválida:", text);
-      return;
-    }
-
-    if (!data.ok) {
-      msg.textContent = `⚠️ ${data.msg || "Falha ao carregar licenças."}`;
-      msg.style.color = "red";
-      console.error("Payload erro:", data);
-      return;
-    }
-
-    cachedRecords = data.records || [];
-    msg.textContent = `✅ ${cachedRecords.length} licenças carregadas.`;
-    msg.style.color = "green";
-    renderLicenses(cachedRecords);
-
-    currentKey = adminKey;
-    reloadBtn.style.display = "inline-block";
-  } catch (err) {
-    msg.textContent = "❌ Sem conexão. Verifique sua internet e tente novamente.";
-    msg.style.color = "red";
-    console.error("Erro fetch:", err);
   }
-}
 
 
   function renderLicenses(records) {
-  if (!tbody) return;
-  tbody.innerHTML = "";
+    if (!tbody) return;
+    tbody.innerHTML = "";
 
-  records.forEach((rec, i) => {
-    const f = rec.fields || {};
-    const tr = document.createElement("tr");
+    records.forEach((rec, i) => {
+      const f = rec.fields || {};
+      const tr = document.createElement("tr");
 
-    const planRaw = (f.plan_type || "-").toString().trim();
-    const planNorm = planRaw.toLowerCase()
-      .normalize("NFD").replace(/\p{Diacritic}/gu, "");
-    const isVitalicio = planNorm === "vitalicio";
+      const planRaw = (f.plan_type || "-").toString().trim();
+      const planNorm = planRaw.toLowerCase()
+        .normalize("NFD").replace(/\p{Diacritic}/gu, "");
+      const isVitalicio = planNorm === "vitalicio";
 
-    const expDate = f.expires_at ? new Date(f.expires_at) : null;
-    const expStr  = expDate ? expDate.toLocaleDateString("pt-BR") : "-";
-    const createdRaw = f.created_at || rec.createdTime;
-    const createdStr = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
+      const expDate = f.expires_at ? new Date(f.expires_at) : null;
+      const expStr = expDate ? expDate.toLocaleDateString("pt-BR") : "-";
+      const createdRaw = f.created_at || rec.createdTime;
+      const createdStr = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
 
-    // regra de status
-    let status = "ATIVO";
-    if (f.flagged === true) status = "BLOQUEADO";
-    else if (!isVitalicio && expDate && Date.now() > expDate.getTime()) status = "EXPIRADO";
+      // regra de status
+      let status = "ATIVO";
+      if (f.flagged === true) status = "BLOQUEADO";
+      else if (!isVitalicio && expDate && Date.now() > expDate.getTime()) status = "EXPIRADO";
 
-    // badge class
-    const badgeClass =
-      status === "BLOQUEADO" ? "badge blocked" :
-      status === "EXPIRADO"  ? "badge expired" :
-                               "badge active";
+      // badge class
+      const badgeClass =
+        status === "BLOQUEADO" ? "badge blocked" :
+          status === "EXPIRADO" ? "badge expired" :
+            "badge active";
 
-    tr.innerHTML = `
+      tr.innerHTML = `
       <td>${i + 1}</td>
       <td>${f.name || "-"}</td>
       <td>${f.email || "-"}</td>
@@ -112,18 +112,18 @@
       </td>
     `;
 
-    tbody.appendChild(tr);
-  });
+      tbody.appendChild(tr);
+    });
 
-  table.style.display = "table";
+    table.style.display = "table";
 
-  tbody.querySelectorAll(".edit-btn").forEach(btn => {
-    btn.addEventListener("click", () => startEdit(btn.dataset.id));
-  });
-  tbody.querySelectorAll(".del-btn").forEach(btn => {
-    btn.addEventListener("click", () => handleDelete(btn.dataset.id));
-  });
-}
+    tbody.querySelectorAll(".edit-btn").forEach(btn => {
+      btn.addEventListener("click", () => startEdit(btn.dataset.id));
+    });
+    tbody.querySelectorAll(".del-btn").forEach(btn => {
+      btn.addEventListener("click", () => handleDelete(btn.dataset.id));
+    });
+  }
 
 
   function startEdit(id) {
@@ -159,7 +159,7 @@
     `;
 
     const editPlanEl = document.getElementById("editPlan");
-    const editExpEl  = document.getElementById("editExp");
+    const editExpEl = document.getElementById("editExp");
 
     function toggleEditExp() {
       if (editPlanEl.value === "vitalicio") {
@@ -173,14 +173,24 @@
     editPlanEl.addEventListener("change", toggleEditExp);
 
     document.getElementById("saveEdit").onclick = () => {
+      const planSel = document.getElementById("editPlan").value;
+      const expVal = document.getElementById("editExp").value;
+
+      if (planSel === "mensal" && !expVal) {
+        msg.textContent = "⚠️ Para plano mensal, informe a data de validade.";
+        msg.style.color = "red";
+        return;
+      }
+
       const fields = {
         name: document.getElementById("editName").value.trim(),
         email: document.getElementById("editEmail").value.trim(),
-        plan_type: editPlanEl.value,
-        expires_at: editExpEl.disabled ? "" : editExpEl.value, // "" -> backend põe null
+        plan_type: planSel,
+        expires_at: (planSel === "vitalicio") ? "" : expVal,
       };
       updateRecord(id, fields);
     };
+
 
     document.getElementById("cancelEdit").onclick = () => reloadBtn.click();
   }
@@ -245,7 +255,7 @@
 
   const btnAdd = document.getElementById("btnAdd");
   const newPlanEl = document.getElementById("newPlan");
-  const newExpEl  = document.getElementById("newExp");
+  const newExpEl = document.getElementById("newExp");
 
   if (newPlanEl && newExpEl) {
     function toggleNewExp() {
@@ -274,6 +284,14 @@
         return;
       }
 
+      // ✅ Regra: plano mensal DEVE ter data de validade
+      if (plan === "mensal" && !expires_at) {
+        msg.textContent = "⚠️ Para plano mensal, informe a data de validade.";
+        msg.style.color = "red";
+        document.getElementById("newExp")?.focus();
+        return;
+      }
+
       msg.textContent = "⏳ Criando nova licença...";
       msg.style.color = "#555";
 
@@ -287,7 +305,8 @@
             name,
             email,
             plan,
-            expires_at, // backend transformará ""/vitalício em null
+            // vitalício: manda "" (o backend converte pra null); mensal: manda a data
+            expires_at,
             flagged: false,
           }),
         });
@@ -313,6 +332,7 @@
       }
     });
   }
+
 
   function formatDateInput(dateStr) {
     if (!dateStr || dateStr === "-") return "";

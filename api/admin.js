@@ -79,48 +79,61 @@ export default async function handler(req, res) {
       res.setHeader("Pragma", "no-cache");
       return res.status(200).json({ ok: true, result });
     }
+if (req.method === "POST") {
+  const { code, plan, expires_at, flagged, name, email } = req.body;
+  if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
+  if (!name) return res.status(400).json({ ok: false, msg: "Nome obrigatório" });
 
-    if (req.method === "POST") {
-      const { code, plan, expires_at, flagged, name, email } = req.body;
-      if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
-      if (!name) return res.status(400).json({ ok: false, msg: "Nome obrigatório" });
-
-      const planValue = (plan || "mensal").trim();
-      const expiresValue =
-        planValue === "vitalicio" || !expires_at ? null : String(expires_at).trim();
-
-      const body = {
-        fields: {
-          code,
-          name,
-          email,
-          plan_type: planValue,   // TEXT
-          expires_at: expiresValue,
-          flagged: !!flagged,
-        },
-      };
-
-      const r = await fetch(`https://api.airtable.com/v0/${base}/${table}?ts=${Date.now()}`, {
-        method: "POST",
-        headers,
-        body: JSON.stringify(body),
-        cache: "no-store",
-      });
-      const result = await r.json();
-
-      res.setHeader("Cache-Control", "no-store, max-age=0");
-      res.setHeader("Pragma", "no-cache");
-
-      if (!r.ok) {
-        return res.status(500).json({
-          ok: false,
-          msg: "Erro ao criar licença no Airtable",
-          error: result.error?.message || result,
-        });
-      }
-
-      return res.status(200).json({ ok: true, result });
+  // 🔎 checa duplicidade de code no Airtable
+  try {
+    const formula = `({code}='${String(code).replace(/'/g, "\\'")}')`;
+    const dupUrl = `https://api.airtable.com/v0/${base}/${table}?filterByFormula=${encodeURIComponent(formula)}&maxRecords=1`;
+    const dupRes = await fetch(dupUrl, { headers, cache: "no-store" });
+    const dupData = await dupRes.json();
+    if (dupData.records && dupData.records.length > 0) {
+      return res.status(409).json({ ok: false, msg: "Código já existe. Use outro código." });
     }
+  } catch (e) {
+    return res.status(502).json({ ok: false, msg: "Falha ao verificar duplicidade.", error: e.message });
+  }
+
+  const planValue = (plan || "mensal").trim();
+  const expiresValue =
+    planValue === "vitalicio" || !expires_at ? null : String(expires_at).trim();
+
+  const body = {
+    fields: {
+      code,
+      name,
+      email,
+      plan_type: planValue,   // TEXT
+      expires_at: expiresValue,
+      flagged: !!flagged,
+    },
+  };
+
+  const r = await fetch(`https://api.airtable.com/v0/${base}/${table}?ts=${Date.now()}`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+  const result = await r.json();
+
+  res.setHeader("Cache-Control", "no-store, max-age=0");
+  res.setHeader("Pragma", "no-cache");
+
+  if (!r.ok) {
+    return res.status(500).json({
+      ok: false,
+      msg: "Erro ao criar licença no Airtable",
+      error: result.error?.message || result,
+    });
+  }
+
+  return res.status(200).json({ ok: true, result });
+}
+
 
     return res.status(405).json({ ok: false, msg: "Método não permitido" });
   } catch (err) {
