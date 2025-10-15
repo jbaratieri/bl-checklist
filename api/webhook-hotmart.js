@@ -48,7 +48,14 @@ function getOrderId(payload) {
 
 export default async function handler(req, res) {
   try {
-    if (req.method !== "POST") return res.status(405).json({ ok:false, msg:"Method not allowed" });
+    // Healthcheck amigável para GET/HEAD
+if (req.method === "GET" || req.method === "HEAD") {
+  return res.status(200).json({ ok:true, msg:"webhook-hotmart up" });
+}
+if (req.method !== "POST") {
+  return res.status(405).json({ ok:false, msg:"Method not allowed" });
+}
+
 
     // Segurança: HOTTOK
     const incoming = req.headers["x-hotmart-hottok"];
