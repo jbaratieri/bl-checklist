@@ -1,17 +1,17 @@
-// /api/webhook-hotmart.js — compatível com Hotmart Webhook v2 e Airtable com campos TEXT
+// /api/webhook-hotmart.js — Hotmart v2, Airtable (TEXT fields), usando AIRTABLE_BASE/AIRTABLE_KEY
 import Airtable from "airtable";
 import crypto from "crypto";
 
-const {
-  AIRTABLE_API_KEY,
-  AIRTABLE_BASE_ID,
-  AIRTABLE_TABLE = "licenses",
-  HOTMART_HOTTOK
-} = process.env;
+const HOTMART_HOTTOK = process.env.HOTMART_HOTTOK;
+
+// aceita ambos os pares de env vars
+const AIRTABLE_BASE  = process.env.AIRTABLE_BASE  || process.env.AIRTABLE_BASE_ID;
+const AIRTABLE_KEY   = process.env.AIRTABLE_KEY   || process.env.AIRTABLE_API_KEY;
+const AIRTABLE_TABLE = process.env.AIRTABLE_TABLE || "licenses";
 
 function getBase() {
-  if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) return null;
-  return new Airtable({ apiKey: AIRTABLE_API_KEY }).base(AIRTABLE_BASE_ID);
+  if (!AIRTABLE_KEY || !AIRTABLE_BASE) return null;
+  return new Airtable({ apiKey: AIRTABLE_KEY }).base(AIRTABLE_BASE);
 }
 
 function genLicense(prefix = "LP") {
@@ -20,23 +20,18 @@ function genLicense(prefix = "LP") {
 }
 function addDays(date, days) { const d = new Date(date); d.setDate(d.getDate() + days); return d; }
 
-// Helpers para ler payload v2 com fallback
+// helpers p/ payload v2 (com fallback v1)
 function getEvent(payload) {
   return (payload?.event || payload?.EVENT || "").toString().toUpperCase();
 }
 function getStatus(payload) {
-  // v2: data.purchase.status
   const v2 = payload?.data?.purchase?.status || payload?.data?.subscription?.status;
   if (v2) return String(v2).toUpperCase();
-  // v1 fallback: purchase.status
   const v1 = payload?.purchase?.status;
   return v1 ? String(v1).toUpperCase() : "";
 }
 function getBuyerEmail(payload) {
-  return payload?.data?.buyer?.email
-      || payload?.buyer?.email
-      || payload?.email
-      || "";
+  return payload?.data?.buyer?.email || payload?.buyer?.email || payload?.email || "";
 }
 function getOrderId(payload) {
   return payload?.data?.purchase?.transaction
@@ -48,47 +43,44 @@ function getOrderId(payload) {
 
 export default async function handler(req, res) {
   try {
-    // Healthcheck amigável para GET/HEAD
-if (req.method === "GET" || req.method === "HEAD") {
-  return res.status(200).json({ ok:true, msg:"webhook-hotmart up" });
-}
-if (req.method !== "POST") {
-  return res.status(405).json({ ok:false, msg:"Method not allowed" });
-}
+    // Healthcheck amigável
+    if (req.method === "GET" || req.method === "HEAD") {
+      return res.status(200).json({ ok: true, msg: "webhook-hotmart up" });
+    }
+    if (req.method !== "POST") {
+      return res.status(405).json({ ok: false, msg: "Method not allowed" });
+    }
 
-
-    // Segurança: HOTTOK
+    // segurança: validate hottok
     const incoming = req.headers["x-hotmart-hottok"];
     if (!incoming || incoming !== HOTMART_HOTTOK) {
-      return res.status(401).json({ ok:false, msg:"Invalid hottok" });
+      return res.status(401).json({ ok: false, msg: "Invalid hottok" });
     }
 
     const payload = req.body || {};
-    const event = getEvent(payload);  // e.g., PURCHASE_APPROVED
-    const status = getStatus(payload); // e.g., APPROVED / ACTIVE
-    const buyerEmail = getBuyerEmail(payload);
+    const event   = getEvent(payload);   // e.g. PURCHASE_APPROVED
+    const status  = getStatus(payload);  // e.g. APPROVED / ACTIVE
+    const email   = getBuyerEmail(payload);
     const orderId = getOrderId(payload);
 
-    if (!buyerEmail) {
-      // responde 200 pra não gerar retry infinito do Hotmart
-      return res.status(200).json({ ok:true, msg:"No buyer email; ack only", event, status });
+    if (!email) {
+      // ack p/ não gerar retry infinito na Hotmart
+      return res.status(200).json({ ok: true, msg: "No buyer email; ack only", event, status });
     }
 
     const base = getBase();
     if (!base) {
-      return res.status(200).json({ ok:true, msg:"ack without airtable", event, status, buyerEmail, orderId });
+      return res.status(200).json({ ok: true, msg: "ack without airtable", event, status, email, orderId });
     }
 
-    // Normalizamos o "evento aprovado" (v2 manda event=PURCHASE_APPROVED; status pode ser APPROVED ou subscription ACTIVE)
+    // aprovado/ativo
     const isApproved = event === "PURCHASE_APPROVED" || status === "APPROVED" || status === "ACTIVE";
-
     if (isApproved) {
-      const plan_type = "mensal"; // simples por enquanto (pode mapear por oferta depois)
+      const plan_type = "mensal"; // simples por enquanto
       const now = new Date();
 
-      // Busca por email
       const found = await base(AIRTABLE_TABLE).select({
-        filterByFormula: `{email} = "${buyerEmail}"`
+        filterByFormula: `{email} = "${email}"`
       }).all();
 
       if (found.length) {
@@ -97,49 +89,45 @@ if (req.method !== "POST") {
         const baseDate = prev > now ? prev : now;
         const newExp = addDays(baseDate, 30);
 
-        // Todos TEXT no Airtable:
         await base(AIRTABLE_TABLE).update(r.id, {
           status: "ativo",
-          plan_type,              // TEXT
+          plan_type,                 // TEXT
           order_id: String(orderId || ""),
           expires_at: newExp.toISOString()
         });
 
-        return res.status(200).json({ ok:true, action:"extended", email: buyerEmail, expires_at: newExp });
+        return res.status(200).json({ ok: true, action: "extended", email, expires_at: newExp });
       } else {
         const license = genLicense("LP");
         const expires = addDays(now, 30);
 
         await base(AIRTABLE_TABLE).create({
-          email: buyerEmail,
-          license_key: license,   // TEXT
-          plan_type,              // TEXT
-          status: "ativo",        // TEXT
+          email,
+          license_key: license,      // TEXT
+          plan_type,                 // TEXT
+          status: "ativo",           // TEXT
           order_id: String(orderId || ""),
           expires_at: expires.toISOString()
         });
 
-        return res.status(200).json({ ok:true, action:"created", email: buyerEmail, license_key: license, expires_at: expires });
+        return res.status(200).json({ ok: true, action: "created", email, license_key: license, expires_at: expires });
       }
     }
 
-    // Eventos de cancel/refund/etc. (v2 ou v1)
+    // negativos: cancel/refund/etc.
     const isNegative = ["PURCHASE_CANCELLED","PURCHASE_REFUNDED","PURCHASE_CHARGEBACK"].includes(event)
                     || ["CANCELLED","CHARGEBACK","REFUNDED","EXPIRED","OVERDUE","INACTIVE"].includes(status);
-
     if (isNegative) {
-      const recs = await base(AIRTABLE_TABLE).select({ filterByFormula: `{email} = "${buyerEmail}"` }).all();
-      if (recs.length) {
-        await base(AIRTABLE_TABLE).update(recs[0].id, { status: "inativo" }); // TEXT
-      }
-      return res.status(200).json({ ok:true, action:"deactivated", event, status });
+      const recs = await base(AIRTABLE_TABLE).select({ filterByFormula: `{email} = "${email}"` }).all();
+      if (recs.length) await base(AIRTABLE_TABLE).update(recs[0].id, { status: "inativo" }); // TEXT
+      return res.status(200).json({ ok: true, action: "deactivated", event, status });
     }
 
-    // Outros → ACK
-    return res.status(200).json({ ok:true, msg:"event ignored", event, status });
+    return res.status(200).json({ ok: true, msg: "event ignored", event, status });
   } catch (err) {
     console.error("webhook-hotmart error:", err);
-    return res.status(200).json({ ok:true, msg:"ack with error" });
+    // 200 para não gerar reentrega infinita na Hotmart
+    return res.status(200).json({ ok: true, msg: "ack with error" });
   }
 }
 
