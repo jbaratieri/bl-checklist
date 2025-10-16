@@ -27,6 +27,7 @@ const getEvent   = p => (p?.event || p?.EVENT || "").toString().toUpperCase();
 const getStatus  = p => (p?.data?.purchase?.status || p?.data?.subscription?.status || p?.purchase?.status || "").toString().toUpperCase();
 const getEmail   = p => p?.data?.buyer?.email || p?.buyer?.email || p?.email || "";
 const getName    = p => (p?.data?.buyer?.name || p?.buyer?.name || "").toString();
+const getTx      = p => p?.data?.purchase?.transaction || p?.purchase?.transaction || ""; // idempotência
 
 // 🔎 Mapa de PRODUCT ID → plano
 const PRODUCT_PLAN_MAP = {
@@ -63,7 +64,7 @@ export default async function handler(req, res) {
       return res.status(405).json({ ok:false, msg:"Method not allowed" });
     }
 
-    // segurança
+    // segurança (Hotmart)
     const tok = req.headers["x-hotmart-hottok"];
     if (!tok || tok !== HOTMART_HOTTOK) {
       return res.status(401).json({ ok:false, msg:"Invalid hottok" });
@@ -74,6 +75,7 @@ export default async function handler(req, res) {
     const status  = getStatus(payload);
     const email   = getEmail(payload);
     const name    = getName(payload);
+    const tx      = (getTx(payload) || "").toString();
     if (!email) return res.status(200).json({ ok:true, msg:"No buyer email; ack only", event, status });
 
     const b = base();
@@ -84,11 +86,18 @@ export default async function handler(req, res) {
                   || ["CANCELLED","CHARGEBACK","REFUNDED","EXPIRED","OVERDUE","INACTIVE"].includes(status);
 
     const now = new Date();
+    const planTypeComputed = resolvePlanType(payload);
 
-    // 🔐 decide plano pelo product.id (ou fallback)
-    const planType = resolvePlanType(payload);
+    // 🔍 Busca segura por e-mail (case-insensitive + escapa aspas simples)
+    const emailNorm = email.toString().toLowerCase();
+    const emailEsc  = emailNorm.replace(/'/g, "\\'");
+    const formula   = `LOWER({email})='${emailEsc}'`;
+    const recs = await b(AIRTABLE_TABLE).select({ filterByFormula: formula, maxRecords: 3 }).firstPage();
 
-    const recs = await b(AIRTABLE_TABLE).select({ filterByFormula: `{email} = "${email}"` }).all();
+    // idempotência: se já processamos este transaction, não reprocessa
+    if (tx && recs.length && (recs[0].get("last_transaction") || "") === tx) {
+      return res.status(200).json({ ok:true, action:"noop_already_processed", email, tx });
+    }
 
     if (approved) {
       if (recs.length) {
@@ -97,27 +106,34 @@ export default async function handler(req, res) {
         const existingCode = (r.get("code") || "").toString().trim();
         const code = existingCode ? existingCode : genCode("LP");
 
+        // não rebaixa vitalício
+        const currentPlan = (r.get("plan_type") || "").toString().toLowerCase();
+        const isAlreadyVitalicio = currentPlan === "vitalicio";
+        const finalPlan = isAlreadyVitalicio ? "vitalicio" : planTypeComputed;
+
         const fieldsToUpdate = {
           code,
-          plan_type: planType,
+          plan_type: finalPlan,
           name: name || r.get("name") || "",
           flagged: false,
+          last_transaction: tx || r.get("last_transaction") || "",
+          last_event_at: now.toISOString()
         };
 
-        if (planType === "mensal") {
+        if (finalPlan === "mensal") {
           // estende +30 dias a partir do maior entre hoje e a expiração atual
           const prev = r.get("expires_at") ? new Date(r.get("expires_at")) : now;
           const baseDate = prev > now ? prev : now;
           fieldsToUpdate.expires_at = toDateOnly(addDays(baseDate, 30));
         } else {
           // vitalício: remove expiração
-          fieldsToUpdate.expires_at = null; // limpa campo data no Airtable
+          fieldsToUpdate.expires_at = null;
         }
 
         await b(AIRTABLE_TABLE).update(r.id, fieldsToUpdate);
         return res.status(200).json({
-          ok: true, action: "updated", email, code, plan_type: planType,
-          expires_at: fieldsToUpdate.expires_at || ""
+          ok: true, action: "updated", email, code, plan_type: finalPlan,
+          expires_at: fieldsToUpdate.expires_at || "", tx
         });
       } else {
         // criar
@@ -126,11 +142,13 @@ export default async function handler(req, res) {
           email,
           name: name || "",
           code,
-          plan_type: planType,
+          plan_type: planTypeComputed,
           use_count: 0,
           flagged: false,
+          last_transaction: tx || "",
+          last_event_at: now.toISOString()
         };
-        if (planType === "mensal") {
+        if (planTypeComputed === "mensal") {
           fields.expires_at = toDateOnly(addDays(now, 30)); // YYYY-MM-DD
         } else {
           fields.expires_at = null; // vitalício sem expiração
@@ -138,18 +156,24 @@ export default async function handler(req, res) {
 
         await b(AIRTABLE_TABLE).create(fields);
         return res.status(200).json({
-          ok: true, action: "created", email, code, plan_type: planType,
-          expires_at: fields.expires_at || ""
+          ok: true, action: "created", email, code, plan_type: planTypeComputed,
+          expires_at: fields.expires_at || "", tx
         });
       }
     }
 
     if (negative) {
-      if (recs.length) await b(AIRTABLE_TABLE).update(recs[0].id, { flagged: true });
-      return res.status(200).json({ ok:true, action:"deactivated", email, event, status });
+      if (recs.length) {
+        await b(AIRTABLE_TABLE).update(recs[0].id, {
+          flagged: true,
+          last_transaction: tx || recs[0].get("last_transaction") || "",
+          last_event_at: now.toISOString()
+        });
+      }
+      return res.status(200).json({ ok:true, action:"deactivated", email, event, status, tx });
     }
 
-    return res.status(200).json({ ok:true, msg:"event ignored", event, status });
+    return res.status(200).json({ ok:true, msg:"event ignored", event, status, tx });
   } catch (e) {
     console.error("webhook-hotmart error:", e);
     return res.status(200).json({ ok:true, msg:"ack with error" });
