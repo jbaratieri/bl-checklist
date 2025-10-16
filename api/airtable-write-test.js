@@ -1,4 +1,3 @@
-// /api/airtable-write-test.js — cria um registro de teste na tabela (usa ADMIN_KEY)
 import Airtable from "airtable";
 
 const ADMIN_KEY      = process.env.ADMIN_KEY;
@@ -11,7 +10,6 @@ function getBase() {
   return new Airtable({ apiKey: AIRTABLE_KEY }).base(AIRTABLE_BASE);
 }
 
-// Gera string YYYY-MM-DD em horário local (sem fuso) — ideal para campo Date (sem hora)
 function toDateOnly(d) {
   const dt = new Date(d);
   const y = dt.getFullYear();
@@ -41,23 +39,19 @@ export default async function handler(req, res) {
 
     const now = new Date();
     const expDateOnly = toDateOnly(new Date(now.getTime() + 30*24*3600*1000)); // +30 dias
-    const createdDateOnly = toDateOnly(now);
 
     const rec = await base(AIRTABLE_TABLE).create({
       email: "diagnose@example.com",
       name:  "Diagnose Bot",
       code:  "LP-TESTE-1234-ABCD",
       plan_type: "mensal",
-      // ⚠️ Campos Date (sem hora) devem receber "YYYY-MM-DD"
       expires_at: expDateOnly,
-      created_at: createdDateOnly,
       use_count: 0,
       flagged: false
     });
 
     return res.status(200).json({ ok:true, created: { id: rec.id } });
   } catch (e) {
-    console.error("airtable-write-test error:", e);
     return res.status(200).json({ ok:false, msg:"create_error", error: String(e) });
   }
 }
