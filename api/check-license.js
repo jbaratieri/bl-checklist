@@ -1,4 +1,4 @@
-// /api/check-license.js — verifica licença por license_key (login do app)
+// /api/check-license.js — valida licença usando o campo `code` (fallback para `license_key`)
 import Airtable from "airtable";
 
 const AIRTABLE_BASE  = process.env.AIRTABLE_BASE  || process.env.AIRTABLE_BASE_ID;
@@ -8,6 +8,15 @@ const AIRTABLE_TABLE = process.env.AIRTABLE_TABLE || "licenses";
 function getBase() {
   if (!AIRTABLE_KEY || !AIRTABLE_BASE) return null;
   return new Airtable({ apiKey: AIRTABLE_KEY }).base(AIRTABLE_BASE);
+}
+
+// Trata campo Date (sem hora) do Airtable como válido até o fim do dia local
+function isNotExpired(dateOnlyStr) {
+  if (!dateOnlyStr) return false;
+  const [y, m, d] = String(dateOnlyStr).split("-").map(Number);
+  if (!y || !m || !d) return false;
+  const end = new Date(y, m - 1, d, 23, 59, 59, 999);
+  return new Date() <= end;
 }
 
 export default async function handler(req, res) {
@@ -26,45 +35,54 @@ export default async function handler(req, res) {
 
     const base = getBase();
     if (!base) {
-      // permite testar login mesmo antes de ligar o Airtable
+      // Permite teste mesmo sem Airtable ligado
       return res.status(200).json({
-        ok: true,
-        simulated: true,
-        plan_type: "mensal",
-        expires_at: new Date(Date.now() + 3 * 24 * 3600 * 1000).toISOString(),
+        ok: true, simulated: true, plan_type: "mensal",
+        expires_at: new Date(Date.now() + 3*24*3600*1000).toISOString().slice(0,10),
         grace_days: 5
       });
     }
 
-    const recs = await base(AIRTABLE_TABLE).select({
-      filterByFormula: `{license_key} = "${license_key}"`
+    // Procura por `code` primeiro; se não achar, tenta `license_key` (compatibilidade)
+    let recs = await base(AIRTABLE_TABLE).select({
+      filterByFormula: `{code} = "${license_key}"`
     }).all();
+
+    if (!recs.length) {
+      recs = await base(AIRTABLE_TABLE).select({
+        filterByFormula: `{license_key} = "${license_key}"`
+      }).all();
+    }
 
     if (!recs.length) {
       return res.status(404).json({ ok: false, msg: "license_not_found" });
     }
 
     const r = recs[0];
-    const status     = String(r.get("status") || "").toLowerCase(); // "ativo"/"inativo"
-    const plan_type  = String(r.get("plan_type") || "mensal");
-    const expires_at = r.get("expires_at");
-    const exp        = expires_at ? new Date(expires_at) : null;
-    const now        = new Date();
+    const plan_type  = String(r.get("plan_type") || "").toLowerCase(); // "mensal" | "vitalicio"
+    const expires_at = r.get("expires_at"); // formato YYYY-MM-DD (Date-only)
+    const flagged    = !!r.get("flagged");
 
-    if (status !== "ativo") {
+    if (flagged) {
       return res.status(200).json({ ok: false, msg: "inactive", plan_type, expires_at });
     }
-    if (!exp || isNaN(exp.getTime())) {
-      return res.status(200).json({ ok: false, msg: "no_expiration", plan_type });
+
+    // Vitalício ignora validade
+    if (plan_type === "vitalicio") {
+      return res.status(200).json({
+        ok: true, plan_type: "vitalicio", expires_at: null, grace_days: 5
+      });
     }
-    if (exp < now) {
-      return res.status(200).json({ ok: false, msg: "expired", plan_type, expires_at });
+
+    if (!isNotExpired(expires_at)) {
+      return res.status(200).json({ ok: false, msg: "expired", plan_type: plan_type || "mensal", expires_at });
     }
 
     return res.status(200).json({
       ok: true,
-      plan_type,
-      expires_at: exp.toISOString(),
+      plan_type: plan_type || "mensal",
+      // retorna a mesma string date-only do Airtable
+      expires_at,
       grace_days: 5
     });
   } catch (e) {
@@ -74,3 +92,4 @@ export default async function handler(req, res) {
 }
 
 export const config = { api: { bodyParser: { sizeLimit: "1mb" } } };
+
