@@ -28,14 +28,46 @@ const getStatus  = p => (p?.data?.purchase?.status || p?.data?.subscription?.sta
 const getEmail   = p => p?.data?.buyer?.email || p?.buyer?.email || p?.email || "";
 const getName    = p => (p?.data?.buyer?.name || p?.buyer?.name || "").toString();
 
+// 🔎 Mapa de PRODUCT ID → plano
+const PRODUCT_PLAN_MAP = {
+  6436614: "mensal",     // LuthierPro — Assinatura Mensal
+  6449475: "vitalicio",  // LuthierPro — Acesso Vitalício
+};
+
+function getProductId(payload) {
+  const pid =
+    payload?.data?.product?.id ??
+    payload?.product?.id ??
+    payload?.data?.content?.products?.[0]?.id;
+  return typeof pid === "string" ? parseInt(pid, 10) : pid;
+}
+
+function resolvePlanType(payload) {
+  const productId = getProductId(payload);
+  if (productId && PRODUCT_PLAN_MAP[productId]) return PRODUCT_PLAN_MAP[productId];
+
+  // Fallback: se vier assinatura ativa, tratamos como mensal
+  const subStatus = (payload?.data?.subscription?.status || "").toString().toUpperCase();
+  if (subStatus === "ACTIVE") return "mensal";
+
+  // Último caso: assume vitalício (pagamento único)
+  return "vitalicio";
+}
+
 export default async function handler(req, res) {
   try {
-    if (req.method === "GET" || req.method === "HEAD") return res.status(200).json({ ok:true, msg:"webhook-hotmart up" });
-    if (req.method !== "POST") return res.status(405).json({ ok:false, msg:"Method not allowed" });
+    if (req.method === "GET" || req.method === "HEAD") {
+      return res.status(200).json({ ok:true, msg:"webhook-hotmart up" });
+    }
+    if (req.method !== "POST") {
+      return res.status(405).json({ ok:false, msg:"Method not allowed" });
+    }
 
     // segurança
     const tok = req.headers["x-hotmart-hottok"];
-    if (!tok || tok !== HOTMART_HOTTOK) return res.status(401).json({ ok:false, msg:"Invalid hottok" });
+    if (!tok || tok !== HOTMART_HOTTOK) {
+      return res.status(401).json({ ok:false, msg:"Invalid hottok" });
+    }
 
     const payload = req.body || {};
     const event   = getEvent(payload);
@@ -51,41 +83,64 @@ export default async function handler(req, res) {
     const negative = ["PURCHASE_CANCELLED","PURCHASE_REFUNDED","PURCHASE_CHARGEBACK"].includes(event)
                   || ["CANCELLED","CHARGEBACK","REFUNDED","EXPIRED","OVERDUE","INACTIVE"].includes(status);
 
-    const recs = await b(AIRTABLE_TABLE).select({ filterByFormula: `{email} = "${email}"` }).all();
     const now = new Date();
+
+    // 🔐 decide plano pelo product.id (ou fallback)
+    const planType = resolvePlanType(payload);
+
+    const recs = await b(AIRTABLE_TABLE).select({ filterByFormula: `{email} = "${email}"` }).all();
 
     if (approved) {
       if (recs.length) {
-        // estender +30 dias (date-only)
+        // atualizar
         const r = recs[0];
-        const prev = r.get("expires_at") ? new Date(r.get("expires_at")) : now;
-        const baseDate = prev > now ? prev : now;
-        const newExp = toDateOnly(addDays(baseDate, 30));
-        const existingCode = r.get("code");
-        const code = existingCode && String(existingCode).trim() ? existingCode : genCode("LP");
+        const existingCode = (r.get("code") || "").toString().trim();
+        const code = existingCode ? existingCode : genCode("LP");
 
-        await b(AIRTABLE_TABLE).update(r.id, {
+        const fieldsToUpdate = {
           code,
-          plan_type: "mensal",
-          expires_at: newExp,   // YYYY-MM-DD
+          plan_type: planType,
           name: name || r.get("name") || "",
-          flagged: false
+          flagged: false,
+        };
+
+        if (planType === "mensal") {
+          // estende +30 dias a partir do maior entre hoje e a expiração atual
+          const prev = r.get("expires_at") ? new Date(r.get("expires_at")) : now;
+          const baseDate = prev > now ? prev : now;
+          fieldsToUpdate.expires_at = toDateOnly(addDays(baseDate, 30));
+        } else {
+          // vitalício: remove expiração
+          fieldsToUpdate.expires_at = null; // limpa campo data no Airtable
+        }
+
+        await b(AIRTABLE_TABLE).update(r.id, fieldsToUpdate);
+        return res.status(200).json({
+          ok: true, action: "updated", email, code, plan_type: planType,
+          expires_at: fieldsToUpdate.expires_at || ""
         });
-        return res.status(200).json({ ok:true, action:"extended", email, code, expires_at:newExp });
       } else {
-        // criar novo (sem created_at, é calculado na sua base)
+        // criar
         const code = genCode("LP");
-        const exp  = toDateOnly(addDays(now, 30));
-        await b(AIRTABLE_TABLE).create({
+        const fields = {
           email,
           name: name || "",
           code,
-          plan_type: "mensal",
-          expires_at: exp,      // YYYY-MM-DD
+          plan_type: planType,
           use_count: 0,
-          flagged: false
+          flagged: false,
+        };
+        if (planType === "mensal") {
+          fields.expires_at = toDateOnly(addDays(now, 30)); // YYYY-MM-DD
+        } else {
+          fields.expires_at = null; // vitalício sem expiração
+        }
+
+        await b(AIRTABLE_TABLE).create(fields);
+        return res.status(200).json({
+          ok: true, action: "created", email, code, plan_type: planType,
+          expires_at: fields.expires_at || ""
         });
-        return res.status(200).json({ ok:true, action:"created", email, code, expires_at: exp });
       }
     }
 

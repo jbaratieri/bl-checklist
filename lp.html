@@ -6,28 +6,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Checklists guiados, medidas e desenhos técnicos — do projeto ao acabamento. Seu companheiro de bancada." />
   <meta property="og:title" content="LuthierPro — Guia Interativo de Luthieria">
-  <meta property="og:description" content="Checklists guiados, medidas e desenhos técnicos — do projeto ao acabamento.">
+  <meta property="og:description" content="Experimente uma prévia interativa antes de comprar.">
   <meta property="og:image" content="https://bl-checklist.vercel.app/assets/banners/hero-1200x628.webp">
   <meta name="theme-color" content="#0f172a">
   <link rel="icon" type="image/png" href="/icon/icon-192.webp" />
   <style>
     :root{
-      --bg:#0f172a;--panel:#111827;--muted:#9ca3af;--text:#e5e7eb;--primary:#2563eb;--accent:#10b981;--border:#1f2937;
+      --bg:#0f172a;--panel:#111827;--muted:#9ca3af;--text:#e5e7eb;--primary:#2563eb;--accent:#10b981;--border:#1f2937;--warn:#f59e0b;
     }
     *{box-sizing:border-box}
     body{margin:0;background:linear-gradient(145deg,#0b1220,#0f172a);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto}
     a{color:inherit}
     .wrap{max-width:1100px;margin:0 auto;padding:24px}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
-    .logo{height:42px;width:auto}
-    .cta-top{display:flex;gap:10px;flex-wrap:wrap}
+    .nav{position:sticky;top:0;z-index:50;background:rgba(15,23,42,.7);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .logo{height:40px;width:auto}
+    .cta-top{display:flex;gap:8px;flex-wrap:wrap}
     .btn{display:inline-block;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none;border:1px solid transparent;transition:transform .05s ease}
     .btn:active{transform:translateY(1px)}
     .btn-primary{background:var(--primary);color:#fff}
     .btn-ghost{background:transparent;border-color:var(--border);color:#93c5fd}
     .btn-accent{background:var(--accent);color:#06281f}
     .badge{display:inline-block;margin-top:10px;color:#cbd5e1;font-size:13px}
-    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:8px 0 24px}
+    .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:16px 0 24px}
     .hero h1{margin:0 0 10px 0;font-size:38px;line-height:1.1}
     .hero p{margin:0 0 14px 0;color:#cbd5e1}
     .card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px}
@@ -44,22 +45,39 @@
     .faq dd{margin:6px 0 0 0;color:#cbd5e1}
     .footer{margin:28px 0 6px;color:#94a3b8;font-size:13px;text-align:center}
     .img{width:100%;height:auto;border-radius:16px;border:1px solid var(--border)}
+    /* Demo checklist */
+    .demo .step{border:1px dashed var(--border);border-radius:14px;padding:12px;margin-bottom:10px;background:#0e162b}
+    .demo .step header{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .demo .step h4{margin:0;font-size:16px}
+    .demo .lock{font-size:12px;color:#facc15;background:#3b2f0a;border:1px solid #a16207;border-radius:10px;padding:4px 8px}
+    .demo .open{font-size:12px;color:#a7f3d0;background:#052e24;border:1px solid #155e59;border-radius:10px;padding:4px 8px}
+    .demo .content{display:none;margin-top:10px;color:#d1d5db}
+    .demo .content img{max-width:100%;height:auto;border:1px solid var(--border);border-radius:10px}
+    .demo .meta{font-size:13px;color:#9ca3af;margin:6px 0}
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .gallery img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border);object-fit:cover}
+    /* Video mock */
+    .video{aspect-ratio:16/9;background:#0c1326;border:1px solid var(--border);border-radius:16px;display:grid;place-items:center;color:#9ca3af}
+    .video a{display:inline-block;margin-top:6px}
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .grid-3{grid-template-columns:1fr}
       .grid-2{grid-template-columns:1fr}
-      .nav .cta-top{display:none}
     }
   </style>
 </head>
 <body>
-  <header class="wrap nav">
-    <img class="logo" src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro.webp" alt="LuthierPro">
-    <div class="cta-top">
-      <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X" target="_blank" rel="noopener">Mensal — R$ 19,90</a>
-      <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank" rel="noopener">Vitalício — R$ 149,90</a>
+  <!-- NAV STICKY -->
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <img class="logo" src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro.webp" alt="LuthierPro">
+      <div class="cta-top">
+        <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X?off=aucexqyl&bid=1760631297108" target="_blank" rel="noopener">Mensal — R$ 19,90</a>
+        <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T?off=0f4pdhsd" target="_blank" rel="noopener">Vitalício — R$ 149,90</a>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <main class="wrap">
     <!-- HERO -->
@@ -68,8 +86,8 @@
         <h1>LuthierPro — Guia Interativo de Luthieria</h1>
         <p>Checklists guiados, medidas, desenhos técnicos e observações — tudo em sequência lógica. Seu companheiro de bancada.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-          <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank" rel="noopener">Garantir acesso vitalício</a>
-          <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X" target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
+          <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T?off=0f4pdhsd" target="_blank" rel="noopener">Garantir acesso vitalício</a>
+          <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X?off=aucexqyl&bid=1760631297108" target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
         </div>
         <div class="badge">Acesso imediato • Funciona offline por alguns dias</div>
       </div>
@@ -78,33 +96,106 @@
       </div>
     </section>
 
-    <!-- BENEFÍCIOS -->
-    <section class="grid grid-3">
-      <div class="card"><h3 class="h3">Clareza do processo</h3><p class="muted">Etapas e subetapas organizadas.</p></div>
-      <div class="card"><h3 class="h3">Menos erros</h3><p class="muted">Medidas, desenhos e alertas no ponto certo.</p></div>
-      <div class="card"><h3 class="h3">Fluxo consistente</h3><p class="muted">Padronize sua prática no ateliê.</p></div>
-      <div class="card"><h3 class="h3">Produtividade</h3><p class="muted">Foco na bancada, não em “o que vem agora?”.</p></div>
-      <div class="card"><h3 class="h3">Apoio contínuo</h3><p class="muted">Melhorias e conteúdos novos periodicamente.</p></div>
-      <div class="card"><h3 class="h3">Offline por alguns dias</h3><p class="muted">Revalidação automática quando voltar à internet.</p></div>
+    <!-- PRÉVIA INTERATIVA -->
+    <section class="card demo" id="demo">
+      <h2 class="h2">Experimente agora (prévia)</h2>
+      <p class="muted" style="margin-top:-4px">Abra algumas etapas do checklist para sentir o fluxo. No app completo, todas as etapas e medidas ficam disponíveis.</p>
+
+      <!-- Etapa 1 - liberada -->
+      <div class="step" data-open="true">
+        <header>
+          <h4>1. Projeto & Planejamento</h4>
+          <span class="open">Liberado</span>
+        </header>
+        <div class="content">
+          <div class="meta">Subetapas: Briefing • Escolha de madeira • Ferramentas</div>
+          <img src="https://bl-checklist.vercel.app/assets/banners/hero-1200x628.webp" alt="Projeto — exemplo de subetapas">
+          <ul class="list" style="margin-top:10px">
+            <li>Checklist de briefing (escala, tonewood, ferragens).</li>
+            <li>Notas rápidas por etapa (salvas localmente no app).</li>
+            <li>Links para medidas e desenhos quando aplicável.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Etapa 2 - liberada -->
+      <div class="step" data-open="true">
+        <header>
+          <h4>2. Braço — escariamento & tensor</h4>
+          <span class="open">Liberado</span>
+        </header>
+        <div class="content">
+          <div class="meta">Medidas: largura na pestana • espessuras progressivas</div>
+          <ul class="list">
+            <li>Desenho técnico do canal do tensor com tolerâncias.</li>
+            <li>Alerta de erro comum: folga lateral e cola inadequada.</li>
+            <li>Checklist de verificação antes de colar escala.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Etapa 3 - liberada -->
+      <div class="step" data-open="true">
+        <header>
+          <h4>3. Corpo — molde, corte & cavidades</h4>
+          <span class="open">Liberado</span>
+        </header>
+        <div class="content">
+          <div class="meta">Inclui gabaritos e profundidades de cavidades</div>
+          <ul class="list">
+            <li>Sequência: molde → recorte → tupia com gabarito → lixamento.</li>
+            <li>Pontos de atenção: tear-out e alinhamento do braço.</li>
+            <li>Checklist de pré-acabamento (seladora e poros).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bloqueadas (preview) -->
+      <div class="step">
+        <header>
+          <h4>4. Elétrica & Shielding</h4>
+          <span class="lock">Prévia — desbloqueie no app</span>
+        </header>
+      </div>
+      <div class="step">
+        <header>
+          <h4>5. Acabamento</h4>
+          <span class="lock">Prévia — desbloqueie no app</span>
+        </header>
+      </div>
+      <div class="step">
+        <header>
+          <h4>6. Montagem & Setup</h4>
+          <span class="lock">Prévia — desbloqueie no app</span>
+        </header>
+      </div>
+
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+        <a class="btn btn-accent" href="https://pay.hotmart.com/T102449346T?off=0f4pdhsd" target="_blank" rel="noopener">Desbloquear tudo — Vitalício</a>
+        <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X?off=aucexqyl&bid=1760631297108" target="_blank" rel="noopener">Assinar Mensal</a>
+      </div>
     </section>
 
-    <!-- O QUE VOCÊ RECEBE -->
+    <!-- GALERIA -->
     <section class="card" style="margin-top:18px">
-      <h2 class="h2">O que você recebe</h2>
-      <ul class="list">
-        <li>Guia interativo de construção (checklists sequenciais)</li>
-        <li>Medidas e desenhos técnicos dentro de cada etapa</li>
-        <li>Galeria de imagens e observações práticas</li>
-        <li>Funciona offline por alguns dias (revalida quando online)</li>
-        <li>Suporte rápido por WhatsApp/e-mail</li>
-      </ul>
+      <h2 class="h2">Imagens do app</h2>
+      <div class="gallery">
+        <img src="https://bl-checklist.vercel.app/assets/banners/hero-1200x628.webp" alt="Checklist por etapas">
+        <img src="https://bl-checklist.vercel.app/assets/banners/hero-1200x628.webp" alt="Desenhos técnicos">
+        <img src="https://bl-checklist.vercel.app/assets/banners/hero-1200x628.webp" alt="Observações e alertas">
+      </div>
+      <p class="muted" style="margin-top:8px">* As imagens são ilustrativas. No app, cada etapa traz medidas e desenhos específicos.</p>
     </section>
 
-    <!-- DEMONSTRAÇÃO -->
+    <!-- VÍDEO / DEMO -->
     <section class="card" style="margin-top:18px">
-      <h2 class="h2">Demonstração</h2>
-      <img class="img" src="https://bl-checklist.vercel.app/assets/banners/hero-1200x628.webp" alt="Etapa com subetapas, medidas e desenhos">
-      <p class="muted" style="margin-top:8px">Tela de etapa com subetapas, medidas e desenhos.</p>
+      <h2 class="h2">Veja em 60 segundos</h2>
+      <div class="video">
+        <div>
+          <div>Coloque aqui um vídeo curto (YouTube não listado) mostrando 3–4 cliques no app.</div>
+          <a class="btn btn-ghost" href="https://www.youtube.com" target="_blank" rel="noopener">Abrir vídeo (exemplo)</a>
+        </div>
+      </div>
     </section>
 
     <!-- PARA QUEM É / COMO FUNCIONA -->
@@ -127,7 +218,7 @@
           <div class="price">R$ 19,90/mês</div>
           <p class="muted">Sem fidelidade. Cancele quando quiser pela Hotmart.</p>
         </div>
-        <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X" target="_blank" rel="noopener">Começar agora</a>
+        <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X?off=aucexqyl&bid=1760631297108" target="_blank" rel="noopener">Começar agora</a>
       </div>
 
       <div class="card plan" style="border-color:#1b6e4a">
@@ -136,7 +227,7 @@
           <div class="price">R$ 149,90</div>
           <p class="muted">Pagamento único. Sem renovação mensal.</p>
         </div>
-        <a class="btn btn-accent" href="https://pay.hotmart.com/T102449346T" target="_blank" rel="noopener">Garantir acesso vitalício</a>
+        <a class="btn btn-accent" href="https://pay.hotmart.com/T102449346T?off=0f4pdhsd" target="_blank" rel="noopener">Garantir acesso vitalício</a>
       </div>
     </section>
 
@@ -174,5 +265,19 @@
 
     <p class="footer">© LuthierPro • Baratieri Luthieria — Acesso imediato • Funciona offline por alguns dias</p>
   </main>
+
+  <script>
+    // Prévia interativa: abre/fecha as três etapas liberadas
+    document.querySelectorAll('.demo .step').forEach(step=>{
+      const header = step.querySelector('header');
+      const content = step.querySelector('.content');
+      const isOpen = step.dataset.open === "true";
+      if (isOpen && content) content.style.display = 'block';
+      header?.addEventListener('click', ()=>{
+        if (!content) return;
+        content.style.display = content.style.display === 'block' ? 'none' : 'block';
+      });
+    });
+  </script>
 </body>
 </html>
