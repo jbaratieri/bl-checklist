@@ -1,6 +1,6 @@
 // ======================================================
 // 🔐 login.js — LuthierPro (validação via /api/check-license)
-// v2.0 — usa campos: code (license_key), plan_type, expires_at (YYYY-MM-DD)
+// v2.1 — salva dados + registra uso no /api/validate
 // ======================================================
 
 (function(){
@@ -86,6 +86,16 @@
       const nice = data.expires_at ? data.expires_at.split("-").reverse().join("/") : "vitalício";
       show(`Acesso autorizado! Válido até ${nice}.`, true);
 
+      // 🔄 NOVO: registra uso no Airtable (preenche use_count, last_ip, last_used, ip_history, last_ua)
+      try {
+        await fetch("/api/validate", {
+          method: "POST",
+          headers: { "Content-Type":"application/json" },
+          body: JSON.stringify({ code })
+        });
+      } catch(_) { /* se falhar, ignora e segue */ }
+
+      // redireciona
       setTimeout(()=> (window.location.href = AFTER_LOGIN_URL), 700);
     } catch (e){
       console.error("[Login] erro:", e);
