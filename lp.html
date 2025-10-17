@@ -63,9 +63,20 @@
     .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
     .gallery img{width:100%;height:auto;border-radius:12px;border:1px solid var(--border);object-fit:cover}
 
-    /* Video */
-    .video{aspect-ratio:16/9;background:#0c1326;border:1px solid var(--border);border-radius:16px;display:grid;place-items:center;color:#9ca3af}
-    .video a{display:inline-block;margin-top:6px}
+    /* Video container */
+    .video{
+      aspect-ratio:16/9;
+      background:#0c1326;
+      border:1px solid var(--border);
+      border-radius:16px;
+      overflow:hidden; /* garante que o vídeo respeite o raio */
+    }
+    .video video{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover; /* cobre o quadro mantendo 16:9 do container */
+    }
 
     /* === Ajustes de imagem nos HEROS === */
     .hero .img{
@@ -102,7 +113,7 @@
   <!-- NAV -->
   <nav class="nav" role="navigation" aria-label="Principal">
     <div class="wrap nav-inner">
-      <img class="logo" src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro.webp" alt="LuthierPro">
+      <img class="logo" src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro1.webp" alt="LuthierPro">
       <div class="cta-top">
         <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=navbar&utm_campaign=mensal" target="_blank" rel="noopener">Mensal — R$ 19,90</a>
         <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T?utm_source=site&utm_medium=navbar&utm_campaign=vitalicio" target="_blank" rel="noopener">Vitalício — R$ 149,90</a>
@@ -174,11 +185,17 @@
     <section class="card" style="margin-top:18px" aria-labelledby="video">
       <h2 class="h2" id="video">Veja em 60 segundos</h2>
       <div class="video">
-        <div style="text-align:center;padding:12px;">
-          <div>Coloque aqui um vídeo curto (YouTube não listado) mostrando 3–4 cliques no app.</div>
-          <!-- Troque pela sua URL de vídeo -->
-          <a class="btn btn-ghost" href="https://www.youtube.com" target="_blank" rel="noopener">Abrir vídeo (exemplo)</a>
-        </div>
+        <video
+          controls
+          playsinline
+          preload="metadata"
+          poster="/assets/banners/mockup-luthierpro.webp"
+          aria-label="Demonstração do LuthierPro em 60 segundos">
+          <source src="/assets/banners/luthierpro-demo-720p.mp4" type="video/mp4">
+          <!-- Se quiser legenda, converta o SRT para VTT e descomente a linha abaixo -->
+          <!-- <track kind="subtitles" src="/assets/banners/LuthierPro-60s-PTBR.vtt" srclang="pt-br" label="Português (BR)" default> -->
+          Seu navegador não suporta vídeo HTML5.
+        </video>
       </div>
     </section>
 
