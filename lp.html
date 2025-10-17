@@ -39,10 +39,11 @@
     .btn-accent{background:var(--accent);color:#06281f}
     .badge{display:inline-block;margin-top:10px;color:#cbd5e1;font-size:13px}
 
-    /* Layout / sections */
+    /* Layout / sections (desktop/tablet) */
     .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center;margin:16px 0 24px}
     .hero h1{margin:0 0 10px 0;font-size:38px;line-height:1.1}
     .hero p{margin:0 0 14px 0;color:#cbd5e1}
+
     .card{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px}
     .grid{display:grid;gap:16px}
     .grid-3{grid-template-columns:repeat(3,1fr)}
@@ -65,47 +66,38 @@
 
     /* Video container */
     .video{
-      aspect-ratio:16/9;
-      background:#0c1326;
-      border:1px solid var(--border);
-      border-radius:16px;
-      overflow:hidden; /* garante que o vídeo respeite o raio */
+      aspect-ratio:16/9;background:#0c1326;border:1px solid var(--border);
+      border-radius:16px;overflow:hidden;
     }
-    .video video{
+    .video video{width:100%;height:100%;display:block;object-fit:cover}
+
+    /* ===== HERO – imagens com presença (desktop/tablet) ===== */
+    .hero > div{overflow:hidden;border-radius:16px}
+    .hero > div > .img{
       width:100%;
-      height:100%;
-      display:block;
-      object-fit:cover; /* cobre o quadro mantendo 16:9 do container */
+      height:clamp(320px, 50vh, 560px);   /* altura consistente para o cover */
+      object-fit:cover;                   /* preenche a coluna com corte elegante */
+      transform:scale(1.04);              /* leve zoom para evitar bordas */
+      transition:transform .3s ease;
     }
+    @media (hover:hover){ .hero > div:hover > .img{ transform:scale(1.02); } }
 
-    /* === Ajustes de imagem nos HEROS === */
-    .hero .img{
-      max-height: clamp(280px, 52vh, 520px); /* limita altura e evita “estourar” a coluna */
-      max-width: 100%;
-      width: auto;
-      height: auto;
-      display: block;
-      margin-inline: auto;
-      object-fit: contain;
-    }
-    /* Centraliza verticalmente a coluna que contém a imagem */
-    .hero > div:has(> .img){
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Variante para imagens que não devem cortar (aplique class="img no-cover" no HTML) */
+    .img.no-cover{ height:auto !important; object-fit:contain !important; transform:none !important; }
 
+    /* ===== Mobile-first ===== */
     @media (max-width:960px){
-      .hero{grid-template-columns:1fr}
+      /* empilhar e intercalar automaticamente */
+      .hero{display:flex;flex-direction:column;gap:16px}
+      .hero:nth-of-type(even){flex-direction:column-reverse}
+      .hero.hero--flip{flex-direction:column-reverse} /* garante inversão no hero marcado */
+
+      /* imagem no mobile sem zoom/corte agressivo */
+      .hero > div > .img{height:auto;object-fit:cover;transform:none}
+
       .grid-3{grid-template-columns:1fr}
       .grid-2{grid-template-columns:1fr}
-      .logo{height:80px}
-
-      .hero .img{
-        max-height: none;
-        width: 100%;
-        height: auto;
-      }
+      .logo{height:64px}
     }
   </style>
 </head>
@@ -143,7 +135,7 @@
     </section>
 
     <!-- HERO 2 (Sobre o criador) -->
-    <section class="hero" aria-labelledby="hero-title-2">
+    <section class="hero hero--flip" aria-labelledby="hero-title-2">
       <div>
         <img class="img" src="https://bl-checklist.vercel.app/assets/banners/img_1.webp" alt="Luthier Jacir Baratieri" loading="lazy" width="1200" height="628">
       </div>
@@ -169,6 +161,16 @@
         <p>Tenha um guia interativo em mãos que lhe guiará na construção de Violões, Violas, Cavaquinhos e Ukulelês.</p>
         <p>Com o LuthierPro você <strong>constrói</strong> instrumentos de cordas em sequência lógica, evitando erros comuns e garantindo qualidade no resultado final. Assine agora e tenha apoio contínuo, com melhorias e conteúdos novos periodicamente.</p>
 
+        <h1 id="hero-title-3">Benefícios</h1>
+        <p>Acesso ao App LuthierPro - Guia Interativo de lutieria, você terá em suas mão, no smarthphone ou no Desktop, checklists guiados para construção eficiente de Violões, Violas Caipira, Cavaquinho e Ukulel^. Com detalhes finos de cada etapa, medidas, madeiras, desenhos técnicos, galerias de imagens e observações — tudo organizado em sequência lógica.</p>
+
+        <h1 id="hero-title-3">Clareza do processo</h1>
+        <p>- etapas e subetapas organizadas.</p>
+        <p>- Menos erros: medidas, desenhos e alertas no ponto certo.</p>
+        <p>- Fluxo consistente: padronize sua prática no ateliê.</p>
+        <p>- Produtividade: foco na bancada, não em “o que vem agora?”.</p>
+        <p>- Apoio contínuo: melhorias e conteúdos novos periodicamente.</p>
+
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
           <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T?utm_source=site&utm_medium=hero3&utm_campaign=vitalicio" target="_blank" rel="noopener">Garantir acesso vitalício</a>
           <a class="btn btn-ghost" href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero3&utm_campaign=mensal" target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
@@ -185,14 +187,8 @@
     <section class="card" style="margin-top:18px" aria-labelledby="video">
       <h2 class="h2" id="video">Veja em 60 segundos</h2>
       <div class="video">
-        <video
-          controls
-          playsinline
-          preload="metadata"
-          poster="/assets/banners/mockup-luthierpro.webp"
-          aria-label="Demonstração do LuthierPro em 60 segundos">
+        <video controls playsinline preload="metadata" poster="/assets/banners/mockup-luthierpro.webp" aria-label="Demonstração do LuthierPro em 60 segundos">
           <source src="/assets/banners/luthierpro-demo-720p.mp4" type="video/mp4">
-          <!-- Se quiser legenda, converta o SRT para VTT e descomente a linha abaixo -->
           <!-- <track kind="subtitles" src="/assets/banners/LuthierPro-60s-PTBR.vtt" srclang="pt-br" label="Português (BR)" default> -->
           Seu navegador não suporta vídeo HTML5.
         </video>
