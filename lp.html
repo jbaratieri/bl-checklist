@@ -67,11 +67,34 @@
     .video{aspect-ratio:16/9;background:#0c1326;border:1px solid var(--border);border-radius:16px;display:grid;place-items:center;color:#9ca3af}
     .video a{display:inline-block;margin-top:6px}
 
+    /* === Ajustes de imagem nos HEROS === */
+    .hero .img{
+      max-height: clamp(280px, 52vh, 520px); /* limita altura e evita “estourar” a coluna */
+      max-width: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      margin-inline: auto;
+      object-fit: contain;
+    }
+    /* Centraliza verticalmente a coluna que contém a imagem */
+    .hero > div:has(> .img){
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
     @media (max-width:960px){
       .hero{grid-template-columns:1fr}
       .grid-3{grid-template-columns:1fr}
       .grid-2{grid-template-columns:1fr}
       .logo{height:40px}
+
+      .hero .img{
+        max-height: none;
+        width: 100%;
+        height: auto;
+      }
     }
   </style>
 </head>
@@ -133,7 +156,7 @@
       <div>
         <h1 id="hero-title-3">Sobre o conteúdo</h1>
         <p>Tenha um guia interativo em mãos que lhe guiará na construção de Violões, Violas, Cavaquinhos e Ukulelês.</p>
-        <p>Aprenda a construir instrumentos de cordas em sequência lógica, evitando erros comuns e garantindo qualidade no resultado final. Assine agora e tenha apoio contínuo, com melhorias e conteúdos novos periodicamente.</p>
+        <p>Com o LuthierPro você <strong>constrói</strong> instrumentos de cordas em sequência lógica, evitando erros comuns e garantindo qualidade no resultado final. Assine agora e tenha apoio contínuo, com melhorias e conteúdos novos periodicamente.</p>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
           <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T?utm_source=site&utm_medium=hero3&utm_campaign=vitalicio" target="_blank" rel="noopener">Garantir acesso vitalício</a>
@@ -143,7 +166,7 @@
         <div class="badge">Acesso imediato • Funciona offline por alguns dias</div>
       </div>
       <div>
-        <img class="img" src="https://bl-checklist.vercel.app/assets/banners/img_6.webp" alt="Outra tela do app com subetapas e desenhos" loading="lazy" width="1200" height="628">
+        <img class="img" src="https://bl-checklist.vercel.app/assets/banners/img_6.webp" alt="Imagem de um luthier construindo um violão" loading="lazy" width="1200" height="628">
       </div>
     </section>
 
