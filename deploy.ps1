@@ -10,7 +10,7 @@ git pull origin main
 git add .
 
 # Cria um commit (se não houver alterações, não quebra)
-git commit -m "automático" --allow-empty
+git commit -m "automático - ajustes para refresh automático ao mudar instrumento - step9" --allow-empty
 
 # Envia para a branch main (GitHub Pages já publica direto da main)
 git push origin main
