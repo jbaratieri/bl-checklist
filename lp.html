@@ -77,7 +77,8 @@
     .cta-top {
       display: flex;
       gap: 8px;
-      flex-wrap: wrap
+      flex-wrap: wrap;
+      justify-content: center
     }
 
     /* Buttons */
@@ -257,69 +258,32 @@
       transition: transform .3s ease;
     }
 
-    @media (hover:hover) {
-      .hero>div:hover>.img {
-        transform: scale(1.02);
-      }
-    }
-
-    .img.no-cover {
-      height: auto !important;
-      object-fit: contain !important;
-      transform: none !important;
-    }
-
-    @media (max-width:960px) {
-      .hero {
-        display: flex;
-        flex-direction: column;
-        gap: 16px
-      }
-
-      .hero:nth-of-type(even) {
-        flex-direction: column-reverse
-      }
-
-      .hero.hero--flip {
-        flex-direction: column-reverse
-      }
-
-      .hero>div>.img {
-        height: auto;
-        object-fit: cover;
-        transform: none
-      }
-
-      .grid-3 {
-        grid-template-columns: 1fr
-      }
-
-      .grid-2 {
-        grid-template-columns: 1fr
-      }
-
-      .logo {
-        height: 64px
-      }
-    }
-
+   
     /* ==== PREÇO ÂNCORA + BADGE ==== */
+    /* base desktop */
     .price-line {
       display: inline-flex;
       align-items: baseline;
       gap: 8px;
       font-weight: 800;
-      font-size: 24px;
+      font-size: clamp(18px, 2.4vw, 24px);
+      /* mínimo 18px, máximo 24px */
     }
+
+    .price-line strong {
+      font-size: clamp(1.02em, 2.6vw, 1.15em);
+    }
+
+    /* badge compacto quando necessário */
+    .badge {
+      font-size: clamp(11px, 1.2vw, 13px);
+      padding: 6px 10px;
+    }
+
 
     .price-line s {
       opacity: .65;
       font-weight: 600;
-    }
-
-    .price-line strong {
-      font-size: 1.15em;
-      color: #fff;
     }
 
     .badge.tag {
@@ -372,6 +336,57 @@
     .etapa.is-open>.etapa-body {
       display: block;
     }
+
+ @media (hover:hover) {
+      .hero>div:hover>.img {
+        transform: scale(1.02);
+      }
+    }
+
+    .img.no-cover {
+      height: auto !important;
+      object-fit: contain !important;
+      transform: none !important;
+    }
+
+    @media (max-width:960px) {
+      .hero {
+        display: flex;
+        flex-direction: column;
+        gap: 16px
+      }
+
+      .hero:nth-of-type(even) {
+        flex-direction: column-reverse
+      }
+
+      .hero.hero--flip {
+        flex-direction: column-reverse
+      }
+
+      .hero>div>.img {
+        height: auto;
+        object-fit: cover;
+        transform: none
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr
+      }
+
+      .grid-2 {
+        grid-template-columns: 1fr
+      }
+
+      .logo {
+        height: 64px
+      }
+    }
+
+    @media(max-width:420px){
+  .price-line{ display:block; }
+}
+
   </style>
 </head>
 
@@ -728,7 +743,8 @@
         <h2 class="h2">Como funciona</h2>
         <p class="muted">Após a compra, você recebe (ou resgata) um código de licença. Abra o app, toque em
           <strong>Login</strong> e cole o código. Enquanto a assinatura estiver ativa, o acesso permanece liberado; no
-          plano vitalício, não há data de expiração.</p>
+          plano vitalício, não há data de expiração.
+        </p>
       </div>
     </section>
 
