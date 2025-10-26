@@ -34,19 +34,11 @@
       box-sizing: border-box
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
-
     body {
       margin: 0;
       background: linear-gradient(145deg, #0b1220, #0f172a);
       color: var(--text);
-      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      padding-top: 100px;
-      /* espaço para nav fixa */
+      font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto
     }
 
     a {
@@ -60,52 +52,43 @@
       padding: 24px
     }
 
-    /* NAV / HEADER */
+    /* NAV */
     .nav {
-      position: fixed;
+      position: sticky;
       top: 0;
-      left: 0;
-      right: 0;
-      z-index: 9999;
-      background: rgba(15, 23, 42, .85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      transition: height .22s ease, padding .22s ease, background .22s ease;
+      z-index: 50;
+      background: rgba(15, 23, 42, .7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border)
     }
 
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 14px 24px;
+      gap: 16px
     }
 
     .logo {
-      height: 72px;
-      width: auto;
-      transition: height .22s ease;
+      height: 95px;
+      width: auto
     }
 
     .cta-top {
       display: flex;
       gap: 8px;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center
     }
 
     /* Buttons */
     .btn {
       display: inline-block;
-      padding: 10px 14px;
+      padding: 12px 18px;
       border-radius: 12px;
       font-weight: 700;
       border: 1px solid transparent;
-      transition: transform .05s ease, opacity .15s ease;
-      font-size: 14px;
+      transition: transform .05s ease
     }
 
     .btn:active {
@@ -130,19 +113,9 @@
 
     .badge {
       display: inline-block;
-      margin-top: 6px;
+      margin-top: 10px;
       color: #cbd5e1;
       font-size: 13px
-    }
-
-    /* Header small state */
-    .nav.shrink {
-      padding: 8px 16px;
-      background: rgba(15, 23, 42, .96);
-    }
-
-    .nav.shrink .logo {
-      height: 46px;
     }
 
     /* Layout / sections (desktop/tablet) */
@@ -157,8 +130,7 @@
     .hero h1 {
       margin: 0 0 10px 0;
       font-size: 38px;
-      line-height: 1.08;
-      color: var(--text);
+      line-height: 1.1
     }
 
     .hero p {
@@ -194,8 +166,7 @@
 
     .h2 {
       margin: 4px 0 10px 0;
-      font-size: 22px;
-      line-height: 1.08
+      font-size: 22px
     }
 
     .h3 {
@@ -287,18 +258,28 @@
       transition: transform .3s ease;
     }
 
+   
     /* ==== PREÇO ÂNCORA + BADGE ==== */
+    /* base desktop */
     .price-line {
       display: inline-flex;
       align-items: baseline;
       gap: 8px;
       font-weight: 800;
       font-size: clamp(18px, 2.4vw, 24px);
+      /* mínimo 18px, máximo 24px */
     }
 
     .price-line strong {
       font-size: clamp(1.02em, 2.6vw, 1.15em);
     }
+
+    /* badge compacto quando necessário */
+    .badge {
+      font-size: clamp(11px, 1.2vw, 13px);
+      padding: 6px 10px;
+    }
+
 
     .price-line s {
       opacity: .65;
@@ -330,6 +311,10 @@
       text-align: center;
     }
 
+    .cta-top .btn .title {
+      font-weight: 700;
+    }
+
     /* ===== rolagem suave ===== */
     html {
       scroll-behavior: smooth;
@@ -352,7 +337,7 @@
       display: block;
     }
 
-    @media (hover:hover) {
+ @media (hover:hover) {
       .hero>div:hover>.img {
         transform: scale(1.02);
       }
@@ -364,8 +349,7 @@
       transform: none !important;
     }
 
-    /* MOBILE ADJUSTS */
-    @media (max-width: 960px) {
+    @media (max-width:960px) {
       .hero {
         display: flex;
         flex-direction: column;
@@ -395,89 +379,32 @@
       }
 
       .logo {
-        height: 56px
+        height: 64px
       }
     }
 
-    @media (max-width: 768px) {
-
-      /* reduzir o espaço do header e esconder badges de preço no topo */
-      body {
-        padding-top: 76px;
-      }
-
-      .nav-inner {
-        padding: 8px 12px;
-      }
-
-      .logo {
-        height: 48px;
-      }
-
-      .cta-top {
-        display: none;
-      }
-
-      /* escondemos os botões do header no mobile */
-    }
-
-    @media (max-width:420px) {
-      .price-line {
-        display: block;
-      }
-    }
-
-    /* CTA fixo rodapé (mobile) - inicialmente escondido em desktop */
-    #mobile-cta {
-      display: none;
-    }
-
-    @media (max-width: 960px) {
-      #mobile-cta {
-        display: flex;
-        position: fixed;
-        left: 8px;
-        right: 8px;
-        bottom: 12px;
-        z-index: 9998;
-        justify-content: center;
-        align-items: center;
-      }
-
-      #mobile-cta a {
-        width: 100%;
-        max-width: 540px;
-        display: inline-block;
-        text-align: center;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, .20);
-      }
-    }
-
-    /* small accessibility helper for focus */
-    .btn:focus {
-      outline: 3px solid rgba(99, 102, 241, 0.18);
-      outline-offset: 2px;
-    }
+    @media(max-width:420px){
+  .price-line{ display:block; }
+}
   </style>
 
   <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-406048847"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-406048847">
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-    gtag('config', 'AW-406048847');
-  </script>
+  gtag('config', 'AW-406048847');
+</script>
 </head>
 
 <body>
   <nav class="nav" role="navigation" aria-label="Principal">
-    <div class="nav-inner">
-      <a href="/" aria-label="LuthierPro — voltar ao início"><img class="logo"
-          src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro1.webp" alt="LuthierPro"></a>
-
-      <div class="cta-top" aria-hidden="false">
+    <div class="wrap nav-inner">
+      <img class="logo" src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro1.webp" alt="LuthierPro">
+      <div class="cta-top">
         <a class="btn btn-ghost"
           href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=navbar&utm_campaign=mensal"
           target="_blank" rel="noopener" data-deadline="2025-11-20T23:59:59-03:00" data-full="R$ 24,90"
@@ -505,20 +432,17 @@
     </div>
   </nav>
 
-  <main class="wrap" id="main-content" tabindex="-1">
+  <main class="wrap">
     <!-- HERO 1 -->
     <section class="hero" aria-labelledby="hero-title-1">
       <div>
-        <h1 id="hero-title-1">LuthierPro — Checklist interativo para construir violões, violas e mais</h1>
-        <h2>Construa instrumentos com precisão — Passo a passo com medidas, fases e verificações.</h2>
-
+        <h1 id="hero-title-1">LuthierPro — Guia Interativo de Luthieria</h1>
         <p>Um verdadeiro companheiro de bancada para luthiers de todos os níveis. Padronize e documente seu método de
           construção e ganhe controle e clareza no fluxo de trabalho.</p>
         <p>Checklists guiados, medidas, desenhos técnicos, galeria das etapas e observações — tudo em sequência lógica.
           Seu companheiro de bancada.</p>
         <p>Adicione suas próprias imagens de cada etapa da construção do instrumento, para consulta, arquivo ou até para
           compartilhar com o cliente.</p>
-        <p></p>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
           <a class="btn btn-primary"
@@ -529,7 +453,7 @@
             target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
-        <div class="badge" aria-label="Selo informativo">Acesso imediato • </div>
+        <div class="badge" aria-label="Selo informativo">Acesso imediato • Funciona offline por alguns dias</div>
       </div>
       <div>
         <img class="img" src="https://bl-checklist.vercel.app/assets/banners/mockup-luthierpro.webp"
@@ -562,26 +486,26 @@
             target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
-        <div class="badge">Acesso imediato • </div>
+        <div class="badge">Acesso imediato • Funciona offline por alguns dias</div>
       </div>
     </section>
 
     <!-- HERO 3 -->
     <section class="hero" aria-labelledby="hero-title-3">
       <div>
-        <h2 id="hero-title-3">Sobre o conteúdo</h2>
+        <h1 id="hero-title-3">Sobre o conteúdo</h1>
         <p>Tenha um guia interativo em mãos que lhe guiará na construção de Violões, Violas, Cavaquinhos e Ukulelês.</p>
         <p>Com o LuthierPro você <strong>constrói</strong> instrumentos de cordas em sequência lógica, evitando erros
           comuns e garantindo qualidade no resultado final. Assine agora e tenha apoio contínuo, com melhorias e
           conteúdos novos periodicamente.</p>
 
-        <h2 id="beneficios-title">Benefícios</h2>
-        <p>Com o LuthierPro você terá, no smartphone ou no desktop, checklists guiados para construção eficiente de
-          Violões,
-          Violas Caipira, Cavaquinho e Ukulelês. Com detalhes finos de cada etapa, medidas, madeiras, desenhos técnicos,
-          galerias de imagens e observações — tudo organizado em sequência lógica.</p>
+        <h1 id="hero-title-3">Benefícios</h1>
+        <p>Acesso ao App LuthierPro - Guia Interativo de lutieria, você terá em suas mão, no smarthphone ou no Desktop,
+          checklists guiados para construção eficiente de Violões, Violas Caipira, Cavaquinho e Ukulel^. Com detalhes
+          finos de cada etapa, medidas, madeiras, desenhos técnicos, galerias de imagens e observações — tudo organizado
+          em sequência lógica.</p>
 
-        <h3 id="clareza-title">Clareza do processo</h3>
+        <h1 id="hero-title-3">Clareza do processo</h1>
         <p>- etapas e subetapas organizadas.</p>
         <p>- Menos erros: medidas, desenhos e alertas no ponto certo.</p>
         <p>- Fluxo consistente: padronize sua prática no ateliê.</p>
@@ -597,7 +521,7 @@
             target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
-        <div class="badge">Acesso imediato •</div>
+        <div class="badge">Acesso imediato • Funciona offline por alguns dias</div>
       </div>
       <div>
         <img class="img" src="https://bl-checklist.vercel.app/assets/banners/img_6.webp"
@@ -618,6 +542,7 @@
     </section>
 
     <!-- ÍNDICE -->
+    <!-- Índice local preenchido a partir do index.html do app -->
     <section class="card" id="indice" aria-labelledby="indice-title" style="margin-top:18px">
       <h2 class="h2" id="indice-title">O que tem dentro do LuthierPro</h2>
       <p class="muted" style="margin-top:-6px">Etapas e subetapas (títulos) — prévia fiel, exibida aqui na LP.</p>
@@ -659,6 +584,7 @@
       </details>
 
     </section>
+
 
     <script>
       // Dados extraídos do index.html do app
@@ -814,6 +740,8 @@
       })();
     </script>
 
+
+
     <!-- PARA QUEM É / COMO FUNCIONA -->
     <section class="grid grid-2" style="margin-top:18px" aria-label="Para quem é e como funciona">
       <div class="card">
@@ -831,7 +759,7 @@
     </section>
 
     <!-- PREÇOS -->
-    <section id="precos" class="grid grid-2" style="margin-top:18px" aria-labelledby="precos">
+    <section class="grid grid-2" style="margin-top:18px" aria-labelledby="precos">
       <div class="card plan">
         <div>
           <h3 class="h3">Assinatura Mensal</h3>
@@ -903,14 +831,8 @@
       </dl>
     </section>
 
-    <p class="footer">© LuthierPro • Baratieri Luthieria — Acesso imediato • </p>
+    <p class="footer">© LuthierPro • Baratieri Luthieria — Acesso imediato • Funciona offline por alguns dias</p>
   </main>
-
-  <!-- CTA fixo mobile -->
-  <div id="mobile-cta" aria-hidden="false">
-    <a id="cta-buy" class="btn btn-primary" href="#precos" aria-label="Ver planos e preços — LuthierPro">Ver
-      planos — Teste</a>
-  </div>
 
   <!-- FAQ Schema (SEO) -->
   <script>
@@ -941,15 +863,16 @@
         if (!deadline) return;
 
         if (now > deadline) {
-          const priceLine = el.classList && el.classList.contains('price-line') ? el : el.querySelector('.price-line');
+          const container = el.classList.contains('price-line') ? el.parentElement : el;
+          container.querySelectorAll('.badge.tag').forEach(b => b.remove());
+          const priceLine = el.classList.contains('price-line') ? el : container.querySelector('.price-line');
           if (priceLine) {
             const full = el.getAttribute('data-full') || priceLine.getAttribute('data-full') || '';
             priceLine.innerHTML = `<strong>${full}</strong>`;
           }
-          // remove badges (se existirem como filhos)
-          el.closest && el.closest('.card')?.querySelectorAll('.badge.tag')?.forEach(b => b.remove());
         } else {
-          const priceLine = el.classList && el.classList.contains('price-line') ? el : el.querySelector('.price-line');
+          const container = el.classList.contains('price-line') ? el.parentElement : el;
+          const priceLine = el.classList.contains('price-line') ? el : container.querySelector('.price-line');
           if (priceLine) {
             const full = el.getAttribute('data-full') || priceLine.getAttribute('data-full') || '';
             const promo = el.getAttribute('data-promo') || priceLine.getAttribute('data-promo') || '';
@@ -960,53 +883,7 @@
     })();
   </script>
 
-  <!-- HEADER shrink on scroll + CTA microconversion -->
-  <script>
-    (function () {
-      // Header shrink behavior
-      const header = document.querySelector('.nav');
-      let lastScroll = 0;
-      const threshold = 48;
-      if (header) {
-        document.addEventListener('scroll', function () {
-          const st = window.pageYOffset || document.documentElement.scrollTop;
-          if (st > threshold) {
-            header.classList.add('shrink');
-          } else {
-            header.classList.remove('shrink');
-          }
-          lastScroll = st <= 0 ? 0 : st;
-        }, { passive: true });
-      }
 
-      // Mobile CTA microconversion
-      const cta = document.getElementById('cta-buy');
-      if (cta) {
-        cta.addEventListener('click', function (e) {
-          try {
-            // dataLayer push (GTM)
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-              'event': 'micro_conversion',
-              'micro_conversion_type': 'cta_ver_planos',
-              'page_path': location.pathname
-            });
-            // gtag event (AW / GA)
-            if (typeof gtag === 'function') {
-              gtag('event', 'micro_conversion', {
-                'event_category': 'engagement',
-                'event_label': 'cta_ver_planos'
-              });
-            }
-          } catch (err) {
-            // fail silently
-            console.warn('micro conv push error', err);
-          }
-          // allow default anchor behavior (scroll to pricing)
-        }, { passive: true });
-      }
-    })();
-  </script>
 
 </body>
 
