@@ -1,13 +1,13 @@
-// service-worker.js — LuthierPro v2.3.9
-const CACHE_VERSION = 'luthierpro-v2.3.9';
+// service-worker.js — LuthierPro v2.4.1 (offline forte + login sem cache + ignora /api)
+const CACHE_VERSION = 'luthierpro-v2.4.1';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 const APP_SHELL = [
   './',
-  './index.html',
-  './login.html',
+  './index.html',            // mantém cache para offline do app
+  // './login.html',         // ⚠️ não cachear login (sempre rede)
   './offline.html',
   './manifest.webmanifest',
 
@@ -40,7 +40,7 @@ const APP_SHELL = [
   './js/step19-project-plan.v7.js',
   './js/step18-persist-fallback.v3.js',
   './js/viewer.global.js',
-  './js/login.js',
+  './js/login.js', // ok manter; o HTML do login é que não será cacheado
 
   // Ícones PWA
   './icon/icon-192.webp',
@@ -64,7 +64,7 @@ async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
 
 // INSTALL
 self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Install v2.3.9');
+  console.log('[Service Worker] Install v2.4.1');
   event.waitUntil((async () => {
     const cache = await caches.open(SHELL_CACHE);
     for (const url of APP_SHELL) {
@@ -84,7 +84,11 @@ self.addEventListener('activate', (event) => {
   console.log('[Service Worker] Activate');
   event.waitUntil((async () => {
     const names = await caches.keys();
-    await Promise.all(names.filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n)).map(n => caches.delete(n)));
+    await Promise.all(
+      names
+        .filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n))
+        .map(n => caches.delete(n))
+    );
     await self.clients.claim();
   })());
 });
@@ -97,17 +101,35 @@ self.addEventListener('fetch', (event) => {
   // Ignorar requisições externas e POST
   if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
+  // ⚠️ Nunca interceptar APIs (nem GET), para evitar cache em validação/licença
+  if (url.pathname.startsWith('/api/')) return;
+
   // Navegação HTML
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
+    // login.html: rede sempre (sem cache) + fallback offline
+    if (url.pathname.endsWith('/login.html') || url.pathname.endsWith('login.html')) {
+      event.respondWith((async () => {
+        try {
+          return await fetch(request); // rede
+        } catch {
+          const cache = await caches.open(SHELL_CACHE);
+          return (await cache.match('./offline.html')) || Response.error();
+        }
+      })());
+      return;
+    }
+
+    // index.html e demais HTML: network-first com fallback ao cache (garante offline)
     event.respondWith((async () => {
+      const cache = await caches.open(SHELL_CACHE);
       try {
         const net = await fetch(request);
-        const cache = await caches.open(SHELL_CACHE);
-        cache.put(request, net.clone());
+        // atualiza cache da página principal
+        cache.put('./index.html', net.clone());
         return net;
       } catch {
-        const cache = await caches.open(SHELL_CACHE);
-        return (await cache.match(request))
+        // offline: tenta cache do index ou offline.html
+        return (await cache.match('./index.html'))
             || (await cache.match('./offline.html'))
             || Response.error();
       }
@@ -115,7 +137,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // CSS/JS/Manifest
+  // CSS/JS/Manifest (cache first, atualiza em segundo plano)
   if (/\.(css|js|json|webmanifest|png|webp)$/.test(url.pathname)) {
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
@@ -150,7 +172,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Outros arquivos
+  // Outros arquivos (runtime cache-first)
   event.respondWith((async () => {
     const cache = await caches.open(RUNTIME_CACHE);
     const cached = await cache.match(request);
@@ -161,7 +183,8 @@ self.addEventListener('fetch', (event) => {
       cache.put(request, net.clone());
       return net;
     } catch {
-      return (await caches.match('./offline.html')) || Response.error();
+      const fallback = await caches.match('./offline.html');
+      return fallback || Response.error();
     }
   })());
 });

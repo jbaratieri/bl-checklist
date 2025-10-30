@@ -1,6 +1,5 @@
-// api/validate.js — Validação de licença (robusto)
+// api/validate.js — Validação de licença com controle por deviceId
 export default async function handler(req, res) {
-  // respostas desta rota não devem ser cacheadas
   res.setHeader("Cache-Control", "no-store, max-age=0");
   res.setHeader("Pragma", "no-cache");
 
@@ -9,26 +8,31 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { code } = req.body || {};
+    const { code, deviceId } = req.body || {};
     if (!code) {
-      return res.status(400).json({ ok: false, msg: "Código ausente.", server_time: new Date().toISOString() });
+      return res.status(400).json({
+        ok: false,
+        msg: "Código ausente.",
+        server_time: new Date().toISOString(),
+      });
     }
 
     const AIRTABLE_BASE = process.env.AIRTABLE_BASE;
     const AIRTABLE_KEY  = process.env.AIRTABLE_KEY;
     const TABLE = "licenses";
 
-    const ip = req.headers["x-forwarded-for"]?.split(",")[0]?.trim()
-      || req.socket?.remoteAddress
-      || "unknown";
+    const ip =
+      req.headers["x-forwarded-for"]?.split(",")[0]?.trim() ||
+      req.socket?.remoteAddress ||
+      "unknown";
     const ua = req.headers["user-agent"] || "unknown";
     const now = new Date();
 
-    // filtro seguro (escapa aspas simples) + cache-buster + maxRecords=1
     const formula = `({code}='${String(code).replace(/'/g, "\\'")}')`;
-    const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}` +
-                `?filterByFormula=${encodeURIComponent(formula)}` +
-                `&maxRecords=1&ts=${Date.now()}`;
+    const url =
+      `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}` +
+      `?filterByFormula=${encodeURIComponent(formula)}` +
+      `&maxRecords=1&ts=${Date.now()}`;
 
     const resAirtable = await fetch(url, {
       headers: { Authorization: `Bearer ${AIRTABLE_KEY}` },
@@ -46,8 +50,6 @@ export default async function handler(req, res) {
     }
 
     const data = await resAirtable.json();
-    // console.log("[Airtable resposta]:", JSON.stringify(data));
-
     if (!data.records || data.records.length === 0) {
       return res.status(404).json({ ok: false, msg: "Código inválido.", server_time: now.toISOString() });
     }
@@ -55,69 +57,129 @@ export default async function handler(req, res) {
     const rec = data.records[0];
     const f   = rec.fields || {};
 
-    // normaliza plano (sem acento, minúsculo)
-    const planNorm = (f.plan_type || "mensal")
-      .toString()
-      .toLowerCase()
-      .normalize("NFD").replace(/\p{Diacritic}/gu, ""); // "vitalício" -> "vitalicio"
+    // plano e expiração
+    const planNorm = (f.plan_type || "mensal").toString().toLowerCase()
+      .normalize("NFD").replace(/\p{Diacritic}/gu, "");
     const isVitalicio = planNorm === "vitalicio";
 
     const expDate = f.expires_at ? new Date(f.expires_at) : null;
     const expired = !isVitalicio && expDate && now > expDate;
 
-    // bloqueio por flag manual
     if (f.flagged === true) {
-      return res.status(403).json({
-        ok: false,
-        msg: "Acesso bloqueado. Contate o suporte.",
-        server_time: now.toISOString(),
-      });
+      return res.status(403).json({ ok: false, msg: "Acesso bloqueado. Contate o suporte.", server_time: now.toISOString() });
     }
-
-    // bloqueio por expiração
     if (expired) {
-      return res.status(403).json({
-        ok: false,
-        msg: "Código expirado. Renove sua assinatura.",
-        server_time: now.toISOString(),
-      });
+      return res.status(403).json({ ok: false, msg: "Código expirado. Renove sua assinatura.", server_time: now.toISOString() });
     }
 
-    // ---------- Logs e controle ----------
-    const oldHistory = (f.ip_history || "")
-      .split(",")
-      .map(s => s.trim())
-      .filter(Boolean);
-
-    // dedup + adiciona IP atual
+    // ip_history (mantém para auditoria; não decide mais por IP)
+    const oldHistory = (f.ip_history || "").split(",").map(s => s.trim()).filter(Boolean);
     const ipSet = new Set(oldHistory);
     ipSet.add(ip);
-
-    // HIGIENE: mantém só os ÚLTIMOS 20 IPs distintos
     const ipList = Array.from(ipSet).slice(-20);
-
     const distinctCount = ipList.length;
-    // auto-flag a partir de 5 IPs distintos
-    const autoFlagged = distinctCount >= 5;
-    const useCount    = (f.use_count || 0) + 1;
+    const autoFlagged = distinctCount >= 5; // mantém heurística, se quiser remova/ajuste
 
-    // Atualiza registro no Airtable
+    // Parse dos campos de device
+    function parseDevicesField(devField){
+      if (!devField) return [];
+      if (Array.isArray(devField)) return devField;
+      if (typeof devField === "string") {
+        try { return JSON.parse(devField); } catch { return []; }
+      }
+      return [];
+    }
+
+    const devices = parseDevicesField(f.Devices); // [{ deviceId, firstSeen, lastSeen, lastIp, userAgent }]
+    const maxDevices = Number(f.MaxDevices || 1);
+    const deviceCountStored = Number(f.DeviceCount || devices.length || 0);
+
+    // Lógica principal: prioriza deviceId
+    let shouldIncrementUseCount = false; // só incrementa em nova ativação
+    let updatedDevices = devices.slice();
+    let updatedDeviceCount = deviceCountStored;
+    let deniedBecauseMaxDevices = false;
+
+    if (deviceId && typeof deviceId === "string" && deviceId.trim()) {
+      const trimmedId = deviceId.trim();
+      const idx = updatedDevices.findIndex(d => d.deviceId === trimmedId);
+
+      if (idx >= 0) {
+        // mesmo aparelho → atualiza metadata; NÃO incrementa use_count
+        updatedDevices[idx].lastSeen = now.toISOString();
+        updatedDevices[idx].lastIp = ip;
+        updatedDevices[idx].userAgent = ua || updatedDevices[idx].userAgent || "";
+      } else {
+        // novo aparelho
+        if (updatedDevices.length >= maxDevices) {
+          deniedBecauseMaxDevices = true;
+        } else {
+          updatedDevices.push({
+            deviceId: trimmedId,
+            firstSeen: now.toISOString(),
+            lastSeen: now.toISOString(),
+            lastIp: ip,
+            userAgent: ua || ""
+          });
+          updatedDeviceCount = updatedDevices.length;
+          shouldIncrementUseCount = true; // só ativa em novo device
+        }
+      }
+    } else {
+      // cliente antigo sem deviceId → compat (opcional: mantenha até todos enviarem deviceId)
+      shouldIncrementUseCount = true;
+    }
+
+    const previousUseCount = Number(f.use_count || 0);
+    const newUseCount = shouldIncrementUseCount ? previousUseCount + 1 : previousUseCount;
+    const deviceIDs = updatedDevices.map(d => d.deviceId).filter(Boolean).join(",");
+
+    // Se excedeu limite de aparelhos, apenas loga e nega
+    if (deniedBecauseMaxDevices) {
+      const patchUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}/${rec.id}`;
+      await fetch(patchUrl, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${AIRTABLE_KEY}`, "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({
+          fields: {
+            last_ip: ip,
+            last_used: now.toISOString(),
+            use_count: newUseCount,
+            ip_history: ipList.join(","),
+            flagged: autoFlagged || !!f.flagged,
+            last_ua: ua,
+          },
+        }),
+      });
+
+      return res.status(403).json({
+        ok: false,
+        msg: "Limite de dispositivos atingido para esta licença.",
+        plan: isVitalicio ? "vitalicio" : "mensal",
+        deviceCount: deviceCountStored,
+        maxDevices,
+        server_time: now.toISOString(),
+      });
+    }
+
+    // Atualiza estado normal
     const patchUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}/${rec.id}`;
     await fetch(patchUrl, {
       method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${AIRTABLE_KEY}`,
-        "Content-Type": "application/json",
-      },
+      headers: { Authorization: `Bearer ${AIRTABLE_KEY}`, "Content-Type": "application/json" },
       cache: "no-store",
       body: JSON.stringify({
         fields: {
           last_ip: ip,
           last_used: now.toISOString(),
-          use_count: useCount,
+          use_count: newUseCount,
           ip_history: ipList.join(","),
-          flagged: autoFlagged || !!f.flagged, // preserva flag manual
+          flagged: autoFlagged || !!f.flagged,
           last_ua: ua,
+          DeviceCount: updatedDeviceCount,
+          Devices: JSON.stringify(updatedDevices),
+          DeviceIDs: deviceIDs,
         },
       }),
     });
@@ -134,6 +196,8 @@ export default async function handler(req, res) {
       ip,
       distinct_ips: distinctCount,
       flagged: autoFlagged || !!f.flagged,
+      deviceCount: updatedDeviceCount,
+      maxDevices,
       server_time: now.toISOString(),
     });
   } catch (err) {
