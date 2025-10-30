@@ -215,7 +215,7 @@ function closeModal(id) {
   const CODE_KEY = "lp_code";                     // código salvo pós-login
   const LICENSE_KEY = "lp_license";               // snapshot para a UI do rodapé
 
-  const OFFLINE_TTL_DAYS = 7; // janela de confiança offline
+  const OFFLINE_TTL_DAYS = 5; // janela de confiança offline
   const CHECK_EVERY_DAYS  = 1; // tentar revalidar 1x/dia
 
   const now = Date.now();
