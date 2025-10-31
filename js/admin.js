@@ -1,8 +1,9 @@
-// admin.js — Painel administrativo LuthierPro (v2.0)
-// - GET com cache-buster e no-store + erros amigáveis
-// - Reload duplo pós salvar/excluir
-// - Badge de status (Ativo / Expirado / Bloqueado)
-// - NOVO: Filtro por status, busca por nome/email/código, exportar CSV
+// admin.js — Painel administrativo LuthierPro (v2.1 — devices & blocked)
+// - Status correto: BLOQUEADO só se blocked=true (flagged é alerta)
+// - Lista/edita MaxDevices e blocked
+// - Gerenciar aparelhos (remover deviceId)
+// - Export CSV com campos de devices/flags
+
 (() => {
   const keyInput = document.getElementById("adminKey");
   const btnLogin  = document.getElementById("btnLogin");
@@ -43,15 +44,16 @@
     return String(v || "").replaceAll('"', "&quot;").replaceAll("<", "&lt;");
   }
 
-  // Status helper (usa mesma regra da renderização)
+  // Status helper
   function computeStatus(rec) {
     const f = rec.fields || {};
+    const blocked = !!f.blocked;
     const planRaw = (f.plan_type || "-").toString().trim();
     const planNorm = norm(planRaw);
     const isVitalicio = planNorm === "vitalicio";
     const expDate = f.expires_at ? new Date(f.expires_at) : null;
 
-    if (f.flagged === true) return "BLOQUEADO";
+    if (blocked) return "BLOQUEADO";
     if (!isVitalicio && expDate && Date.now() > expDate.getTime()) return "EXPIRADO";
     return "ATIVO";
   }
@@ -100,7 +102,7 @@
       reloadBtn.style.display = "inline-block";
       if (toolbar) toolbar.style.display = "flex";
 
-      applyFilters(); // render inicial com filtros/busca atuais
+      applyFilters();
     } catch (err) {
       msg.textContent = "❌ Sem conexão. Verifique sua internet e tente novamente.";
       msg.style.color = "red";
@@ -112,12 +114,10 @@
   function applyFilters() {
     let list = [...cachedRecords];
 
-    // Filtro por status
     if (currentFilter !== "all") {
       list = list.filter(r => computeStatus(r) === currentFilter);
     }
 
-    // Busca por nome/email/código (case/acento-insensitive)
     if (currentQuery.trim() !== "") {
       const q = norm(currentQuery);
       list = list.filter(r => {
@@ -134,7 +134,6 @@
   }
 
   function exportToCSV() {
-    // Usa a lista já filtrada
     let list = [...cachedRecords];
     if (currentFilter !== "all") list = list.filter(r => computeStatus(r) === currentFilter);
     if (currentQuery.trim() !== "") {
@@ -148,7 +147,8 @@
     const headers = [
       "name","email","code","plan_type",
       "expires_at","created_at","use_count",
-      "last_used","flagged","status"
+      "last_used","flagged","blocked","status",
+      "DeviceCount","MaxDevices","DeviceIDs"
     ];
 
     const rows = list.map(rec => {
@@ -164,7 +164,11 @@
         (f.use_count ?? 0),
         (f.last_used || ""),
         (f.flagged ? "true" : "false"),
-        status
+        (f.blocked ? "true" : "false"),
+        status,
+        (f.DeviceCount ?? 0),
+        (f.MaxDevices ?? 2),
+        (f.DeviceIDs || "")
       ];
     });
 
@@ -207,12 +211,17 @@
       const createdRaw = f.created_at || rec.createdTime;
       const createdStr = createdRaw ? new Date(createdRaw).toLocaleDateString("pt-BR") : "-";
 
-      // status e badge
       const status = computeStatus(rec);
       const badgeClass =
         status === "BLOQUEADO" ? "badge blocked" :
         status === "EXPIRADO"  ? "badge expired" :
                                   "badge active";
+
+      const blocked = !!f.blocked;
+      const flagged = !!f.flagged;
+      const devCount = Number(f.DeviceCount || 0);
+      const maxDevs  = Number(f.MaxDevices || 2);
+      const flaggedBadge = flagged ? `<span class="mini-flag">⚑</span>` : "";
 
       tr.innerHTML = `
         <td>${i + 1}</td>
@@ -224,8 +233,10 @@
         <td>${createdStr}</td>
         <td>${f.use_count ?? 0}</td>
         <td>${f.last_used ? new Date(f.last_used).toLocaleDateString("pt-BR") : "-"}</td>
-        <td><span class="${badgeClass}">${status}</span></td>
+        <td><span class="${badgeClass}">${status}</span> ${flaggedBadge}</td>
+        <td>${devCount} / ${maxDevs}</td>
         <td>
+          <button class="manage-btn" data-id="${rec.id}">🖥️ Gerenciar</button>
           <button class="edit-btn" data-id="${rec.id}">✏️ Editar</button>
           <button class="del-btn" data-id="${rec.id}" title="Excluir">🗑️</button>
         </td>
@@ -236,6 +247,9 @@
 
     table.style.display = "table";
 
+    tbody.querySelectorAll(".manage-btn").forEach(btn => {
+      btn.addEventListener("click", () => handleManage(btn.dataset.id));
+    });
     tbody.querySelectorAll(".edit-btn").forEach(btn => {
       btn.addEventListener("click", () => startEdit(btn.dataset.id));
     });
@@ -249,6 +263,8 @@
     const row = document.querySelector(`button.edit-btn[data-id="${id}"]`)?.closest("tr");
     if (!row) return;
 
+    const rec = cachedRecords.find(r => r.id === id) || {};
+    const f = rec.fields || {};
     const cells = row.querySelectorAll("td");
     const name = cells[1].innerText.trim();
     const email = cells[2].innerText.trim();
@@ -267,14 +283,22 @@
           <option value="vitalicio" ${plan.startsWith("vital") ? "selected" : ""}>Vitalício</option>
         </select>
       </td>
-      <td>
-        <input id="editExp" type="date" value="${formatDateInput(expires)}">
+      <td><input id="editExp" type="date" value="${formatDateInput(expires)}"></td>
+      <td colspan="3" class="inline-controls">
+        <label style="margin-right:12px;">
+          MaxDevices:
+          <input id="editMaxDevices" type="number" min="1" max="10" step="1" style="width:64px"
+                 value="${escapeAttr((f.MaxDevices ?? 2))}">
+        </label>
+        <label>
+          <input id="editBlocked" type="checkbox" ${f.blocked ? "checked" : ""}>
+          Bloqueado
+        </label>
       </td>
-      <td colspan="3">
+      <td colspan="2">
         <button id="saveEdit" class="btn-save">💾 Salvar</button>
         <button id="cancelEdit" class="btn-cancel">❌ Cancelar</button>
       </td>
-      <td></td>
     `;
 
     const editPlanEl = document.getElementById("editPlan");
@@ -306,6 +330,8 @@
         email: document.getElementById("editEmail").value.trim(),
         plan_type: planSel,
         expires_at: (planSel === "vitalicio") ? "" : expVal,
+        MaxDevices: Number(document.getElementById("editMaxDevices").value || 2),
+        blocked: !!document.getElementById("editBlocked").checked,
       };
       updateRecord(id, fields);
     };
@@ -371,6 +397,58 @@
     }
   }
 
+  // ============= Gerenciar aparelhos =============
+  function parseDevices(devField) {
+    if (!devField) return [];
+    if (Array.isArray(devField)) return devField;
+    if (typeof devField === "string") {
+      try { return JSON.parse(devField); } catch { return []; }
+    }
+    return [];
+  }
+
+  async function handleManage(id) {
+    const rec = cachedRecords.find(r => r.id === id);
+    if (!rec) return;
+    const f = rec.fields || {};
+    const devices = parseDevices(f.Devices);
+    if (!devices.length) {
+      alert("Nenhum aparelho vinculado ainda.");
+      return;
+    }
+
+    const lines = devices.map((d, idx) => {
+      const last = d.lastSeen ? new Date(d.lastSeen).toLocaleString("pt-BR") : "-";
+      const first = d.firstSeen ? new Date(d.firstSeen).toLocaleString("pt-BR") : "-";
+      const ua = (d.userAgent || "").slice(0, 60);
+      return `${idx+1}) ${d.deviceId}\n   first: ${first}\n   last: ${last}\n   ua: ${ua}`;
+    }).join("\n\n");
+
+    const toRemove = prompt(
+      "Aparelhos vinculados:\n\n" + lines + "\n\nDigite o deviceId para REMOVER (ou deixe em branco para cancelar):"
+    );
+    if (!toRemove) return;
+
+    const idx = devices.findIndex(d => d.deviceId === toRemove.trim());
+    if (idx < 0) {
+      alert("deviceId não encontrado.");
+      return;
+    }
+
+    if (!confirm(`Remover o deviceId "${toRemove}" desta licença?`)) return;
+
+    devices.splice(idx, 1);
+    const newCount = devices.length;
+    const newIDs = devices.map(d => d.deviceId).join(",");
+
+    await updateRecord(id, {
+      Devices: JSON.stringify(devices),
+      DeviceCount: newCount,
+      DeviceIDs: newIDs,
+      flagged: (newCount > (Number(f.MaxDevices || 2))) ? true : false
+    });
+  }
+
   // ============= Criar nova licença =============
   const btnAdd   = document.getElementById("btnAdd");
   const newPlanEl= document.getElementById("newPlan");
@@ -424,6 +502,8 @@
             plan,
             expires_at, // backend transformará ""/vitalício em null
             flagged: false,
+            // se quiser sobrescrever defaults de devices na criação:
+            // MaxDevices: 2, blocked: false
           }),
         });
 
@@ -433,7 +513,7 @@
         if (data.ok) {
           msg.textContent = "✅ Licença criada com sucesso!";
           msg.style.color = "green";
-          ["newName", "newEmail", "newCode", "newExp"].forEach(id => (document.getElementById(id).value = ""));
+          ["newName", "newEmail", "newCode", "newExp"].forEach(id => (document.getElementById(id).value = ""));;
           if (newExpEl) newExpEl.disabled = (newPlanEl?.value === "vitalicio");
           reloadBtn.click();
           setTimeout(() => reloadBtn.click(), 600);
@@ -466,7 +546,6 @@
     if (currentKey) loadLicenses(currentKey);
   });
 
-  // Filtro por status
   if (filterStatus) {
     filterStatus.addEventListener("change", () => {
       currentFilter = filterStatus.value;
@@ -474,7 +553,6 @@
     });
   }
 
-  // Busca (com leve debounce)
   let searchT;
   if (searchBox) {
     searchBox.addEventListener("input", () => {
@@ -486,7 +564,6 @@
     });
   }
 
-  // Export CSV
   if (btnExport) {
     btnExport.addEventListener("click", exportToCSV);
   }

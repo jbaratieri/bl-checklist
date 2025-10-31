@@ -1,6 +1,8 @@
-// api/admin.js — Painel Administrativo LuthierPro (v1.8)
-// - GET sem cache (no-store) e com cache-buster para Airtable
+// api/admin.js — Painel Administrativo LuthierPro (v1.9)
+// - GET sem cache (no-store) + cache-buster
 // - Ordenado por created_at desc, fallback code
+// - POST cria licença já com defaults de device-control
+
 export default async function handler(req, res) {
   try {
     const key = req.query.key;
@@ -18,11 +20,10 @@ export default async function handler(req, res) {
     };
 
     if (req.method === "GET") {
-      // força não cachear essa resposta
       res.setHeader("Cache-Control", "no-store, max-age=0");
       res.setHeader("Pragma", "no-cache");
 
-      const ts = Date.now(); // cache-buster
+      const ts = Date.now();
       const url =
         `https://api.airtable.com/v0/${base}/${table}` +
         `?sort[0][field]=created_at&sort[0][direction]=desc` +
@@ -34,7 +35,6 @@ export default async function handler(req, res) {
         const text = await r.text();
 
         if (!r.ok) {
-          // erro do Airtable / upstream
           let payload;
           try { payload = JSON.parse(text); } catch { payload = {}; }
           return res.status(502).json({
@@ -63,7 +63,6 @@ export default async function handler(req, res) {
       }
     }
 
-
     if (req.method === "DELETE") {
       const { id } = req.body;
       if (!id) return res.status(400).json({ ok: false, msg: "ID ausente" });
@@ -74,18 +73,17 @@ export default async function handler(req, res) {
         cache: "no-store",
       });
       const result = await r.json();
-      // resposta também marcada como não-cacheável
       res.setHeader("Cache-Control", "no-store, max-age=0");
       res.setHeader("Pragma", "no-cache");
       return res.status(200).json({ ok: true, result });
     }
 
     if (req.method === "POST") {
-      const { code, plan, expires_at, flagged, name, email } = req.body;
+      const { code, plan, expires_at, flagged, name, email, MaxDevices, blocked } = req.body || {};
       if (!code) return res.status(400).json({ ok: false, msg: "Código obrigatório" });
       if (!name) return res.status(400).json({ ok: false, msg: "Nome obrigatório" });
 
-      // 🔎 checa duplicidade de code no Airtable
+      // checa duplicidade
       try {
         const formula = `({code}='${String(code).replace(/'/g, "\\'")}')`;
         const dupUrl = `https://api.airtable.com/v0/${base}/${table}?filterByFormula=${encodeURIComponent(formula)}&maxRecords=1`;
@@ -98,15 +96,14 @@ export default async function handler(req, res) {
         return res.status(502).json({ ok: false, msg: "Falha ao verificar duplicidade.", error: e.message });
       }
 
-      // 🔤 normaliza plano e aplica regra de negócio
+      // normaliza plano
       const planValueNorm = (plan || "mensal")
         .toString()
         .trim()
         .toLowerCase()
-        .normalize("NFD").replace(/\p{Diacritic}/gu, ""); // "vitalício" -> "vitalicio"
+        .normalize("NFD").replace(/\p{Diacritic}/gu, "");
       const isVitalicio = planValueNorm === "vitalicio";
 
-      // ✅ mensal DEVE ter data (backend guard)
       if (!isVitalicio && (!expires_at || String(expires_at).trim() === "")) {
         return res.status(400).json({ ok: false, msg: "Para plano mensal, informe a data de validade." });
       }
@@ -116,9 +113,14 @@ export default async function handler(req, res) {
           code,
           name,
           email,
-          plan_type: planValueNorm,                                     // "mensal" | "vitalicio"
-          expires_at: isVitalicio ? null : String(expires_at).trim(),   // vitalício -> null
+          plan_type: planValueNorm,
+          expires_at: isVitalicio ? null : String(expires_at).trim(),
           flagged: !!flagged,
+          blocked: !!blocked,
+          MaxDevices: Number.isFinite(Number(MaxDevices)) ? Number(MaxDevices) : 2,
+          DeviceCount: 0,
+          Devices: "[]",
+          DeviceIDs: ""
         },
       };
 
@@ -143,8 +145,6 @@ export default async function handler(req, res) {
 
       return res.status(200).json({ ok: true, result });
     }
-
-
 
     return res.status(405).json({ ok: false, msg: "Método não permitido" });
   } catch (err) {
