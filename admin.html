@@ -19,22 +19,22 @@
     <p id="msg" class="msg"></p>
 
     <div class="toolbar" id="adminToolbar" style="display:none">
-  <div class="toolbar-left">
-    <label for="filterStatus">Status:</label>
-    <select id="filterStatus">
-      <option value="all">Todos</option>
-      <option value="ATIVO">Ativo</option>
-      <option value="EXPIRADO">Expirado</option>
-      <option value="BLOQUEADO">Bloqueado</option>
-    </select>
+      <div class="toolbar-left">
+        <label for="filterStatus">Status:</label>
+        <select id="filterStatus">
+          <option value="all">Todos</option>
+          <option value="ATIVO">Ativo</option>
+          <option value="EXPIRADO">Expirado</option>
+          <option value="BLOQUEADO">Bloqueado</option>
+        </select>
 
-    <input id="searchBox" type="search" placeholder="Buscar por nome, e-mail ou código…" />
-  </div>
+        <input id="searchBox" type="search" placeholder="Buscar por nome, e-mail ou código…" />
+      </div>
 
-  <div class="toolbar-right">
-    <button id="btnExport">⬇️ Exportar CSV</button>
-  </div>
-</div>
+      <div class="toolbar-right">
+        <button id="btnExport">⬇️ Exportar CSV</button>
+      </div>
+    </div>
 
 
     <!-- 🆕 Novo registro -->
@@ -67,7 +67,8 @@
           <th>Usos</th>
           <th>Último uso</th>
           <th>Status</th>
-          <th></th>
+          <th>Devices</th>
+          <th>Ações</th>
         </tr>
       </thead>
       <tbody></tbody>
