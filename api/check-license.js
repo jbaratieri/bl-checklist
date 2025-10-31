@@ -1,4 +1,9 @@
 // /api/check-license.js — valida licença usando o campo `code` (fallback para `license_key`)
+// Regras novas:
+// - flagged = alerta (NÃO bloqueia)
+// - blocked = bloqueio duro (bloqueia)
+// - vitalício ignora validade
+
 import Airtable from "airtable";
 
 const AIRTABLE_BASE  = process.env.AIRTABLE_BASE  || process.env.AIRTABLE_BASE_ID;
@@ -58,33 +63,48 @@ export default async function handler(req, res) {
       return res.status(404).json({ ok: false, msg: "license_not_found" });
     }
 
-    const r = recs[0];
+    const r          = recs[0];
     const plan_type  = String(r.get("plan_type") || "").toLowerCase(); // "mensal" | "vitalicio"
-    const expires_at = r.get("expires_at"); // formato YYYY-MM-DD (Date-only)
-    const flagged    = !!r.get("flagged");
+    const expires_at = r.get("expires_at"); // YYYY-MM-DD (Date-only)
+    const flagged    = !!r.get("flagged");  // alerta, não bloqueia
+    const blocked    = !!r.get("blocked");  // 🔒 bloqueio duro (novo campo recomendado)
 
-    if (flagged) {
-      return res.status(200).json({ ok: false, msg: "inactive", plan_type, expires_at });
+    // Bloqueio duro
+    if (blocked) {
+      return res.status(200).json({ ok: false, msg: "blocked", plan_type, expires_at, flagged });
     }
 
     // Vitalício ignora validade
     if (plan_type === "vitalicio") {
       return res.status(200).json({
-        ok: true, plan_type: "vitalicio", expires_at: null, grace_days: 5
+        ok: true,
+        plan_type: "vitalicio",
+        expires_at: null,
+        grace_days: 5,
+        flagged
       });
     }
 
+    // Mensal: expiração
     if (!isNotExpired(expires_at)) {
-      return res.status(200).json({ ok: false, msg: "expired", plan_type: plan_type || "mensal", expires_at });
+      return res.status(200).json({
+        ok: false,
+        msg: "expired",
+        plan_type: plan_type || "mensal",
+        expires_at,
+        flagged
+      });
     }
 
+    // OK → mesmo que flagged=true
     return res.status(200).json({
       ok: true,
       plan_type: plan_type || "mensal",
-      // retorna a mesma string date-only do Airtable
-      expires_at,
-      grace_days: 5
+      expires_at,         // devolve string YYYY-MM-DD
+      grace_days: 5,
+      flagged
     });
+
   } catch (e) {
     console.error("check-license error:", e);
     return res.status(200).json({ ok: false, msg: "server_error" });
@@ -92,4 +112,3 @@ export default async function handler(req, res) {
 }
 
 export const config = { api: { bodyParser: { sizeLimit: "1mb" } } };
-

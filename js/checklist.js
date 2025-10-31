@@ -93,13 +93,13 @@
       openDB().then(db => {
         const tx = db.transaction(OS, 'readwrite');
         tx.objectStore(OS).put({ key, dataURL, addedAt: Date.now() });
-      }).catch(() => {});
+      }).catch(() => { });
     };
     window.blImgDelete = function (key) {
       openDB().then(db => {
         const tx = db.transaction(OS, 'readwrite');
         tx.objectStore(OS).delete(key);
-      }).catch(() => {});
+      }).catch(() => { });
     };
     window.blImgListPrefix = function (prefix) {
       return openDB().then(db => new Promise((res) => {
@@ -202,27 +202,27 @@ function closeModal(id) {
 }
 
 // // ======================================================
-// 🔐 LuthierPro — Revalidação Automática de Licença (v2.1)
+// 🔐 LuthierPro — Revalidação Automática de Licença (v2.2)
 // ======================================================
 // - Tenta revalidar 1x/dia (ou se já passou do TTL offline).
-// - Se o servidor disser "inválido/expirado/bloqueado": bloqueia NA HORA.
-// - Se for erro de rede, respeita janela offline de 7 dias desde a última validação OK.
-// - Salva snapshot em lp_license p/ badge não ficar “Licença não encontrada”.
+// - Usa /api/check-license (NÃO altera use_count nem Devices).
+// - Só bloqueia se "blocked" OU "expired".
+// - Em erro de rede, respeita janela offline (TTL).
 
 (async () => {
   const LAST_CHECK_KEY = "lp_last_license_check"; // timestamp da ÚLTIMA validação ONLINE bem-sucedida
   const AUTH_KEY = "lp_auth";                     // "ok" quando autenticado
   const CODE_KEY = "lp_code";                     // código salvo pós-login
-  const LICENSE_KEY = "lp_license";               // snapshot para a UI do rodapé
+  const LICENSE_KEY = "lp_license";               // snapshot p/ badge
 
-  const OFFLINE_TTL_DAYS = 5; // janela de confiança offline
-  const CHECK_EVERY_DAYS  = 1; // tentar revalidar 1x/dia
+  const OFFLINE_TTL_DAYS = 5; // janela offline permitida
+  const CHECK_EVERY_DAYS = 1; // revalidar 1x/dia
 
   const now = Date.now();
   const lastOk = parseInt(localStorage.getItem(LAST_CHECK_KEY) || "0", 10) || 0;
   const daysSinceOk = (now - lastOk) / (1000 * 60 * 60 * 24);
 
-  // Se a licença local já está expirada, forçar tentativa agora
+  // Se a licença local já está expirada, força tentativa agora
   let forceRevalidate = false;
   try {
     const rawLic = localStorage.getItem(LICENSE_KEY);
@@ -230,18 +230,14 @@ function closeModal(id) {
       const lic = JSON.parse(rawLic);
       if (lic?.expires) {
         const exp = new Date(lic.expires).getTime();
-        if (!Number.isNaN(exp) && now > exp) {
-          forceRevalidate = true; // venceu localmente → tenta já
-        }
+        if (!Number.isNaN(exp) && now > exp) forceRevalidate = true;
       }
     }
-  } catch {}
+  } catch { }
 
-  // tentar revalidar: 1x/dia OU se já passou do TTL OU se venceu localmente
   const shouldAttempt =
     forceRevalidate || daysSinceOk >= CHECK_EVERY_DAYS || daysSinceOk >= OFFLINE_TTL_DAYS;
 
-  // Só tenta se estiver autenticado e houver código salvo
   if (!shouldAttempt || localStorage.getItem(AUTH_KEY) !== "ok") return;
   const code = localStorage.getItem(CODE_KEY);
   if (!code) return;
@@ -252,48 +248,49 @@ function closeModal(id) {
   document.body.appendChild(banner);
 
   try {
-    const res = await fetch(`/api/validate?_=${Date.now()}`, {
-      method: "POST",
-      cache: "no-store",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ code })
+    const resp = await fetch('/api/check-license', {
+      method: 'POST',
+      cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ license_key: code })
     });
 
-    // Se a API responder 4xx/5xx → tratar como inválido e bloquear
-    if (!res.ok) {
+    // Mesmo se der 4xx/5xx, NÃO bloqueie direto: pode ser intermitência
+    const data = await resp.json().catch(() => ({}));
+
+    // Atualiza relógio de última checagem SOMENTE quando ok
+    if (data?.ok) {
+      const serverNow = data.server_time ? Date.parse(data.server_time) : now;
+      localStorage.setItem(LAST_CHECK_KEY, String(serverNow));
+
+      // Atualiza snapshot (badge)
+      localStorage.setItem(LICENSE_KEY, JSON.stringify({
+        plan: data.plan_type || data.plan || 'mensal',
+        expires: data.expires_at || null
+      }));
+
+      // pronto
+      return;
+    }
+
+    // Casos duros: bloquear imediatamente
+    const reason = data?.msg || '';
+    if (reason === 'blocked' || reason === 'expired') {
       localStorage.removeItem(AUTH_KEY);
       localStorage.removeItem(CODE_KEY);
       localStorage.removeItem(LICENSE_KEY);
-      alert("⚠️ Sua licença não é válida. Faça login novamente.");
+      alert(reason === 'blocked'
+        ? "⚠️ Acesso bloqueado. Fale com o suporte."
+        : "⚠️ Assinatura expirada. Faça login para renovar.");
       window.location.href = "./login.html";
       return;
     }
 
-    const data = await res.json(); // { ok, plan, expires, flagged, server_time, ... }
+    // Outros casos: logar e seguir (flagged, server_error, etc.)
+    console.warn("[daily-check] status:", reason || `(HTTP ${resp.status})`);
 
-    if (!data.ok) {
-      // Servidor disse inválido/expirado/bloqueado → bloquear já
-      localStorage.removeItem(AUTH_KEY);
-      localStorage.removeItem(CODE_KEY);
-      localStorage.removeItem(LICENSE_KEY);
-      alert("⚠️ Sua licença expirou ou foi revogada.\nFaça login novamente para renovar o acesso.");
-      window.location.href = "./login.html";
-      return;
-    }
-
-    // ✅ OK online → atualiza relógio com hora do servidor (se vier)
-    const serverNow = data.server_time ? Date.parse(data.server_time) : now;
-    localStorage.setItem(LAST_CHECK_KEY, String(serverNow));
-
-    // Atualiza snapshot para a UI (badge)
-    localStorage.setItem(LICENSE_KEY, JSON.stringify({
-      plan: data.plan,
-      expires: data.expires || null
-    }));
-
-    console.log(`[LuthierPro] Licença válida: plano=${data.plan}, expira=${data.expires || "—"}`);
   } catch (err) {
-    // Erro de REDE → só bloqueia se estourou o TTL offline
+    // Erro de rede: só bloqueia se estourou o TTL offline
     if (daysSinceOk >= OFFLINE_TTL_DAYS) {
       localStorage.removeItem(AUTH_KEY);
       localStorage.removeItem(CODE_KEY);
@@ -307,6 +304,7 @@ function closeModal(id) {
     setTimeout(() => banner.remove(), 1500);
   }
 })();
+
 
 // ======================================================
 // 🏷️ Badge de status no rodapé (usa snapshot salvo)
