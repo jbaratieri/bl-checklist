@@ -44,7 +44,8 @@ const APP_SHELL = [
 
   // Ícones PWA
   './icon/icon-192.webp',
-  './icon/icon-512.webp'
+  './icon/icon-512.webp',
+  './assets/logos/logo-luthierpro1.webp'
 ];
 
 // Helper para limitar quantidade de imagens cacheadas
