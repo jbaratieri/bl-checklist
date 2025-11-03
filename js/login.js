@@ -1,6 +1,6 @@
 // ======================================================
 // 🔐 login.js — LuthierPro (validação via /api/check-license)
-// v2.2 — envia deviceId a /api/validate + guard anti-loop + debounce
+// v2.3 — guard anti-loop + respeito a lp:status=blocked + replace()
 // ======================================================
 
 (function () {
@@ -17,6 +17,21 @@
     msg.textContent = t;
     msg.style.color = ok ? "green" : "red";
   }
+
+  // --- PATCH: anti-loop — ao abrir o login, libera a trava desta aba
+  try {
+    sessionStorage.removeItem('lp:blockHandled');
+    sessionStorage.removeItem('lp:lastRedirect');
+  } catch {}
+
+  // --- PATCH: se já marcado como bloqueado pelo cliente, NÃO volte para a home
+  try {
+    const status = localStorage.getItem('lp:status');
+    if (status === 'blocked') {
+      if (msg) { msg.textContent = 'Licença bloqueada. Entre com outro código.'; msg.style.color = 'red'; }
+      // não faz goHome; permanece no login
+    }
+  } catch {}
 
   // --- util: deviceId persistente ---
   function getDeviceId() {
@@ -37,25 +52,30 @@
     }
   }
 
-  // Se já tem licença válida (inclui grace offline), pula login
+  // Se já tem licença válida (inclui grace offline), pula login — EXCETO se estiver bloqueado
   try {
-    const plan = (localStorage.getItem("lp_plan_type") || "").toLowerCase();
-    const expStr = localStorage.getItem("lp_expires_at") || "";
-    const grace = Number(localStorage.getItem("lp_grace_days") || 0);
+    const statusBlocked = localStorage.getItem('lp:status') === 'blocked'; // PATCH
+    if (!statusBlocked) {
+      const plan = (localStorage.getItem("lp_plan_type") || "").toLowerCase();
+      const expStr = localStorage.getItem("lp_expires_at") || "";
+      const grace = Number(localStorage.getItem("lp_grace_days") || 0);
 
-    const goHome = () => {
-      if (currentPage !== AFTER_LOGIN_URL) location.href = AFTER_LOGIN_URL;
-    };
+      const goHome = () => {
+        if (currentPage !== AFTER_LOGIN_URL) location.replace(AFTER_LOGIN_URL); // PATCH: replace
+      };
 
-    if (plan === "vitalicio") { goHome(); return; }
+      if (plan === "vitalicio") { goHome(); return; }
 
-    if (expStr) {
-      const [y, m, d] = expStr.split("-").map(Number);
-      if (y && m && d) {
-        const end = new Date(y, m - 1, d, 23, 59, 59, 999);
-        end.setDate(end.getDate() + (isFinite(grace) ? grace : 0));
-        if (new Date() <= end) { goHome(); return; }
+      if (expStr) {
+        const [y, m, d] = expStr.split("-").map(Number);
+        if (y && m && d) {
+          const end = new Date(y, m - 1, d, 23, 59, 59, 999);
+          end.setDate(end.getDate() + (isFinite(grace) ? grace : 0));
+          if (new Date() <= end) { goHome(); return; }
+        }
       }
+    } else {
+      if (msg) { msg.textContent = 'Acesso bloqueado. Faça login com outro código.'; msg.style.color = 'red'; } // PATCH
     }
   } catch (_) { }
 
@@ -86,7 +106,7 @@
       if (!data || !data.ok) {
         const map = {
           license_not_found: "Código não encontrado.",
-          inactive: "Licença inativa. Fale com o suporte.", // se ainda aparecer de versões antigas
+          inactive: "Licença inativa. Fale com o suporte.",
           blocked: "Acesso bloqueado. Fale com o suporte.",
           expired: "Assinatura vencida. Renove pela Hotmart.",
           no_expiration: "Licença sem data válida. Suporte.",
@@ -114,11 +134,13 @@
       }));
       localStorage.setItem("lp_code", code);
       localStorage.setItem("lp_last_license_check", String(Date.now()));
+      // PATCH: limpamos status bloqueado, se havia
+      try { localStorage.removeItem('lp:status'); } catch {}
 
       const nice = data.expires_at ? data.expires_at.split("-").reverse().join("/") : "vitalício";
       show(`Acesso autorizado! Válido até ${nice}.`, true);
 
-      // 🔄 registra uso/binding no Airtable com deviceId (contagem por aparelho, não por IP)
+      // 🔄 registra uso/binding no Airtable com deviceId
       try {
         await fetch("/api/validate", {
           method: "POST",
@@ -129,7 +151,7 @@
 
       // redireciona (evita redirect para a mesma página)
       setTimeout(() => {
-        if (currentPage !== AFTER_LOGIN_URL) window.location.href = AFTER_LOGIN_URL;
+        if (currentPage !== AFTER_LOGIN_URL) location.replace(AFTER_LOGIN_URL); // PATCH: replace
       }, 700);
 
     } catch (e) {

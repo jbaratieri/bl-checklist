@@ -186,7 +186,6 @@
   loadAll();
   initAutoGrow();
   updateProgress();
-
   document.querySelectorAll('.measures-block').forEach(b => b.classList.remove('open'));
 
 })();
@@ -202,12 +201,25 @@ function closeModal(id) {
 }
 
 // // ======================================================
-// 🔐 LuthierPro — Revalidação Automática de Licença (v2.2)
+// 🔐 LuthierPro — Revalidação Automática de Licença (v2.3)
 // ======================================================
 // - Tenta revalidar 1x/dia (ou se já passou do TTL offline).
 // - Usa /api/check-license (NÃO altera use_count nem Devices).
 // - Só bloqueia se "blocked" OU "expired".
 // - Em erro de rede, respeita janela offline (TTL).
+
+// --- PATCH: anti-loop — redireciona para login apenas 1x por aba
+function redirectToLoginOnce(reason='license_blocked') {
+  try {
+    const now = Date.now();
+    const last = Number(sessionStorage.getItem('lp:lastRedirect') || 0);
+    const handled = sessionStorage.getItem('lp:blockHandled') === '1';
+    if (handled || (now - last) < 3000) return; // debounce 3s
+    sessionStorage.setItem('lp:blockHandled', '1');
+    sessionStorage.setItem('lp:lastRedirect', String(now));
+  } catch {}
+  location.replace('./login.html?reason=' + encodeURIComponent(reason));
+}
 
 (async () => {
   const LAST_CHECK_KEY = "lp_last_license_check"; // timestamp da ÚLTIMA validação ONLINE bem-sucedida
@@ -269,20 +281,25 @@ function closeModal(id) {
         expires: data.expires_at || null
       }));
 
-      // pronto
       return;
     }
 
     // Casos duros: bloquear imediatamente
     const reason = data?.msg || '';
     if (reason === 'blocked' || reason === 'expired') {
-      localStorage.removeItem(AUTH_KEY);
-      localStorage.removeItem(CODE_KEY);
-      localStorage.removeItem(LICENSE_KEY);
+      // PATCH: marque bloqueado e limpe credenciais mínimas
+      try {
+        localStorage.setItem('lp:status', 'blocked');
+        localStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem(CODE_KEY);
+        localStorage.removeItem(LICENSE_KEY);
+      } catch {}
+
       alert(reason === 'blocked'
         ? "⚠️ Acesso bloqueado. Fale com o suporte."
         : "⚠️ Assinatura expirada. Faça login para renovar.");
-      window.location.href = "./login.html";
+
+      redirectToLoginOnce(reason); // PATCH: 1x por aba + replace
       return;
     }
 
@@ -292,11 +309,16 @@ function closeModal(id) {
   } catch (err) {
     // Erro de rede: só bloqueia se estourou o TTL offline
     if (daysSinceOk >= OFFLINE_TTL_DAYS) {
-      localStorage.removeItem(AUTH_KEY);
-      localStorage.removeItem(CODE_KEY);
-      localStorage.removeItem(LICENSE_KEY);
+      // PATCH: marque bloqueado e limpe credenciais mínimas
+      try {
+        localStorage.setItem('lp:status', 'blocked');
+        localStorage.removeItem(AUTH_KEY);
+        localStorage.removeItem(CODE_KEY);
+        localStorage.removeItem(LICENSE_KEY);
+      } catch {}
+
       alert("⚠️ Não foi possível validar sua licença e o período offline expirou.\nConecte-se e faça login novamente.");
-      window.location.href = "./login.html";
+      redirectToLoginOnce('offline_ttl_expired'); // PATCH
     } else {
       console.warn("[LuthierPro] Revalidação falhou (rede). Mantendo acesso dentro da janela offline:", err);
     }
@@ -346,4 +368,3 @@ function closeModal(id) {
     el.classList.add("err");
   }
 })();
-
