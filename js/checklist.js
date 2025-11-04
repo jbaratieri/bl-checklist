@@ -1,4 +1,4 @@
-// checklist.js
+// checklist.js — v2.5
 (() => {
   'use strict';
 
@@ -201,14 +201,12 @@ function closeModal(id) {
 }
 
 // // ======================================================
-// 🔐 LuthierPro — Revalidação Automática de Licença (v2.3)
+// 🔐 LuthierPro — Revalidação de Licença ao Abrir (v2.5)
 // ======================================================
-// - Tenta revalidar 1x/dia (ou se já passou do TTL offline).
-// - Usa /api/check-license (NÃO altera use_count nem Devices).
-// - Só bloqueia se "blocked" OU "expired".
-// - Em erro de rede, respeita janela offline (TTL).
+// - Verifica imediatamente ao abrir o app (sem esperar 1 dia).
+// - Mantém TTL offline como fallback.
+// - Anti-loop: redireciona ao login apenas 1x por aba.
 
-// --- PATCH: anti-loop — redireciona para login apenas 1x por aba
 function redirectToLoginOnce(reason='license_blocked') {
   try {
     const now = Date.now();
@@ -228,32 +226,15 @@ function redirectToLoginOnce(reason='license_blocked') {
   const LICENSE_KEY = "lp_license";               // snapshot p/ badge
 
   const OFFLINE_TTL_DAYS = 5; // janela offline permitida
-  const CHECK_EVERY_DAYS = 1; // revalidar 1x/dia
 
-  const now = Date.now();
-  const lastOk = parseInt(localStorage.getItem(LAST_CHECK_KEY) || "0", 10) || 0;
-  const daysSinceOk = (now - lastOk) / (1000 * 60 * 60 * 24);
-
-  // Se a licença local já está expirada, força tentativa agora
-  let forceRevalidate = false;
-  try {
-    const rawLic = localStorage.getItem(LICENSE_KEY);
-    if (rawLic) {
-      const lic = JSON.parse(rawLic);
-      if (lic?.expires) {
-        const exp = new Date(lic.expires).getTime();
-        if (!Number.isNaN(exp) && now > exp) forceRevalidate = true;
-      }
-    }
-  } catch { }
-
-  const shouldAttempt =
-    forceRevalidate || daysSinceOk >= CHECK_EVERY_DAYS || daysSinceOk >= OFFLINE_TTL_DAYS;
-
-  if (!shouldAttempt || localStorage.getItem(AUTH_KEY) !== "ok") return;
+  // ✅ Verifica sempre ao abrir, se estiver autenticado e houver código
+  if (localStorage.getItem(AUTH_KEY) !== "ok") return;
   const code = localStorage.getItem(CODE_KEY);
   if (!code) return;
 
+  const now = Date.now();
+
+  // Banner leve (não bloqueia render)
   const banner = document.createElement("div");
   banner.textContent = "🔄 Verificando licença ativa...";
   banner.style = "position:fixed;top:0;left:0;width:100%;background:#5c3b1e;color:#fff;padding:8px;text-align:center;font-size:14px;z-index:9999;";
@@ -287,9 +268,8 @@ function redirectToLoginOnce(reason='license_blocked') {
     // Casos duros: bloquear imediatamente
     const reason = data?.msg || '';
     if (reason === 'blocked' || reason === 'expired') {
-      // PATCH: marque bloqueado e limpe credenciais mínimas
       try {
-        localStorage.setItem('lp:status', 'blocked');
+        localStorage.setItem('lp:status', 'blocked'); // login não deve voltar à home
         localStorage.removeItem(AUTH_KEY);
         localStorage.removeItem(CODE_KEY);
         localStorage.removeItem(LICENSE_KEY);
@@ -299,28 +279,29 @@ function redirectToLoginOnce(reason='license_blocked') {
         ? "⚠️ Acesso bloqueado. Fale com o suporte."
         : "⚠️ Assinatura expirada. Faça login para renovar.");
 
-      redirectToLoginOnce(reason); // PATCH: 1x por aba + replace
+      redirectToLoginOnce(reason);
       return;
     }
 
     // Outros casos: logar e seguir (flagged, server_error, etc.)
-    console.warn("[daily-check] status:", reason || `(HTTP ${resp.status})`);
+    console.warn("[open-check] status:", reason || `(HTTP ${resp.status})`);
 
   } catch (err) {
     // Erro de rede: só bloqueia se estourou o TTL offline
+    const lastOk = parseInt(localStorage.getItem(LAST_CHECK_KEY) || "0", 10) || 0;
+    const daysSinceOk = (now - lastOk) / (1000 * 60 * 60 * 24);
+
     if (daysSinceOk >= OFFLINE_TTL_DAYS) {
-      // PATCH: marque bloqueado e limpe credenciais mínimas
       try {
         localStorage.setItem('lp:status', 'blocked');
         localStorage.removeItem(AUTH_KEY);
         localStorage.removeItem(CODE_KEY);
         localStorage.removeItem(LICENSE_KEY);
       } catch {}
-
       alert("⚠️ Não foi possível validar sua licença e o período offline expirou.\nConecte-se e faça login novamente.");
-      redirectToLoginOnce('offline_ttl_expired'); // PATCH
+      redirectToLoginOnce('offline_ttl_expired');
     } else {
-      console.warn("[LuthierPro] Revalidação falhou (rede). Mantendo acesso dentro da janela offline:", err);
+      console.warn("[LuthierPro] Verificação ao abrir falhou (rede). Mantendo acesso dentro da janela offline:", err);
     }
   } finally {
     setTimeout(() => banner.remove(), 1500);
