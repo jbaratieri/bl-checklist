@@ -431,6 +431,8 @@
     /* CTA fixo rodapé (mobile) - inicialmente escondido em desktop */
     #mobile-cta {
       display: none;
+      gap:15px;
+    
     }
 
     @media (max-width: 960px) {
@@ -452,6 +454,15 @@
         text-align: center;
         box-shadow: 0 6px 18px rgba(0, 0, 0, .20);
       }
+    #mobile-cta button {
+        width: 100%;
+        max-width: 540px;
+        display: inline-block;
+        text-align: center;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, .20);
+      }
+
+      
     }
 
     /* small accessibility helper for focus */
@@ -479,6 +490,8 @@
           src="https://bl-checklist.vercel.app/assets/logos/logo-luthierpro1.webp" alt="LuthierPro"></a>
 
       <div class="cta-top" aria-hidden="false">
+
+         <button id="btnTrial" class="btn btn-accent" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>       
         
         <a class="btn btn-ghost"
           href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=navbar&utm_campaign=mensal"
@@ -489,7 +502,7 @@
             <s>R$ 24,90</s>
             <strong>R$ 19,90</strong>
           </span>
-          <span class="badge tag">Lançamento até <time datetime="2025-11-20">20/11/2025</time></span>
+          <span class="badge tag">Promo de lançamento até <time datetime="2025-11-20">20/11/2025</time></span>
         </a>
 
         <a class="btn btn-primary"
@@ -501,7 +514,7 @@
             <s>R$ 249,90</s>
             <strong>R$ 149,90</strong>
           </span>
-          <span class="badge tag hot">Lançamento até <time datetime="2025-11-20">20/11/2025</time></span>
+          <span class="badge tag hot">Promo somente até <time datetime="2025-11-20">20/11/2025</time></span>
         </a>
       </div>
     </div>
@@ -915,8 +928,12 @@
 
   <!-- CTA fixo mobile -->
   <div id="mobile-cta" aria-hidden="false">
+
     <a id="cta-buy" class="btn btn-primary" href="#precos" aria-label="Ver planos e preços — LuthierPro">Ver
-      planos — Teste</a>
+      planos e Preços</a>
+      <button id="btnTrial" class="btn btn-accent" type="button">
+    🎁 Teste grátis por 7 dias — sem cartão
+</button>
   </div>
 
   <!-- FAQ Schema (SEO) -->
