@@ -1,4 +1,4 @@
-// /api/trial-create.js
+// /api/trial-create.js (fix: não enviar expires_at vazio)
 import Airtable from "airtable";
 
 const AIRTABLE_BASE  = process.env.AIRTABLE_BASE  || process.env.AIRTABLE_BASE_ID;
@@ -23,12 +23,11 @@ export default async function handler(req, res) {
 
     const base = getBase();
     if (!base) {
-      // modo simulado (sem Airtable config)
+      // modo simulado
       return res.status(200).json({ ok:true, code: genCode(), simulated:true });
     }
 
-    // Se já existe trial para o e-mail (não bloqueado), reaproveita o código
-    // (mesmo com expires_at já setado — usuário pode ter perdido o código)
+    // Reaproveita trial existente para o e-mail (não bloqueado)
     const found = await base(AIRTABLE_TABLE).select({
       maxRecords: 1,
       filterByFormula: `AND({email}="${email}", {plan_type}="trial7", NOT({blocked}))`
@@ -40,23 +39,23 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok:true, code, msg:'already' });
     }
 
-    // Cria novo trial
+    // Cria novo trial — NÃO enviar expires_at vazio
     const code = genCode();
     await base(AIRTABLE_TABLE).create({
       code,
       email,
       plan_type: 'trial7',
       blocked: false,
-      MaxDevices: 2,       // seus nomes de campos
-      DeviceCount: 0,      // idem
-      // created_at: (se for "Created time", não setar aqui)
-      expires_at: ''       // definido na primeira ativação
+      MaxDevices: 2,    // seus campos numéricos
+      DeviceCount: 0    // idem
+      // expires_at: (omitido; será definido na 1ª validação)
     });
 
     return res.status(200).json({ ok:true, code });
   } catch (e) {
-    console.error('trial-create error:', e);
-    return res.status(200).json({ ok:false, msg:'server_error' });
+    console.error('trial-create error:', e?.message || e);
+    // Dica: por segurança não exponho a msg completa, mas deixo um código
+    return res.status(200).json({ ok:false, msg:'airtable_error' });
   }
 }
 
