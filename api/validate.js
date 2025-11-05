@@ -1,10 +1,12 @@
-// api/validate.js — Validação de licença com controle por deviceId
+// api/validate.js — Validação de licença com controle por deviceId (v2 — trial livre + flagged não bloqueia)
 // Políticas:
 // - Conta por deviceId (não por IP)
-// - MaxDevices padrão = 2
+// - TRIAL (plan_type=trial7): não conta devices; acesso ok (se não blocked/expired)
+// - PAGOS (mensal/vitalício):
+//     * MaxDevices padrão = 2 (duro)
+//     * Soft-cap 3: permite 3º device e marca flagged=true
+//     * 4º device em diante: nega (403)
 // - Auto-replace se houver device "antigo" (> 90 dias sem uso)
-// - Soft-cap 3: permite 3º device e marca flagged=true
-// - 4º device em diante: nega (403)
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store, max-age=0");
@@ -84,28 +86,65 @@ export default async function handler(req, res) {
     const expDate = f.expires_at ? new Date(f.expires_at) : null;
     const expired = !isVitalicio && expDate && now > expDate;
 
-    if (f.flagged === true) {
+    // 🔒 Bloqueio duro
+    if (f.blocked === true) {
       return res.status(403).json({
         ok: false, msg: "Acesso bloqueado. Contate o suporte.", server_time: nowISO
       });
     }
+
+    // ⏳ Expirado (vale para trial7/mensal)
     if (expired) {
       return res.status(403).json({
         ok: false, msg: "Código expirado. Renove sua assinatura.", server_time: nowISO
       });
     }
 
-    // ip_history para auditoria (sem decidir por IP)
+    // Auditoria de IP (não bloqueia, só registra)
     const oldHistory = (f.ip_history || "").split(",").map(s => s.trim()).filter(Boolean);
     const ipSet = new Set(oldHistory);
     ipSet.add(ip);
     const ipList = Array.from(ipSet).slice(-20);
-
-    // Heurística antiga de auto-flag por muitos IPs (opcional)
     const distinctCount = ipList.length;
-    const autoFlagIPs = distinctCount >= 7; // um pouco mais tolerante agora
 
-    // Parse Devices
+    // Heurística antiga de auto-flag por muitos IPs (apenas sinaliza)
+    const autoFlagIPs = distinctCount >= 7;
+
+    // ===== TRIAL: não conta devices; apenas registra uso e retorna OK
+    if (planNorm === "trial7") {
+      const patchUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}/${rec.id}`;
+      await fetch(patchUrl, {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${AIRTABLE_KEY}`, "Content-Type": "application/json" },
+        cache: "no-store",
+        body: JSON.stringify({
+          fields: {
+            last_ip: ip,
+            last_used: nowISO,
+            ip_history: ipList.join(","),
+            last_ua: ua,
+            // ⚠️ NÃO mexe em DeviceCount / Devices / DeviceIDs no trial
+            flagged: !!f.flagged || autoFlagIPs // apenas marca se quiser sinalizar IP incomum
+          },
+        }),
+      });
+
+      return res.status(200).json({
+        ok: true,
+        msg: "✅ Teste ativo.",
+        plan: "trial7",
+        expires: expDate || null,
+        ip,
+        distinct_ips: distinctCount,
+        flagged: !!f.flagged || autoFlagIPs,
+        deviceCount: Number(f.DeviceCount || 0) || 0,
+        maxDevices: Number(f.MaxDevices || 0) || DEFAULT_MAX_DEVICES,
+        server_time: nowISO,
+        note: "trial_does_not_count_devices"
+      });
+    }
+
+    // ===== PAGOS (mensal/vitalício): aplica política de devices
     function parseDevicesField(devField){
       if (!devField) return [];
       if (Array.isArray(devField)) return devField;
@@ -137,11 +176,10 @@ export default async function handler(req, res) {
         updatedDevices[idx].lastSeen = nowISO;
         updatedDevices[idx].lastIp   = ip;
         updatedDevices[idx].userAgent = ua || updatedDevices[idx].userAgent || "";
-        // não incrementa use_count
       } else {
         // Novo aparelho tentando ativar
         if (updatedDevices.length < maxDevices) {
-          // Ainda dentro do limite "duro"
+          // Dentro do limite "duro" (<=2)
           updatedDevices.push({
             deviceId: trimmedId,
             firstSeen: nowISO,
@@ -168,8 +206,8 @@ export default async function handler(req, res) {
               lastIp: ip,
               userAgent: ua || ""
             });
-            flagged = flagged || false; // substituição legítima, não precisa marcar
-            isNewActivation = true;     // conta como uma ativação/substituição
+            // substituição legítima não precisa marcar flag adicional
+            isNewActivation = true;
           } else {
             // 2) soft-cap: permite 3º device com flagged=true
             if (updatedDevices.length < SOFT_CAP) {
@@ -195,7 +233,6 @@ export default async function handler(req, res) {
                     last_used: nowISO,
                     ip_history: ipList.join(","),
                     last_ua: ua,
-                    // mantém DeviceCount/Devices como estão
                     flagged: true // sinaliza tentativa de 4º device
                   },
                 }),
@@ -214,7 +251,7 @@ export default async function handler(req, res) {
         }
       }
     } else {
-      // Sem deviceId (cliente antigo): mantém compat — conta como uso
+      // Sem deviceId (cliente muito antigo): mantém compat — conta como uso
       isNewActivation = true;
     }
 
@@ -226,13 +263,13 @@ export default async function handler(req, res) {
     deviceIDs = updatedDevices.map(d => d.deviceId).filter(Boolean);
     deviceCountStored = updatedDevices.length;
 
-    // Sinal de abuso por churn: 3 devices criados em 30 dias
+    // Sinal de abuso por churn: 3 devices criados em 30 dias ⇒ flagged
     try {
       const createdLast30 = updatedDevices.filter(d => daysBetween(d.firstSeen || nowISO, nowISO) <= 30).length;
       if (createdLast30 >= 3) flagged = true;
-    } catch { /* ignore parsing */ }
+    } catch { /* ignore */ }
 
-    // Atualiza registro no Airtable
+    // Persistir
     const patchUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}/${rec.id}`;
     await fetch(patchUrl, {
       method: "PATCH",

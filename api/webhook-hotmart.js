@@ -46,13 +46,9 @@ function getProductId(payload) {
 function resolvePlanType(payload) {
   const productId = getProductId(payload);
   if (productId && PRODUCT_PLAN_MAP[productId]) return PRODUCT_PLAN_MAP[productId];
-
-  // Fallback: se vier assinatura ativa, tratamos como mensal
   const subStatus = (payload?.data?.subscription?.status || "").toString().toUpperCase();
   if (subStatus === "ACTIVE") return "mensal";
-
-  // Último caso: assume vitalício (pagamento único)
-  return "vitalicio";
+  return "vitalicio"; // fallback: pagamento único
 }
 
 export default async function handler(req, res) {
@@ -76,6 +72,7 @@ export default async function handler(req, res) {
     const email   = getEmail(payload);
     const name    = getName(payload);
     const tx      = (getTx(payload) || "").toString();
+
     if (!email) return res.status(200).json({ ok:true, msg:"No buyer email; ack only", event, status });
 
     const b = base();
@@ -92,37 +89,49 @@ export default async function handler(req, res) {
     const emailNorm = email.toString().toLowerCase();
     const emailEsc  = emailNorm.replace(/'/g, "\\'");
     const formula   = `LOWER({email})='${emailEsc}'`;
-    const recs = await b(AIRTABLE_TABLE).select({ filterByFormula: formula, maxRecords: 3 }).firstPage();
+    const recs = await b(AIRTABLE_TABLE).select({ filterByFormula: formula, maxRecords: 10 }).firstPage();
 
-    // idempotência: se já processamos este transaction, não reprocessa
-    if (tx && recs.length && (recs[0].get("last_transaction") || "") === tx) {
+    // ⛩️ escolha do alvo: trial7 não bloqueado > primeiro não bloqueado > primeiro
+    const chooseTarget = (rows) => {
+      if (!rows || !rows.length) return null;
+      const trial = rows.find(r => String(r.get("plan_type")||"").toLowerCase()==="trial7" && !r.get("blocked"));
+      if (trial) return trial;
+      const unblocked = rows.find(r => !r.get("blocked"));
+      return unblocked || rows[0];
+    };
+
+    // 🪙 idempotência: se QUALQUER registro do e-mail já tem este tx, ignore
+    if (tx && recs.length && recs.some(r => (r.get("last_transaction") || "") === tx)) {
       return res.status(200).json({ ok:true, action:"noop_already_processed", email, tx });
     }
 
     if (approved) {
-      if (recs.length) {
-        // atualizar
-        const r = recs[0];
-        const existingCode = (r.get("code") || "").toString().trim();
+      const target = chooseTarget(recs);
+
+      if (target) {
+        // atualizar (trial -> pago OU pago -> renovar)
+        const existingCode = (target.get("code") || "").toString().trim();
         const code = existingCode ? existingCode : genCode("LP");
 
-        // não rebaixa vitalício
-        const currentPlan = (r.get("plan_type") || "").toString().toLowerCase();
+        const currentPlan = (target.get("plan_type") || "").toString().toLowerCase();
         const isAlreadyVitalicio = currentPlan === "vitalicio";
         const finalPlan = isAlreadyVitalicio ? "vitalicio" : planTypeComputed;
 
         const fieldsToUpdate = {
           code,
           plan_type: finalPlan,
-          name: name || r.get("name") || "",
-          flagged: false,
-          last_transaction: tx || r.get("last_transaction") || "",
+          name: name || target.get("name") || "",
+          blocked: false,               // garante desbloqueio
+          flagged: false,               // limpa alerta ao virar pago/renovar
+          MaxDevices: 2,                // pago: limite "duro" 2 (3º = flagged no /validate)
+          // preserva DeviceCount/Devices/DeviceIDs manuais
+          last_transaction: tx || target.get("last_transaction") || "",
           last_event_at: now.toISOString()
         };
 
         if (finalPlan === "mensal") {
           // estende +30 dias a partir do maior entre hoje e a expiração atual
-          const prev = r.get("expires_at") ? new Date(r.get("expires_at")) : now;
+          const prev = target.get("expires_at") ? new Date(target.get("expires_at")) : now;
           const baseDate = prev > now ? prev : now;
           fieldsToUpdate.expires_at = toDateOnly(addDays(baseDate, 30));
         } else {
@@ -130,13 +139,13 @@ export default async function handler(req, res) {
           fieldsToUpdate.expires_at = null;
         }
 
-        await b(AIRTABLE_TABLE).update(r.id, fieldsToUpdate);
+        await b(AIRTABLE_TABLE).update(target.id, fieldsToUpdate);
         return res.status(200).json({
           ok: true, action: "updated", email, code, plan_type: finalPlan,
           expires_at: fieldsToUpdate.expires_at || "", tx
         });
       } else {
-        // criar
+        // criar (não havia trial/registro pra este e-mail)
         const code = genCode("LP");
         const fields = {
           email,
@@ -144,7 +153,9 @@ export default async function handler(req, res) {
           code,
           plan_type: planTypeComputed,
           use_count: 0,
+          blocked: false,
           flagged: false,
+          MaxDevices: 2, // pago nasce já com 2
           last_transaction: tx || "",
           last_event_at: now.toISOString()
         };
@@ -163,14 +174,17 @@ export default async function handler(req, res) {
     }
 
     if (negative) {
+      // cancelar/refund/chargeback => bloqueia e sinaliza
       if (recs.length) {
-        await b(AIRTABLE_TABLE).update(recs[0].id, {
+        const target = chooseTarget(recs);
+        await b(AIRTABLE_TABLE).update(target.id, {
+          blocked: true,
           flagged: true,
-          last_transaction: tx || recs[0].get("last_transaction") || "",
+          last_transaction: tx || target.get("last_transaction") || "",
           last_event_at: now.toISOString()
         });
       }
-      return res.status(200).json({ ok:true, action:"deactivated", email, event, status, tx });
+      return res.status(200).json({ ok:true, action:"deactivated_blocked", email, event, status, tx });
     }
 
     return res.status(200).json({ ok:true, msg:"event ignored", event, status, tx });
