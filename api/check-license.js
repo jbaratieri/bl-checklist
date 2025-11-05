@@ -1,8 +1,9 @@
 // /api/check-license.js — valida licença usando o campo `code` (fallback para `license_key`)
-// Regras novas:
+// Regras:
 // - flagged = alerta (NÃO bloqueia)
 // - blocked = bloqueio duro (bloqueia)
 // - vitalício ignora validade
+// - trial7: define expires_at = hoje+7 na 1ª validação
 
 import Airtable from "airtable";
 
@@ -24,6 +25,10 @@ function isNotExpired(dateOnlyStr) {
   return new Date() <= end;
 }
 
+function toDateOnly(d) {
+  return new Date(d).toISOString().slice(0,10); // YYYY-MM-DD
+}
+
 export default async function handler(req, res) {
   try {
     if (req.method === "GET" || req.method === "HEAD") {
@@ -42,13 +47,15 @@ export default async function handler(req, res) {
     if (!base) {
       // Permite teste mesmo sem Airtable ligado
       return res.status(200).json({
-        ok: true, simulated: true, plan_type: "mensal",
-        expires_at: new Date(Date.now() + 3*24*3600*1000).toISOString().slice(0,10),
+        ok: true,
+        simulated: true,
+        plan_type: "mensal",
+        expires_at: toDateOnly(Date.now() + 3*24*3600*1000),
         grace_days: 5
       });
     }
 
-    // Procura por `code` primeiro; se não achar, tenta `license_key` (compatibilidade)
+    // Procura por `code` primeiro; se não achar, tenta `license_key` (compat)
     let recs = await base(AIRTABLE_TABLE).select({
       filterByFormula: `{code} = "${license_key}"`
     }).all();
@@ -64,14 +71,34 @@ export default async function handler(req, res) {
     }
 
     const r          = recs[0];
-    const plan_type  = String(r.get("plan_type") || "").toLowerCase(); // "mensal" | "vitalicio"
-    const expires_at = r.get("expires_at"); // YYYY-MM-DD (Date-only)
+    const plan_type  = String(r.get("plan_type") || "").toLowerCase(); // "mensal" | "vitalicio" | "trial7"
+    let   expires_at = r.get("expires_at"); // YYYY-MM-DD (Date-only)
     const flagged    = !!r.get("flagged");  // alerta, não bloqueia
-    const blocked    = !!r.get("blocked");  // 🔒 bloqueio duro (novo campo recomendado)
+    const blocked    = !!r.get("blocked");  // 🔒 bloqueio duro
+
+    // 🔓 trial7: ativar validade na 1ª validação (se ainda sem data)
+    if (plan_type === "trial7" && !expires_at) {
+      const end = new Date();
+      end.setDate(end.getDate() + 7);
+      const endStr = toDateOnly(end);
+      try {
+        await base(AIRTABLE_TABLE).update(r.id, { expires_at: endStr });
+        expires_at = endStr; // importante atualizar a variável local
+      } catch (e) {
+        // se falhar a atualização, segue sem data e cairá como expired abaixo
+        console.warn("trial7 activate failed:", e);
+      }
+    }
 
     // Bloqueio duro
     if (blocked) {
-      return res.status(200).json({ ok: false, msg: "blocked", plan_type, expires_at, flagged });
+      return res.status(200).json({
+        ok: false,
+        msg: "blocked",
+        plan_type,
+        expires_at: expires_at || null,
+        flagged
+      });
     }
 
     // Vitalício ignora validade
@@ -85,13 +112,13 @@ export default async function handler(req, res) {
       });
     }
 
-    // Mensal: expiração
+    // Mensal/Trial: expiração
     if (!isNotExpired(expires_at)) {
       return res.status(200).json({
         ok: false,
         msg: "expired",
         plan_type: plan_type || "mensal",
-        expires_at,
+        expires_at: expires_at || null,
         flagged
       });
     }
@@ -100,7 +127,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       ok: true,
       plan_type: plan_type || "mensal",
-      expires_at,         // devolve string YYYY-MM-DD
+      expires_at,         // string YYYY-MM-DD
       grace_days: 5,
       flagged
     });
