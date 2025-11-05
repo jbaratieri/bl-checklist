@@ -491,7 +491,7 @@
 
       <div class="cta-top" aria-hidden="false">
 
-         <button id="btnTrial" class="btn btn-accent" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>       
+         <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>       
         
         <a class="btn btn-ghost"
           href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=navbar&utm_campaign=mensal"
@@ -543,7 +543,7 @@
             href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero&utm_campaign=mensal"
             target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
 
-          <button id="btnTrial" class="btn btn-accent" type="button">Testar grátis por 7 dias</button>
+          <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
 
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
@@ -578,7 +578,7 @@
           <a class="btn btn-ghost"
             href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero2&utm_campaign=mensal"
             target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
-            <button id="btnTrial" class="btn btn-accent" type="button">Testar grátis por 7 dias</button>
+           <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
         <div class="badge">Acesso imediato • </div>
@@ -614,7 +614,7 @@
           <a class="btn btn-ghost"
             href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero3&utm_campaign=mensal"
             target="_blank" rel="noopener">Assinatura Mensal — R$ 19,90</a>
-            <button id="btnTrial" class="btn btn-accent" type="button">Testar grátis por 7 dias</button>
+          <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
         <div class="badge">Acesso imediato •</div>
@@ -931,9 +931,7 @@
 
     <a id="cta-buy" class="btn btn-primary" href="#precos" aria-label="Ver planos e preços — LuthierPro">Ver
       planos e Preços</a>
-      <button id="btnTrial" class="btn btn-accent" type="button">
-    🎁 Teste grátis por 7 dias — sem cartão
-</button>
+   <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
   </div>
 
   <!-- FAQ Schema (SEO) -->
@@ -1047,21 +1045,28 @@
 </div>
 
 <script>
-  // Trial modal wiring
+  // Trial modal wiring (suporta vários botões .js-trial)
   (function(){
     const modal = document.getElementById('trialModal');
-    const btnTrial = document.getElementById('btnTrial');
+    const btnsTrial = document.querySelectorAll('.js-trial'); // <- vários
     const btnClose = document.getElementById('trialClose');
     const btnSubmit = document.getElementById('trialSubmit');
     const inputEmail = document.getElementById('trialEmail');
     const out = document.getElementById('trialResult');
 
-    if (!btnTrial) return; // segurança
+    function openModal(){
+      modal.style.display='flex';
+      out.textContent='';
+      out.style.color='#333';
+      inputEmail.value='';
+      setTimeout(()=>inputEmail.focus(), 0);
+    }
+    function closeModal(){ modal.style.display='none'; }
 
-    btnTrial.onclick = () => { modal.style.display='flex'; out.textContent=''; inputEmail.value=''; inputEmail.focus(); };
-    btnClose.onclick = () => { modal.style.display='none'; };
+    btnsTrial.forEach(btn => btn.addEventListener('click', openModal));
+    if (btnClose) btnClose.addEventListener('click', closeModal);
 
-    btnSubmit.onclick = async () => {
+    if (btnSubmit) btnSubmit.addEventListener('click', async () => {
       const email = (inputEmail.value||'').trim();
       if (!email || !email.includes('@')) { out.textContent='Informe um e-mail válido.'; out.style.color='red'; return; }
       out.textContent = 'Gerando código...'; out.style.color='#333';
@@ -1089,7 +1094,7 @@
         `;
         out.style.color='#0a0';
 
-        // micro-conversão (opcional)
+        // tracking opcional
         try {
           window.dataLayer = window.dataLayer || [];
           window.dataLayer.push({ event:'trial_generated', email });
@@ -1098,15 +1103,13 @@
       } catch(e){
         out.textContent='Falha de rede. Tente novamente.'; out.style.color='red';
       }
-    };
+    });
 
-    // fecha ao clicar fora
-    modal.addEventListener('click', (e) => { if (e.target === modal) modal.style.display='none'; });
-    // ESC fecha
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') modal.style.display='none'; });
+    // Close ao clicar fora e ESC
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
   })();
 </script>
-
 </body>
 
 </html>
