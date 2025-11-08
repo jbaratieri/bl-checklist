@@ -214,4 +214,17 @@ window.exportProjectFile = (async function(inst, proj, token){
   return payload0;
 });
 
+// Ensure importProjectFile exists (definição definitiva — sobrescreve se necessário)
+window.importProjectFile = (async function(file){
+  if (!file) throw new Error('Nenhum arquivo fornecido para importProjectFile()');
+  if (window.BackupRestore && typeof BackupRestore.importFromFile === 'function') {
+    return await BackupRestore.importFromFile(file);
+  }
+  if (window.importProjectFileOriginal && typeof window.importProjectFileOriginal === 'function') {
+    return await window.importProjectFileOriginal(file);
+  }
+  throw new Error('Nenhuma função de import disponível (BackupRestore.importFromFile ausente).');
+});
+
+
 })();
