@@ -1,5 +1,5 @@
-// service-worker.js — LuthierPro v2.4.1 (offline forte + login sem cache + ignora /api)
-const CACHE_VERSION = 'luthierpro-v2.4.1';
+// service-worker.js — LuthierPro v2.4.2 (offline forte + login sem cache + ignora /api)
+const CACHE_VERSION = 'luthierpro-v2.4.2';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
 const IMG_CACHE_MAX_ENTRIES = 300;
@@ -51,21 +51,29 @@ const APP_SHELL = [
 // Helper para limitar quantidade de imagens cacheadas
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   const cache = await caches.open(cacheName);
-  await cache.put(request, response.clone());
+  try {
+    await cache.put(request, response.clone());
+  } catch (e) {
+    console.warn('[Service Worker] putWithTrim put failed', e);
+  }
 
   if (cacheName === RUNTIME_CACHE && matchPrefixList.length) {
-    const keys = await cache.keys();
-    const filtered = keys.filter(k => matchPrefixList.some(prefix => k.url.includes(prefix)));
-    if (filtered.length > IMG_CACHE_MAX_ENTRIES) {
-      const toDelete = filtered.slice(0, filtered.length - IMG_CACHE_MAX_ENTRIES);
-      await Promise.all(toDelete.map(req => cache.delete(req)));
+    try {
+      const keys = await cache.keys();
+      const filtered = keys.filter(k => matchPrefixList.some(prefix => k.url.includes(prefix)));
+      if (filtered.length > IMG_CACHE_MAX_ENTRIES) {
+        const toDelete = filtered.slice(0, filtered.length - IMG_CACHE_MAX_ENTRIES);
+        await Promise.all(toDelete.map(req => cache.delete(req)));
+      }
+    } catch (e) {
+      console.warn('[Service Worker] putWithTrim trim failed', e);
     }
   }
 }
 
 // INSTALL
 self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Install v2.4.1');
+  console.log('[Service Worker] Install', CACHE_VERSION);
   event.waitUntil((async () => {
     const cache = await caches.open(SHELL_CACHE);
     for (const url of APP_SHELL) {
@@ -152,23 +160,81 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Imagens em /assets/
+  // Imagens em /assets/ — com fallback para .webp quando disponível
   const isImg = /\.(png|jpe?g|webp|gif|svg)$/i.test(url.pathname);
   const isAsset = url.pathname.includes('/assets/');
   if (isImg && isAsset) {
     event.respondWith((async () => {
       const cache = await caches.open(RUNTIME_CACHE);
-      const cached = await cache.match(request);
-      if (cached) return cached;
 
+      // se já for request para webp, tratar normalmente (evita tentativa redundante)
+      const isRequestedWebp = /\.webp$/i.test(url.pathname);
+      const internalFlag = request.headers.get('x-sw-webp') === '1';
+
+      // 1) Se o pedido for .png/.jpg/.svg -> tentar o .webp equivalente primeiro
+      if (!isRequestedWebp && !internalFlag) {
+        try {
+          const webpPath = url.pathname.replace(/\.(png|jpe?g|jpeg|svg)$/i, '.webp');
+          const webpUrl = new URL(webpPath, self.location.origin).href;
+          // a) verificar cache para webp
+          const cachedWebp = await cache.match(webpUrl);
+          if (cachedWebp) {
+            console.log('[Service Worker] Serve cached .webp for', url.pathname, '->', webpUrl);
+            return cachedWebp;
+          }
+
+          // b) tentar obter webp na rede (sinalizando para evitar loop)
+          try {
+            const webpReq = new Request(webpUrl, {
+              method: 'GET',
+              headers: { 'x-sw-webp': '1' },
+              mode: request.mode,
+              credentials: request.credentials,
+              redirect: 'follow'
+            });
+            const webpResp = await fetch(webpReq);
+            if (webpResp && webpResp.ok) {
+              console.log('[Service Worker] Fetched .webp for', url.pathname, '->', webpUrl);
+              // cachear o webp e retornar
+              await putWithTrim(RUNTIME_CACHE, webpReq, webpResp.clone(), ['/assets/']);
+              return webpResp;
+            }
+            // se webp não existe (404), prosseguir para buscar original abaixo
+          } catch (e) {
+            // network falhou ao buscar webp -> seguir para tentar o original
+            console.warn('[Service Worker] fetch .webp failed for', webpUrl, e);
+          }
+        } catch (e) {
+          // falha qualquer -> seguir para tentativa normal do recurso original
+          console.warn('[Service Worker] error generating webp path for', url.pathname, e);
+        }
+      }
+
+      // 2) Se chegou aqui: não conseguimos webp (ou já era webp) -> tentar cache original
+      const cached = await cache.match(request);
+      if (cached) {
+        console.log('[Service Worker] Serve cached original for', url.pathname);
+        return cached;
+      }
+
+      // 3) tentar buscar o recurso original na rede
       try {
         const net = await fetch(request);
-        await putWithTrim(RUNTIME_CACHE, request, net.clone(), ['/assets/']);
-        return net;
-      } catch {
-        console.warn('[Service Worker] imagem offline → usando fallback');
-        return await caches.match('./assets/fallback-image.png');
+        if (net && net.ok) {
+          // só cachear imagens (para limitar space) e usar trim
+          await putWithTrim(RUNTIME_CACHE, request, net.clone(), ['/assets/']);
+          console.log('[Service Worker] Fetched original and cached for', url.pathname);
+          return net;
+        }
+      } catch (e) {
+        // network falhou
+        console.warn('[Service Worker] fetch original failed for', url.pathname, e);
       }
+
+      // 4) fallback final para imagem genérica offline
+      console.warn('[Service Worker] imagem offline → usando fallback', url.pathname);
+      const fallback = await caches.match('./assets/fallback-image.png');
+      return fallback || Response.error();
     })());
     return;
   }

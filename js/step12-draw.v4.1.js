@@ -8,7 +8,7 @@
 
   var INST_KEY = 'bl:instrument';
   var STORE_PREFIX = 'bl:v1';
-  var FALLBACKS = ['svg','png','jpg','webp','jpeg'];
+  var FALLBACKS = ['webp','svg','png','jpg','jpeg'];
 
   var INST_ALIAS = {
     'vcl':'vcl','violao':'vcl','violão':'vcl','guitarra-classica':'vcl','violao-classico':'vcl',
@@ -81,14 +81,20 @@
       }catch(_){}
     }
 
+    // colocar a versão mais provável no topo para reduzir 404s
+    bases.push('/assets/tech/');
     bases.push('assets/tech/');
     bases.push('../public/assets/tech/');
-    bases.push('/assets/tech/');
 
+    // remover duplicatas mantendo a ordem mas garantindo que '/assets/tech/' venha primeiro
     var seen = {}, out = [];
     for (var i=0;i<bases.length;i++){
-      var k = (bases[i]||'').toLowerCase();
+      var k = String(bases[i]||'').toLowerCase();
       if (k && !seen[k]){ seen[k]=1; out.push(bases[i]); }
+    }
+    // se houver variações com e sem barra, normalize a saída (não obrigatório, apenas higiene)
+    for (var j=0;j<out.length;j++){
+      if (out[j] && !/\/$/.test(out[j])) out[j] = out[j];
     }
     return out;
   }
