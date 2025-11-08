@@ -102,13 +102,34 @@
         📏 <span class="label">Medidas</span>
       </button>
 
-      <!-- Backup / Restore (salvar projeto local) -->
-      <button class="btn" id="btnExportProject" title="Exportar projeto (backup)">
-        💾 <span class="label">Exportar</span>
-      </button>
-      <button class="btn" id="btnRestoreProject" title="Restaurar projeto (import)">
-        📤 <span class="label">Restaurar</span>
-      </button>
+      <!-- Backup / Restore (compact dropdowns) -->
+<div class="br-group" style="display:inline-flex;gap:8px;align-items:center;">
+  <!-- Export dropdown (details/summary para simplicidade e acessibilidade) -->
+  <details id="btnExportToggle" class="br-dropdown" style="position:relative;">
+    <summary class="btn" title="Exportar">
+      💾 <span class="label">Exportar</span>
+    </summary>
+    <div id="menuExport" class="br-menu" style="position:absolute;right:0;top:100%;background:#fff;border:1px solid #ddd;padding:6px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.08);min-width:180px;z-index:1200;">
+      <button class="btn" id="btnExportProject" style="display:block;width:100%;text-align:left;padding:6px 8px;">Exportar projeto atual</button>
+      <button class="btn" id="btnExportAllProjects" style="display:block;width:100%;text-align:left;padding:6px 8px;margin-top:6px;">Exportar TODOS os projetos</button>
+    </div>
+  </details>
+
+  <!-- Import dropdown -->
+  <details id="btnImportToggle" class="br-dropdown" style="position:relative;">
+    <summary class="btn" title="Importar">
+      📤 <span class="label">Importar</span>
+    </summary>
+    <div id="menuImport" class="br-menu" style="position:absolute;right:0;top:100%;background:#fff;border:1px solid #ddd;padding:6px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.08);min-width:220px;z-index:1200;">
+      <button class="btn" id="btnImportProject" style="display:block;width:100%;text-align:left;padding:6px 8px;">Importar (merge — adiciona/atualiza)</button>
+      <button class="btn" id="btnImportProjectOverwrite" style="display:block;width:100%;text-align:left;padding:6px 8px;margin-top:6px;">Importar (overwrite — substituir)</button>
+      <small style="display:block;margin-top:8px;color:#666;font-size:12px;">Ao importar com overwrite a página será recarregada automaticamente.</small>
+    </div>
+  </details>
+
+  <!-- hidden file input (reutilizável) -->
+  <input id="br_file_input" type="file" accept=".json,application/json,.luthierproj.json" style="display:none" />
+</div>
     </div>
   </header>
 
