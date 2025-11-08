@@ -131,15 +131,36 @@
   }
 
   function saveOverlayToStore(inst, token, overlay){
-    var proj = getProj(inst);
-    try{
-      var key = storeKeyNew(inst, proj, token);
-      var url = overlay.canvas.toDataURL('image/png');
+  var proj = getProj(inst);
+  try{
+    var key = storeKeyNew(inst, proj, token);
+    var url = overlay.canvas.toDataURL('image/png');
+
+    // tentativa assíncrona de salvar no IDB (fire & forget)
+    (async function(){
+      try {
+        // storeKey para overlays: <token>::overlay  (mantemos simples)
+        var storeKey = (token ? token : 'draw') + '::overlay';
+        if (window.blImgSave) {
+          await window.blImgSave(storeKey, url, { overlay: true, inst: inst, proj: proj, token: token, addedAt: Date.now() });
+          dbg && dbg('[draw] overlay saved to IDB', storeKey);
+        }
+      } catch(e){
+        warn && warn('[draw] overlay save to IDB failed', e);
+      }
+    })();
+
+    // manter compat (localStorage) para fallback
+    try {
       localStorage.setItem(key, url);
       var d = new Date();
       setStatus('Salvo às ' + d.toLocaleTimeString());
-    }catch(e){ console.error('Falha ao salvar overlay:', e); }
-  }
+    } catch(e){
+      console.error('Falha ao salvar overlay no localStorage:', e);
+    }
+  }catch(e){ console.error('Falha ao salvar overlay:', e); }
+}
+
 
   function tryLoad(keys, overlay, done){
     if (!keys.length) return done && done(false);
@@ -161,10 +182,49 @@
   }
 
   function loadOverlayFromStore(inst, token, overlay, done){
-    var proj = getProj(inst);
-    var keys = [storeKeyNew(inst, proj, token), storeKeyOld(inst, token)];
-    tryLoad(keys, overlay, done);
-  }
+  var proj = getProj(inst);
+  var keys = [storeKeyNew(inst, proj, token), storeKeyOld(inst, token)];
+
+  // tentativa IDB primeiro (se helpers existirem)
+  (async function(){
+    try {
+      if (window.blImgListPrefix && window.blImgGet) {
+        var assetPrefix = (token ? token : 'draw'); // usamos mesmo prefixo do save
+        try {
+          var recs = await window.blImgListPrefix(assetPrefix);
+          if (Array.isArray(recs) && recs.length) {
+            // preferir o rec que termina com ::overlay
+            var found = recs.find(r => r.key && r.key.indexOf('::overlay')>=0) || recs[0];
+            if (found) {
+              try {
+                var full = await window.blImgGet(found.key);
+                if (full && full.toDataURL) {
+                  var dataUrl = await full.toDataURL();
+                  var img = new Image();
+                  img.onload = function(){
+                    overlay.ctx.clearRect(0,0,overlay.canvas.width, overlay.canvas.height);
+                    overlay.ctx.drawImage(img, 0, 0);
+                    done && done(true);
+                  };
+                  img.onerror = function(){ proceedToLocal(); };
+                  img.src = dataUrl;
+                  return;
+                }
+              } catch(e){ /* continue to local */ }
+            }
+          }
+        } catch(e){ /* ignore IDB read errors, fallback to local */ }
+      }
+    } catch(e){ /* ignore */ }
+
+    // fallback para leitura por localStorage (comportamento anterior)
+    function proceedToLocal(){
+      tryLoad(keys, overlay, done);
+    }
+    proceedToLocal();
+  })();
+}
+
 
   var saveTimer = null;
   function autoSaveSoon(){

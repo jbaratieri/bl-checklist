@@ -1,7 +1,8 @@
-/*! step14-images-persist.v4.1.js — v4.1
-    - Mantém TODO o comportamento do v3.4 (projeto/instrumento/subetapa + anti-reentrada)
-    - Adiciona compressão de fotos (JPEG, máx. 1600x1200, qualidade 0.8)
-    - Adiciona migração: recomprime imagens já salvas (sem perder nada)
+/* FILE: js/step14-images-persist.v4.1.js — UPDATED (v4.1 patched for IndexedDB dual-write)
+   - Mantém TODO o comportamento do v3.4/v4.1
+   - Agora grava em IndexedDB via window.blImgSave (se disponível) e mantém localStorage como fallback (duplo-write)
+   - Leitura prioriza IDB (blImgListPrefix/blImgGet) com fallback para localStorage
+   - Exclusão tenta remover tanto localStorage quanto IDB
 */
 (function(){
   'use strict';
@@ -94,13 +95,11 @@
   }
 
   // ===== Viewer =====
-  // ===== Viewer (padronizado via viewer.global.js) =====
   function openViewer(src, alt){
     if (typeof window.openViewer === 'function') {
       window.openViewer(src, alt || 'imagem do projeto');
       return;
     }
-    // Fallback mínimo se o global não estiver carregado (bem improvável)
     var v = document.getElementById('imgViewer');
     if (!v) {
       v = document.createElement('div');
@@ -120,9 +119,8 @@
     document.body.style.overflow = 'hidden';
   }
 
-
-  // ===== Persistência =====
-  function loadList(sub){
+  // ===== Persistência (legacy localStorage helpers kept for fallback) =====
+  function loadListSync(sub){
     try {
       var raw = localStorage.getItem(keyFor(sub));
       if (!raw) return [];
@@ -135,38 +133,126 @@
       }).filter(Boolean);
     } catch(_){ return []; }
   }
-  function saveList(sub, list){
+
+  // --------- Helpers: compat IDB (blImgSave) + localStorage (dual-write) ----------
+  function assetKeyFromLocalKey(localKey) {
     try {
-      localStorage.setItem(keyFor(sub), JSON.stringify(list||[]));
-    } catch(e){ console.warn('Falha ao salvar imagens:', e); }
+      var parts = String(localKey).split(':');
+      if (parts.length >= 5) return parts.slice(4).join(':');
+    } catch(_) {}
+    return String(localKey);
   }
 
+  async function saveImageAssetLocalAndIDB(localKey, assetKey, list /* array [{id,data,...}] */) {
+    try {
+      if (window.blImgSave && Array.isArray(list)) {
+        for (var i=0;i<list.length;i++){
+          var item = list[i];
+          if (!item || !item.data) continue;
+          var storeKey = assetKey + (item.id ? ('::' + item.id) : (':anon:' + Date.now() + '-' + Math.random().toString(36).slice(2)));
+          try {
+            await window.blImgSave(storeKey, item.data, { src: localKey, originalId: item.id || null });
+          } catch(e){
+            console.warn('[ImagesPersist] blImgSave failed for', storeKey, e);
+          }
+        }
+      }
+    } catch(e){
+      console.warn('[ImagesPersist] saveImageAssetLocalAndIDB error', e);
+    }
+
+    try {
+      localStorage.setItem(localKey, JSON.stringify(list||[]));
+    } catch(e){
+      console.warn('[ImagesPersist] localStorage write failed for', localKey, e);
+    }
+    return true;
+  }
+
+  // nova leitura assíncrona: tenta IndexedDB primeiro (se disponível), depois fallback para localStorage
+  async function loadListAsync(sub){
+    try {
+      var localKey = keyFor(sub);
+      var assetKey = assetKeyFromLocalKey(localKey);
+
+      if (window.blImgListPrefix && window.blImgGet) {
+        try {
+          var recs = await window.blImgListPrefix(assetKey);
+          if (Array.isArray(recs) && recs.length) {
+            var out = [];
+            for (var i=0;i<recs.length;i++){
+              try {
+                var rec = recs[i];
+                var full = await window.blImgGet(rec.key);
+                if (full && full.blob && full.toDataURL) {
+                  var dataUrl = await full.toDataURL();
+                  var parts = String(rec.key).split('::');
+                  var id = parts.length>1 ? parts.slice(1).join('::') : rec.key;
+                  out.push({ id: id, data: dataUrl, name: (full.meta && full.meta.name) || 'image', ts: full.addedAt || Date.now() });
+                }
+              } catch(e){ /* skip single */ }
+            }
+            if (out.length) return out;
+          }
+        } catch(e){ console.warn('[ImagesPersist] IDB read failed', e); }
+      }
+
+      return loadListSync(sub);
+    } catch(e){
+      console.warn('[ImagesPersist] loadListAsync fallback error', e);
+      return loadListSync(sub);
+    }
+  }
+
+  // ===== Renderização (agora assíncrona) =====
   function renderRow(sub){
     var row = findRowForSub(sub);
-    var list = loadList(sub);
     row.innerHTML = '';
-    list.forEach(function(item){
-      var t = el('div','thumb');
-      var img = el('img');
-      img.src = item.data;
-      img.alt = 'imagem';
-      img.loading = 'lazy';
-      t.appendChild(img);
 
-      var close = el('button','close');
-      close.textContent = '×';
-      close.title = 'Excluir imagem';
-      close.addEventListener('click', function(ev){
-        ev.stopPropagation();
-        var next = loadList(sub).filter(function(x){ return x.id !== item.id; });
-        saveList(sub, next);
-        renderRow(sub);
+    (async function(){
+      var list = [];
+      try { list = await loadListAsync(sub); } catch(e){ list = loadListSync(sub); }
+
+      row.innerHTML = '';
+      list.forEach(function(item){
+        var t = el('div','thumb');
+        var img = el('img');
+        img.src = item.data;
+        img.alt = 'imagem';
+        img.loading = 'lazy';
+        t.appendChild(img);
+
+        var close = el('button','close');
+        close.textContent = '×';
+        close.title = 'Excluir imagem';
+        close.addEventListener('click', async function(ev){
+          ev.stopPropagation();
+          try {
+            var curr = loadListSync(sub);
+            var next = curr.filter(function(x){ return x.id !== item.id; });
+            saveList(sub, next);
+            try {
+              if (window.blImgListPrefix && window.blImgDelete) {
+                var localKey = keyFor(sub);
+                var assetKey = assetKeyFromLocalKey(localKey);
+                var recs = await window.blImgListPrefix(assetKey);
+                for (var r=0;r<recs.length;r++){
+                  var rk = recs[r].key;
+                  if (rk && rk.indexOf('::'+item.id) >= 0) {
+                    await window.blImgDelete(rk);
+                  }
+                }
+              }
+            } catch(e){ /* ignore idb delete errors */ }
+          } catch(e){ console.warn('[ImagesPersist] remove thumb failed', e); }
+          renderRow(sub);
+        });
+        t.appendChild(close);
+
+        t.addEventListener('click', function(){ openViewer(item.data); });
+        row.appendChild(t);
       });
-      t.appendChild(close);
-
-      t.addEventListener('click', function(){ openViewer(item.data); });
-      row.appendChild(t);
-    });
+    })();
   }
 
   // ===== Compressão =====
@@ -215,18 +301,34 @@
     }
   }
 
+  // ===== addImagesToSubstep (usa saveList) =====
   async function addImagesToSubstep(sub, files){
     if (!files || !files.length) return;
-    var list = loadList(sub);
+    var list = loadListSync(sub);
     for (var i=0;i<files.length;i++){
       var f = files[i];
       try {
         var data = await fileToDataURL(f);
         list.push({ id: Date.now() + ':' + Math.random().toString(36).slice(2), data: data, name: f.name, ts: Date.now() });
-      } catch(_){}
+      } catch(e){
+        console.warn('[ImagesPersist] file->dataURL failed', e);
+      }
     }
     saveList(sub, list);
     renderRow(sub);
+  }
+
+  // ===== saveList (duplo write: IDB + localStorage) =====
+  function saveList(sub, list){
+    try {
+      var localKey = keyFor(sub);
+      var assetKey = assetKeyFromLocalKey(localKey);
+      saveImageAssetLocalAndIDB(localKey, assetKey, list).catch(function(e){
+        console.warn('[ImagesPersist] saveList async failed', e);
+      });
+    } catch(e){
+      console.warn('Falha ao salvar imagens:', e);
+    }
   }
 
   // ===== Migração =====
@@ -296,7 +398,7 @@
       if (cleaned) return;
       cleaned = true;
       __BL_IMG_PICKING__ = false;
-      try { document.body.removeChild(input); } catch(_){}
+      try { document.body.removeChild(input); } catch(_){ }
       window.removeEventListener('focus', onFocusBack, true);
       clearTimeout(safetyTimer);
     }
@@ -378,3 +480,4 @@
   }
 
 })();
+
