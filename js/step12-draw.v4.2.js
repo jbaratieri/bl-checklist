@@ -1,4 +1,4 @@
-/* Step 12 — Desenho Técnico v4.4 (FULL FILE - Updated)
+/* step12-draw.v4.2.js — Desenho Técnico v4.4 (FULL FILE - Updated)
    - UI simplificada (sem Resetar/Exportar/Salvar; auto-save ativo)
    - Mobile usa "cover" (imagem ocupa mais o canvas)
    - RESTAURA assets discovery + fallbacks e overlay restore
