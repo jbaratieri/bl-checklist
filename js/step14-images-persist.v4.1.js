@@ -120,19 +120,20 @@
   }
 
   // ===== Persistência (legacy localStorage helpers kept for fallback) =====
-  function loadListSync(sub){
-    try {
-      var raw = localStorage.getItem(keyFor(sub));
-      if (!raw) return [];
-      var list = JSON.parse(raw);
-      if (!Array.isArray(list)) return [];
-      return list.map(function(x){
-        if (typeof x === 'string') return { id: Date.now()+':'+Math.random().toString(36).slice(2), data: x, name: 'image', ts: Date.now() };
-        if (x && typeof x === 'object' && x.data) return x;
-        return null;
-      }).filter(Boolean);
-    } catch(_){ return []; }
-  }
+  function loadList(sub){
+  try {
+    // leitura localStorage (rápida) para não bloquear UI
+    var raw = localStorage.getItem(keyFor(sub));
+    if (!raw) return [];
+    var list = JSON.parse(raw);
+    if (!Array.isArray(list)) return [];
+    return list.map(function(x){
+      if (typeof x === 'string') return { id: Date.now()+':'+Math.random().toString(36).slice(2), data: x, name: 'image', ts: Date.now() };
+      if (x && typeof x === 'object' && x.data) return x;
+      return null;
+    }).filter(Boolean);
+  } catch(_){ return []; }
+}
 
   // --------- Helpers: compat IDB (blImgSave) + localStorage (dual-write) ----------
   function assetKeyFromLocalKey(localKey) {
@@ -303,33 +304,68 @@
 
   // ===== addImagesToSubstep (usa saveList) =====
   async function addImagesToSubstep(sub, files){
-    if (!files || !files.length) return;
-    var list = loadListSync(sub);
-    for (var i=0;i<files.length;i++){
-      var f = files[i];
-      try {
-        var data = await fileToDataURL(f);
-        list.push({ id: Date.now() + ':' + Math.random().toString(36).slice(2), data: data, name: f.name, ts: Date.now() });
-      } catch(e){
-        console.warn('[ImagesPersist] file->dataURL failed', e);
-      }
+  if (!files || !files.length) return;
+  // lemos lista atual (rápida)
+  var list = loadList(sub) || [];
+  var added = [];
+  for (var i=0;i<files.length;i++){
+    var f = files[i];
+    try {
+      var data = await fileToDataURL(f); // compress + dataURL
+      var item = { id: Date.now() + ':' + Math.random().toString(36).slice(2), data: data, name: f.name, ts: Date.now() };
+      list.push(item);
+      added.push(item);
+    } catch(err){
+      console.warn('falha ao processar arquivo', err);
     }
-    saveList(sub, list);
-    renderRow(sub);
   }
+
+  // salvar localStorage + tentar persistir no IDB e aguardar
+  try {
+    await saveList(sub, list);
+  } catch(e){
+    console.warn('saveList falhou', e);
+  }
+
+  // Re-renderiza imediatamente (garante que as thumbs caiam na UI)
+  try { renderRow(sub); } catch(e){ console.warn('renderRow falhou', e); }
+
+  // opcional: log de debug
+  dbg && dbg('[images] added', sub, added.length);
+
+  return added;
+}
 
   // ===== saveList (duplo write: IDB + localStorage) =====
   function saveList(sub, list){
-    try {
-      var localKey = keyFor(sub);
-      var assetKey = assetKeyFromLocalKey(localKey);
-      saveImageAssetLocalAndIDB(localKey, assetKey, list).catch(function(e){
-        console.warn('[ImagesPersist] saveList async failed', e);
-      });
-    } catch(e){
-      console.warn('Falha ao salvar imagens:', e);
+  try {
+    localStorage.setItem(keyFor(sub), JSON.stringify(list||[]));
+  } catch(e){ console.warn('Falha ao salvar imagens no localStorage:', e); }
+
+  // tentativa de persistir em IDB: gravar cada item como chave "<sub>::<id>"
+  // retornamos uma Promise para que chamador possa aguardar se quiser.
+  if (!window.blImgSave) return Promise.resolve();
+  var promises = [];
+  try {
+    for (var i=0;i<(list||[]).length;i++){
+      (function(item){
+        try {
+          // gerar chave previsível
+          var id = item.id || (Date.now() + ':' + Math.random().toString(36).slice(2));
+          var key = sub + '::' + id;
+          // grava o dataURL no IDB (blImgSave)
+          // blImgSave(key, dataURL) — aceita string dataURL
+          promises.push(window.blImgSave(key, item.data));
+        } catch(e){ /* ignora item */ }
+      })(list[i]);
     }
-  }
+  } catch(e){ /* ignore */ }
+
+  // também podemos limpar entradas ORFÃs no IDB (opcional) — omitido por simplicidade
+  return Promise.all(promises).catch(function(e){
+    console.warn('Alguma gravação no IDB falhou', e);
+  });
+}
 
   // ===== Migração =====
   function estimateBytes(str){ try { return new Blob([str]).size; } catch(e){ return (str||'').length; } }
