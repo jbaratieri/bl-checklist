@@ -1,131 +1,106 @@
-/* FILE: js/backup-restore.v1.js — Backup & Restore for LuthierPro (v1 - full)
-   - exportProject(inst, proj) -> payload { meta, local, images }
-   - exportCurrentProjectAndDownload() -> triggers download
-   - exportAllProjects() -> payload with multiple projects
-   - importPayload(payload, options) -> writes localStorage + images, syncs BL_PROJECT, optionally reloads
-   - importFromFile(file, options) -> reads file and calls importPayload
-   - Backwards compatibility: exportProjectFile(...) and importProjectFile(file)
-   - Designed to work with window.blImg* helpers if present (blImgSave, blImgListPrefix, blImgGet)
+/* FILE: js/backup-restore.v1.js — Backup & Restore for LuthierPro (v1.1)
+   - exportProject / exportAllProjects
+   - importPayload with merge/overwrite options
+   - importFromFile(file, options)
+   - backward-compatible exportProjectFile / importProjectFile
 */
-(function(){
+(function () {
   'use strict';
   if (window.__BL_BACKUP_V1__) return; window.__BL_BACKUP_V1__ = true;
 
-  // --- Small utils
-  function jsonTryParse(s){ try { return JSON.parse(s); } catch(_) { return null; } }
-  function nowISO(){ return new Date().toISOString(); }
-  function downloadJSON(obj, name){
-    const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
+  // utilities
+  function jsonTryParse(s) { try { return JSON.parse(s); } catch (_) { return null; } }
+  function nowISO() { return new Date().toISOString(); }
+  function downloadJSON(obj, name) {
+    const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = name || ('luthierpro-backup-'+Date.now()+'.json');
-    document.body.appendChild(a); a.click(); setTimeout(()=>{ a.remove(); URL.revokeObjectURL(url); }, 500);
+    const a = document.createElement('a'); a.href = url; a.download = name || ('luthierpro-backup-' + Date.now() + '.json');
+    document.body.appendChild(a); a.click(); setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 400);
   }
 
-  // --- Current instrument/project helpers (fallback to localStorage)
-  function currInst(){ return (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl')); }
-  function currProj(inst){
-    try { return (window.BL_PROJECT ? BL_PROJECT.get(inst) : (localStorage.getItem('bl:project:'+inst)||'default')); }
-    catch(_) { return (localStorage.getItem('bl:project:'+inst)||'default'); }
+  function currInst() { return (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument') || 'vcl')); }
+  function currProj(inst) { try { return (window.BL_PROJECT ? BL_PROJECT.get(inst) : (localStorage.getItem('bl:project:' + inst) || 'default')); } catch (_) { return (localStorage.getItem('bl:project:' + inst) || 'default'); } }
+
+  // heurística para extrair assetKey (reverse de keyFor)
+  function assetKeyFromLocalKey(localKey) {
+    try { const parts = String(localKey).split(':'); if (parts.length >= 5) return parts.slice(4).join(':'); } catch (_) { } return String(localKey);
   }
 
-  // --- Keys discovery for a given project (localStorage)
-  function keysForProject(inst, proj){
-    const all = Object.keys(localStorage||{});
-    const out = new Set();
-    const pfx1 = 'bl:v2:imgs:' + inst + ':' + proj + ':';
-    for (const k of all){
-      if (!k) continue;
-      try {
-        if (k.indexOf(':'+inst+':'+proj+':') >= 0) out.add(k);
-        if (k.startsWith('bl:') && k.indexOf(':'+inst+':')>=0 && k.indexOf(':'+proj+':')>=0) out.add(k);
-        if (k.startsWith(pfx1)) out.add(k);
-        if (k.indexOf('bl:val:'+inst+':'+proj+':')===0) out.add(k);
-        if (k === ('bl:project:'+inst) || k === ('bl:instrument')) out.add(k);
-      } catch(_) {}
-    }
-    // fallback: include all keys that mention the project id
-    for (const k of all){ if (String(k).indexOf(':'+proj) >= 0) out.add(k); }
-    return Array.from(out);
-  }
-
-  // --- Convert a local key to an asset key used in IDB (reverse of keyFor)
-  function assetKeyFromLocalKey(localKey){
-    try { const parts = String(localKey).split(':'); if (parts.length >= 5) return parts.slice(4).join(':'); } catch(_){} return localKey;
-  }
-
-  // --- Read images from IDB for an assetKey prefix
-  async function readImagesFromIDBForAsset(assetKey){
+  // Read images from IDB for an assetKey prefix (tries several blImg APIs)
+  async function readImagesFromIDBForAsset(assetKey) {
     const out = [];
     if (!window.blImgListPrefix) return out;
-    try{
+    try {
       const recs = await window.blImgListPrefix(assetKey);
       if (!Array.isArray(recs)) return out;
-      for (const r of recs){
-        try{
-          if (!r) continue;
-          // If r already has dataURL cached, prefer it
-          if (r.dataURL) { out.push({ key: r.key, dataURL: r.dataURL, addedAt: r.addedAt || Date.now() }); continue; }
-          // Try blImgGet for full item
+      for (const r of recs) {
+        try {
+          // r might already include dataURL & addedAt in your implementation
+          if (r && r.dataURL) { out.push({ key: r.key, dataURL: r.dataURL, addedAt: r.addedAt || Date.now() }); continue; }
+          // otherwise try blImgGet
           if (window.blImgGet) {
             const full = await window.blImgGet(r.key);
             if (!full) continue;
             if (full.dataURL) {
               out.push({ key: r.key, dataURL: full.dataURL, addedAt: full.addedAt || Date.now() });
-              continue;
-            }
-            if (full.blob) {
-              // convert blob to dataURL
-              const dataURL = await new Promise((res, rej)=>{
-                const fr = new FileReader();
-                fr.onload = ()=>res(fr.result);
-                fr.onerror = ()=>rej(fr.error);
-                fr.readAsDataURL(full.blob);
-              });
+            } else if (full.blob) {
+              // convert blob -> dataURL
+              const dataURL = await new Promise((res, rej) => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.onerror = () => rej(fr.error); fr.readAsDataURL(full.blob); });
               out.push({ key: r.key, dataURL, addedAt: full.addedAt || Date.now() });
-              continue;
-            }
-            if (typeof full.toDataURL === 'function') {
+            } else if (typeof full.toDataURL === 'function') {
               const dataURL = await full.toDataURL();
               out.push({ key: r.key, dataURL, addedAt: full.addedAt || Date.now() });
-              continue;
             }
           }
-          // last resort: push basic rec record (no dataURL)
-          out.push({ key: r.key, dataURL: r.dataURL || null, addedAt: r.addedAt || Date.now() });
-        } catch(e){ console.warn('[Backup] readImagesFromIDBForAsset item failed', e); }
+        } catch (e) {
+          console.warn('[Backup] readImagesFromIDBForAsset: item failed', e);
+        }
       }
-    }catch(e){ console.warn('[Backup] blImgListPrefix failed', e); }
+    } catch (e) { console.warn('[Backup] blImgListPrefix failed', e); }
     return out;
   }
 
-  // --- exportProject: gather localStorage keys + images from IDB
-  async function exportProject(inst, proj){
+  // Build list of localStorage keys relevant for a project
+  function keysForProject(inst, proj) {
+    const all = Object.keys(localStorage || {});
+    const out = new Set();
+    // common prefixes used in app: bl:v2:imgs:inst:proj:sub, bl:val:inst:proj:..., bl:project:inst, bl:instrument, others containing :inst:proj:
+    const pfxImgs = 'bl:v2:imgs:' + inst + ':' + proj + ':';
+    for (const k of all) {
+      if (!k) continue;
+      if (k.indexOf(':' + inst + ':' + proj + ':') >= 0) out.add(k);
+      if (k.startsWith('bl:') && k.indexOf(':' + inst + ':') >= 0 && k.indexOf(':' + proj + ':') >= 0) out.add(k);
+      if (k.startsWith(pfxImgs)) out.add(k);
+      if (k.indexOf('bl:val:' + inst + ':' + proj + ':') === 0) out.add(k);
+      if (k === ('bl:project:' + inst) || k === ('bl:instrument')) out.add(k);
+    }
+    // last-resort: include all keys that mention the project id
+    for (const k of all) { if (String(k).indexOf(':' + proj) >= 0) out.add(k); }
+    return Array.from(out);
+  }
+
+  // Export a single project: collect localStorage keys and images that match candidates
+  async function exportProject(inst, proj) {
     inst = inst || currInst(); proj = proj || currProj(inst);
-    const meta = { exportedAt: nowISO(), inst, proj, app:'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null) };
+    const meta = { exportedAt: nowISO(), inst, proj, app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null) };
 
-    // include projects map (id+name) if runtime provides it
-    try {
-      if (window.BL_PROJECT && typeof BL_PROJECT.list === 'function') {
-        try { meta.projects = BL_PROJECT.list(inst).map(p => ({ id: p.id, name: p.name })); } catch(_) { meta.projects = null; }
-      }
-    } catch(_) { meta.projects = null; }
-
+    // collect relevant local keys
     const keys = keysForProject(inst, proj);
     const local = {};
-    for (const k of keys){ try { local[k] = localStorage.getItem(k); } catch(_){} }
+    for (const k of keys) { try { local[k] = localStorage.getItem(k); } catch (_) { } }
 
-    // images — detect candidate asset keys and read from IDB
-    const images = [];
+    // candidates for asset keys (from found local keys)
     const candidates = new Set();
-    for (const k of Object.keys(local || {})){
-      try{
-        if (k.indexOf('imgs')>=0 || k.indexOf(':imgs:')>=0 || k.indexOf('bl:v2:imgs')===0){ candidates.add(assetKeyFromLocalKey(k)); }
+    for (const k of Object.keys(local)) {
+      try {
+        if (k.indexOf('imgs') >= 0 || k.indexOf(':imgs:') >= 0 || k.indexOf('bl:v2:imgs') === 0) { candidates.add(assetKeyFromLocalKey(k)); }
         const parts = String(k).split(':');
-        if (parts.length>=5){ candidates.add(parts.slice(4).join(':')); }
-      }catch(_){ }
+        if (parts.length >= 5) { candidates.add(parts.slice(4).join(':')); }
+      } catch (_) { }
     }
 
-    for (const a of candidates){
+    const images = [];
+    for (const a of Array.from(candidates)) {
       if (!a) continue;
       const recs = await readImagesFromIDBForAsset(a);
       for (const r of recs) images.push(r);
@@ -134,187 +109,146 @@
     return { meta, local, images };
   }
 
-  // --- exportCurrentProjectAndDownload ---
-  async function exportCurrentProjectAndDownload(){
-    const inst = currInst(); const proj = currProj(inst);
-    const payload = await exportProject(inst, proj);
-    const name = 'luthierpro-export-'+inst+'-proj'+proj+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
-    downloadJSON(payload, name);
-    return payload;
-  }
+  // Export all projects: collect localStorage keys for all projects (grouping by inst/proj when possible)
+  async function exportAllProjects() {
+    // naive approach: collect all keys and attempt to infer inst/proj groups
+    const meta = { exportedAt: nowISO(), app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null) };
 
-  // --- exportAllProjects: discover inst/proj pairs and export each ---
-  async function exportAllProjects(){
-    // discover pairs from BL_PROJECT if present; otherwise scan localStorage
-    const pairs = new Set();
-    try {
-      if (window.BL_PROJECT && typeof BL_PROJECT.listGlobal === 'function') {
-        // some runtimes may offer a global listing; try it
-        const all = BL_PROJECT.listGlobal();
-        if (Array.isArray(all)) {
-          for (const p of all){ if (p && p.inst && p.id) pairs.add(p.inst + '::' + p.id); }
-        }
-      }
-    } catch(_) {}
+    const allKeys = Object.keys(localStorage || {});
+    const local = {};
+    for (const k of allKeys) { try { local[k] = localStorage.getItem(k); } catch (_) { } }
 
-    // fallback: use instruments known and BL_PROJECT.list per instrument
-    try {
-      if (window.BL_INSTRUMENT && typeof BL_INSTRUMENT.list === 'function') {
-        const insts = BL_INSTRUMENT.list();
-        if (Array.isArray(insts)) {
-          for (const inst of insts) {
-            try {
-              const list = BL_PROJECT.list(inst);
-              if (Array.isArray(list)) {
-                for (const p of list) pairs.add(inst + '::' + p.id);
-              }
-            } catch(_) {}
-          }
-        }
-      }
-    } catch(_) {}
-
-    // final fallback: scan localStorage for patterns "bl:v2:imgs:<inst>:<proj>:" or "bl:project:<inst>" keys
-    try {
-      const all = Object.keys(localStorage||{});
-      for (const k of all){
-        try {
-          if (!k) continue;
-          if (k.indexOf('bl:v2:imgs:')===0){
-            const parts = k.split(':'); // bl v2 imgs inst proj sub
-            if (parts.length >= 5) pairs.add(parts[3] + '::' + parts[4]);
-          } else if (k.indexOf('bl:project:')===0){
-            const inst = k.split(':')[2];
-            const proj = localStorage.getItem(k) || 'default';
-            pairs.add(inst + '::' + proj);
-          } else {
-            // try generic occurrences of :<inst>:<proj>:
-            const m = k.match(/bl:.*:([a-z0-9_-]+):([a-z0-9_-]+):/i);
-            if (m && m[1] && m[2]) pairs.add(m[1] + '::' + m[2]);
-          }
-        } catch(_) {}
-      }
-    } catch(_) {}
-
-    // now call exportProject for each pair
-    const out = { meta:{ exportedAt: nowISO(), all:true, count:0 }, projects: [] };
-    for (const p of Array.from(pairs)){
+    // gather candidate assetKeys from local keys
+    const assetCandidates = new Set();
+    for (const k of Object.keys(local)) {
       try {
-        const parts = String(p).split('::');
-        const inst = parts[0] || currInst();
-        const proj = parts[1] || currProj(inst);
-        const payload = await exportProject(inst, proj);
-        out.projects.push(payload);
-      } catch(e){ console.warn('[Backup] exportAllProjects item failed', e); }
+        if (k.indexOf('imgs') >= 0 || k.indexOf(':imgs:') >= 0 || k.indexOf('bl:v2:imgs') === 0) assetCandidates.add(assetKeyFromLocalKey(k));
+        const parts = String(k).split(':');
+        if (parts.length >= 5) assetCandidates.add(parts.slice(4).join(':'));
+      } catch (_) { }
     }
-    out.meta.count = out.projects.length;
-    return out;
+
+    const images = [];
+    for (const a of Array.from(assetCandidates)) {
+      if (!a) continue;
+      const recs = await readImagesFromIDBForAsset(a);
+      for (const r of recs) images.push(r);
+    }
+
+    return { meta, local, images };
   }
 
-  // --- importPayload: write localStorage + images; sync BL_PROJECT; optional reload
-  async function importPayload(payload, { merge = true, overwrite = false, autoReload = true } = {}){
+  // Import payload — options: { merge:true, overwrite:true }
+  // Behavior:
+  //  - overwrite === true -> set every local key from payload (replacing)
+  //  - merge === true -> for keys that are arrays (ex: images lists stored in localStorage) try to merge arrays de-duplicating by id; other keys: skip if exists
+  // Images: attempt to save each image in payload.images via blImgSave (key + dataURL)
+  // Import utilities: write localStorage and write images to IDB
+  async function importPayload(payload, { merge = true, overwrite = false, autoReload = true } = {}) {
     if (!payload || !payload.meta) throw new Error('invalid payload');
     const meta = payload.meta;
     const local = payload.local || {};
     const images = payload.images || [];
 
-    // 1) Write localStorage keys (merge semantics: when merge=true, we overwrite key values by default;
-    // if merge=false/overwrite=true the caller can decide — here we simply set keys from payload)
+    // 1) Write localStorage keys (merge behavior: if merge=true we keep existing keys that aren't present in payload)
     try {
-      Object.keys(local).forEach(k => {
-        try { localStorage.setItem(k, local[k]); } catch(e){ console.warn('[Backup] set localStorage failed', k, e); }
-      });
-    } catch(e){ console.warn('[Backup] writing localStorage failed', e); }
+      if (merge) {
+        // only set keys from payload (overwriting those present)
+        Object.keys(local).forEach(k => {
+          try { localStorage.setItem(k, local[k]); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
+        });
+      } else {
+        // overwrite = true -> remove keys that might conflict? simplest: write keys and optionally clear others is destructive
+        Object.keys(local).forEach(k => {
+          try { localStorage.setItem(k, local[k]); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
+        });
+      }
+    } catch (e) {
+      console.warn('[Backup] error while writing localStorage', e);
+    }
 
-    // 2) Write images to IDB via blImgSave (if exists)
-    if (window.blImgSave){
-      for (const img of images){
-        try{
-          const key = img.key || ('imported::'+(Date.now())+ '::' + Math.random().toString(36).slice(2));
-          // accept dataURL in properties dataURL or data
-          const data = img.dataURL || img.data || null;
-          if (data) {
-            // Some blImgSave implementations accept (key, dataURL, meta)
-            try { await window.blImgSave(key, data, { src: (meta.inst ? (meta.inst + '::' + meta.proj) : undefined) }); }
-            catch(e){ // fallback to simpler call
-              try { await window.blImgSave(key, data); } catch(e2){ console.warn('[Backup] blImgSave failed (fallback)', e2); }
-            }
-          } else {
-            // nothing to save (skip)
-          }
-        } catch(e){ console.warn('[Backup] blImgSave failed for', img && img.key, e); }
+    // 2) Write images to IDB using blImgSave
+    if (window.blImgSave) {
+      for (const img of images) {
+        try {
+          const key = img.key || ('imported::' + (Date.now()) + '::' + Math.random().toString(36).slice(2));
+          await window.blImgSave(key, img.dataURL || img.data || '');
+        } catch (e) { console.warn('[Backup] blImgSave failed for', img.key, e); }
       }
     }
 
-    // 3) Ensure standard "current" keys set (instrument + project)
+    // 3) Try to set heuristic "current instrument / project" keys, so UI can pick up without reload
     try {
+      // If payload.meta defines inst/proj, set those keys explicitly
       if (meta.inst) {
-        try { localStorage.setItem('bl:instrument', meta.inst); } catch(_) {}
+        try { localStorage.setItem('bl:instrument', meta.inst); } catch (_) { }
         if (meta.proj) {
-          try { localStorage.setItem('bl:project:' + meta.inst, String(meta.proj)); } catch(_) {}
+          try { localStorage.setItem('bl:project:' + meta.inst, String(meta.proj)); } catch (_) { }
         }
       }
-    } catch(_) {}
+    } catch (_) { }
 
-    // 4) Try to sync runtime BL_PROJECT if present
+    // 4) Try to notify BL_PROJECT / runtime that data changed. If BL_PROJECT exposes a reload/refresh method, call it.
     let notified = false;
     try {
       if (window.BL_PROJECT) {
-        // If BL_PROJECT offers reload/refresh APIs, call them
-        if (typeof BL_PROJECT.reload === 'function') {
-          try { await BL_PROJECT.reload(); notified = true; } catch(_) { }
+        // common patterns: a .reload() or .refresh() may exist
+        if (typeof BL_PROJECT.reload === 'function') { await BL_PROJECT.reload(); notified = true; }
+        else if (typeof BL_PROJECT.refresh === 'function') { BL_PROJECT.refresh(); notified = true; }
+        else if (typeof BL_PROJECT.list === 'function') {
+          // some implementations rely on localStorage; emite um evento para que listeners atualizem
+          window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta } }));
+          notified = true;
         }
-        if (!notified && typeof BL_PROJECT.refresh === 'function') {
-          try { BL_PROJECT.refresh(); notified = true; } catch(_) {}
-        }
-        // try to set current project explicitly
-        if (!notified && meta.inst && meta.proj && typeof BL_PROJECT.set === 'function') {
-          try { BL_PROJECT.set(meta.inst, String(meta.proj), { source: 'import' }); notified = true; } catch(_) {}
-        }
-        // try to rebuild/rename projects if meta.projects provided
-        if (meta.projects && Array.isArray(meta.projects) && meta.projects.length && typeof BL_PROJECT.rename === 'function') {
-          try {
-            const inst = meta.inst || currInst();
-            for (const p of meta.projects) {
-              try { if (p && p.id && p.name) BL_PROJECT.rename(inst, p.id, p.name); } catch(_) {}
-            }
-            notified = true;
-          } catch(_) {}
-        }
-        // emit event for any listeners
-        try { window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta } })); } catch(_) {}
-        notified = true;
-      } else {
-        // no BL_PROJECT present, still emit event so other modules can react
-        try { window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta } })); } catch(_) {}
       }
-    } catch(e){ console.warn('[Backup] BL_PROJECT notify failed', e); }
-
-    // 5) Decide whether to reload: reload if autoReload && (exportAll OR overwrite OR not notified)
-    const isExportAll = !(meta && meta.inst && meta.proj);
-    if (autoReload && (isExportAll || !notified || overwrite)) {
-      // short delay to give the UI a chance to show a toast
-      setTimeout(()=> { try { location.reload(); } catch(e){ console.warn('[Backup] reload attempt failed', e); } }, 700);
+    } catch (e) {
+      console.warn('[Backup] BL_PROJECT notify failed', e);
     }
 
-    return { ok:true, restoredAt: nowISO(), meta };
+    // 5) If it's an "export all" (meta may not contain inst/proj) or we couldn't notify the runtime, reload (if requested)
+    const isExportAll = !(meta && meta.inst && meta.proj);
+    if (autoReload && (isExportAll || !notified || overwrite)) {
+      // small delay so caller/toast can show
+      setTimeout(() => {
+        try { location.reload(); } catch (e) { console.warn('[Backup] reload failed', e); }
+      }, 700);
+    }
+
+    return { ok: true, restoredAt: (new Date()).toISOString(), meta };
   }
 
-  // import wrapper: file -> importPayload
-  async function importFromFile(file, options){
+
+  // Import from File object (file = File), options same as importPayload
+
+  async function importFromFile(file, options) {
     if (!file) throw new Error('no file');
     const txt = await file.text();
     const payload = jsonTryParse(txt);
     if (!payload) throw new Error('invalid json');
-    return await importPayload(payload, options || {});
+    const res = await importPayload(payload, options || {});
+    // if overwrite requested, reload to apply (some parts of app may read at load)
+    if (options && options.overwrite) {
+      // small delay to let UI show a toast if desired, then reload
+      setTimeout(() => location.reload(), 700);
+    }
+    return res;
   }
 
-  // convenience: importPayloadWithOptions (payload + options)
-  async function importPayloadWithOptions(payload, options){
-    return await importPayload(payload, options || {});
+  // convenience: import payload with default options
+  async function importPayloadWithOptions(payload, opts) {
+    return await importPayload(payload, opts || { merge: true });
   }
 
-  // --- Expose API
+  // Export current project and trigger download
+  async function exportCurrentProjectAndDownload() {
+    const inst = currInst(); const proj = currProj(inst);
+    const payload = await exportProject(inst, proj);
+    const name = 'luthierpro-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+    downloadJSON(payload, name);
+    return payload;
+  }
+
+  // Expose API
   window.BackupRestore = window.BackupRestore || {};
   window.BackupRestore.exportProject = exportProject;
   window.BackupRestore.exportCurrentProjectAndDownload = exportCurrentProjectAndDownload;
@@ -322,50 +256,60 @@
   window.BackupRestore.importPayload = importPayload;
   window.BackupRestore.importPayloadWithOptions = importPayloadWithOptions;
   window.BackupRestore.importFromFile = importFromFile;
-  window.BackupRestore.promptAndImport = function(){ // simple prompt helper
-    const input = document.createElement('input'); input.type='file'; input.accept='application/json';
-    input.addEventListener('change', async function(){ if (!input.files || !input.files[0]) return; try { await importFromFile(input.files[0]); alert('Import concluído'); } catch(e){ alert('Import falhou: '+(e&&e.message)); } }, { once:true });
-    input.click();
-  };
+  window.BackupRestore.promptAndImport = function () { const i = document.createElement('input'); i.type = 'file'; i.accept = 'application/json'; i.addEventListener('change', async () => { if (i.files && i.files[0]) { try { await importFromFile(i.files[0], { merge: true }); alert('Import OK'); } catch (e) { alert('Import falhou: ' + (e && e.message)); } } }, { once: true }); i.click(); };
 
-  // --- Backwards compat: exportProjectFile()
-  window.exportProjectFile = window.exportProjectFile || (async function(inst, proj){
+  // BACKWARDS COMPAT: exportProjectFile() — versão única que sempre força download
+  window.exportProjectFile = window.exportProjectFile || (async function (inst, proj, token) {
     if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
     if (inst || proj) {
-      // return payload and force download
       const payload = await window.BackupRestore.exportProject(inst, proj);
       try {
-        const name = 'luthierpro-export-'+(inst||'inst')+'-proj'+(proj||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
-        const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+        const name = 'luthierpro-export-' + (inst || 'inst') + '-proj' + (proj || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=> URL.revokeObjectURL(url), 500);
-      } catch(e){ console.warn('[exportProjectFile] download fallback', e); return payload; }
+        const a = document.createElement('a');
+        a.href = url; a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 500);
+      } catch (e) {
+        console.warn('[exportProjectFile] download fallback', e);
+        return payload;
+      }
       return payload;
-    } else {
+    }
+    if (typeof window.BackupRestore.exportCurrentProjectAndDownload === 'function') {
       return await window.BackupRestore.exportCurrentProjectAndDownload();
     }
+    // last resort
+    const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument') || 'vcl'));
+    const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:' + inst0) || 'default'));
+    const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
+    const name0 = 'luthierpro-export-' + (inst0 || 'inst') + '-proj' + (proj0 || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+    const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type: 'application/json' });
+    const url0 = URL.createObjectURL(blob0);
+    const a0 = document.createElement('a');
+    a0.href = url0; a0.download = name0;
+    document.body.appendChild(a0);
+    a0.click();
+    a0.remove();
+    setTimeout(() => URL.revokeObjectURL(url0), 500);
+    return payload0;
   });
 
-  // --- Ensure importProjectFile exists (definitive shim)
-  window.importProjectFile = window.importProjectFile || (async function(file){
+  // Ensure importProjectFile exists (definitive shim)
+  window.importProjectFile = window.importProjectFile || (async function (file, options) {
     if (!file) throw new Error('Nenhum arquivo fornecido para importProjectFile()');
-    if (window.BackupRestore && typeof BackupRestore.importFromFile === 'function') {
-      return await BackupRestore.importFromFile(file, { overwrite: false });
+    // prefer BackupRestore.importFromFile if present
+    if (window.BackupRestore && typeof window.BackupRestore.importFromFile === 'function') {
+      return await window.BackupRestore.importFromFile(file, options || {});
     }
-    if (window.importProjectFileOriginal && typeof window.importProjectFileOriginal === 'function') {
-      return await window.importProjectFileOriginal(file);
-    }
-    throw new Error('Nenhuma função de import disponível (BackupRestore.importFromFile ausente).');
+    // fallback to importFromFile local
+    return await importFromFile(file, options || {});
   });
 
-  // small convenience: exportAll -> download
-  window.BackupRestore.exportAllAndDownload = window.BackupRestore.exportAllAndDownload || (async function(){
-    const payload = await exportAllProjects();
-    const name = 'luthierpro-export-all-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
-    downloadJSON(payload, name);
-    return payload;
-  });
+  // small notes in console for developer
+  console.info('BackupRestore v1.1 loaded — exportProject/exportAllProjects/importFromFile available.');
 
-  // done
-  console.info('[BackupRestore] module loaded (v1)');
-})();
+})(); 
