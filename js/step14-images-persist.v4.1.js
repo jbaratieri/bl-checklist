@@ -1,4 +1,4 @@
-/* FILE: js/step14-images-persist.v4.1.js — UPDATED (v4.1 patched for IndexedDB dual-write)
+/*! FILE: js/step14-images-persist.v4.1.js — UPDATED (v4.1 patched for IndexedDB dual-write)
    - Mantém TODO o comportamento do v3.4/v4.1
    - Agora grava em IndexedDB via window.blImgSave (se disponível) e mantém localStorage como fallback (duplo-write)
    - Leitura prioriza IDB (blImgListPrefix/blImgGet) com fallback para localStorage
@@ -27,6 +27,10 @@
     MIGRATION_FLAG: 'bl:v4.1:migrated'
   };
 
+  // --- Debug helpers (seguro mesmo se não ativado) ---
+  function dbg(){ if (window.BL_DEBUG_IMAGES) try { console.debug.apply(console, arguments); } catch(_){} }
+  function warn(){ if (window.BL_DEBUG_IMAGES) try { console.warn.apply(console, arguments); } catch(_){} }
+
   function norm(s){
     if (!s) return '';
     s = String(s).toLowerCase();
@@ -53,7 +57,7 @@
       if (window.BL_PROJECT && typeof BL_PROJECT.get === 'function'){
         id = BL_PROJECT.get(inst || getInst());
       }
-    }catch(_){}
+    }catch(_){ }
     return id || 'default';
   }
   function keyFor(sub){
@@ -120,20 +124,22 @@
   }
 
   // ===== Persistência (legacy localStorage helpers kept for fallback) =====
-  function loadList(sub){
-  try {
-    // leitura localStorage (rápida) para não bloquear UI
-    var raw = localStorage.getItem(keyFor(sub));
-    if (!raw) return [];
-    var list = JSON.parse(raw);
-    if (!Array.isArray(list)) return [];
-    return list.map(function(x){
-      if (typeof x === 'string') return { id: Date.now()+':'+Math.random().toString(36).slice(2), data: x, name: 'image', ts: Date.now() };
-      if (x && typeof x === 'object' && x.data) return x;
-      return null;
-    }).filter(Boolean);
-  } catch(_){ return []; }
-}
+  // loadListSync: leitura síncrona do localStorage (usada pela UI para render imediato)
+  function loadListSync(sub){
+    try {
+      var raw = localStorage.getItem(keyFor(sub));
+      if (!raw) return [];
+      var list = JSON.parse(raw);
+      if (!Array.isArray(list)) return [];
+      return list.map(function(x){
+        if (typeof x === 'string') return { id: Date.now()+':'+Math.random().toString(36).slice(2), data: x, name: 'image', ts: Date.now() };
+        if (x && typeof x === 'object' && x.data) return x;
+        return null;
+      }).filter(Boolean);
+    } catch(e){ console.warn('[ImagesPersist] loadListSync failed', e); return []; }
+  }
+  // manter alias (sempre síncrono) para compatibilidade com código que usa loadList
+  function loadList(sub){ return loadListSync(sub); }
 
   // --------- Helpers: compat IDB (blImgSave) + localStorage (dual-write) ----------
   function assetKeyFromLocalKey(localKey) {
@@ -185,11 +191,23 @@
               try {
                 var rec = recs[i];
                 var full = await window.blImgGet(rec.key);
-                if (full && full.blob && full.toDataURL) {
-                  var dataUrl = await full.toDataURL();
+                if (full && (full.dataURL || full.blob || full.toDataURL)) {
+                  // full may provide dataURL directly or blob; try to normalize
+                  var dataUrl = full.dataURL || (full.toDataURL ? await full.toDataURL() : null);
+                  if (!dataUrl && full.blob){
+                    // try to convert blob to dataURL
+                    dataUrl = await (new Promise((res,rej)=>{
+                      try {
+                        var fr = new FileReader();
+                        fr.onload = function(){ res(fr.result); };
+                        fr.onerror = function(){ rej(fr.error||new Error('blob->dataURL error')); };
+                        fr.readAsDataURL(full.blob);
+                      } catch(er){ rej(er); }
+                    }));
+                  }
                   var parts = String(rec.key).split('::');
                   var id = parts.length>1 ? parts.slice(1).join('::') : rec.key;
-                  out.push({ id: id, data: dataUrl, name: (full.meta && full.meta.name) || 'image', ts: full.addedAt || Date.now() });
+                  out.push({ id: id, data: dataUrl || '', name: (full.meta && full.meta.name) || 'image', ts: full.addedAt || Date.now() });
                 }
               } catch(e){ /* skip single */ }
             }
@@ -205,7 +223,7 @@
     }
   }
 
-  // ===== Renderização (agora assíncrona) =====
+  // ===== Renderização (agora assíncrona e resiliente) =====
   function renderRow(sub){
     var row = findRowForSub(sub);
     row.innerHTML = '';
@@ -219,7 +237,7 @@
         var t = el('div','thumb');
         var img = el('img');
         img.src = item.data;
-        img.alt = 'imagem';
+        img.alt = item.name || 'imagem';
         img.loading = 'lazy';
         t.appendChild(img);
 
@@ -231,7 +249,7 @@
           try {
             var curr = loadListSync(sub);
             var next = curr.filter(function(x){ return x.id !== item.id; });
-            saveList(sub, next);
+            await saveList(sub, next);
             try {
               if (window.blImgListPrefix && window.blImgDelete) {
                 var localKey = keyFor(sub);
@@ -240,7 +258,7 @@
                 for (var r=0;r<recs.length;r++){
                   var rk = recs[r].key;
                   if (rk && rk.indexOf('::'+item.id) >= 0) {
-                    await window.blImgDelete(rk);
+                    try { await window.blImgDelete(rk); } catch(_){ }
                   }
                 }
               }
@@ -286,14 +304,14 @@
   async function fileToDataURL(file, maxW, maxH, q){
     var data = await readFileAsDataURL(file);
     var img = await loadDataURL(data);
-    return drawToCanvas(img, maxW||1600, maxH||1200, q||0.8);
+    return drawToCanvas(img, maxW||CFG.MAX_W, maxH||CFG.MAX_H, q||CFG.QUALITY);
   }
   async function compressDataURLIfNeeded(dataUrl){
     try{
       if (typeof dataUrl !== 'string' || !dataUrl.startsWith('data:image/')) return dataUrl;
       if (dataUrl.startsWith('data:image/png') || dataUrl.length > 1_600_000){
         var img = await loadDataURL(dataUrl);
-        return drawToCanvas(img, 1600, 1200, 0.8);
+        return drawToCanvas(img, CFG.MAX_W, CFG.MAX_H, CFG.QUALITY);
       }
       return dataUrl;
     }catch(e){
@@ -304,68 +322,68 @@
 
   // ===== addImagesToSubstep (usa saveList) =====
   async function addImagesToSubstep(sub, files){
-  if (!files || !files.length) return;
-  // lemos lista atual (rápida)
-  var list = loadList(sub) || [];
-  var added = [];
-  for (var i=0;i<files.length;i++){
-    var f = files[i];
-    try {
-      var data = await fileToDataURL(f); // compress + dataURL
-      var item = { id: Date.now() + ':' + Math.random().toString(36).slice(2), data: data, name: f.name, ts: Date.now() };
-      list.push(item);
-      added.push(item);
-    } catch(err){
-      console.warn('falha ao processar arquivo', err);
+    if (!files || !files.length) return;
+    // lemos lista atual (rápida)
+    var list = loadListSync(sub) || [];
+    var added = [];
+    for (var i=0;i<files.length;i++){
+      var f = files[i];
+      try {
+        var data = await fileToDataURL(f); // compress + dataURL
+        var item = { id: Date.now() + ':' + Math.random().toString(36).slice(2), data: data, name: f.name, ts: Date.now() };
+        list.push(item);
+        added.push(item);
+      } catch(err){
+        console.warn('[ImagesPersist] falha ao processar arquivo', err);
+      }
     }
+
+    // salvar localStorage + tentar persistir no IDB e aguardar
+    try {
+      await saveList(sub, list);
+    } catch(e){
+      console.warn('[ImagesPersist] saveList falhou', e);
+    }
+
+    // Re-renderiza imediatamente (garante que as thumbs caiam na UI)
+    try { renderRow(sub); } catch(e){ console.warn('[ImagesPersist] renderRow falhou', e); }
+
+    // opcional: log de debug
+    dbg('[images] added', sub, added.length);
+
+    return added;
   }
-
-  // salvar localStorage + tentar persistir no IDB e aguardar
-  try {
-    await saveList(sub, list);
-  } catch(e){
-    console.warn('saveList falhou', e);
-  }
-
-  // Re-renderiza imediatamente (garante que as thumbs caiam na UI)
-  try { renderRow(sub); } catch(e){ console.warn('renderRow falhou', e); }
-
-  // opcional: log de debug
-  dbg && dbg('[images] added', sub, added.length);
-
-  return added;
-}
 
   // ===== saveList (duplo write: IDB + localStorage) =====
   function saveList(sub, list){
-  try {
-    localStorage.setItem(keyFor(sub), JSON.stringify(list||[]));
-  } catch(e){ console.warn('Falha ao salvar imagens no localStorage:', e); }
+    try {
+      localStorage.setItem(keyFor(sub), JSON.stringify(list||[]));
+    } catch(e){ console.warn('[ImagesPersist] Falha ao salvar imagens no localStorage:', e); }
 
-  // tentativa de persistir em IDB: gravar cada item como chave "<sub>::<id>"
-  // retornamos uma Promise para que chamador possa aguardar se quiser.
-  if (!window.blImgSave) return Promise.resolve();
-  var promises = [];
-  try {
-    for (var i=0;i<(list||[]).length;i++){
-      (function(item){
-        try {
-          // gerar chave previsível
-          var id = item.id || (Date.now() + ':' + Math.random().toString(36).slice(2));
-          var key = sub + '::' + id;
-          // grava o dataURL no IDB (blImgSave)
-          // blImgSave(key, dataURL) — aceita string dataURL
-          promises.push(window.blImgSave(key, item.data));
-        } catch(e){ /* ignora item */ }
-      })(list[i]);
-    }
-  } catch(e){ /* ignore */ }
+    // tentativa de persistir em IDB: gravar cada item como chave "<sub>::<id>"
+    // retornamos uma Promise para que chamador possa aguardar se quiser.
+    if (!window.blImgSave) return Promise.resolve();
+    var promises = [];
+    try {
+      for (var i=0;i<(list||[]).length;i++){
+        (function(item){
+          try {
+            // gerar chave previsível
+            var id = item.id || (Date.now() + ':' + Math.random().toString(36).slice(2));
+            var key = sub + '::' + id;
+            // grava o dataURL no IDB (blImgSave)
+            // blImgSave(key, dataURL) — aceita string dataURL
+            promises.push(window.blImgSave(key, item.data));
+          } catch(e){ /* ignora item */ }
+        })(list[i]);
+      }
+    } catch(e){ /* ignore */ }
 
-  // também podemos limpar entradas ORFÃs no IDB (opcional) — omitido por simplicidade
-  return Promise.all(promises).catch(function(e){
-    console.warn('Alguma gravação no IDB falhou', e);
-  });
-}
+    // também podemos limpar entradas ORFÃs no IDB (opcional) — omitido por simplicidade
+    return Promise.all(promises).catch(function(e){
+      console.warn('[ImagesPersist] Alguma gravação no IDB falhou', e);
+    });
+  }
 
   // ===== Migração =====
   function estimateBytes(str){ try { return new Blob([str]).size; } catch(e){ return (str||'').length; } }
@@ -516,4 +534,3 @@
   }
 
 })();
-
