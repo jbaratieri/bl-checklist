@@ -1,20 +1,15 @@
 // service-worker.js — LuthierPro v2.4.2 (offline forte + login sem cache + ignora /api)
 const CACHE_VERSION = 'luthierpro-v2.4.2';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
-const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`;
+const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 const APP_SHELL = [
   './',
-  './index.html',            // mantém cache para offline do app
-  // './login.html',         // ⚠️ não cachear login (sempre rede)
+  './index.html',
   './offline.html',
   './manifest.webmanifest',
-
-  // Ícone fallback (para imagens offline)
   './assets/fallback-image.png',
-
-  // CSS
   './css/checklist.css',
   './css/images-thumbs.css',
   './css/context-bar.css',
@@ -23,8 +18,6 @@ const APP_SHELL = [
   './css/responsive.css',
   './css/footer.css',
   './css/login.css',
-
-  // JS principais
   './js/checklist.js',
   './js/step2-toc.js',
   './js/step6-export.js',
@@ -40,15 +33,12 @@ const APP_SHELL = [
   './js/step19-project-plan.v7.js',
   './js/step18-persist-fallback.v3.js',
   './js/viewer.global.js',
-  './js/login.js', // ok manter; o HTML do login é que não será cacheado
-
-  // Ícones PWA
+  './js/login.js',
   './icon/icon-192.webp',
   './icon/icon-512.webp',
   './assets/logos/logo-luthierpro1.webp'
 ];
 
-// Helper para limitar quantidade de imagens cacheadas
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {
   const cache = await caches.open(cacheName);
   try {
@@ -115,11 +105,10 @@ self.addEventListener('fetch', (event) => {
 
   // Navegação HTML
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
-    // login.html: rede sempre (sem cache) + fallback offline
     if (url.pathname.endsWith('/login.html') || url.pathname.endsWith('login.html')) {
       event.respondWith((async () => {
         try {
-          return await fetch(request); // rede
+          return await fetch(request);
         } catch {
           const cache = await caches.open(SHELL_CACHE);
           return (await cache.match('./offline.html')) || Response.error();
@@ -128,16 +117,13 @@ self.addEventListener('fetch', (event) => {
       return;
     }
 
-    // index.html e demais HTML: network-first com fallback ao cache (garante offline)
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
       try {
         const net = await fetch(request);
-        // atualiza cache da página principal
         cache.put('./index.html', net.clone());
         return net;
       } catch {
-        // offline: tenta cache do index ou offline.html
         return (await cache.match('./index.html'))
             || (await cache.match('./offline.html'))
             || Response.error();
@@ -167,23 +153,19 @@ self.addEventListener('fetch', (event) => {
     event.respondWith((async () => {
       const cache = await caches.open(RUNTIME_CACHE);
 
-      // se já for request para webp, tratar normalmente (evita tentativa redundante)
       const isRequestedWebp = /\.webp$/i.test(url.pathname);
       const internalFlag = request.headers.get('x-sw-webp') === '1';
 
-      // 1) Se o pedido for .png/.jpg/.svg -> tentar o .webp equivalente primeiro
       if (!isRequestedWebp && !internalFlag) {
         try {
           const webpPath = url.pathname.replace(/\.(png|jpe?g|jpeg|svg)$/i, '.webp');
           const webpUrl = new URL(webpPath, self.location.origin).href;
-          // a) verificar cache para webp
           const cachedWebp = await cache.match(webpUrl);
           if (cachedWebp) {
             console.log('[Service Worker] Serve cached .webp for', url.pathname, '->', webpUrl);
             return cachedWebp;
           }
 
-          // b) tentar obter webp na rede (sinalizando para evitar loop)
           try {
             const webpReq = new Request(webpUrl, {
               method: 'GET',
@@ -195,43 +177,34 @@ self.addEventListener('fetch', (event) => {
             const webpResp = await fetch(webpReq);
             if (webpResp && webpResp.ok) {
               console.log('[Service Worker] Fetched .webp for', url.pathname, '->', webpUrl);
-              // cachear o webp e retornar
               await putWithTrim(RUNTIME_CACHE, webpReq, webpResp.clone(), ['/assets/']);
               return webpResp;
             }
-            // se webp não existe (404), prosseguir para buscar original abaixo
           } catch (e) {
-            // network falhou ao buscar webp -> seguir para tentar o original
             console.warn('[Service Worker] fetch .webp failed for', webpUrl, e);
           }
         } catch (e) {
-          // falha qualquer -> seguir para tentativa normal do recurso original
           console.warn('[Service Worker] error generating webp path for', url.pathname, e);
         }
       }
 
-      // 2) Se chegou aqui: não conseguimos webp (ou já era webp) -> tentar cache original
       const cached = await cache.match(request);
       if (cached) {
         console.log('[Service Worker] Serve cached original for', url.pathname);
         return cached;
       }
 
-      // 3) tentar buscar o recurso original na rede
       try {
         const net = await fetch(request);
         if (net && net.ok) {
-          // só cachear imagens (para limitar space) e usar trim
           await putWithTrim(RUNTIME_CACHE, request, net.clone(), ['/assets/']);
           console.log('[Service Worker] Fetched original and cached for', url.pathname);
           return net;
         }
       } catch (e) {
-        // network falhou
         console.warn('[Service Worker] fetch original failed for', url.pathname, e);
       }
 
-      // 4) fallback final para imagem genérica offline
       console.warn('[Service Worker] imagem offline → usando fallback', url.pathname);
       const fallback = await caches.match('./assets/fallback-image.png');
       return fallback || Response.error();
@@ -254,4 +227,23 @@ self.addEventListener('fetch', (event) => {
       return fallback || Response.error();
     }
   })());
+});
+
+// MESSAGE listener — receber notificações da página (ex.: restauração de backup)
+self.addEventListener('message', (evt) => {
+  try {
+    const data = evt.data || {};
+    if (data && data.type === 'BR_RESTORED') {
+      console.log('[SW] BR_RESTORED received — broadcasting BR_DONE to clients');
+      // notifica todos os clients que o restore foi concluído/registrado
+      self.clients.matchAll().then(clients => {
+        clients.forEach(c => {
+          try { c.postMessage({ type: 'BR_DONE', meta: data.meta || null }); } catch(_) {}
+        });
+      });
+      // opcional: poderíamos aqui acionar limpeza ou outra rotina
+    }
+  } catch (e) {
+    console.warn('[SW] message handler error', e);
+  }
 });
