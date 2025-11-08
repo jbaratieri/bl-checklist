@@ -52,10 +52,10 @@
       const recs = await window.blImgListPrefix(assetKey);
       for (const r of recs){
         try{
-          if (r && r.dataURL) {
-            out.push({ key: r.key, dataURL: r.dataURL, addedAt: r.addedAt || Date.now() });
-            continue;
-          }
+          if (!r) continue;
+          // r may already include dataURL
+          if (r.dataURL) { out.push({ key: r.key, dataURL: r.dataURL, addedAt: r.addedAt || Date.now() }); continue; }
+
           if (window.blImgGet) {
             const full = await window.blImgGet(r.key);
             if (!full) continue;
@@ -67,7 +67,7 @@
                 fr.readAsDataURL(full.blob);
               });
               out.push({ key: r.key, dataURL, addedAt: full.addedAt || Date.now() });
-            } else if (full.toDataURL){
+            } else if (typeof full.toDataURL === 'function'){
               const dataURL = await full.toDataURL();
               out.push({ key: r.key, dataURL, addedAt: full.addedAt || Date.now() });
             }
@@ -76,6 +76,73 @@
       }
     }catch(e){ console.warn('[Backup] blImgListPrefix failed', e); }
     return out;
+  }
+
+  // ---------- Project meta helpers (augment / restore) ----------
+  async function buildProjectMeta(inst, proj) {
+    var meta = { inst: inst || currInst(), proj: proj || currProj(inst), projName: null, projects: [] };
+    try {
+      if (window.BL_PROJECT && typeof BL_PROJECT.list === 'function'){
+        meta.projects = BL_PROJECT.list(meta.inst) || [];
+        const curId = (BL_PROJECT.get && BL_PROJECT.get(meta.inst)) || meta.proj;
+        const cur = (meta.projects || []).find(p => String(p.id) === String(curId));
+        meta.projName = cur ? cur.name : (document.getElementById('selProject') ? (document.getElementById('selProject').selectedOptions[0]?.text || null) : null);
+      } else {
+        meta.projName = (document.getElementById('selProject') && document.getElementById('selProject').selectedOptions[0]?.text) || localStorage.getItem('bl:projectName:'+meta.inst) || null;
+        meta.projects = [{ id: meta.proj, name: meta.projName || ('Projeto ' + (meta.proj||'1')) }];
+      }
+    } catch(e){ console.warn('[BackupRestore] buildProjectMeta failed', e); }
+    return meta;
+  }
+
+  async function augmentPayloadWithProjectMeta(payload, inst, proj){
+    try{
+      payload.meta = payload.meta || {};
+      const pm = await buildProjectMeta(inst, proj);
+      payload.meta.inst = pm.inst; payload.meta.proj = pm.proj; payload.meta.projName = pm.projName; payload.meta.projects = pm.projects;
+    }catch(e){ console.warn('[BackupRestore] augment meta failed', e); }
+  }
+
+  function restoreProjectMetaFromPayload(meta){
+    try {
+      if (!meta || !meta.inst) return;
+      const inst = String(meta.inst);
+      const proj = meta.proj;
+      const projName = meta.projName || (meta.projects && meta.projects[0] && meta.projects[0].name) || null;
+      const projects = Array.isArray(meta.projects) ? meta.projects : (proj ? [{id:proj, name:projName||('Projeto '+proj)}] : []);
+
+      if (window.BL_PROJECT) {
+        try {
+          const existing = (BL_PROJECT.list && BL_PROJECT.list(inst)) || [];
+          for (let i=0;i<projects.length;i++){
+            const p = projects[i];
+            const found = existing.find(x => String(x.id) === String(p.id) || String(x.name) === String(p.name));
+            if (!found && typeof BL_PROJECT.create === 'function'){
+              // best-effort: create with name; ID might change depending on BL_PROJECT impl
+              BL_PROJECT.create(inst, p.name || ('Projeto ' + (p.id||i+1)));
+            } else if (found && typeof BL_PROJECT.rename === 'function'){
+              if (p.name && found.name !== p.name){ try { BL_PROJECT.rename(inst, found.id, p.name); } catch(_){} }
+            }
+          }
+          if (typeof BL_PROJECT.set === 'function'){
+            const toSet = proj || (projects[0] && projects[0].id) || (existing[0] && existing[0].id);
+            if (toSet) BL_PROJECT.set(inst, toSet, { source: 'import' });
+          } else {
+            localStorage.setItem('bl:project:'+inst, String(proj || (projects[0] && projects[0].id) || 'default'));
+          }
+        } catch(e){ console.warn('[BackupRestore] BL_PROJECT restore partial fail', e); }
+      } else {
+        try {
+          if (proj) localStorage.setItem('bl:project:'+inst, String(proj));
+          try { localStorage.setItem('bl:project:list:'+inst, JSON.stringify(projects || [])); } catch(_){ }
+          if (projName) localStorage.setItem('bl:projectName:'+inst+':'+(proj||'default'), projName);
+        } catch(e){ console.warn('[BackupRestore] localStorage project restore failed', e); }
+      }
+
+      try { window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst: inst, id: proj } })); } catch(_){}
+      try { localStorage.setItem('bl:project:imported_at', String(Date.now())); } catch(_){}
+
+    } catch(e){ console.warn('[BackupRestore] restoreProjectMetaFromPayload failed', e); }
   }
 
   // Main export: gather localStorage keys + images from IDB
@@ -94,7 +161,7 @@
       try{
         if (k.indexOf('imgs')>=0 || k.indexOf(':imgs:')>=0 || k.indexOf('bl:v2:imgs')===0){ candidates.add(assetKeyFromLocalKey(k)); }
         const parts = String(k).split(':');
-        if (parts.length>=4){ candidates.add(parts.slice(4).join(':')); }
+        if (parts.length>=5){ candidates.add(parts.slice(4).join(':')); }
       }catch(_){ }
     }
 
@@ -104,7 +171,10 @@
       for (const r of recs) images.push(r);
     }
 
-    return { meta, local, images };
+    const payload = { meta, local, images };
+    // augment meta with project list + names
+    await augmentPayloadWithProjectMeta(payload, inst, proj);
+    return payload;
   }
 
   // Export and trigger download
@@ -113,6 +183,7 @@
     const payload = await exportProject(inst, proj);
     const name = 'luthierpro-export-'+inst+'-proj'+proj+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
     downloadJSON(payload, name);
+    console.info('[BackupRestore] export complete', { inst, proj, name });
     return payload;
   }
 
@@ -122,6 +193,8 @@
     const meta = payload.meta;
     const local = payload.local || {};
     const images = payload.images || [];
+
+    console.info('[BackupRestore] import start', meta);
 
     // Write localStorage keys
     Object.keys(local).forEach(k => {
@@ -136,8 +209,14 @@
           await window.blImgSave(key, img.dataURL);
         }catch(e){ console.warn('[Backup] blImgSave failed for', img.key, e); }
       }
+    } else if (images.length){
+      console.warn('[BackupRestore] blImgSave not available — images will not be saved to IDB');
     }
 
+    // restore project meta (project list + selection)
+    try { restoreProjectMetaFromPayload(meta); } catch(e){ console.warn('[BackupRestore] restoreProjectMetaFromPayload error', e); }
+
+    console.info('[BackupRestore] import finished', { restoredAt: nowISO(), meta });
     return { ok:true, restoredAt: nowISO(), meta };
   }
 
@@ -147,7 +226,8 @@
     const txt = await file.text();
     const payload = jsonTryParse(txt);
     if (!payload) throw new Error('invalid json');
-    return await importPayload(payload);
+    const res = await importPayload(payload);
+    return res;
   }
 
   // Simple UI helpers: create invisible input and import
@@ -170,61 +250,62 @@
   window.BackupRestore.promptAndImport = promptAndImport;
 
   // BACKWARDS COMPAT: exportProjectFile() — versão única que sempre força download
-window.exportProjectFile = (async function(inst, proj, token){
-  if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
+  window.exportProjectFile = (async function(inst, proj, token){
+    if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
 
-  // Se passaram inst/proj -> obter payload e forçar download localmente
-  if (inst || proj) {
-    const payload = await window.BackupRestore.exportProject(inst, proj);
-    try {
-      const name = 'luthierpro-export-'+(inst||'inst')+'-proj'+(proj||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
-      const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = name;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      setTimeout(()=> URL.revokeObjectURL(url), 500);
-    } catch (e) {
-      console.warn('[exportProjectFile] download fallback', e);
+    // Se passaram inst/proj -> obter payload e forçar download localmente
+    if (inst || proj) {
+      const payload = await window.BackupRestore.exportProject(inst, proj);
+      try {
+        const name = 'luthierpro-export-'+(inst||'inst')+'-proj'+(proj||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
+        const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(()=> URL.revokeObjectURL(url), 500);
+      } catch (e) {
+        console.warn('[exportProjectFile] download fallback', e);
+        return payload;
+      }
       return payload;
     }
-    return payload;
-  }
 
-  // Sem args -> usa a rotina que já faz o download internamente (se existir)
-  if (typeof window.BackupRestore.exportCurrentProjectAndDownload === 'function') {
-    return await window.BackupRestore.exportCurrentProjectAndDownload();
-  }
+    // Sem args -> usa a rotina que já faz o download internamente (se existir)
+    if (typeof window.BackupRestore.exportCurrentProjectAndDownload === 'function') {
+      return await window.BackupRestore.exportCurrentProjectAndDownload();
+    }
 
-  // Último recurso: gerar payload do projeto atual e forçar download
-  const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl'));
-  const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:'+inst0)||'default'));
-  const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
-  const name0 = 'luthierpro-export-'+(inst0||'inst')+'-proj'+(proj0||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
-  const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type:'application/json' });
-  const url0 = URL.createObjectURL(blob0);
-  const a0 = document.createElement('a');
-  a0.href = url0; a0.download = name0;
-  document.body.appendChild(a0);
-  a0.click();
-  a0.remove();
-  setTimeout(()=> URL.revokeObjectURL(url0), 500);
-  return payload0;
-});
+    // Último recurso: gerar payload do projeto atual e forçar download
+    const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl'));
+    const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:'+inst0)||'default'));
+    const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
+    const name0 = 'luthierpro-export-'+(inst0||'inst')+'-proj'+(proj0||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
+    const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type:'application/json' });
+    const url0 = URL.createObjectURL(blob0);
+    const a0 = document.createElement('a');
+    a0.href = url0; a0.download = name0;
+    document.body.appendChild(a0);
+    a0.click();
+    a0.remove();
+    setTimeout(()=> URL.revokeObjectURL(url0), 500);
+    return payload0;
+  });
 
-// Ensure importProjectFile exists (definição definitiva — sobrescreve se necessário)
-window.importProjectFile = (async function(file){
-  if (!file) throw new Error('Nenhum arquivo fornecido para importProjectFile()');
-  if (window.BackupRestore && typeof BackupRestore.importFromFile === 'function') {
-    return await BackupRestore.importFromFile(file);
-  }
-  if (window.importProjectFileOriginal && typeof window.importProjectFileOriginal === 'function') {
-    return await window.importProjectFileOriginal(file);
-  }
-  throw new Error('Nenhuma função de import disponível (BackupRestore.importFromFile ausente).');
-});
+  // Ensure importProjectFile exists (definição definitiva — sobrescreve se necessário)
+  window.importProjectFile = (async function(file){
+    if (!file) throw new Error('Nenhum arquivo fornecido para importProjectFile()');
+    if (window.BackupRestore && typeof BackupRestore.importFromFile === 'function') {
+      return await BackupRestore.importFromFile(file);
+    }
+    if (window.importProjectFileOriginal && typeof window.importProjectFileOriginal === 'function') {
+      return await window.importProjectFileOriginal(file);
+    }
+    throw new Error('Nenhuma função de import disponível (BackupRestore.importFromFile ausente).');
+  });
 
+  console.info('[BackupRestore] loaded');
 
 })();
