@@ -143,67 +143,81 @@
   //  - overwrite === true -> set every local key from payload (replacing)
   //  - merge === true -> for keys that are arrays (ex: images lists stored in localStorage) try to merge arrays de-duplicating by id; other keys: skip if exists
   // Images: attempt to save each image in payload.images via blImgSave (key + dataURL)
-  async function importPayload(payload, { merge = true, overwrite = false } = {}){
+
+    // Import utilities: write localStorage and write images to IDB
+  async function importPayload(payload, { merge = true, overwrite = false, autoReload = true } = {}) {
     if (!payload || !payload.meta) throw new Error('invalid payload');
     const meta = payload.meta;
     const local = payload.local || {};
     const images = payload.images || [];
 
-    // localStorage write
-    const written = [];
-    for (const k of Object.keys(local)){
-      try {
-        const existing = localStorage.getItem(k);
-        if (overwrite) {
-          localStorage.setItem(k, local[k]);
-          written.push(k);
-        } else if (merge) {
-          // try to detect JSON arrays and merge
-          try {
-            const parsedNew = JSON.parse(local[k]);
-            if (Array.isArray(parsedNew)) {
-              let parsedOld = [];
-              try { parsedOld = JSON.parse(existing || '[]'); } catch(_) { parsedOld = []; }
-              if (!Array.isArray(parsedOld)) parsedOld = [];
-              // simple merge by stringified id or value
-              const map = new Map();
-              parsedOld.forEach(it => { try { map.set((it && it.id) ? it.id : JSON.stringify(it), it); } catch(_){} });
-              parsedNew.forEach(it => { try { map.set((it && it.id) ? it.id : JSON.stringify(it), it); } catch(_){} });
-              const merged = Array.from(map.values());
-              localStorage.setItem(k, JSON.stringify(merged));
-              written.push(k);
-              continue;
-            }
-          } catch(_) {}
-          // fallback: do not overwrite existing scalar keys on merge
-          if (!existing) { localStorage.setItem(k, local[k]); written.push(k); }
-        } else {
-          // neither merge nor overwrite: only set if not exists
-          if (!existing) { localStorage.setItem(k, local[k]); written.push(k); }
-        }
-      } catch(e){
-        console.warn('[Backup] set localStorage failed', k, e);
+    // 1) Write localStorage keys (merge behavior: if merge=true we keep existing keys that aren't present in payload)
+    try {
+      if (merge) {
+        // only set keys from payload (overwriting those present)
+        Object.keys(local).forEach(k => {
+          try { localStorage.setItem(k, local[k]); } catch(e){ console.warn('[Backup] set localStorage failed', k, e); }
+        });
+      } else {
+        // overwrite = true -> remove keys that might conflict? simplest: write keys and optionally clear others is destructive
+        Object.keys(local).forEach(k => {
+          try { localStorage.setItem(k, local[k]); } catch(e){ console.warn('[Backup] set localStorage failed', k, e); }
+        });
       }
+    } catch(e) {
+      console.warn('[Backup] error while writing localStorage', e);
     }
 
-    // images: write to IDB using blImgSave if available
-    if (window.blImgSave){
-      for (const img of images){
+    // 2) Write images to IDB using blImgSave
+    if (window.blImgSave) {
+      for (const img of images) {
         try{
-          // keep the key if provided, otherwise create one
-          const key = img.key || ('imported::'+(Date.now())+'::'+Math.random().toString(36).slice(2));
-          // blImgSave(key, dataURL) — implementation can accept dataURL or blob
-          await window.blImgSave(key, img.dataURL);
-        }catch(e){
-          console.warn('[Backup] blImgSave failed for', img.key, e);
-        }
+          const key = img.key || ('imported::'+(Date.now())+ '::' + Math.random().toString(36).slice(2));
+          await window.blImgSave(key, img.dataURL || img.data || '');
+        } catch(e){ console.warn('[Backup] blImgSave failed for', img.key, e); }
       }
-    } else {
-      console.warn('[Backup] blImgSave not available — images not saved to IDB');
     }
 
-    return { ok:true, restoredAt: nowISO(), meta, written };
+    // 3) Try to set heuristic "current instrument / project" keys, so UI can pick up without reload
+    try {
+      // If payload.meta defines inst/proj, set those keys explicitly
+      if (meta.inst) {
+        try { localStorage.setItem('bl:instrument', meta.inst); } catch(_) {}
+        if (meta.proj) {
+          try { localStorage.setItem('bl:project:' + meta.inst, String(meta.proj)); } catch(_) {}
+        }
+      }
+    } catch(_) {}
+
+    // 4) Try to notify BL_PROJECT / runtime that data changed. If BL_PROJECT exposes a reload/refresh method, call it.
+    let notified = false;
+    try {
+      if (window.BL_PROJECT) {
+        // common patterns: a .reload() or .refresh() may exist
+        if (typeof BL_PROJECT.reload === 'function') { await BL_PROJECT.reload(); notified = true; }
+        else if (typeof BL_PROJECT.refresh === 'function') { BL_PROJECT.refresh(); notified = true; }
+        else if (typeof BL_PROJECT.list === 'function') {
+          // some implementations rely on localStorage; emite um evento para que listeners atualizem
+          window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta } }));
+          notified = true;
+        }
+      }
+    } catch (e) {
+      console.warn('[Backup] BL_PROJECT notify failed', e);
+    }
+
+    // 5) If it's an "export all" (meta may not contain inst/proj) or we couldn't notify the runtime, reload (if requested)
+    const isExportAll = !(meta && meta.inst && meta.proj);
+    if (autoReload && (isExportAll || !notified || overwrite)) {
+      // small delay so caller/toast can show
+      setTimeout(()=> {
+        try { location.reload(); } catch(e){ console.warn('[Backup] reload failed', e); }
+      }, 700);
+    }
+
+    return { ok:true, restoredAt: (new Date()).toISOString(), meta };
   }
+
 
   // Import from File object (file = File), options same as importPayload
   async function importFromFile(file, options){
