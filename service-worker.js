@@ -25,7 +25,7 @@ const APP_SHELL = [
   './js/step9-instrument.js',
   './js/step15-instrument-badge.js',
   './js/step14-images-persist.v4.1.js',
-  './js/Step12-draw.v4.1.updated.js',
+  './js/step12-draw.v4.1.updated.js',
   './js/step17-measures-instrumentos.js',
   './js/step16-measures-presets.v3.js',
   './js/step16-range-support.js',
