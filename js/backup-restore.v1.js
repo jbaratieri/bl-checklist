@@ -1,12 +1,18 @@
-/* FILE: js/backup-restore.v1.js — Backup & Restore for LuthierPro (v1.1)
+/* FILE: js/backup-restore.v1.js — Backup & Restore for LuthierPro (v1.1 patched)
    - exportProject / exportAllProjects
-   - importPayload with merge/overwrite options
+   - importPayload with robust merge/overwrite heuristics
    - importFromFile(file, options)
-   - backward-compatible exportProjectFile / importProjectFile
+   - Added heuristics to ensure project name/index keys are written on single-project import
+   - Toggle debug: window.BL_BACKUP_DEBUG = true
 */
 (function () {
   'use strict';
   if (window.__BL_BACKUP_V1__) return; window.__BL_BACKUP_V1__ = true;
+
+  // debug toggle
+  window.BL_BACKUP_DEBUG = window.BL_BACKUP_DEBUG || false;
+  function dbg() { if (window.BL_BACKUP_DEBUG) try { console.debug.apply(console, arguments); } catch(_) {} }
+  function info() { if (window.BL_BACKUP_DEBUG) try { console.info.apply(console, arguments); } catch(_) {} }
 
   // utilities
   function jsonTryParse(s) { try { return JSON.parse(s); } catch (_) { return null; } }
@@ -79,8 +85,7 @@
     return Array.from(out);
   }
 
-  // Export a single project: collect localStorage keys and images that match candidates
-    // --- exportProject (substituir a versão atual) ---
+  // --- exportProject (substituir a versão atual) ---
   async function exportProject(inst, proj) {
     inst = inst || currInst(); proj = proj || currProj(inst);
     const meta = { exportedAt: nowISO(), inst, proj, app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null), name: null };
@@ -151,7 +156,6 @@
     return { meta, local, images };
   }
 
-
   // Export all projects: collect localStorage keys for all projects (grouping by inst/proj when possible)
   async function exportAllProjects() {
     // naive approach: collect all keys and attempt to infer inst/proj groups
@@ -168,7 +172,7 @@
         if (k.indexOf('imgs') >= 0 || k.indexOf(':imgs:') >= 0 || k.indexOf('bl:v2:imgs') === 0) assetCandidates.add(assetKeyFromLocalKey(k));
         const parts = String(k).split(':');
         if (parts.length >= 5) assetCandidates.add(parts.slice(4).join(':'));
-      } catch (_) { }
+      } catch (_) {}
     }
 
     const images = [];
@@ -181,13 +185,7 @@
     return { meta, local, images };
   }
 
-  // Import payload — options: { merge:true, overwrite:true }
-  // Behavior:
-  //  - overwrite === true -> set every local key from payload (replacing)
-  //  - merge === true -> for keys that are arrays (ex: images lists stored in localStorage) try to merge arrays de-duplicating by id; other keys: skip if exists
-  // Images: attempt to save each image in payload.images via blImgSave (key + dataURL)
-  // Import utilities: write localStorage and write images to IDB
-    // --- importPayload (substituir a versão atual) ---
+  // --- importPayload (substituir a versão atual) ---
   async function importPayload(payload, { merge = true, overwrite = false, autoReload = true } = {}) {
     if (!payload || !payload.meta) throw new Error('invalid payload');
     const meta = payload.meta || {};
@@ -198,7 +196,6 @@
     function inferProjectName(localObj, inst, proj) {
       if (!localObj) return null;
       // look for obvious keys containing name
-      const nameCandidates = [];
       for (const [k, v] of Object.entries(localObj)) {
         if (!v) continue;
         const kl = String(k).toLowerCase();
@@ -234,7 +231,7 @@
     // 1) Write localStorage keys (merge behavior: write keys from payload)
     try {
       Object.keys(local).forEach(k => {
-        try { localStorage.setItem(k, local[k]); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
+        try { localStorage.setItem(k, local[k]); dbg('[Backup] wrote key', k); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
       });
     } catch (e) {
       console.warn('[Backup] error while writing localStorage', e);
@@ -246,11 +243,12 @@
         try {
           const key = img.key || ('imported::' + (Date.now()) + '::' + Math.random().toString(36).slice(2));
           await window.blImgSave(key, img.dataURL || img.data || '');
+          dbg('[Backup] blImgSave ok', key);
         } catch (e) { console.warn('[Backup] blImgSave failed for', img && img.key, e); }
       }
     }
 
-    // 3) Ensure instrument/project pointers exist (so UI knows where to look)
+    // --- ensure instrument/project + project name/index heuristics ---
     try {
       if (meta.inst) {
         try { localStorage.setItem('bl:instrument', meta.inst); } catch (_) { }
@@ -258,33 +256,52 @@
           try { localStorage.setItem('bl:project:' + meta.inst, String(meta.proj)); } catch (_) { }
         }
       }
-    } catch (_) { }
 
-    // 4) Infer project name if possible and write heuristic keys the UI may read
-    try {
-      const inst = meta.inst;
-      const proj = meta.proj;
-      const inferred = inferProjectName(local, inst, proj) || meta.name || null;
-      if (inferred && inst && proj) {
-        // heuristic key patterns (some apps check these)
-        try { localStorage.setItem(`bl:project:name:${inst}:${proj}`, String(inferred)); } catch (_) {}
-        try { localStorage.setItem(`bl:project:meta:${inst}:${proj}`, JSON.stringify({ id: proj, name: String(inferred), restoredAt: nowISO() })); } catch (_) {}
-        // also keep an index of user-visible projects (if present)
+      // infer name and write heuristics (so UI can pick it immediately)
+      (function(){
         try {
-          const listKey = 'bl:projects:list:' + inst;
-          const raw = localStorage.getItem(listKey);
-          let arr = raw ? JSON.parse(raw) : [];
-          if (!Array.isArray(arr)) arr = [];
-          // upsert
-          const exists = arr.findIndex(x => String(x.id) === String(proj));
-          if (exists >= 0) arr[exists] = Object.assign({}, arr[exists], { id: proj, name: String(inferred), updatedAt: nowISO() });
-          else arr.push({ id: proj, name: String(inferred), updatedAt: nowISO() });
-          localStorage.setItem(listKey, JSON.stringify(arr));
-        } catch (e) {}
-      }
-    } catch (e) {
-      console.warn('[Backup] infer/write project name failed', e);
-    }
+          const inst = meta.inst;
+          const proj = meta.proj;
+          // infer name from payload.local if possible
+          let inferred = null;
+          try {
+            if (payload.local) {
+              for (const val of Object.values(payload.local)) {
+                if (!val) continue;
+                try {
+                  const j = JSON.parse(val);
+                  if (j && (j.name || j.title || j.projectName)) { inferred = String(j.name || j.title || j.projectName); break; }
+                  if (Array.isArray(j)) {
+                    for (const it of j) if (it && (String(it.id) === String(proj)) && (it.name || it.title)) { inferred = String(it.name || it.title); break; }
+                    if (inferred) break;
+                  }
+                } catch(_) {
+                  const m = String(val).match(/"name"\s*:\s*"([^"]+)"/i);
+                  if (m && m[1]) { inferred = m[1]; break; }
+                }
+              }
+            }
+          } catch(_) {}
+
+          const finalName = inferred || meta.name || null;
+          if (finalName && inst && proj) {
+            try { localStorage.setItem('bl:project:name:' + inst + ':' + proj, String(finalName)); } catch(_) {}
+            try { localStorage.setItem('bl:project:meta:' + inst + ':' + proj, JSON.stringify({ id: proj, name: String(finalName), restoredAt: nowISO() })); } catch(_) {}
+            try {
+              const listKey = 'bl:projects:' + inst;
+              let arr = [];
+              try { arr = JSON.parse(localStorage.getItem(listKey) || '[]'); } catch(_) { arr = []; }
+              if (!Array.isArray(arr)) arr = [];
+              const ix = arr.findIndex(x => String(x.id) === String(proj));
+              if (ix >= 0) arr[ix] = Object.assign({}, arr[ix], { id: proj, name: String(finalName), updatedAt: nowISO() });
+              else arr.push({ id: proj, name: String(finalName), id: proj, updatedAt: nowISO() });
+              localStorage.setItem(listKey, JSON.stringify(arr));
+              dbg('[Backup] wrote projects index', listKey, arr);
+            } catch(_) {}
+          }
+        } catch(e) { console.warn('[Backup] ensure name heuristics failed', e); }
+      })();
+    } catch(e) { console.warn('[Backup] while ensuring instrument/project heuristics', e); }
 
     // 5) Try to notify BL_PROJECT / runtime that data changed. If BL_PROJECT exposes a reload/refresh method, call it.
     let notified = false;
@@ -311,7 +328,7 @@
       // get a possible project name from storage now
       let finalName = null;
       try {
-        if (inst && proj) finalName = localStorage.getItem(`bl:project:name:${inst}:${proj}`) || localStorage.getItem(`bl:project:meta:${inst}:${proj}`) && JSON.parse(localStorage.getItem(`bl:project:meta:${inst}:${proj}`)).name;
+        if (inst && proj) finalName = localStorage.getItem('bl:project:name:' + inst + ':' + proj) || (localStorage.getItem('bl:project:meta:' + inst + ':' + proj) && JSON.parse(localStorage.getItem('bl:project:meta:' + inst + ':' + proj)).name);
       } catch(_) {}
       if (!finalName && meta.name) finalName = meta.name;
       if (finalName) {
@@ -320,7 +337,7 @@
         for (const s of selectors) {
           try {
             const el = document.querySelector(s);
-            if (el) { el.textContent = finalName; console.debug('[Backup] updated DOM selector', s); }
+            if (el) { el.textContent = finalName; dbg('[Backup] updated DOM selector', s); }
           } catch (_) {}
         }
         // dispatch name-updated event
@@ -341,10 +358,7 @@
     return { ok: true, restoredAt: (new Date()).toISOString(), meta };
   }
 
-
-
   // Import from File object (file = File), options same as importPayload
-
   async function importFromFile(file, options) {
     if (!file) throw new Error('no file');
     const txt = await file.text();
@@ -435,6 +449,6 @@
   });
 
   // small notes in console for developer
-  console.info('BackupRestore v1.1 loaded — exportProject/exportAllProjects/importFromFile available.');
+  info('BackupRestore v1.1 patched loaded — exportProject/exportAllProjects/importFromFile available. Toggle debug with window.BL_BACKUP_DEBUG = true');
 
-})(); 
+})();
