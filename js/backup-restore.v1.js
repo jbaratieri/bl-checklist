@@ -1,371 +1,203 @@
-/* js/backup-restore.v1.js
-   Export / Import (backup local) — expõe window.exportProjectFile / window.importProjectFile
-   Versão: 1 (robusta: lê IndexedDB + Cache + localStorage; grava cache + localStorage no import)
-*/
+/* FILE: js/backup-restore.v1.js - updated — Backup & Restore for LuthierPro
+   - Exports a project (localStorage keys + images from IndexedDB) into a single JSON
+   - Imports a JSON exported by this tool and restores localStorage keys + saves images to IndexedDB
+   - Designed to work with current ImagesPersist / step12 overlays naming (asset keys like "prep2::..." stored in IDB via blImgSave)
 
+   Usage:
+     // Export and download current project
+     BackupRestore.exportCurrentProjectAndDownload();
+
+     // Or export programmatically
+     const blob = await BackupRestore.exportProject(inst, projId);
+
+     // Import from a File object (selected via <input type=file>)
+     const file = ...; await BackupRestore.importFromFile(file);
+
+   Notes:
+   - Requires window.blImgListPrefix and window.blImgGet / window.blImgSave (ImagesPersist helpers) to interact with IndexedDB.
+   - Falls back to localStorage-only export/import if IDB helpers are missing.
+*/
 (function(){
   'use strict';
+  if (window.__BL_BACKUP_V1__) return; window.__BL_BACKUP_V1__ = true;
 
-  // runtime cache name (definido pela página antes de carregar este script)
-  const RUNTIME_CACHE_NAME = window.__RUNTIME_CACHE_NAME || ('runtime-luthierpro-v2.4.2');
+  // helpers
+  function jsonTryParse(s){ try { return JSON.parse(s); } catch(_) { return null; } }
+  function nowISO(){ return new Date().toISOString(); }
+  function downloadJSON(obj, name){
+    const blob = new Blob([JSON.stringify(obj,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href = url; a.download = name || ('luthierpro-backup-'+Date.now()+'.json');
+    document.body.appendChild(a); a.click(); setTimeout(()=>{ a.remove(); URL.revokeObjectURL(url); }, 400);
+  }
 
-  // ---------- helpers ----------
-  function blobToBase64Promise(blob) {
-    return new Promise((resolve, reject) => {
-      const fr = new FileReader();
-      fr.onerror = reject;
-      fr.onload = () => {
-        const res = fr.result || '';
-        // result é data:*; retornamos a string inteira
-        resolve(res);
-      };
-      fr.readAsDataURL(blob);
+  // Determine current instrument & project
+  function currInst(){ return (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl')); }
+  function currProj(inst){ try { return (window.BL_PROJECT ? BL_PROJECT.get(inst) : (localStorage.getItem('bl:project:'+inst)||'default')); } catch(_) { return (localStorage.getItem('bl:project:'+inst)||'default'); } }
+
+  // Build list of localStorage keys relevant for a project
+  function keysForProject(inst, proj){
+    const all = Object.keys(localStorage||{});
+    const out = new Set();
+    const pfx1 = 'bl:v2:imgs:' + inst + ':' + proj + ':'; // images store prefix variant (if present)
+    // generic heuristics: include keys that contain ":inst:proj:" or start with known prefixes
+    for (const k of all){
+      if (!k) continue;
+      if (k.indexOf(':'+inst+':'+proj+':') >= 0) out.add(k);
+      if (k.startsWith('bl:') && k.indexOf(':'+inst+':')>=0 && k.indexOf(':'+proj+':')>=0) out.add(k);
+      if (k.startsWith(pfx1)) out.add(k);
+      // include project panel persist fields (bl:project:... or bl:val:...)
+      if (k.indexOf('bl:val:'+inst+':'+proj+':')===0) out.add(k);
+      // include project current selection
+      if (k === ('bl:project:'+inst) || k === ('bl:instrument')) out.add(k);
+    }
+    // fallback: include all keys that mention the project id
+    for (const k of all){ if (String(k).indexOf(':'+proj) >= 0) out.add(k); }
+    return Array.from(out);
+  }
+
+  // Convert local storage key to assetKey used in IDB (reverse of keyFor)
+  function assetKeyFromLocalKey(localKey){
+    try { const parts = String(localKey).split(':'); // STORE_PREFIX:inst:proj:sub
+      // return the "sub" portion that ImagesPersist used (prefix after 4 parts)
+      if (parts.length >= 4) return parts.slice(4).join(':');
+    } catch(_){}
+    return localKey;
+  }
+
+  // Read images from IDB for an assetKey prefix
+  async function readImagesFromIDBForAsset(assetKey){
+    const out = [];
+    if (!window.blImgListPrefix) return out;
+    try{
+      const recs = await window.blImgListPrefix(assetKey);
+      for (const r of recs){
+        try{
+          // r may already contain dataURL (some implementations), otherwise try blImgGet
+          if (r && r.dataURL) {
+            out.push({ key: r.key, dataURL: r.dataURL, addedAt: r.addedAt || Date.now() });
+            continue;
+          }
+          if (window.blImgGet) {
+            const full = await window.blImgGet(r.key);
+            if (!full) continue;
+            if (full.dataURL) {
+              out.push({ key: r.key, dataURL: full.dataURL, addedAt: full.addedAt || Date.now() });
+            } else if (full.blob){
+              // convert blob to dataURL
+              const dataURL = await new Promise((res, rej)=>{
+                const fr = new FileReader(); fr.onload = ()=>res(fr.result); fr.onerror = ()=>rej(fr.error);
+                fr.readAsDataURL(full.blob);
+              });
+              out.push({ key: r.key, dataURL, addedAt: full.addedAt || Date.now() });
+            } else if (full.toDataURL){
+              const dataURL = await full.toDataURL();
+              out.push({ key: r.key, dataURL, addedAt: full.addedAt || Date.now() });
+            }
+          }
+        }catch(e){ console.warn('[Backup] readImagesFromIDBForAsset: item failed', e); }
+      }
+    }catch(e){ console.warn('[Backup] blImgListPrefix failed', e); }
+    return out;
+  }
+
+  // Main export: gather localStorage keys + images from IDB
+  async function exportProject(inst, proj){
+    inst = inst || currInst(); proj = proj || currProj(inst);
+    const meta = { exportedAt: nowISO(), inst, proj, app:'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null) };
+
+    const keys = keysForProject(inst, proj);
+    const local = {};
+    for (const k of keys){ try { local[k] = localStorage.getItem(k); } catch(_){} }
+
+    // images — scan for any local keys that are image lists (STORE_PREFIX or bl:v2:imgs)
+    const images = [];
+    // find candidate assetKeys from local keys
+    const candidates = new Set();
+    for (const k of Object.keys(local)){
+      try{
+        if (k.indexOf('imgs')>=0 || k.indexOf(':imgs:')>=0 || k.indexOf(STORE_PREFIX)===0){
+          candidates.add(assetKeyFromLocalKey(k));
+        }
+        // many image keys are stored like STORE_PREFIX:inst:proj:sub
+        const parts = String(k).split(':');
+        if (parts.length>=4){ candidates.add(parts.slice(4).join(':')); }
+      }catch(_){ }
+    }
+
+    // Also include any asset keys recently used in cache (inspect cache entries) — best-effort
+    // For each candidate, read IDB images
+    for (const a of candidates){
+      if (!a) continue;
+      const recs = await readImagesFromIDBForAsset(a);
+      for (const r of recs) images.push(r);
+    }
+
+    return { meta, local, images };
+  }
+
+  // Export and trigger download
+  async function exportCurrentProjectAndDownload(){
+    const inst = currInst(); const proj = currProj(inst);
+    const payload = await exportProject(inst, proj);
+    const name = 'luthierpro-export-'+inst+'-proj'+proj+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
+    downloadJSON(payload, name);
+    return payload;
+  }
+
+  // Import utilities: write localStorage and write images to IDB
+  async function importPayload(payload, { merge = true } = {}){
+    if (!payload || !payload.meta) throw new Error('invalid payload');
+    const meta = payload.meta;
+    const local = payload.local || {};
+    const images = payload.images || [];
+
+    // Write localStorage keys (optionally merge = true to avoid overwriting some keys?)
+    // For now we overwrite project-related keys
+    Object.keys(local).forEach(k => {
+      try { localStorage.setItem(k, local[k]); } catch(e){ console.warn('[Backup] set localStorage failed', k, e); }
     });
-  }
-  function dataUrlToBase64(dataUrl) {
-    if (!dataUrl) return null;
-    const idx = dataUrl.indexOf('base64,');
-    return idx >= 0 ? dataUrl.slice(idx + 7) : dataUrl;
-  }
-  function base64ToBlob(base64, type) {
-    const bin = atob(base64);
-    const len = bin.length;
-    const arr = new Uint8Array(len);
-    for (let i=0;i<len;i++) arr[i] = bin.charCodeAt(i);
-    return new Blob([arr], { type: type || 'application/octet-stream' });
-  }
 
-  // try to read an image entry from IndexedDB (DB 'bl-images', store 'images') by hint (partial key)
-  function readIndexedDBImageByHint(hint) {
-    return new Promise((resolve) => {
-      try {
-        const DB = 'bl-images', OS = 'images';
-        const req = indexedDB.open(DB, 1);
-        req.onsuccess = function(){
-          const db = req.result;
-          const tx = db.transaction(OS, 'readonly');
-          const store = tx.objectStore(OS);
-          const cursorReq = store.openCursor();
-          const matches = [];
-          cursorReq.onsuccess = function(e){
-            const cur = e.target.result;
-            if (!cur) {
-              if (matches.length) {
-                // choose first match's dataURL if present
-                const v = matches[0].value;
-                resolve(v && (v.dataURL || v.dataUrl || v.base64) ? (v.dataURL || v.dataUrl || v.base64) : null);
-              } else resolve(null);
-              return;
-            }
-            const key = String(cur.key || '');
-            try {
-              if (!hint || (hint && key.toLowerCase().includes(String(hint).toLowerCase()))) {
-                // candidate — push
-                matches.push(cur);
-              }
-            } catch(_) {}
-            cur.continue();
-          };
-          cursorReq.onerror = function(){ resolve(null); };
-        };
-        req.onerror = function(){ resolve(null); };
-      } catch (e) {
-        resolve(null);
+    // Write images to IDB using blImgSave
+    if (window.blImgSave){
+      for (const img of images){
+        try{
+          // img.key should be like "prep2::1762..."; if missing, generate
+          const key = img.key || ('imported::'+(Date.now())+ '::' + Math.random().toString(36).slice(2));
+          await window.blImgSave(key, img.dataURL);
+        }catch(e){ console.warn('[Backup] blImgSave failed for', img.key, e); }
       }
-    });
-  }
-
-  // fetch asset from cache or network and return {url, base64, type}
-  async function fetchAssetAsBase64FromUrl(url) {
-    try {
-      // normalize to absolute href
-      const abs = (new URL(url, location.origin)).href;
-      const cache = await caches.open(RUNTIME_CACHE_NAME).catch(()=>null);
-      if (cache) {
-        const cached = await cache.match(abs).catch(()=>null);
-        if (cached) {
-          try {
-            const blob = await cached.blob();
-            const dataUrl = await blobToBase64Promise(blob);
-            const type = cached.headers.get('content-type') || blob.type || 'application/octet-stream';
-            return { url: abs, base64: dataUrl.indexOf('base64,')>0 ? dataUrl.split('base64,')[1] : dataUrl, type };
-          } catch(e){}
-        }
-      }
-      // try network
-      try {
-        const resp = await fetch(abs);
-        if (resp && resp.ok) {
-          const blob = await resp.blob();
-          const dataUrl = await blobToBase64Promise(blob);
-          const type = resp.headers.get('content-type') || blob.type || 'application/octet-stream';
-          return { url: abs, base64: dataUrl.indexOf('base64,')>0 ? dataUrl.split('base64,')[1] : dataUrl, type };
-        }
-      } catch(e){}
-    } catch(e){}
-    return null;
-  }
-
-  // ---------- EXPORT ----------
-  async function exportProjectFile(inst, proj, token, assetKey, opts = {}) {
-    inst = inst || (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument') || 'vcl'));
-    proj = proj || (window.BL_PROJECT ? BL_PROJECT.get(inst) : (document.getElementById('selProject') && document.getElementById('selProject').value) || 'default');
-    token = token || (window.currentDrawToken || 'root');
-    assetKey = assetKey || token;
-
-    console.log('[Backup] exportProjectFile start', {inst, proj, token, assetKey});
-
-    // 1) overlay: try hook -> localStorage -> indexedDB
-    let overlayDataUrl = null;
-    try {
-      if (typeof window.__BL_LOAD_OVERLAY__ === 'function') {
-        overlayDataUrl = await new Promise((resolve) => {
-          try {
-            window.__BL_LOAD_OVERLAY__(token, function(img){
-              if (!img) return resolve(null);
-              try {
-                const c = document.createElement('canvas');
-                c.width = img.naturalWidth || img.width || 1024;
-                c.height = img.naturalHeight || img.height || 512;
-                const ctx = c.getContext('2d');
-                ctx.drawImage(img, 0, 0);
-                resolve(c.toDataURL('image/png'));
-              } catch(e) { resolve(null); }
-            });
-          } catch(e){ resolve(null); }
-        });
-        if (overlayDataUrl) console.log('[Backup] overlay from __BL_LOAD_OVERLAY__');
-      }
-    } catch(e){ overlayDataUrl = null; }
-
-    if (!overlayDataUrl) {
-      try {
-        const STORE_PREFIX = (window.STORE_PREFIX || 'bl:v1');
-        const projId = (typeof window.BL_PROJECT === 'object' && typeof BL_PROJECT.get === 'function') ? BL_PROJECT.get(inst) : proj;
-        const keyNew = STORE_PREFIX + ':' + inst + ':' + projId + ':draw:' + token;
-        const keyOld = STORE_PREFIX + ':' + inst + ':draw:' + token;
-        overlayDataUrl = localStorage.getItem(keyNew) || localStorage.getItem(keyOld) || null;
-        if (overlayDataUrl) console.log('[Backup] overlay from localStorage key:', overlayDataUrl ? (keyNew) : 'none');
-      } catch(e){ overlayDataUrl = null; }
     }
 
-    if (!overlayDataUrl) {
-      try {
-        const fromIdb = await readIndexedDBImageByHint(token || assetKey || inst);
-        if (fromIdb) {
-          // if it's raw dataURL or base64, normalize to dataURL
-          const s = fromIdb;
-          const normal = s.indexOf('data:') === 0 ? s : ('data:image/png;base64,' + (s.indexOf('base64,')>0 ? s.split('base64,')[1] : s));
-          overlayDataUrl = normal;
-          console.log('[Backup] overlay from IndexedDB hint');
-        }
-      } catch(_) { overlayDataUrl = null; }
-    }
-
-    // 2) backgrounds: prefer assetsFor() candidates -> cache -> network -> indexedDB fallback
-    const backgrounds = [];
-    try {
-      let candidates = [];
-      if (typeof assetsFor === 'function') candidates = assetsFor(inst, assetKey) || [];
-      // normalize candidate URLs to absolute and dedupe
-      candidates = candidates.map(u => (new URL(u, location.origin)).href).filter((v,i,a)=>a.indexOf(v)===i);
-
-      // try each candidate
-      for (let i=0;i<candidates.length;i++){
-        const cand = candidates[i];
-        const got = await fetchAssetAsBase64FromUrl(cand);
-        if (got) {
-          backgrounds.push(got);
-          // optional: break after first found if you only want main bg
-          // break;
-        }
-      }
-
-      // if none found, try scanning IndexedDB heuristically
-      if (!backgrounds.length) {
-        // scan bl-images and pick some entries (limit e.g. 12)
-        try {
-          const DB='bl-images', OS='images';
-          const p = indexedDB.open(DB,1);
-          await new Promise((resolve) => {
-            p.onsuccess = function(){
-              const db = p.result;
-              const tx = db.transaction(OS,'readonly');
-              const st = tx.objectStore(OS);
-              const cur = st.openCursor();
-              let count = 0;
-              cur.onsuccess = function(e){
-                const c = e.target.result;
-                if (!c || count >= 12) { resolve(); return; }
-                const key = (c.key || '').toString();
-                const val = c.value || {};
-                const dataURL = val.dataURL || val.dataUrl || val.base64 || null;
-                if (dataURL) {
-                  const b64 = dataURL.indexOf('base64,')>0 ? dataURL.split('base64,')[1] : dataURL;
-                  backgrounds.push({ url: (new URL('/assets/tech/' + key, location.origin)).href, base64: b64, type: val.type || 'image/png' });
-                  count++;
-                }
-                c.continue();
-              };
-              cur.onerror = function(){ resolve(); };
-            };
-            p.onerror = function(){ resolve(); };
-          });
-          if (backgrounds.length) console.log('[Backup] backgrounds from IndexedDB heuristic count=', backgrounds.length);
-        } catch(e){ /* ignore */ }
-      }
-    } catch(e) {
-      console.warn('[Backup] backgrounds gather failed', e);
-    }
-
-    const payload = {
-      meta: {
-        exportedAt: (new Date()).toISOString(),
-        inst, proj, token, assetKey,
-        app: 'LuthierPro',
-        appVersion: (window.APP_VERSION || null)
-      },
-      overlay: overlayDataUrl || null,
-      backgrounds
-    };
-
-    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-    const name = `luthierproj-${inst}-${proj}-${token}-${(new Date()).toISOString().replace(/[:.]/g,'-')}.luthierproj.json`;
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = name;
-    document.body.appendChild(a);
-    a.click();
-    setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); }, 30000);
-
-    console.log('[Backup] export complete', { name, payloadSummary: { overlay: !!payload.overlay, backgrounds: payload.backgrounds.length }});
-    return { name, payload };
+    return { ok:true, restoredAt: nowISO(), meta };
   }
 
-  // ---------- IMPORT ----------
-  async function importProjectFile(file) {
-    if (!file) throw new Error('Nenhum arquivo fornecido');
-    const text = await file.text();
-    let payload;
-    try { payload = JSON.parse(text); } catch(e){ throw new Error('Arquivo inválido ou corrompido'); }
-
-    console.log('[Backup] importProjectFile: meta=', payload.meta || {});
-
-    const meta = payload.meta || {};
-    const inst = meta.inst || (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl'));
-    const proj = meta.proj || ((typeof BL_PROJECT==='object' && BL_PROJECT.get) ? BL_PROJECT.get(inst) : (document.getElementById('selProject') && document.getElementById('selProject').value) || 'restored');
-    const token = meta.token || 'restored';
-
-    // 1) restore overlay into app keys (hook or localStorage)
-    let overlayRestored = false;
-    if (payload.overlay) {
-      try {
-        if (typeof window.__BL_SAVE_OVERLAY__ === 'function') {
-          const img = new Image();
-          img.onload = function(){ try { window.__BL_SAVE_OVERLAY__(token, img); overlayRestored = true; console.log('[Backup] overlay saved via __BL_SAVE_OVERLAY__'); } catch(e){ console.warn('[Backup] __BL_SAVE_OVERLAY__ error', e); } };
-          img.onerror = function(e){ console.warn('[Backup] overlay image load error', e); };
-          img.src = payload.overlay;
-          await new Promise(r => setTimeout(r, 300));
-        } else {
-          try {
-            const STORE_PREFIX = (window.STORE_PREFIX || 'bl:v1');
-            const projId = (typeof window.BL_PROJECT === 'object' && typeof BL_PROJECT.get === 'function') ? BL_PROJECT.get(inst) : proj;
-            const keyNew = STORE_PREFIX + ':' + inst + ':' + projId + ':draw:' + token;
-            const keyOld = STORE_PREFIX + ':' + inst + ':draw:' + token;
-            localStorage.setItem(keyNew, payload.overlay);
-            localStorage.setItem(keyOld, payload.overlay);
-            overlayRestored = true;
-            console.log('[Backup] overlay written to localStorage keys:', keyNew, keyOld);
-          } catch (e) { console.warn('[Backup] localStorage overlay write failed', e); }
-        }
-      } catch (e) { console.warn('[Backup] overlay restore failed', e); }
-    } else {
-      console.warn('[Backup] payload.overlay is empty');
-    }
-
-    // 2) restore backgrounds into cache
-    const restoredAssets = [];
-    if (Array.isArray(payload.backgrounds) && payload.backgrounds.length) {
-      try {
-        const cache = await caches.open(RUNTIME_CACHE_NAME).catch(()=>null);
-        for (let i=0;i<payload.backgrounds.length;i++){
-          const b = payload.backgrounds[i];
-          if (!b || !b.base64) continue;
-          try {
-            // normalize URL to same origin absolute
-            let normalizedUrl;
-            try { normalizedUrl = (new URL(b.url, location.origin)).href; } catch(_) {
-              normalizedUrl = location.origin + (b.url.charAt(0)==='/'? b.url : ('/' + b.url));
-            }
-            const blob = base64ToBlob(b.base64, b.type || 'application/octet-stream');
-            const resp = new Response(blob, { headers: { 'Content-Type': b.type || 'application/octet-stream' }});
-            if (cache) {
-              await cache.put(new Request(normalizedUrl), resp.clone());
-              restoredAssets.push(normalizedUrl);
-              console.log('[Backup] restored asset to cache:', normalizedUrl);
-            } else {
-              console.warn('[Backup] cache not available to restore asset:', normalizedUrl);
-            }
-          } catch (e) { console.warn('[Backup] failed to restore asset', b && b.url, e); }
-        }
-      } catch (e) {
-        console.warn('[Backup] cannot open cache', RUNTIME_CACHE_NAME, e);
-      }
-    } else {
-      console.warn('[Backup] payload.backgrounds empty or missing');
-    }
-
-    // 3) record debug index of restored assets in localStorage for easier inspection
-    try {
-      const indexKey = 'bl:backup:assetsIndex:' + (meta.inst || inst) + ':' + (meta.proj || proj) + ':' + (meta.token || token);
-      localStorage.setItem(indexKey, JSON.stringify({ restoredAt: Date.now(), assets: restoredAssets }));
-      console.log('[Backup] assets index saved', indexKey);
-    } catch(e){}
-
-    // 4) compat: old overlay key
-    try {
-      const STORE_PREFIX = (window.STORE_PREFIX || 'bl:v1');
-      const oldKey = STORE_PREFIX + ':' + inst + ':draw:' + token;
-      if (payload.overlay) localStorage.setItem(oldKey, payload.overlay);
-    } catch(_) {}
-
-    console.log('[Backup] import finished overlayRestored=', overlayRestored, 'restoredAssetsCount=', restoredAssets.length);
-
-    // 5) notify SW and reload
-    try {
-      const metaMsg = { type: 'BR_RESTORED', meta: { inst, proj, token, restoredAssetsCount: restoredAssets.length } };
-      if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-        navigator.serviceWorker.controller.postMessage(metaMsg);
-        // await BR_DONE (timeout)
-        const waitForDone = new Promise((resolve) => {
-          const onMsg = (e) => {
-            try {
-              if (e.data && e.data.type === 'BR_DONE') {
-                navigator.serviceWorker.removeEventListener('message', onMsg);
-                resolve(true);
-              }
-            } catch(_) {}
-          };
-          navigator.serviceWorker.addEventListener('message', onMsg);
-          setTimeout(() => { try{ navigator.serviceWorker.removeEventListener('message', onMsg);}catch(_){}; resolve(false); }, 2500);
-        });
-        const ok = await waitForDone;
-        setTimeout(() => location.reload(), ok ? 150 : 600);
-        return { inst, proj, token, restoredAssets };
-      }
-    } catch (e) {
-      console.warn('[Backup] failed to notify SW', e);
-    }
-
-    // fallback reload
-    setTimeout(() => location.reload(), 500);
-    return { inst, proj, token, restoredAssets };
+  // Import from a File object (json file)
+  async function importFromFile(file){
+    if (!file) throw new Error('no file');
+    const txt = await file.text();
+    const payload = jsonTryParse(txt);
+    if (!payload) throw new Error('invalid json');
+    return await importPayload(payload);
   }
 
-  // ---------- expose ----------
-  window.exportProjectFile = exportProjectFile;
-  window.importProjectFile = importProjectFile;
+  // Simple UI helpers: create invisible input and import
+  function promptAndImport(){
+    const input = document.createElement('input'); input.type='file'; input.accept='application/json';
+    input.addEventListener('change', async function(){
+      if (!input.files || !input.files[0]) return; const f = input.files[0];
+      try { const res = await importFromFile(f); alert('Import concluído: '+JSON.stringify(res));
+      } catch(e){ alert('Import falhou: '+(e && e.message)); console.error(e); }
+    }, { once:true });
+    input.click();
+  }
 
-  console.log('[Backup] backup-restore.v1.js loaded — runtime cache:', RUNTIME_CACHE_NAME);
+  // Expose API
+  window.BackupRestore = window.BackupRestore || {};
+  window.BackupRestore.exportProject = exportProject;
+  window.BackupRestore.exportCurrentProjectAndDownload = exportCurrentProjectAndDownload;
+  window.BackupRestore.importPayload = importPayload;
+  window.BackupRestore.importFromFile = importFromFile;
+  window.BackupRestore.promptAndImport = promptAndImport;
 
 })();
