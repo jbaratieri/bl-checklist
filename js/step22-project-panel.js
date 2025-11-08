@@ -67,6 +67,67 @@
       BL_PROJECT.remove(inst, cur); refresh();
       window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst } }));
     });
+
+        // ---------------- Backup / Restore bindings ----------------
+    try {
+      const btnExp = document.getElementById('btnExportProject');
+      const btnImp = document.getElementById('btnRestoreProject');
+
+      // cria input file escondido (reutilizável)
+      let _br_file_input = document.getElementById('_br_file_input');
+      if (!_br_file_input) {
+        _br_file_input = document.createElement('input');
+        _br_file_input.type = 'file';
+        _br_file_input.accept = '.luthierproj.json,application/json';
+        _br_file_input.id = '_br_file_input';
+        _br_file_input.style.display = 'none';
+        document.body.appendChild(_br_file_input);
+      }
+
+      if (btnExp) {
+        btnExp.addEventListener('click', async function(){
+          try {
+            const inst = currInst();
+            const proj = (window.BL_PROJECT && BL_PROJECT.get) ? BL_PROJECT.get(inst) : (document.getElementById('selProject') && document.getElementById('selProject').value) || 'default';
+            const token = (window.currentDrawToken || (document.querySelector('[data-step]') && document.querySelector('[data-step]').getAttribute('data-step'))) || 'root';
+            if (typeof window.exportProjectFile === 'function') {
+              await window.exportProjectFile(inst, proj, token);
+              alert('Export concluído — arquivo salvo no seu computador.');
+            } else {
+              alert('Função exportProjectFile não encontrada. Verifique se js/backup-restore.v1.js foi incluído.');
+            }
+          } catch (e) {
+            console.error(e);
+            alert('Falha ao exportar: ' + (e && e.message ? e.message : e));
+          }
+        });
+      }
+
+      if (btnImp) {
+        btnImp.addEventListener('click', function(){
+          _br_file_input.click();
+        });
+      }
+
+      _br_file_input.addEventListener('change', async function(){
+        const f = _br_file_input.files && _br_file_input.files[0];
+        if (!f) return;
+        try {
+          if (typeof window.importProjectFile === 'function') {
+            await window.importProjectFile(f);
+            alert('Import concluído — recarregue a página para aplicar mudanças (hard reload recomendado).');
+          } else {
+            alert('Função importProjectFile não encontrada. Verifique se js/backup-restore.v1.js foi incluído.');
+          }
+        } catch (err) {
+          console.error(err);
+          alert('Falha ao importar: ' + (err && err.message ? err.message : err));
+        } finally {
+          _br_file_input.value = '';
+        }
+      });
+    } catch (e) { console.warn('[ProjectPanel] backup bindings failed', e); }
+
   }
 
   function init(){
