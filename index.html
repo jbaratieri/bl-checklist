@@ -5824,57 +5824,61 @@
     <img alt="imagem ampliada" />
   </div>
 
-  <!-- Núcleo base -->
-  <script src="./js/checklist.js?v=20251013-1"></script>
-  <script src="./js/step2-toc.js"></script>
-  <script src="./js/step6-export.js"></script>
-  <script src="./js/step11-tech.js"></script>
+  <!-- Núcleo base (core app logic) -->
+<script src="./js/checklist.js?v=20251013-1"></script>
+<script src="./js/step2-toc.js"></script>
+<script src="./js/step6-export.js"></script>
+<script src="./js/step11-tech.js"></script>
 
-  <!-- Barramentos (devem vir antes dos consumidores) -->
-  <script src="./js/step9-instrument-bus.js"></script>
-  <script src="./js/step21-project-bus.js"></script>
-  <script src="./js/step21-project-unique.js"></script>
+<!-- Barramentos (devem vir antes dos consumidores) -->
+<script src="./js/step9-instrument-bus.js"></script>
+<script src="./js/step21-project-bus.js"></script>
+<script src="./js/step21-project-unique.js"></script>
 
-  <!-- Painel unificado Instrumento+Projeto -->
-  <script src="./js/step22-project-panel.js?v=20250927-1"></script>
+<!-- Contexto p/ chaves (usa Instrumento + Projeto) -->
+<script src="./js/step23-media-context.js"></script>
 
-  <!-- Contexto p/ chaves (usa Instrumento + Projeto) -->
-  <script src="./js/step23-media-context.js"></script>
+<!-- Mídias e viewer unificado (precisamos destas APIs de imagem antes do backup-restore) -->
+<script src="./js/viewer.global.js"></script>
+<script src="./js/step14-images-persist.v4.1.js"></script>
+<script src="./js/load-assets.patch.js"></script>
+<script src="./js/step12-draw.v4.1.updated.js"></script>
 
-  <!-- Consumidores do Instrumento/Projeto -->
-  <script src="./js/step9-instrument.js"></script>
-  <script src="./js/step15-instrument-badge.js"></script>
+<!-- Painel unificado Instrumento+Projeto (UI do seletor e botões) -->
+<!-- IMPORTANTE: step22 usa BackupRestore, então deve vir APÓS backup-restore.v1.js -->
+<!-- Não insira ainda; ver abaixo -->
 
-  <!-- Mídias e viewer unificado -->
-  <!-- (REMOVER antigos: step14-images-persist.js e step12-draw.js) -->
-  <script src="./js/viewer.global.js"></script>
-  <script src="./js/step14-images-persist.v4.1.js"></script>
-  <script src="./js/load-assets.patch.js"></script>
-  <script src="./js/Step12-draw.v4.1.updated.js"></script>
+<!-- Medidas & presets (dependem do instrumento) -->
+<script src="./js/step17-measures-instrumentos.js"></script>
+<script src="./js/step16-measures-presets.v3.js"></script>
+<script src="./js/step16-range-support.js"></script>
+<script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
 
-  <!-- Medidas & presets (dependem do instrumento) -->
-  <script src="./js/step17-measures-instrumentos.js"></script>
-  <script src="./js/step16-measures-presets.v3.js"></script>
-  <script src="./js/step16-range-support.js"></script>
-  <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
+<!-- Plano do projeto (cronograma) -->
+<script src="./js/step19-project-plan.v7.js"></script>
 
+<!-- Persistência por projeto (somente V3, legado) -->
+<script src="./js/step18-persist-fallback.v3.js"></script>
 
-  <!-- Plano do projeto (cronograma) -->
-  <script src="./js/step19-project-plan.v7.js"></script>
+<!-- Sincroniza classe do body com instrumento -->
+<script src="./js/step9-bodyclass-sync.js"></script>
 
-  <!-- Persistência por projeto (somente V3, legado) -->
-  <script src="./js/step18-persist-fallback.v3.js"></script>
+<!-- Outros -->
+<script src="./js/intro-toggle.js"></script>
+<script type="module" src="./js/wood-catalog.js"></script>
 
-  <!-- Sincroniza classe do body com instrumento -->
-  <script src="./js/step9-bodyclass-sync.js"></script>
+<!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore -->
+<script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.4.3';</script>
 
-  <!-- Outros -->
-  <script src="./js/intro-toggle.js"></script>
-  <script type="module" src="./js/wood-catalog.js"></script>
+<!-- Backup/Restore (precisa do "providers" de imagens + BL_PROJECT presentes) -->
+<script src="./js/backup-restore.v1.js"></script>
 
-  <!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore -->
-  <script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.4.3';</script>
-  <script src="./js/backup-restore.v1.js"></script>
+<!-- Agora sim: Painel (que usa BackupRestore) -->
+<script src="./js/step22-project-panel.js?v=20250927-1"></script>
+
+<!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
+<script src="./js/step9-instrument.js"></script>
+<script src="./js/step15-instrument-badge.js"></script>
 
 
 

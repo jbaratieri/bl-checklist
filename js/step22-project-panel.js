@@ -1,8 +1,4 @@
-/* FILE: js/step22-project-panel.js — Updated bindings for Backup / Restore buttons
-   - Unified/cleaned: Export atual, Exportar tudo, Import (merge), Import (overwrite)
-   - Replaces alert() with toasts (non-blocking)
-   - Uses BackupRestore API (exportProject, exportAllProjects, importFromFile/importPayload)
-*/
+/* FILE: js/step22-project-panel.js — Backup/Restore bindings (cleaned) */
 (function(){
   'use strict';
 
@@ -45,7 +41,6 @@
     sel.innerHTML = list.map(p=> `<option value="${p.id}">${p.name}</option>`).join('');
     sel.value = BL_PROJECT.get(inst);
   }
-
   function getEl(id){ return document.getElementById(id); }
 
   // Guard wrapper to prevent double clicks (per-button)
@@ -61,7 +56,7 @@
 
   // create or reuse hidden file input used by import buttons
   function ensureBrFileInput(){
-    var inp = document.getElementById('_br_file_input');
+    var inp = document.getElementById('_br_file_input') || document.getElementById('br_file_input');
     if (inp) return inp;
     inp = document.createElement('input');
     inp.type = 'file';
@@ -72,14 +67,20 @@
     return inp;
   }
 
+  // Helper: close details dropdown if present
+  function closeDetails(detailsId){
+    try {
+      var d = document.getElementById(detailsId);
+      if (d && d.tagName && d.tagName.toLowerCase() === 'details') d.removeAttribute('open');
+    } catch(_) {}
+  }
+
   // ---------- core binding logic ----------
   function bindEvents(){
-    // basic project/instrument selectors
+    // basic project/instrument selectors (safe if missing)
     const selProject = document.querySelector('#selProject');
     const selInstrument = document.querySelector('#selInstrument');
-    if (!selProject || !selInstrument) {
-      // It's OK — we'll still wire backup buttons below
-    } else {
+    if (selProject && selInstrument) {
       selProject.addEventListener('change', (e) => {
         const inst = currInst();
         const id = (e.target && e.target.value) || '';
@@ -99,7 +100,7 @@
         window.dispatchEvent(new CustomEvent('bl:instrument-change', { detail: { inst: val } }));
       });
 
-      // project CRUD buttons (new/rename/delete)
+      // project CRUD buttons (new/rename/delete) — if present
       const bNew = getEl('btnProjectNew'), bRen = getEl('btnProjectRen'), bDel = getEl('btnProjectDel');
       if (bNew) bNew.addEventListener('click', ()=>{ const name = prompt('Nome do novo projeto:'); if (!name) return; const inst = currInst(); BL_PROJECT.create(inst, name); refreshProjectSelector(); window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst } })); });
       if (bRen) bRen.addEventListener('click', ()=>{ const inst = currInst(); const cur = BL_PROJECT.get(inst); const curName = (BL_PROJECT.list(inst).find(x=>x.id===cur)||{}).name || ''; const name = prompt('Novo nome do projeto:', curName); if (!name) return; BL_PROJECT.rename(inst, cur, name); refreshProjectSelector(); window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst, id: cur } })); });
@@ -109,8 +110,9 @@
     // ---------- Backup / Restore buttons ----------
     const btnExp = getEl('btnExportProject');
     const btnExpAll = getEl('btnExportAllProjects');
-    const btnImp = getEl('btnRestoreProject');
-    const btnImpOverwrite = getEl('btnRestoreProjectOverwrite');
+    // note: your HTML uses btnImportProject / btnImportProjectOverwrite; support both sets
+    const btnImp = getEl('btnImportProject') || getEl('btnRestoreProject');
+    const btnImpOverwrite = getEl('btnImportProjectOverwrite') || getEl('btnRestoreProjectOverwrite');
 
     const fileInput = ensureBrFileInput();
 
@@ -144,7 +146,7 @@
           console.error(err);
           showToast('Falha ao exportar: '+(err && err.message ? err.message : err), { type:'error', timeout:7000 });
         }
-      }));
+      } ));
     }
 
     // Export all projects (if API provides)
@@ -167,7 +169,7 @@
           console.error(err);
           showToast('Falha no exportAll: '+(err && err.message ? err.message : err), { type:'error' });
         }
-      }));
+      } ));
     }
 
     // Import (merge)
@@ -181,7 +183,6 @@
     // Import (overwrite)
     if (btnImpOverwrite){
       btnImpOverwrite.addEventListener('click', function(){
-        // keep blocking confirm for destructive action for now
         var ok = confirm('Deseja substituir os dados existentes do(s) projeto(s) importados? Esta ação pode apagar dados atuais.');
         if (!ok) return;
         fileInput._importMode = 'overwrite';
@@ -193,17 +194,16 @@
     fileInput.addEventListener('change', guard(async function(){
       const f = fileInput.files && fileInput.files[0];
       const mode = fileInput._importMode || 'merge';
-      // cleanup default mode (for next time)
       fileInput._importMode = null;
-
       if (!f) return;
       showToast('Iniciando import — lendo arquivo...', { type:'info', timeout:1500 });
 
       try {
-        // Prefer BackupRestore.importFromFile(file)
+        // Prefer BackupRestore.importFromFile(file, options)
         if (window.BackupRestore && typeof BackupRestore.importFromFile === 'function'){
           await BackupRestore.importFromFile(f, { overwrite: mode === 'overwrite' });
           showToast('Import concluído — aplicando mudanças.', { type:'success' });
+          closeDetails('btnImportToggle');
           if (mode === 'overwrite') {
             showToast('Substituição concluída — recarregando...', { type:'info', timeout:1800 });
             setTimeout(()=> location.reload(), 900);
@@ -215,7 +215,7 @@
         if (typeof window.importProjectFile === 'function'){
           await window.importProjectFile(f);
           showToast('Import concluído — aplicando mudanças.', { type:'success' });
-          // some legacy importers may not reload automatically — if overwrite, reload
+          closeDetails('btnImportToggle');
           if (mode === 'overwrite') {
             showToast('Substituição concluída — recarregando...', { type:'info', timeout:1800 });
             setTimeout(()=> location.reload(), 900);
@@ -230,6 +230,7 @@
         if (window.BackupRestore && typeof BackupRestore.importPayload === 'function'){
           await BackupRestore.importPayload(payload, { merge: mode==='merge', overwrite: mode==='overwrite' });
           showToast('Import via importPayload concluído.', { type:'success' });
+          closeDetails('btnImportToggle');
           if (mode === 'overwrite') { setTimeout(()=> location.reload(), 900); }
           return;
         }
@@ -239,10 +240,9 @@
         console.error(err);
         showToast('Falha ao importar: '+(err && err.message ? err.message : err), { type:'error', timeout:7000 });
       } finally {
-        // reset input so same file can be chosen again later
         try { fileInput.value = ''; } catch(_) {}
       }
-    }));
+    } ));
 
   } // bindEvents
 
