@@ -169,33 +169,14 @@
   window.BackupRestore.importFromFile = importFromFile;
   window.BackupRestore.promptAndImport = promptAndImport;
 
-  // BACKWARDS COMPAT: exportProjectFile() function expected by older code
-  // Signature: exportProjectFile(inst?, proj?) -> if no args, download current project
-  window.exportProjectFile = window.exportProjectFile || (async function(inst, proj){
-    if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
-    if (inst || proj) {
-      return await window.BackupRestore.exportProject(inst, proj);
-    } else {
-      return await window.BackupRestore.exportCurrentProjectAndDownload();
-    }
-  });
-
-  // Expose also a convenience import function for legacy callers
-  window.importProjectFile = window.importProjectFile || (async function(file){
-    return await window.BackupRestore.importFromFile(file);
-  });
-
-})();
-
-// BACKWARDS COMPAT: exportProjectFile() — versão atualizada para sempre forçar download
-window.exportProjectFile = window.exportProjectFile || (async function(inst, proj, token){
+  // BACKWARDS COMPAT: exportProjectFile() — versão única que sempre força download
+window.exportProjectFile = (async function(inst, proj, token){
   if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
 
   // Se passaram inst/proj -> obter payload e forçar download localmente
   if (inst || proj) {
     const payload = await window.BackupRestore.exportProject(inst, proj);
     try {
-      // força download aqui (nome amigável)
       const name = 'luthierpro-export-'+(inst||'inst')+'-proj'+(proj||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type:'application/json' });
       const url = URL.createObjectURL(blob);
@@ -206,30 +187,31 @@ window.exportProjectFile = window.exportProjectFile || (async function(inst, pro
       a.remove();
       setTimeout(()=> URL.revokeObjectURL(url), 500);
     } catch (e) {
-      // fallback: se o download falhar, retorna o payload para que chamador trate
       console.warn('[exportProjectFile] download fallback', e);
       return payload;
     }
-    // sucesso
     return payload;
-  } else {
-    // Sem args -> usa a rotina que já faz o download internamente
-    if (typeof window.BackupRestore.exportCurrentProjectAndDownload === 'function') {
-      return await window.BackupRestore.exportCurrentProjectAndDownload();
-    }
-    // como último recurso, gerar payload + download
-    const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl'));
-    const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:'+inst0)||'default'));
-    const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
-    const name0 = 'luthierpro-export-'+(inst0||'inst')+'-proj'+(proj0||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
-    const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type:'application/json' });
-    const url0 = URL.createObjectURL(blob0);
-    const a0 = document.createElement('a');
-    a0.href = url0; a0.download = name0;
-    document.body.appendChild(a0);
-    a0.click();
-    a0.remove();
-    setTimeout(()=> URL.revokeObjectURL(url0), 500);
-    return payload0;
   }
+
+  // Sem args -> usa a rotina que já faz o download internamente (se existir)
+  if (typeof window.BackupRestore.exportCurrentProjectAndDownload === 'function') {
+    return await window.BackupRestore.exportCurrentProjectAndDownload();
+  }
+
+  // Último recurso: gerar payload do projeto atual e forçar download
+  const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument')||'vcl'));
+  const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:'+inst0)||'default'));
+  const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
+  const name0 = 'luthierpro-export-'+(inst0||'inst')+'-proj'+(proj0||'proj')+'-'+(new Date().toISOString().replace(/[:.]/g,'-'))+'.json';
+  const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type:'application/json' });
+  const url0 = URL.createObjectURL(blob0);
+  const a0 = document.createElement('a');
+  a0.href = url0; a0.download = name0;
+  document.body.appendChild(a0);
+  a0.click();
+  a0.remove();
+  setTimeout(()=> URL.revokeObjectURL(url0), 500);
+  return payload0;
 });
+
+})();
