@@ -80,14 +80,56 @@
   }
 
   // Export a single project: collect localStorage keys and images that match candidates
+    // --- exportProject (substituir a versão atual) ---
   async function exportProject(inst, proj) {
     inst = inst || currInst(); proj = proj || currProj(inst);
-    const meta = { exportedAt: nowISO(), inst, proj, app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null) };
+    const meta = { exportedAt: nowISO(), inst, proj, app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null), name: null };
 
     // collect relevant local keys
     const keys = keysForProject(inst, proj);
     const local = {};
     for (const k of keys) { try { local[k] = localStorage.getItem(k); } catch (_) { } }
+
+    // Try to infer a human-friendly project name from payload values (if present)
+    function inferNameFromLocal(localObj) {
+      for (const v of Object.values(localObj)) {
+        if (!v) continue;
+        // try parse JSON
+        try {
+          const p = JSON.parse(v);
+          if (p && (p.name || p.projectName || p.title)) return String(p.name || p.projectName || p.title);
+          // if it's an array of projects, maybe find matching id
+          if (Array.isArray(p)) {
+            for (const item of p) {
+              try {
+                if (item && (item.id == proj || item.id == String(proj)) && (item.name || item.title)) return String(item.name || item.title);
+              } catch (_) {}
+            }
+          }
+        } catch (_) {
+          // not JSON, try plain text regex
+          try {
+            const m = String(v).match(/"name"\s*:\s*"([^"]+)"/i) || String(v).match(/"projectName"\s*:\s*"([^"]+)"/i);
+            if (m && m[1]) return m[1];
+          } catch (_) {}
+        }
+      }
+      return null;
+    }
+
+    try {
+      const guessed = inferNameFromLocal(local);
+      if (guessed) meta.name = guessed;
+      // fallback: if BL_PROJECT has metadata accessor try it
+      if (!meta.name && window.BL_PROJECT && typeof BL_PROJECT.getMeta === 'function') {
+        try {
+          const mm = BL_PROJECT.getMeta(inst, proj);
+          if (mm && (mm.name || mm.title)) meta.name = mm.name || mm.title;
+        } catch (_) {}
+      }
+    } catch (e) {
+      console.warn('[Backup] infer name failed', e);
+    }
 
     // candidates for asset keys (from found local keys)
     const candidates = new Set();
@@ -108,6 +150,7 @@
 
     return { meta, local, images };
   }
+
 
   // Export all projects: collect localStorage keys for all projects (grouping by inst/proj when possible)
   async function exportAllProjects() {
@@ -144,42 +187,71 @@
   //  - merge === true -> for keys that are arrays (ex: images lists stored in localStorage) try to merge arrays de-duplicating by id; other keys: skip if exists
   // Images: attempt to save each image in payload.images via blImgSave (key + dataURL)
   // Import utilities: write localStorage and write images to IDB
+    // --- importPayload (substituir a versão atual) ---
   async function importPayload(payload, { merge = true, overwrite = false, autoReload = true } = {}) {
     if (!payload || !payload.meta) throw new Error('invalid payload');
-    const meta = payload.meta;
+    const meta = payload.meta || {};
     const local = payload.local || {};
     const images = payload.images || [];
 
-    // 1) Write localStorage keys (merge behavior: if merge=true we keep existing keys that aren't present in payload)
-    try {
-      if (merge) {
-        // only set keys from payload (overwriting those present)
-        Object.keys(local).forEach(k => {
-          try { localStorage.setItem(k, local[k]); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
-        });
-      } else {
-        // overwrite = true -> remove keys that might conflict? simplest: write keys and optionally clear others is destructive
-        Object.keys(local).forEach(k => {
-          try { localStorage.setItem(k, local[k]); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
-        });
+    // 0) helper: tenta inferir nome de projeto a partir do payload.local
+    function inferProjectName(localObj, inst, proj) {
+      if (!localObj) return null;
+      // look for obvious keys containing name
+      const nameCandidates = [];
+      for (const [k, v] of Object.entries(localObj)) {
+        if (!v) continue;
+        const kl = String(k).toLowerCase();
+        if (kl.includes('name') || kl.includes('title') || kl.includes('project')) {
+          // try json parse
+          try {
+            const j = JSON.parse(v);
+            if (j && (j.name || j.projectName || j.title)) { return String(j.name || j.projectName || j.title); }
+            // if j is array, try find by id
+            if (Array.isArray(j)) {
+              for (const item of j) {
+                try {
+                  if (item && (item.id == proj || item.id == String(proj)) && (item.name || item.title)) return String(item.name || item.title);
+                } catch(_) {}
+              }
+            }
+          } catch (_) {
+            // regex fallback
+            const m = String(v).match(/"name"\s*:\s*"([^"]+)"/i) || String(v).match(/"projectName"\s*:\s*"([^"]+)"/i) || String(v).match(/"title"\s*:\s*"([^"]+)"/i);
+            if (m && m[1]) return m[1];
+          }
+        } else {
+          // generic scan for "name" anywhere in small JSONs
+          try {
+            const j2 = JSON.parse(v);
+            if (j2 && (j2.name || j2.title)) return String(j2.name || j2.title);
+          } catch (_) {}
+        }
       }
+      return null;
+    }
+
+    // 1) Write localStorage keys (merge behavior: write keys from payload)
+    try {
+      Object.keys(local).forEach(k => {
+        try { localStorage.setItem(k, local[k]); } catch (e) { console.warn('[Backup] set localStorage failed', k, e); }
+      });
     } catch (e) {
       console.warn('[Backup] error while writing localStorage', e);
     }
 
-    // 2) Write images to IDB using blImgSave
+    // 2) Write images to IDB using blImgSave (await each to avoid race issues)
     if (window.blImgSave) {
       for (const img of images) {
         try {
           const key = img.key || ('imported::' + (Date.now()) + '::' + Math.random().toString(36).slice(2));
           await window.blImgSave(key, img.dataURL || img.data || '');
-        } catch (e) { console.warn('[Backup] blImgSave failed for', img.key, e); }
+        } catch (e) { console.warn('[Backup] blImgSave failed for', img && img.key, e); }
       }
     }
 
-    // 3) Try to set heuristic "current instrument / project" keys, so UI can pick up without reload
+    // 3) Ensure instrument/project pointers exist (so UI knows where to look)
     try {
-      // If payload.meta defines inst/proj, set those keys explicitly
       if (meta.inst) {
         try { localStorage.setItem('bl:instrument', meta.inst); } catch (_) { }
         if (meta.proj) {
@@ -188,27 +260,79 @@
       }
     } catch (_) { }
 
-    // 4) Try to notify BL_PROJECT / runtime that data changed. If BL_PROJECT exposes a reload/refresh method, call it.
+    // 4) Infer project name if possible and write heuristic keys the UI may read
+    try {
+      const inst = meta.inst;
+      const proj = meta.proj;
+      const inferred = inferProjectName(local, inst, proj) || meta.name || null;
+      if (inferred && inst && proj) {
+        // heuristic key patterns (some apps check these)
+        try { localStorage.setItem(`bl:project:name:${inst}:${proj}`, String(inferred)); } catch (_) {}
+        try { localStorage.setItem(`bl:project:meta:${inst}:${proj}`, JSON.stringify({ id: proj, name: String(inferred), restoredAt: nowISO() })); } catch (_) {}
+        // also keep an index of user-visible projects (if present)
+        try {
+          const listKey = 'bl:projects:list:' + inst;
+          const raw = localStorage.getItem(listKey);
+          let arr = raw ? JSON.parse(raw) : [];
+          if (!Array.isArray(arr)) arr = [];
+          // upsert
+          const exists = arr.findIndex(x => String(x.id) === String(proj));
+          if (exists >= 0) arr[exists] = Object.assign({}, arr[exists], { id: proj, name: String(inferred), updatedAt: nowISO() });
+          else arr.push({ id: proj, name: String(inferred), updatedAt: nowISO() });
+          localStorage.setItem(listKey, JSON.stringify(arr));
+        } catch (e) {}
+      }
+    } catch (e) {
+      console.warn('[Backup] infer/write project name failed', e);
+    }
+
+    // 5) Try to notify BL_PROJECT / runtime that data changed. If BL_PROJECT exposes a reload/refresh method, call it.
     let notified = false;
     try {
       if (window.BL_PROJECT) {
-        // common patterns: a .reload() or .refresh() may exist
         if (typeof BL_PROJECT.reload === 'function') { await BL_PROJECT.reload(); notified = true; }
         else if (typeof BL_PROJECT.refresh === 'function') { BL_PROJECT.refresh(); notified = true; }
         else if (typeof BL_PROJECT.list === 'function') {
-          // some implementations rely on localStorage; emite um evento para que listeners atualizem
           window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta } }));
           notified = true;
         }
+      } else {
+        // dispatch a generic event so UI can listen
+        window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta } }));
+        notified = true;
       }
     } catch (e) {
       console.warn('[Backup] BL_PROJECT notify failed', e);
     }
 
-    // 5) If it's an "export all" (meta may not contain inst/proj) or we couldn't notify the runtime, reload (if requested)
+    // 6) attempt to update DOM directly (best-effort) so no F5 is needed
+    try {
+      const inst = meta.inst; const proj = meta.proj;
+      // get a possible project name from storage now
+      let finalName = null;
+      try {
+        if (inst && proj) finalName = localStorage.getItem(`bl:project:name:${inst}:${proj}`) || localStorage.getItem(`bl:project:meta:${inst}:${proj}`) && JSON.parse(localStorage.getItem(`bl:project:meta:${inst}:${proj}`)).name;
+      } catch(_) {}
+      if (!finalName && meta.name) finalName = meta.name;
+      if (finalName) {
+        // update known selectors
+        const selectors = ['#project-title', '.project-name', '[data-project-name]'];
+        for (const s of selectors) {
+          try {
+            const el = document.querySelector(s);
+            if (el) { el.textContent = finalName; console.debug('[Backup] updated DOM selector', s); }
+          } catch (_) {}
+        }
+        // dispatch name-updated event
+        window.dispatchEvent(new CustomEvent('bl:project:name-updated', { detail: { inst: inst, proj: proj, name: finalName } }));
+      }
+    } catch (e) {
+      console.warn('[Backup] DOM update failed', e);
+    }
+
+    // 7) If it's an "export all" (meta may not contain inst/proj) or we couldn't notify the runtime, reload (if requested).
     const isExportAll = !(meta && meta.inst && meta.proj);
     if (autoReload && (isExportAll || !notified || overwrite)) {
-      // small delay so caller/toast can show
       setTimeout(() => {
         try { location.reload(); } catch (e) { console.warn('[Backup] reload failed', e); }
       }, 700);
@@ -216,6 +340,7 @@
 
     return { ok: true, restoredAt: (new Date()).toISOString(), meta };
   }
+
 
 
   // Import from File object (file = File), options same as importPayload
