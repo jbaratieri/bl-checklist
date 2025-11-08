@@ -1,21 +1,7 @@
-/* FILE: js/backup-restore.v1.js - updated — Backup & Restore for LuthierPro
+/* FILE: js/backup-restore.v1.js — Backup & Restore for LuthierPro (with exportProjectFile compatibility)
    - Exports a project (localStorage keys + images from IndexedDB) into a single JSON
    - Imports a JSON exported by this tool and restores localStorage keys + saves images to IndexedDB
-   - Designed to work with current ImagesPersist / step12 overlays naming (asset keys like "prep2::..." stored in IDB via blImgSave)
-
-   Usage:
-     // Export and download current project
-     BackupRestore.exportCurrentProjectAndDownload();
-
-     // Or export programmatically
-     const blob = await BackupRestore.exportProject(inst, projId);
-
-     // Import from a File object (selected via <input type=file>)
-     const file = ...; await BackupRestore.importFromFile(file);
-
-   Notes:
-   - Requires window.blImgListPrefix and window.blImgGet / window.blImgSave (ImagesPersist helpers) to interact with IndexedDB.
-   - Falls back to localStorage-only export/import if IDB helpers are missing.
+   - Backwards-compatible function: exportProjectFile(inst, proj)
 */
 (function(){
   'use strict';
@@ -39,16 +25,13 @@
   function keysForProject(inst, proj){
     const all = Object.keys(localStorage||{});
     const out = new Set();
-    const pfx1 = 'bl:v2:imgs:' + inst + ':' + proj + ':'; // images store prefix variant (if present)
-    // generic heuristics: include keys that contain ":inst:proj:" or start with known prefixes
+    const pfx1 = 'bl:v2:imgs:' + inst + ':' + proj + ':';
     for (const k of all){
       if (!k) continue;
       if (k.indexOf(':'+inst+':'+proj+':') >= 0) out.add(k);
       if (k.startsWith('bl:') && k.indexOf(':'+inst+':')>=0 && k.indexOf(':'+proj+':')>=0) out.add(k);
       if (k.startsWith(pfx1)) out.add(k);
-      // include project panel persist fields (bl:project:... or bl:val:...)
       if (k.indexOf('bl:val:'+inst+':'+proj+':')===0) out.add(k);
-      // include project current selection
       if (k === ('bl:project:'+inst) || k === ('bl:instrument')) out.add(k);
     }
     // fallback: include all keys that mention the project id
@@ -58,11 +41,7 @@
 
   // Convert local storage key to assetKey used in IDB (reverse of keyFor)
   function assetKeyFromLocalKey(localKey){
-    try { const parts = String(localKey).split(':'); // STORE_PREFIX:inst:proj:sub
-      // return the "sub" portion that ImagesPersist used (prefix after 4 parts)
-      if (parts.length >= 4) return parts.slice(4).join(':');
-    } catch(_){}
-    return localKey;
+    try { const parts = String(localKey).split(':'); if (parts.length >= 5) return parts.slice(4).join(':'); } catch(_){} return localKey;
   }
 
   // Read images from IDB for an assetKey prefix
@@ -73,7 +52,6 @@
       const recs = await window.blImgListPrefix(assetKey);
       for (const r of recs){
         try{
-          // r may already contain dataURL (some implementations), otherwise try blImgGet
           if (r && r.dataURL) {
             out.push({ key: r.key, dataURL: r.dataURL, addedAt: r.addedAt || Date.now() });
             continue;
@@ -84,7 +62,6 @@
             if (full.dataURL) {
               out.push({ key: r.key, dataURL: full.dataURL, addedAt: full.addedAt || Date.now() });
             } else if (full.blob){
-              // convert blob to dataURL
               const dataURL = await new Promise((res, rej)=>{
                 const fr = new FileReader(); fr.onload = ()=>res(fr.result); fr.onerror = ()=>rej(fr.error);
                 fr.readAsDataURL(full.blob);
@@ -110,23 +87,17 @@
     const local = {};
     for (const k of keys){ try { local[k] = localStorage.getItem(k); } catch(_){} }
 
-    // images — scan for any local keys that are image lists (STORE_PREFIX or bl:v2:imgs)
+    // images — scan for any local keys that are image lists
     const images = [];
-    // find candidate assetKeys from local keys
     const candidates = new Set();
     for (const k of Object.keys(local)){
       try{
-        if (k.indexOf('imgs')>=0 || k.indexOf(':imgs:')>=0 || k.indexOf(STORE_PREFIX)===0){
-          candidates.add(assetKeyFromLocalKey(k));
-        }
-        // many image keys are stored like STORE_PREFIX:inst:proj:sub
+        if (k.indexOf('imgs')>=0 || k.indexOf(':imgs:')>=0 || k.indexOf('bl:v2:imgs')===0){ candidates.add(assetKeyFromLocalKey(k)); }
         const parts = String(k).split(':');
         if (parts.length>=4){ candidates.add(parts.slice(4).join(':')); }
       }catch(_){ }
     }
 
-    // Also include any asset keys recently used in cache (inspect cache entries) — best-effort
-    // For each candidate, read IDB images
     for (const a of candidates){
       if (!a) continue;
       const recs = await readImagesFromIDBForAsset(a);
@@ -152,8 +123,7 @@
     const local = payload.local || {};
     const images = payload.images || [];
 
-    // Write localStorage keys (optionally merge = true to avoid overwriting some keys?)
-    // For now we overwrite project-related keys
+    // Write localStorage keys
     Object.keys(local).forEach(k => {
       try { localStorage.setItem(k, local[k]); } catch(e){ console.warn('[Backup] set localStorage failed', k, e); }
     });
@@ -162,7 +132,6 @@
     if (window.blImgSave){
       for (const img of images){
         try{
-          // img.key should be like "prep2::1762..."; if missing, generate
           const key = img.key || ('imported::'+(Date.now())+ '::' + Math.random().toString(36).slice(2));
           await window.blImgSave(key, img.dataURL);
         }catch(e){ console.warn('[Backup] blImgSave failed for', img.key, e); }
@@ -186,8 +155,8 @@
     const input = document.createElement('input'); input.type='file'; input.accept='application/json';
     input.addEventListener('change', async function(){
       if (!input.files || !input.files[0]) return; const f = input.files[0];
-      try { const res = await importFromFile(f); alert('Import concluído: '+JSON.stringify(res));
-      } catch(e){ alert('Import falhou: '+(e && e.message)); console.error(e); }
+      try { const res = await importFromFile(f); alert('Import concluído: '+JSON.stringify(res)); }
+      catch(e){ alert('Import falhou: '+(e && e.message)); console.error(e); }
     }, { once:true });
     input.click();
   }
@@ -199,5 +168,21 @@
   window.BackupRestore.importPayload = importPayload;
   window.BackupRestore.importFromFile = importFromFile;
   window.BackupRestore.promptAndImport = promptAndImport;
+
+  // BACKWARDS COMPAT: exportProjectFile() function expected by older code
+  // Signature: exportProjectFile(inst?, proj?) -> if no args, download current project
+  window.exportProjectFile = window.exportProjectFile || (async function(inst, proj){
+    if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
+    if (inst || proj) {
+      return await window.BackupRestore.exportProject(inst, proj);
+    } else {
+      return await window.BackupRestore.exportCurrentProjectAndDownload();
+    }
+  });
+
+  // Expose also a convenience import function for legacy callers
+  window.importProjectFile = window.importProjectFile || (async function(file){
+    return await window.BackupRestore.importFromFile(file);
+  });
 
 })();
