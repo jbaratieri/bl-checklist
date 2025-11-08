@@ -1,5 +1,5 @@
-// service-worker.js — LuthierPro v2.4.2 (offline forte + login sem cache + ignora /api)
-const CACHE_VERSION = 'luthierpro-v2.4.2';
+// service-worker.js — LuthierPro v2.4.3 (offline forte + login sem cache + ignora /api)
+const CACHE_VERSION = 'luthierpro-v2.4.3';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
@@ -25,7 +25,7 @@ const APP_SHELL = [
   './js/step9-instrument.js',
   './js/step15-instrument-badge.js',
   './js/step14-images-persist.v4.1.js',
-  './js/step12-draw.v4.1.js',
+  './js/Step12-draw.v4.1.updated.js',
   './js/step17-measures-instrumentos.js',
   './js/step16-measures-presets.v3.js',
   './js/step16-range-support.js',
