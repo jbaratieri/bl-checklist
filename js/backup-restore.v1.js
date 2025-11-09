@@ -86,76 +86,135 @@
   }
 
   // --- exportProject (substituir a versão atual) ---
-  async function exportProject(inst, proj) {
-    inst = inst || currInst(); proj = proj || currProj(inst);
-    const meta = { exportedAt: nowISO(), inst, proj, app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null), name: null };
+ async function exportProject(inst, proj) {
+  inst = inst || currInst();
+  proj = proj || currProj(inst);
+  const meta = { exportedAt: nowISO(), inst, proj, app: 'LuthierPro', appVersion: (window.LUTHIERPRO_VERSION || null), name: null };
 
-    // collect relevant local keys
-    const keys = keysForProject(inst, proj);
-    const local = {};
-    for (const k of keys) { try { local[k] = localStorage.getItem(k); } catch (_) { } }
+  // collect relevant local keys (base candidates)
+  const keys = keysForProject(inst, proj);
+  const local = {};
+  for (const k of keys) { try { local[k] = localStorage.getItem(k); } catch (_) { } }
 
-    // Try to infer a human-friendly project name from payload values (if present)
-    function inferNameFromLocal(localObj) {
-      for (const v of Object.values(localObj)) {
-        if (!v) continue;
-        // try parse JSON
-        try {
-          const p = JSON.parse(v);
-          if (p && (p.name || p.projectName || p.title)) return String(p.name || p.projectName || p.title);
-          // if it's an array of projects, maybe find matching id
-          if (Array.isArray(p)) {
-            for (const item of p) {
-              try {
-                if (item && (item.id == proj || item.id == String(proj)) && (item.name || item.title)) return String(item.name || item.title);
-              } catch (_) {}
-            }
-          }
-        } catch (_) {
-          // not JSON, try plain text regex
-          try {
-            const m = String(v).match(/"name"\s*:\s*"([^"]+)"/i) || String(v).match(/"projectName"\s*:\s*"([^"]+)"/i);
-            if (m && m[1]) return m[1];
-          } catch (_) {}
-        }
-      }
-      return null;
-    }
-
-    try {
-      const guessed = inferNameFromLocal(local);
-      if (guessed) meta.name = guessed;
-      // fallback: if BL_PROJECT has metadata accessor try it
-      if (!meta.name && window.BL_PROJECT && typeof BL_PROJECT.getMeta === 'function') {
-        try {
-          const mm = BL_PROJECT.getMeta(inst, proj);
-          if (mm && (mm.name || mm.title)) meta.name = mm.name || mm.title;
-        } catch (_) {}
-      }
-    } catch (e) {
-      console.warn('[Backup] infer name failed', e);
-    }
-
-    // candidates for asset keys (from found local keys)
-    const candidates = new Set();
-    for (const k of Object.keys(local)) {
+  // ensure we include common index/metadata keys even if keysForProject missed them
+  const extraKeys = [
+    'bl:projects:' + inst,
+    'bl:project:meta:' + inst + ':' + proj,
+    'bl:project:name:' + inst + ':' + proj,
+    'bl:project:' + inst,
+    'bl:instrument'
+  ];
+  for (const k of extraKeys) {
+    if (!(k in local)) {
       try {
-        if (k.indexOf('imgs') >= 0 || k.indexOf(':imgs:') >= 0 || k.indexOf('bl:v2:imgs') === 0) { candidates.add(assetKeyFromLocalKey(k)); }
-        const parts = String(k).split(':');
-        if (parts.length >= 5) { candidates.add(parts.slice(4).join(':')); }
-      } catch (_) { }
+        const v = localStorage.getItem(k);
+        if (v !== null && v !== undefined) local[k] = v;
+      } catch (_) {}
     }
-
-    const images = [];
-    for (const a of Array.from(candidates)) {
-      if (!a) continue;
-      const recs = await readImagesFromIDBForAsset(a);
-      for (const r of recs) images.push(r);
-    }
-
-    return { meta, local, images };
   }
 
+  // Also try to include any app-specific aggregated keys (heuristic)
+  const heuristics = Object.keys(localStorage || {}).filter(k => {
+    if (!k) return false;
+    // include keys that mention inst or proj or known prefixes
+    return k.indexOf('bl:projects:') === 0
+      || k.indexOf('bl:project:meta:') === 0
+      || k.indexOf('bl:project:name:') === 0
+      || k.indexOf('baratieri') === 0
+      || k.indexOf('bl:val:' + inst + ':' + proj) === 0
+      || k.indexOf('bl:val:' + inst + ':') === 0;
+  });
+  for (const k of heuristics) {
+    if (!(k in local)) {
+      try { local[k] = localStorage.getItem(k); } catch(_) {}
+    }
+  }
+
+  // Try to infer a human-friendly project name from several sources (ordered)
+  function inferName() {
+    // 1) explicit project:name key
+    try {
+      const k1 = 'bl:project:name:' + inst + ':' + proj;
+      const v1 = local[k1] || localStorage.getItem(k1);
+      if (v1) return String(v1);
+    } catch(_) {}
+    // 2) project:meta object
+    try {
+      const k2 = 'bl:project:meta:' + inst + ':' + proj;
+      const v2 = local[k2] || localStorage.getItem(k2);
+      if (v2) {
+        try { const j = JSON.parse(v2); if (j && (j.name || j.title)) return String(j.name || j.title); } catch(_) {}
+      }
+    } catch(_) {}
+    // 3) projects index list
+    try {
+      const k3 = 'bl:projects:' + inst;
+      const v3 = local[k3] || localStorage.getItem(k3);
+      if (v3) {
+        try {
+          const arr = JSON.parse(v3);
+          if (Array.isArray(arr)) {
+            const found = arr.find(x => String(x.id) === String(proj));
+            if (found && (found.name || found.title)) return String(found.name || found.title);
+          }
+        } catch(_) {}
+      }
+    } catch(_) {}
+    // 4) baratieri_* aggregate object that your app seems to use
+    try {
+      const possible = Object.keys(local).find(k => k.indexOf('baratieri') === 0 || k.indexOf('baratieri_') === 0);
+      if (possible) {
+        try {
+          const j = JSON.parse(local[possible]);
+          if (j && (j['n-prep1'] || j['n-prep'] || j['selProject'])) {
+            if (j['n-prep1']) return String(j['n-prep1']);
+            if (j['selProject']) return String(j['selProject']);
+          }
+        } catch(_) {}
+      }
+    } catch(_) {}
+    // 5) naive scan for any value containing name-like fields
+    try {
+      for (const val of Object.values(local)) {
+        if (!val) continue;
+        try {
+          const j = JSON.parse(val);
+          if (j && (j.name || j.title || j.projectName || j['n-prep1'])) return String(j.name || j.title || j.projectName || j['n-prep1']);
+        } catch(_) {
+          const m = String(val).match(/\"name\"\s*:\s*\"([^"]+)\"/i);
+          if (m && m[1]) return m[1];
+        }
+      }
+    } catch(_) {}
+    return null;
+  }
+
+  try {
+    const guessed = inferName();
+    if (guessed) meta.name = guessed;
+  } catch (e) {
+    console.warn('[Backup] infer name failed', e);
+  }
+
+  // candidates for asset keys (from found local keys)
+  const candidates = new Set();
+  for (const k of Object.keys(local)) {
+    try {
+      if (k.indexOf('imgs') >= 0 || k.indexOf(':imgs:') >= 0 || k.indexOf('bl:v2:imgs') === 0) { candidates.add(assetKeyFromLocalKey(k)); }
+      const parts = String(k).split(':');
+      if (parts.length >= 5) { candidates.add(parts.slice(4).join(':')); }
+    } catch (_) { }
+  }
+
+  const images = [];
+  for (const a of Array.from(candidates)) {
+    if (!a) continue;
+    const recs = await readImagesFromIDBForAsset(a);
+    for (const r of recs) images.push(r);
+  }
+
+  return { meta, local, images };
+}
   // Export all projects: collect localStorage keys for all projects (grouping by inst/proj when possible)
   async function exportAllProjects() {
     // naive approach: collect all keys and attempt to infer inst/proj groups
