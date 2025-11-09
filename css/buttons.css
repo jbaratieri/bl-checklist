@@ -268,6 +268,29 @@ header.app .toolbar .btn.primary:hover {
   font-size: 0.95rem;
 }
 
+/* botão PWA install (mover deste style inline) */
+#btnInstall {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: #8a623f;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 1em;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+  z-index: 9999;
+}
+
+#btnInstall:hover { background: #5c3b1e; transform: scale(1.04); }
+#btnInstall:active { transform: scale(0.98); }
+#btnInstall[hidden] { display: none !important; } /* reforça hidden */
+
+
 
 /* compact behaviour for small screens: menus go full width under button */
 @media (max-width: 480px) {
