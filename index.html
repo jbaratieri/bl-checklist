@@ -93,45 +93,31 @@
         🖨️ <span class="label">Imprimir</span>
       </button>
 
-      <!-- Backup / Restore (compact dropdowns) -->
-      <div class="br-group" style="display:inline-flex;gap:8px;align-items:center;">
-        <!-- Export dropdown (details/summary para simplicidade e acessibilidade) -->
-        <details id="btnExportToggle" class="br-dropdown" style="position:relative;">
+      <div class="br-group">
+        <details id="btnExportToggle" class="br-dropdown">
           <summary class="btn" title="Exportar">
             💾 <span class="label">Exportar</span>
           </summary>
-          <div id="menuExport" class="br-menu"
-            style="position:absolute;right:0;top:100%;background:#fff;border:1px solid #ddd;padding:6px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.08);min-width:180px;z-index:1200;">
-            <button class="btn" id="btnExportProject"
-              style="display:block;width:100%;text-align:left;padding:6px 8px;">Exportar projeto atual</button>
-            <button class="btn" id="btnExportAllProjects"
-              style="display:block;width:100%;text-align:left;padding:6px 8px;margin-top:6px;">Exportar TODOS os
-              projetos</button>
+          <div id="menuExport" class="br-menu">
+            <button class="btn" id="btnExportProject">Exportar projeto atual</button>
+            <button class="btn" id="btnExportAllProjects">Exportar TODOS os projetos</button>
           </div>
         </details>
 
-        <!-- Import dropdown -->
-        <details id="btnImportToggle" class="br-dropdown" style="position:relative;">
+        <details id="btnImportToggle" class="br-dropdown">
           <summary class="btn" title="Importar">
             📤 <span class="label">Importar</span>
           </summary>
-          <div id="menuImport" class="br-menu"
-            style="position:absolute;right:0;top:100%;background:#fff;border:1px solid #ddd;padding:6px;border-radius:6px;box-shadow:0 6px 18px rgba(0,0,0,.08);min-width:220px;z-index:1200;">
-            <button class="btn" id="btnImportProject"
-              style="display:block;width:100%;text-align:left;padding:6px 8px;">Importar (merge —
-              adiciona/atualiza)</button>
-            <button class="btn" id="btnImportProjectOverwrite"
-              style="display:block;width:100%;text-align:left;padding:6px 8px;margin-top:6px;">Importar (overwrite —
-              substituir)</button>
-            <small style="display:block;margin-top:8px;color:#666;font-size:12px;">Ao importar com overwrite a página
-              será recarregada automaticamente.</small>
+          <div id="menuImport" class="br-menu">
+            <button class="btn" id="btnImportProject">Importar (merge — adiciona/atualiza)</button>
+            <small class="hint">A página será recarregada automaticamente após a importação.</small>
           </div>
         </details>
 
-        <!-- hidden file input (reutilizável) -->
-        <input id="br_file_input" type="file" accept=".json,application/json,.luthierproj.json" style="display:none" />
+        <input id="br_file_input" type="file" accept=".json" style="display:none" />
       </div>
     </div>
+
   </header>
 
   <div class="container">
@@ -194,7 +180,7 @@
         </button>
 
         <small id="planHint" style="opacity:.8">Defina datas para gerar o cronograma.</small>
-        
+
         <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
           📏 <span class="label">Medidas</span>
         </button>
@@ -5825,60 +5811,60 @@
   </div>
 
   <!-- Núcleo base (core app logic) -->
-<script src="./js/checklist.js?v=20251013-1"></script>
-<script src="./js/step2-toc.js"></script>
-<script src="./js/step6-export.js"></script>
-<script src="./js/step11-tech.js"></script>
+  <script src="./js/checklist.js?v=20251013-1"></script>
+  <script src="./js/step2-toc.js"></script>
+  <script src="./js/step6-export.js"></script>
+  <script src="./js/step11-tech.js"></script>
 
-<!-- Barramentos (devem vir antes dos consumidores) -->
-<script src="./js/step9-instrument-bus.js"></script>
-<script src="./js/step21-project-bus.js"></script>
-<script src="./js/step21-project-unique.js"></script>
+  <!-- Barramentos (devem vir antes dos consumidores) -->
+  <script src="./js/step9-instrument-bus.js"></script>
+  <script src="./js/step21-project-bus.js"></script>
+  <script src="./js/step21-project-unique.js"></script>
 
-<!-- Contexto p/ chaves (usa Instrumento + Projeto) -->
-<script src="./js/step23-media-context.js"></script>
+  <!-- Contexto p/ chaves (usa Instrumento + Projeto) -->
+  <script src="./js/step23-media-context.js"></script>
 
-<!-- Mídias e viewer unificado (precisamos destas APIs de imagem antes do backup-restore) -->
-<script src="./js/viewer.global.js"></script>
-<script src="./js/step14-images-persist.v4.1.js"></script>
-<script src="./js/load-assets.patch.js"></script>
-<script src="./js/step12-draw.v4.2.js"></script>
+  <!-- Mídias e viewer unificado (precisamos destas APIs de imagem antes do backup-restore) -->
+  <script src="./js/viewer.global.js"></script>
+  <script src="./js/step14-images-persist.v4.1.js"></script>
+  <script src="./js/load-assets.patch.js"></script>
+  <script src="./js/step12-draw.v4.2.js"></script>
 
-<!-- Painel unificado Instrumento+Projeto (UI do seletor e botões) -->
-<!-- IMPORTANTE: step22 usa BackupRestore, então deve vir APÓS backup-restore.v1.js -->
-<!-- Não insira ainda; ver abaixo -->
+  <!-- Painel unificado Instrumento+Projeto (UI do seletor e botões) -->
+  <!-- IMPORTANTE: step22 usa BackupRestore, então deve vir APÓS backup-restore.v1.js -->
+  <!-- Não insira ainda; ver abaixo -->
 
-<!-- Medidas & presets (dependem do instrumento) -->
-<script src="./js/step17-measures-instrumentos.js"></script>
-<script src="./js/step16-measures-presets.v3.js"></script>
-<script src="./js/step16-range-support.js"></script>
-<script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
+  <!-- Medidas & presets (dependem do instrumento) -->
+  <script src="./js/step17-measures-instrumentos.js"></script>
+  <script src="./js/step16-measures-presets.v3.js"></script>
+  <script src="./js/step16-range-support.js"></script>
+  <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
 
-<!-- Plano do projeto (cronograma) -->
-<script src="./js/step19-project-plan.v7.js"></script>
+  <!-- Plano do projeto (cronograma) -->
+  <script src="./js/step19-project-plan.v7.js"></script>
 
-<!-- Persistência por projeto (somente V3, legado) -->
-<script src="./js/step18-persist-fallback.v3.js"></script>
+  <!-- Persistência por projeto (somente V3, legado) -->
+  <script src="./js/step18-persist-fallback.v3.js"></script>
 
-<!-- Sincroniza classe do body com instrumento -->
-<script src="./js/step9-bodyclass-sync.js"></script>
+  <!-- Sincroniza classe do body com instrumento -->
+  <script src="./js/step9-bodyclass-sync.js"></script>
 
-<!-- Outros -->
-<script src="./js/intro-toggle.js"></script>
-<script type="module" src="./js/wood-catalog.js"></script>
+  <!-- Outros -->
+  <script src="./js/intro-toggle.js"></script>
+  <script type="module" src="./js/wood-catalog.js"></script>
 
-<!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore -->
-<script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.4.3';</script>
+  <!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore -->
+  <script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.4.3';</script>
 
-<!-- Backup/Restore (precisa do "providers" de imagens + BL_PROJECT presentes) -->
-<script src="./js/backup-restore.v1.js"></script>
+  <!-- Backup/Restore (precisa do "providers" de imagens + BL_PROJECT presentes) -->
+  <script src="./js/backup-restore.v1.js"></script>
 
-<!-- Agora sim: Painel (que usa BackupRestore) -->
-<script src="./js/step22-project-panel.js?v=20250927-1"></script>
+  <!-- Agora sim: Painel (que usa BackupRestore) -->
+  <script src="./js/step22-project-panel.js?v=20250927-1"></script>
 
-<!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
-<script src="./js/step9-instrument.js"></script>
-<script src="./js/step15-instrument-badge.js"></script>
+  <!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
+  <script src="./js/step9-instrument.js"></script>
+  <script src="./js/step15-instrument-badge.js"></script>
 
 
 
