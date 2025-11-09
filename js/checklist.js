@@ -371,8 +371,24 @@ async function revalidateDaily({ force = false } = {}) {
   }
 }
 
-// ✅ checa na entrada (force=true garante 1 check quando completar 24h)
-revalidateDaily({ force: true });
+// ✅ checa na entrada (antes: revalidateDaily({ force: true });)
+// substituição: força a 1ª verificação apenas se NUNCA houve verificação bem sucedida.
+// caso contrário, executa a rotina normal que respeita o cooldown de 24h.
+(function initRevalidate() {
+  const LAST_CHECK_KEY = "lp_last_license_check";
+  const lastOk = parseInt(localStorage.getItem(LAST_CHECK_KEY) || "0", 10) || 0;
+
+  if (!lastOk) {
+    // nunca checado -> forçar 1ª validação para obter snapshot do servidor
+    console.debug('[revalidate] first-run: forcing check');
+    revalidateDaily({ force: true });
+  } else {
+    // já checado antes -> chamada normal (vai respeitar 24h)
+    console.debug('[revalidate] existing check found (lastOk=', new Date(lastOk).toISOString(), '), running normal flow');
+    revalidateDaily();
+  }
+})();
+
 
 // ✅ e quando a aba voltar ao foco (respeitando as mesmas 24h)
 document.addEventListener('visibilitychange', () => {
