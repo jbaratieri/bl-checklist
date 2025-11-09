@@ -142,27 +142,6 @@
     lb.setAttribute('aria-hidden', 'false');
   }
 
-  // ----- Expand/Collapse button helper (single button replacing two)
-  function updateExpandCollapseButton() {
-    var btn = document.getElementById('btnExpandCollapse');
-    if (!btn) return;
-    var secs = Array.prototype.slice.call(document.querySelectorAll('.section'));
-    if (!secs.length) return;
-    var allOpen = secs.every(function (s) { return s.classList.contains('open'); });
-    var label = btn.querySelector('.label') || btn;
-    var icon = btn.querySelector('.icon') || btn;
-
-    if (allOpen) {
-      btn.setAttribute('aria-pressed', 'true');
-      if (label) label.textContent = 'Recolher tudo';
-      if (icon) icon.textContent = '⬆️';
-    } else {
-      btn.setAttribute('aria-pressed', 'false');
-      if (label) label.textContent = 'Expandir tudo';
-      if (icon) icon.textContent = '⬇️';
-    }
-  }
-
   // ----- ÚNICO LISTENER GLOBAL -----
   document.addEventListener('click', (e) => {
     const img = e.target.closest('.img-pic');
@@ -172,27 +151,15 @@
     if (header) {
       const sec = header.parentElement;
       sec.classList.toggle('open');
-      try { updateExpandCollapseButton(); } catch (_) { }
-      return;
-    }
-
-    // Unified expand/collapse button (replaces btnExpand/btnCollapse)
-    if (e.target.closest('#btnExpandCollapse')) {
-      var secs = Array.prototype.slice.call(document.querySelectorAll('.section'));
-      var allOpenNow = secs.length > 0 && secs.every(function (s) { return s.classList.contains('open'); });
-      secs.forEach(function (s) { setSectionOpen(s, !allOpenNow); });
-      try { updateExpandCollapseButton(); } catch (_) { }
       return;
     }
 
     if (e.target.closest('#btnExpand, #btnExpandAll')) {
       $$('.section').forEach(s => setSectionOpen(s, true));
-      try { updateExpandCollapseButton(); } catch (_) { }
       return;
     }
     if (e.target.closest('#btnCollapse, #btnCollapseAll')) {
       $$('.section').forEach(s => setSectionOpen(s, false));
-      try { updateExpandCollapseButton(); } catch (_) { }
       return;
     }
 
@@ -210,7 +177,6 @@
         const icon = toggleBtn.querySelector('.icon');
         if (icon) icon.textContent = willOpen ? '−' : '＋';
         toggleBtn.setAttribute('aria-label', willOpen ? 'Fechar detalhes' : 'Abrir detalhes');
-        try { updateExpandCollapseButton(); } catch (_) { }
       }
       return;
     }
@@ -221,7 +187,6 @@
   initAutoGrow();
   updateProgress();
   document.querySelectorAll('.measures-block').forEach(b => b.classList.remove('open'));
-  try { updateExpandCollapseButton(); } catch (_) { }
 
 })();
 
@@ -336,8 +301,7 @@ async function revalidateDaily({ force = false } = {}) {
         localStorage.removeItem(CODE_KEY);
         localStorage.removeItem(LICENSE_KEY);
       } catch {}
-      alert("⚠️ Não foi possível validar sua licença e o período offline expirou.
-Conecte-se e faça login novamente.");
+      alert("⚠️ Não foi possível validar sua licença e o período offline expirou.\nConecte-se e faça login novamente.");
       redirectToLoginOnce('offline_ttl_expired');
     } else {
       console.warn("[revalidateDaily] falhou (rede). Mantendo dentro do TTL.", err);
