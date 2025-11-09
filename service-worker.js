@@ -230,19 +230,33 @@ self.addEventListener('fetch', (event) => {
 });
 
 // MESSAGE listener — receber notificações da página (ex.: restauração de backup)
+// Mantém BR_RESTORED e adiciona SKIP_WAITING handler (não muda seu skipWaiting atual).
 self.addEventListener('message', (evt) => {
   try {
     const data = evt.data || {};
-    if (data && data.type === 'BR_RESTORED') {
+    if (!data || !data.type) return;
+
+    // 🔁 mensagem enviada após restauração de backup
+    if (data.type === 'BR_RESTORED') {
       console.log('[SW] BR_RESTORED received — broadcasting BR_DONE to clients');
-      // notifica todos os clients que o restore foi concluído/registrado
       self.clients.matchAll().then(clients => {
         clients.forEach(c => {
-          try { c.postMessage({ type: 'BR_DONE', meta: data.meta || null }); } catch(_) {}
+          try {
+            c.postMessage({ type: 'BR_DONE', meta: data.meta || null });
+          } catch (_) {}
         });
       });
-      // opcional: poderíamos aqui acionar limpeza ou outra rotina
+      return;
     }
+
+    // ⚡ pedido explícito do cliente para ativar nova versão do SW
+    if (data.type === 'SKIP_WAITING') {
+      console.log('[SW] SKIP_WAITING received — calling skipWaiting()');
+      self.skipWaiting();
+      return;
+    }
+
+    // (reservado para mensagens futuras)
   } catch (e) {
     console.warn('[SW] message handler error', e);
   }
