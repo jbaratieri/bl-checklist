@@ -418,19 +418,33 @@
   }
 
   // Import from File object (file = File), options same as importPayload
-  async function importFromFile(file, options) {
-    if (!file) throw new Error('no file');
-    const txt = await file.text();
-    const payload = jsonTryParse(txt);
-    if (!payload) throw new Error('invalid json');
-    const res = await importPayload(payload, options || {});
-    // if overwrite requested, reload to apply (some parts of app may read at load)
-    if (options && options.overwrite) {
-      // small delay to let UI show a toast if desired, then reload
-      setTimeout(() => location.reload(), 700);
-    }
+   async function importFromFile(file, options) {
+  if (!file) throw new Error('no file');
+  options = options || {};
+  const txt = await file.text();
+  const payload = jsonTryParse(txt);
+  if (!payload) throw new Error('invalid json');
+
+  // perform import (importPayload may itself dispatch events)
+  const res = await importPayload(payload, options || {});
+
+  // If caller explicitly requested no reload, skip it
+  if (options && options.suppressReload) {
     return res;
   }
+
+  // Otherwise force a reload (small delay so toasts/UI can show)
+  // Keep delay similar to other places (700ms)
+  try {
+    setTimeout(function(){ 
+      try { location.reload(); } catch(e) { console.warn('reload failed', e); }
+    }, 700);
+  } catch(e) {
+    console.warn('failed to schedule reload after import', e);
+  }
+
+  return res;
+}
 
   // convenience: import payload with default options
   async function importPayloadWithOptions(payload, opts) {
