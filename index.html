@@ -5782,7 +5782,7 @@
     </main>
   </div>
 
-   <!-- ===========================
+  <!-- ===========================
        FOOTER & MODAIS (UI)
        =========================== -->
   <footer class="app-footer">
@@ -5795,6 +5795,10 @@
       <a href="#" data-modal="modalSobre" onclick="openModal && openModal('modalSobre')">Sobre</a>
       <a href="#" data-modal="modalCreditos" onclick="openModal && openModal('modalCreditos')">Créditos</a>
       <a href="#" data-modal="modalContato" onclick="openModal && openModal('modalContato')">Contato</a>
+      <!-- NOVO: link para abrir o Manual do Usuário (abre em nova aba) -->
+      <a href="/manual.html" id="btnManual" target="_blank" rel="noopener" class="manual-link">
+        📘 Manual
+      </a>
     </nav>
 
     <p class="copyright">© 2025 Todos os direitos reservados</p>
@@ -5812,7 +5816,8 @@
       <p>O foco é unir <em>tradição</em> e <em>inovação</em>:
         respeitar os métodos clássicos da luthieria e, ao mesmo tempo,
         aproveitar a tecnologia para facilitar o aprendizado e a prática.</p>
-      <button class="btn-close" data-modal-close="modalIntro" onclick="closeModal && closeModal('modalIntro')">Fechar</button>
+      <button class="btn-close" data-modal-close="modalIntro"
+        onclick="closeModal && closeModal('modalIntro')">Fechar</button>
     </div>
   </div>
 
@@ -5823,7 +5828,8 @@
         nasceu da paixão por instrumentos artesanais e pela tradição da música de cordas.</p>
       <p>Cada instrumento é construído de forma manual e dedicada, seguindo técnicas tradicionais,
         mas sempre com espaço para pesquisa, estudo e inovação.</p>
-      <button class="btn-close" data-modal-close="modalSobre" onclick="closeModal && closeModal('modalSobre')">Fechar</button>
+      <button class="btn-close" data-modal-close="modalSobre"
+        onclick="closeModal && closeModal('modalSobre')">Fechar</button>
     </div>
   </div>
 
@@ -5832,8 +5838,10 @@
       <h2>Créditos</h2>
       <p>As fotografias utilizadas neste guia são parte do livro
         <em>Manual para el lutier novel — Tecnología de la lutería, Tomos 1 e 2</em>,
-        de <strong>José María Gil Chueca</strong>. Imagens utilizadas com autorização.</p>
-      <button class="btn-close" data-modal-close="modalCreditos" onclick="closeModal && closeModal('modalCreditos')">Fechar</button>
+        de <strong>José María Gil Chueca</strong>. Imagens utilizadas com autorização.
+      </p>
+      <button class="btn-close" data-modal-close="modalCreditos"
+        onclick="closeModal && closeModal('modalCreditos')">Fechar</button>
     </div>
   </div>
 
@@ -5846,7 +5854,8 @@
       <p><a href="https://instagram.com/baratieri_luthieria" target="_blank" rel="noopener">@baratieri_luthieria</a></p>
       <p>Terra Roxa – PR, Brasil</p>
 
-      <button class="btn-close" data-modal-close="modalContato" onclick="closeModal && closeModal('modalContato')">Fechar</button>
+      <button class="btn-close" data-modal-close="modalContato"
+        onclick="closeModal && closeModal('modalContato')">Fechar</button>
     </div>
   </div>
 
