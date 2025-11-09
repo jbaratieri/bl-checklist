@@ -250,6 +250,25 @@ header.app .toolbar .btn.primary:hover {
   font-size: 12px;
 }
 
+/* planHint visibility helpers */
+#planHint.plan-hint-hidden {
+  display: none !important;
+  opacity: 0;
+  transition: opacity .22s ease;
+}
+#planHint.plan-hint-visible {
+  display: inline-block !important;
+  opacity: .9;
+  transition: opacity .22s ease;
+  color: #6b3f1f;
+  background: rgba(138,98,63,0.06);
+  padding: 6px 8px;
+  border-radius: 6px;
+  margin-left: 8px;
+  font-size: 0.95rem;
+}
+
+
 /* compact behaviour for small screens: menus go full width under button */
 @media (max-width: 480px) {
   .br-menu {

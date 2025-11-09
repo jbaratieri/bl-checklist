@@ -200,6 +200,62 @@ function closeModal(id) {
   if (modal) modal.setAttribute('aria-hidden', 'true');
 }
 
+// Mostrar o hint do cronograma somente quando o usuário clicar em Cronograma sem datas
+(function () {
+  const btnPlan = document.getElementById('btnPlan');
+  const planHint = document.getElementById('planHint');
+  const inputStart = document.getElementById('job-start');
+  const inputDue = document.getElementById('job-due');
+
+  if (!btnPlan || !planHint) return;
+
+  // garantir que o hint comece oculto
+  planHint.classList.add('plan-hint-hidden');
+
+  function showPlanHint() {
+    planHint.classList.remove('plan-hint-hidden');
+    planHint.classList.add('plan-hint-visible');
+    try {
+      planHint.animate([{ transform: 'translateY(-4px)', opacity: 0 }, { transform: 'translateY(0)', opacity: 1 }], { duration: 220, easing: 'ease-out' });
+    } catch (_) {}
+  }
+  function hidePlanHint() {
+    planHint.classList.remove('plan-hint-visible');
+    planHint.classList.add('plan-hint-hidden');
+  }
+
+  // interceptamos o clique em capture para impedir outros handlers caso necessário
+  btnPlan.addEventListener('click', function (ev) {
+    const hasStart = inputStart && String(inputStart.value || '').trim() !== '';
+    const hasDue = inputDue && String(inputDue.value || '').trim() !== '';
+
+    if (!hasStart && !hasDue) {
+      // bloqueia geração de cronograma vazia e mostra dica
+      ev.preventDefault();
+      ev.stopImmediatePropagation && ev.stopImmediatePropagation();
+      showPlanHint();
+      try { inputStart && inputStart.focus(); } catch (_) {}
+      return;
+    }
+
+    // se tiver alguma data, assegura que o hint esteja escondido e deixa o fluxo continuar
+    hidePlanHint();
+  }, true); // capture = true
+
+  // se o usuário digitar/selecionar data, esconder o hint automaticamente
+  [inputStart, inputDue].forEach(inp => {
+    if (!inp) return;
+    inp.addEventListener('input', function () {
+      const hasStart = inputStart && String(inputStart.value || '').trim() !== '';
+      const hasDue = inputDue && String(inputDue.value || '').trim() !== '';
+      if (hasStart || hasDue) hidePlanHint();
+    });
+  });
+})();
+
+
+
+
 // // ======================================================
 // 🔐 LuthierPro — Revalidação de Licença (v2.6)
 // ======================================================
