@@ -1,163 +1,337 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Manual do LuthierPro — Baratieri Luthieria</title>
-  <style>
-    :root{
-      --accent:#8a623f;
-      --muted:#666;
-      --bg:#fff;
-      --card:#fbfbfb;
-      --maxw:900px;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color:#222;
-    }
-    body{margin:0;background:linear-gradient(180deg,#fff,#f7f6f4);padding:28px;}
-    .wrap{max-width:var(--maxw);margin:0 auto;background:var(--bg);border-radius:12px;padding:26px 28px;box-shadow:0 12px 40px rgba(20,20,20,0.06)}
-    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
-    header .brand{font-weight:700;color:var(--accent);font-size:1.1rem}
-    header p{margin:0;color:var(--muted);font-size:0.95rem}
-    h1{margin:0 0 6px 0;font-size:1.25rem;color:#111}
-    .meta{font-size:0.9rem;color:var(--muted);margin-bottom:18px}
-    nav.toc{border-left:4px solid var(--accent);padding-left:14px;margin:14px 0 22px 0}
-    nav.toc ul{margin:8px 0 0 0;padding:0 0 0 18px}
-    nav.toc li{margin:6px 0;color:var(--muted)}
-    section.doc-section{margin-bottom:20px}
-    section.doc-section h2{margin:8px 0 10px 0;color:var(--accent);font-size:1.05rem}
-    p{line-height:1.5;color:#222}
-    .note{background:var(--card);padding:10px;border-left:3px solid var(--accent);border-radius:6px;color:#333;margin-top:10px}
-    .kbd{background:#f4f4f4;border:1px solid #e5e5e5;padding:4px 8px;border-radius:6px;font-family:monospace;font-size:0.95rem}
-    .actions{display:flex;gap:8px;margin-top:18px}
-    .btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
-    footer.manual-foot{margin-top:22px;padding-top:12px;border-top:1px solid #eee;color:var(--muted);font-size:0.9rem}
-    @media (max-width:640px){ .wrap{padding:16px} header{flex-direction:column;align-items:flex-start} }
-  </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Manual do LuthierPro — Baratieri Luthieria</title>
+    <style>
+        :root {
+            --accent: #8a623f;
+            --muted: #666;
+            --bg: #fff;
+            --card: #fbfbfb;
+            --maxw: 900px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            color: #222;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, #fff, #f7f6f4);
+            padding: 28px;
+        }
+
+        .wrap {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 26px 28px;
+            box-shadow: 0 12px 40px rgba(20, 20, 20, 0.06)
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px
+        }
+
+        header .brand {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem
+        }
+
+        header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem
+        }
+
+        h1 {
+            margin: 0 0 6px 0;
+            font-size: 1.25rem;
+            color: #111
+        }
+
+        .meta {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 18px
+        }
+
+        nav.toc {
+            border-left: 4px solid var(--accent);
+            padding-left: 14px;
+            margin: 14px 0 22px 0
+        }
+
+        nav.toc ul {
+            margin: 8px 0 0 0;
+            padding: 0 0 0 18px
+        }
+
+        nav.toc li {
+            margin: 6px 0;
+            color: var(--muted)
+        }
+
+        section.doc-section {
+            margin-bottom: 20px
+        }
+
+        section.doc-section h2 {
+            margin: 8px 0 10px 0;
+            color: var(--accent);
+            font-size: 1.05rem
+        }
+
+        p {
+            line-height: 1.5;
+            color: #222
+        }
+
+        .note {
+            background: var(--card);
+            padding: 10px;
+            border-left: 3px solid var(--accent);
+            border-radius: 6px;
+            color: #333;
+            margin-top: 10px
+        }
+
+        .kbd {
+            background: #f4f4f4;
+            border: 1px solid #e5e5e5;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.95rem
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px
+        }
+
+        .btn {
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600
+        }
+
+        footer.manual-foot {
+            margin-top: 22px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            color: var(--muted);
+            font-size: 0.9rem
+        }
+
+        @media (max-width:640px) {
+            .wrap {
+                padding: 16px
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <div class="brand">LuthierPro — Manual do Usuário</div>
-        <p>Baratieri Luthieria · Versão do App: <strong>v2.4.3</strong></p>
-      </div>
-    </header>
+    <div class="wrap">
+        <header>
+            <div>
+                <div class="brand">LuthierPro — Manual do Usuário</div>
+                <p>Baratieri Luthieria · Versão do App: <strong>v2.4.3</strong></p>
+            </div>
+        </header>
 
-    <h1>Resumo</h1>
-    <p>Este manual descreve o uso do LuthierPro: instalação, painel de projetos, checklists, imagens e — especialmente — o procedimento de <strong>Backup & Restauração</strong>.</p>
-    <p class="meta">Recomendação: imprima ou salve este PDF para referência. O app também permite exportar/importar projetos em .json.</p>
+        <h1>Resumo</h1>
+        <p>Este manual descreve o uso do LuthierPro: instalação, painel de projetos, checklists, imagens e —
+            especialmente — o procedimento de <strong>Backup & Restauração</strong>.</p>
+        <p class="meta">Recomendação: imprima ou salve este PDF para referência. O app também permite exportar/importar
+            projetos em .json.</p>
 
-    <nav class="toc" aria-label="Sumário">
-      <strong>Sumário</strong>
-      <ul>
-        <li><a href="#install">1. Acesso e Instalação</a></li>
-        <li><a href="#panel">2. Painel do Projeto</a></li>
-        <li><a href="#checklists">3. Checklists e Etapas</a></li>
-        <li><a href="#images">4. Imagens e Desenhos</a></li>
-        <li><a href="#backup">5. Backup & Restauração (essencial)</a></li>
-        <li><a href="#license">6. Licenciamento</a></li>
-        <li><a href="#updates">7. Atualizações</a></li>
-        <li><a href="#recommend">8. Recomendações</a></li>
-        <li><a href="#support">9. Suporte</a></li>
-      </ul>
-    </nav>
+        <h2>Links oficiais</h2>
+        <ul>
+            <li>🌐 <strong>App LuthierPro:</strong> <a href="https://bl-checklist.vercel.app/index.html" target="_blank"
+                    rel="noopener">https://bl-checklist.vercel.app/index.html</a></li>
+            <li>🔑 <strong>Página de Login:</strong> <a href="https://bl-checklist.vercel.app/login.html"
+                    target="_blank" rel="noopener">https://bl-checklist.vercel.app/login.html</a></li>
+            <li>🎟️ <strong>Resgatar Licença:</strong> <a href="https://bl-checklist.vercel.app/resgatar.html"
+                    target="_blank" rel="noopener">https://bl-checklist.vercel.app/resgatar.html</a></li>
+        </ul>
 
-    <section id="install" class="doc-section">
-      <h2>1. Acesso e Instalação</h2>
-      <p>Acesse o LuthierPro pela URL fornecida. Recomendamos um navegador moderno (Chrome, Edge, Firefox ou Safari). Para uso offline e conforto, instale como PWA clicando no botão <span class="kbd">📲 Instalar LuthierPro</span> no canto (quando disponível).</p>
-      <div class="note">Instalar como app permite ícone na área de trabalho e comportamento offline mais fluido.</div>
-    </section>
+        <div class="note">
+            💡 Dica: após resgatar a licença, basta acessar o login normalmente.
+            O app reconhece automaticamente o dispositivo e ativa o acesso.
+        </div>
 
-    <section id="panel" class="doc-section">
-      <h2>2. Painel do Projeto</h2>
-      <p>No painel você seleciona o <strong>Instrumento</strong> e o <strong>Projeto</strong> (criar / renomear / excluir). Campos importantes: cliente, data de início, data prevista, dias/semana.</p>
-      <p>Os botões principais para o projeto são: <strong>Cronograma</strong>, <strong>Medidas</strong>, e os controles de export/import (Backup/Restore).</p>
-    </section>
 
-    <section id="checklists" class="doc-section">
-      <h2>3. Checklists e Etapas</h2>
-      <p>Cada seção do guia (1..12) contém tarefas com checkboxes. O progresso é salvo automaticamente no navegador (localStorage). Marque as tarefas conforme conclui para o app calcular o progresso e destacar se uma seção está completa.</p>
-    </section>
 
-    <section id="images" class="doc-section">
-      <h2>4. Imagens e Desenhos</h2>
-      <p>Você pode anexar imagens por passo. Clique na miniatura para abrir o <strong>Lightbox</strong>. Para anotações técnicas, utilize a ferramenta de desenho (abrirá um modal com canvas).</p>
-      <p class="note">As imagens são salvas localmente no navegador em <strong>IndexedDB</strong> (armazenamento separado do localStorage). Mesmo offline, as imagens são preservadas no dispositivo.</p>
-    </section>
+        <nav class="toc" aria-label="Sumário">
+            <strong>Sumário</strong>
+            <ul>
+                <li><a href="#install">1. Acesso e Instalação</a></li>
+                <li><a href="#panel">2. Painel do Projeto</a></li>
+                <li><a href="#checklists">3. Checklists e Etapas</a></li>
+                <li><a href="#images">4. Imagens e Desenhos</a></li>
+                <li><a href="#backup">5. Backup & Restauração (essencial)</a></li>
+                <li><a href="#license">6. Licenciamento</a></li>
+                <li><a href="#updates">7. Atualizações</a></li>
+                <li><a href="#recommend">8. Recomendações</a></li>
+                <li><a href="#support">9. Suporte</a></li>
+            </ul>
+        </nav>
 
-    <section id="backup" class="doc-section">
-      <h2>5. Backup & Restauração (essencial)</h2>
-      <p>O backup garante que você não perca projetos ao limpar cache, trocar de navegador ou dispositivo.</p>
+        <section id="install" class="doc-section">
+            <h2>1. Acesso e Instalação</h2>
+            <p>Acesse o LuthierPro pela URL fornecida. Recomendamos um navegador moderno (Chrome, Edge, Firefox ou
+                Safari). Para uso offline e conforto, instale como PWA clicando no botão <span class="kbd">📲 Instalar
+                    LuthierPro</span> no canto (quando disponível).</p>
+            <div class="note">Instalar como app permite ícone na área de trabalho e comportamento offline mais fluido.
+            </div>
+        </section>
 
-      <h3>Como exportar</h3>
-      <ol>
-        <li>Acesse o Painel de Projeto.</li>
-        <li>Clique em <strong>Exportar projeto atual</strong> para salvar apenas o projeto selecionado.</li>
-        <li>Clique em <strong>Exportar TODOS os projetos</strong> para gerar backup completo.</li>
-        <li>Guarde o arquivo `.json` em local seguro: HD externo, Google Drive, Dropbox ou pendrive.</li>
-      </ol>
+        <section id="panel" class="doc-section">
+            <h2>2. Painel do Projeto</h2>
+            <p>No painel você seleciona o <strong>Instrumento</strong> e o <strong>Projeto</strong> (criar / renomear /
+                excluir). Campos importantes: cliente, data de início, data prevista, dias/semana.</p>
+            <p>Os botões principais para o projeto são: <strong>Cronograma</strong>, <strong>Medidas</strong>, e os
+                controles de export/import (Backup/Restore).</p>
+        </section>
 
-      <h3>Como importar</h3>
-      <ol>
-        <li>Clique em <strong>Importar</strong> e escolha o arquivo `.json` salvo.</li>
-        <li>Modo <strong>Merge</strong>: adiciona/atualiza sem apagar projetos existentes.</li>
-        <li>Modo <strong>Overwrite</strong>: substitui dados existentes (perigoso — usar com cuidado).</li>
-        <li>Após importar, recarregue a página se o app não synchronizar automaticamente (alguns nomes/imagens podem aparecer após reload).</li>
-      </ol>
+        <section id="checklists" class="doc-section">
+            <h2>3. Checklists e Etapas</h2>
+            <p>Cada seção do guia (1..12) contém tarefas com checkboxes. O progresso é salvo automaticamente no
+                navegador (localStorage). Marque as tarefas conforme conclui para o app calcular o progresso e destacar
+                se uma seção está completa.</p>
+        </section>
 
-      <h3>Recomendações práticas</h3>
-      <ul>
-        <li>Faça backup regular — pelo menos 1× por semana se tiver muitos projetos.</li>
-        <li>Antes de atualizar, limpar cache ou desinstalar, exporte todos os projetos.</li>
-        <li>Armazene backups em dois locais (por exemplo: Drive + um pendrive físico).</li>
-        <li>Use sempre o modo <strong>Merge</strong> salvo se realmente quiser sobrescrever.</li>
-      </ul>
+        <section id="images" class="doc-section">
+            <h2>4. Imagens e Desenhos</h2>
+            <p>Você pode anexar imagens por passo. Clique na miniatura para abrir o <strong>Lightbox</strong>. Para
+                anotações técnicas, utilize a ferramenta de desenho (abrirá um modal com canvas).</p>
+            <p class="note">As imagens são salvas localmente no navegador em <strong>IndexedDB</strong> (armazenamento
+                separado do localStorage). Mesmo offline, as imagens são preservadas no dispositivo.</p>
+        </section>
 
-      <div class="note">
-        Dica técnica: ao restaurar um projeto individual, o app popula IndexedDB (imagens) e localStorage; se algo faltar (nome do projeto) recarregue a página (F5) — comportamento normal em algumas implementações. Nosso app já tenta sincronizar automaticamente quando possível.
-      </div>
-    </section>
+        <section id="backup" class="doc-section">
+            <h2>5. Backup & Restauração (essencial)</h2>
+            <p>O backup garante que você não perca projetos ao limpar cache, trocar de navegador ou dispositivo.</p>
 
-    <section id="license" class="doc-section">
-      <h2>6. Licenciamento</h2>
-      <p>A verificação da licença é feita automaticamente uma vez a cada 24h quando online. Em caso de desconexão, o app permite uso por até 5 dias antes de pedir reconexão.</p>
-      <p>Verifique o status no rodapé onde aparece: <em>🔐 Licença ativa (mensal • até DD/MM/AAAA)</em>.</p>
-    </section>
+            <h3>Como exportar</h3>
+            <ol>
+                <li>Acesse o Painel de Projeto.</li>
+                <li>Clique em <strong>Exportar projeto atual</strong> para salvar apenas o projeto selecionado.</li>
+                <li>Clique em <strong>Exportar TODOS os projetos</strong> para gerar backup completo.</li>
+                <li>Guarde o arquivo `.json` em local seguro: HD externo, Google Drive, Dropbox ou pendrive.</li>
+            </ol>
 
-    <section id="updates" class="doc-section">
-      <h2>7. Atualizações do App</h2>
-      <p>Quando houver atualização, o app mostrará um banner “Nova versão disponível — Atualizar”. Clique para aplicar a nova versão — o processo não altera os dados salvos (localStorage/IndexedDB permanecem).</p>
-    </section>
+            <h3>Como importar</h3>
+            <ol>
+                <li>Clique em <strong>Importar</strong> e escolha o arquivo `.json` salvo.</li>
+                <li>Modo <strong>Merge</strong>: adiciona/atualiza sem apagar projetos existentes.</li>
+                <li>Modo <strong>Overwrite</strong>: substitui dados existentes (perigoso — usar com cuidado).</li>
+                <li>Após importar, recarregue a página se o app não synchronizar automaticamente (alguns nomes/imagens
+                    podem aparecer após reload).</li>
+            </ol>
 
-    <section id="recommend" class="doc-section">
-      <h2>8. Recomendações de Uso</h2>
-      <ul>
-        <li>Use navegador atualizado</li>
-        <li>Instale como PWA para melhor experiência offline</li>
-        <li>Não limpe o armazenamento do navegador sem antes exportar seus projetos</li>
-        <li>Mantenha backups regulares</li>
-      </ul>
-    </section>
+            <h3>Recomendações práticas</h3>
+            <ul>
+                <li>Faça backup regular — pelo menos 1× por semana se tiver muitos projetos.</li>
+                <li>Antes de atualizar, limpar cache ou desinstalar, exporte todos os projetos.</li>
+                <li>Armazene backups em dois locais (por exemplo: Drive + um pendrive físico).</li>
+                <li>Use sempre o modo <strong>Merge</strong> salvo se realmente quiser sobrescrever.</li>
+            </ul>
 
-    <section id="support" class="doc-section">
-      <h2>9. Suporte</h2>
-      <p>Para suporte técnico e dúvidas:</p>
-      <ul>
-        <li>E-mail: <a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a></li>
-        <li>WhatsApp: <a href="https://wa.me/5545920028659" target="_blank" rel="noopener">(45) 92002-8659</a></li>
-        <li>Instagram: <a href="https://instagram.com/baratieri_luthieria" target="_blank" rel="noopener">@baratieri_luthieria</a></li>
-      </ul>
-    </section>
+            <div class="note">
+                Dica técnica: ao restaurar um projeto individual, o app popula IndexedDB (imagens) e localStorage; se
+                algo faltar (nome do projeto) recarregue a página (F5) — comportamento normal em algumas implementações.
+                Nosso app já tenta sincronizar automaticamente quando possível.
+            </div>
+        </section>
 
-    <div class="actions">
-      <button class="btn" onclick="window.print()">Imprimir / Salvar PDF</button>
-      <a href="/" style="text-decoration:none"><button class="btn" style="background:#555">Voltar ao app</button></a>
+        <section id="license" class="doc-section">
+            <h2>6. Licenciamento</h2>
+            <p>O LuthierPro utiliza um sistema de licença individual, validada automaticamente uma vez a cada 24 h.
+                Mesmo sem internet, o app continua funcionando por até <strong>5 dias</strong>.</p>
+
+            <p>Se o app indicar que a licença está expirada ou bloqueada, basta fazer login novamente:</p>
+
+            <ul>
+                <li>🔑 <strong>Login:</strong> <a href="https://bl-checklist.vercel.app/login.html" target="_blank"
+                        rel="noopener">https://bl-checklist.vercel.app/login.html</a></li>
+                <li>🎟️ <strong>Resgatar Licença:</strong> <a href="https://bl-checklist.vercel.app/resgatar.html"
+                        target="_blank" rel="noopener">https://bl-checklist.vercel.app/resgatar.html</a></li>
+            </ul>
+
+            <div class="note">
+                Para resgatar, informe o mesmo e-mail usado na compra.
+                O sistema localizará sua licença ativa e a restaurará automaticamente.
+            </div>
+
+            <p>Você pode confirmar o status da licença no rodapé do app:
+                <em>🔐 Licença ativa (mensal • até DD/MM/AAAA)</em> ou <em>⛔ Expirada</em>.
+            </p>
+        </section>
+
+
+        </section>
+
+        <section id="updates" class="doc-section">
+            <h2>7. Atualizações do App</h2>
+            <p>Quando houver atualização, o app mostrará um banner “Nova versão disponível — Atualizar”. Clique para
+                aplicar a nova versão — o processo não altera os dados salvos (localStorage/IndexedDB permanecem).</p>
+        </section>
+
+        <section id="recommend" class="doc-section">
+            <h2>8. Recomendações de Uso</h2>
+            <ul>
+                <li>Use navegador atualizado</li>
+                <li>Instale como PWA para melhor experiência offline</li>
+                <li>Não limpe o armazenamento do navegador sem antes exportar seus projetos</li>
+                <li>Mantenha backups regulares</li>
+            </ul>
+        </section>
+
+        <section id="support" class="doc-section">
+            <h2>9. Suporte</h2>
+            <p>Para suporte técnico e dúvidas:</p>
+            <ul>
+                <li>E-mail: <a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a></li>
+                <li>WhatsApp: <a href="https://wa.me/5545920028659" target="_blank" rel="noopener">(45) 92002-8659</a>
+                </li>
+                <li>Instagram: <a href="https://instagram.com/baratieri_luthieria" target="_blank"
+                        rel="noopener">@baratieri_luthieria</a></li>
+            </ul>
+        </section>
+
+        <div class="actions">
+            <button class="btn" onclick="window.print()">Imprimir / Salvar PDF</button>
+            <a href="/" style="text-decoration:none"><button class="btn" style="background:#555">Voltar ao
+                    app</button></a>
+            <a href="https://bl-checklist.vercel.app/index.html" target="_blank" rel="noopener">
+                <button class="btn">Abrir LuthierPro</button>
+            </a>
+
+        </div>
+
+        <footer class="manual-foot">
+            <div>Baratieri Luthieria • LuthierPro • © 2025</div>
+        </footer>
     </div>
-
-    <footer class="manual-foot">
-      <div>Baratieri Luthieria • LuthierPro • © 2025</div>
-    </footer>
-  </div>
 </body>
+
 </html>
