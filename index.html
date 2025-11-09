@@ -5782,24 +5782,26 @@
     </main>
   </div>
 
+   <!-- ===========================
+       FOOTER & MODAIS (UI)
+       =========================== -->
   <footer class="app-footer">
     <p><strong>LuthierPro</strong> — Guia Interativo de Luthieria</p>
     <p>Um projeto da <strong>Baratieri Luthieria</strong></p>
 
     <nav class="footer-nav">
-      <a href="#" onclick="openModal('modalIntro')">O Guia</a>
-      <a href="#" onclick="openModal('modalSobre')">Sobre</a>
-      <a href="#" onclick="openModal('modalCreditos')">Créditos</a>
-      <a href="#" onclick="openModal('modalContato')">Contato</a>
+      <!-- use data-modal para delegação; inline onclicks mantidos para compatibilidade -->
+      <a href="#" data-modal="modalIntro" onclick="openModal && openModal('modalIntro')">O Guia</a>
+      <a href="#" data-modal="modalSobre" onclick="openModal && openModal('modalSobre')">Sobre</a>
+      <a href="#" data-modal="modalCreditos" onclick="openModal && openModal('modalCreditos')">Créditos</a>
+      <a href="#" data-modal="modalContato" onclick="openModal && openModal('modalContato')">Contato</a>
     </nav>
 
-
     <p class="copyright">© 2025 Todos os direitos reservados</p>
-    <p id="licenseStatus" class="license-badge">Verificando licença...</p>
+    <p id="licenseStatus" class="license-badge" title="Status da licença">Verificando licença...</p>
   </footer>
 
-  <!-- Modais -->
-  <!-- Modal Intro -->
+  <!-- Modais (mantidos aqui para garantir que estejam no DOM antes dos scripts) -->
   <div id="modalIntro" class="modal" aria-hidden="true">
     <div class="modal-dialog">
       <h2>O Guia LuthierPro</h2>
@@ -5810,11 +5812,10 @@
       <p>O foco é unir <em>tradição</em> e <em>inovação</em>:
         respeitar os métodos clássicos da luthieria e, ao mesmo tempo,
         aproveitar a tecnologia para facilitar o aprendizado e a prática.</p>
-      <button class="btn-close" onclick="closeModal('modalIntro')">Fechar</button>
+      <button class="btn-close" data-modal-close="modalIntro" onclick="closeModal && closeModal('modalIntro')">Fechar</button>
     </div>
   </div>
 
-  <!-- Modal Sobre -->
   <div id="modalSobre" class="modal" aria-hidden="true">
     <div class="modal-dialog">
       <h2>Sobre a Baratieri Luthieria</h2>
@@ -5822,89 +5823,46 @@
         nasceu da paixão por instrumentos artesanais e pela tradição da música de cordas.</p>
       <p>Cada instrumento é construído de forma manual e dedicada, seguindo técnicas tradicionais,
         mas sempre com espaço para pesquisa, estudo e inovação.</p>
-      <p>O <strong>LuthierPro</strong> é fruto dessa mesma filosofia: compartilhar conhecimento,
-        valorizar a arte da luthieria e tornar o processo acessível para quem deseja aprender e criar.</p>
-      <button class="btn-close" onclick="closeModal('modalSobre')">Fechar</button>
+      <button class="btn-close" data-modal-close="modalSobre" onclick="closeModal && closeModal('modalSobre')">Fechar</button>
     </div>
   </div>
 
-  <!-- Modal Créditos -->
   <div id="modalCreditos" class="modal" aria-hidden="true">
     <div class="modal-dialog">
       <h2>Créditos</h2>
       <p>As fotografias utilizadas neste guia são parte do livro
         <em>Manual para el lutier novel — Tecnología de la lutería, Tomos 1 e 2</em>,
-        de <strong>José María Gil Chueca</strong>, Lutier e investigador desde 1979.
-        Primeira edição 2007, corrigida e aumentada em 2016.
-      </p>
-      <p>Imagens utilizadas com autorização expressa do autor.
-        Todos os direitos reservados. Reprodução não autorizada é proibida por lei.</p>
-      <button class="btn-close" onclick="closeModal('modalCreditos')">Fechar</button>
+        de <strong>José María Gil Chueca</strong>. Imagens utilizadas com autorização.</p>
+      <button class="btn-close" data-modal-close="modalCreditos" onclick="closeModal && closeModal('modalCreditos')">Fechar</button>
     </div>
   </div>
 
-  <!-- Modal Contato -->
   <div id="modalContato" class="modal" aria-hidden="true">
     <div class="modal-dialog">
       <h2>Contato</h2>
 
-      <p>
-        <!-- Ícone e-mail -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#5c3b1e"
-          style="vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24">
-          <path
-            d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 2v.01L12 13 4 6.01V6h16zM4 18V8l8 5 8-5v10H4z" />
-        </svg>
-        <a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a>
-      </p>
+      <p><a href="mailto:baratieriluthieria@gmail.com">baratieriluthieria@gmail.com</a></p>
+      <p><a href="https://wa.me/5545920028659" target="_blank" rel="noopener">(45) 92002-8659</a></p>
+      <p><a href="https://instagram.com/baratieri_luthieria" target="_blank" rel="noopener">@baratieri_luthieria</a></p>
+      <p>Terra Roxa – PR, Brasil</p>
 
-      <p>
-        <!-- Ícone telefone / WhatsApp -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#5c3b1e"
-          style="vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24">
-          <path
-            d="M20.487 17.14l-3.408-.976a1 1 0 0 0-.94.26l-1.5 1.52a15.05 15.05 0 0 1-6.59-6.6l1.52-1.5a1 1 0 0 0 .26-.94l-.976-3.41A1 1 0 0 0 8.49 4H5.5A1.5 1.5 0 0 0 4 5.5 16.5 16.5 0 0 0 20.5 22a1.5 1.5 0 0 0 1.5-1.5v-2.99a1 1 0 0 0-.513-.87z" />
-        </svg>
-        <a href="https://wa.me/5545920028659" target="_blank">(45) 92002-8659</a>
-      </p>
-
-      <p>
-        <!-- Ícone Instagram -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#5c3b1e"
-          style="vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24">
-          <path
-            d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 2c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3h10zm-5 3.5A5.5 5.5 0 1 0 17.5 13 5.51 5.51 0 0 0 12 7.5zm0 9A3.5 3.5 0 1 1 15.5 13 3.51 3.51 0 0 1 12 16.5zM18 6.25a.75.75 0 1 1-.75-.75.75.75 0 0 1 .75.75z" />
-        </svg>
-        <a href="https://instagram.com/baratieri_luthieria" target="_blank">@baratieri_luthieria</a>
-      </p>
-
-      <p>
-        <!-- Ícone localização -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#5c3b1e"
-          style="vertical-align:middle;margin-right:6px;" viewBox="0 0 24 24">
-          <path
-            d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5A2.5 2.5 0 1 1 14.5 9 2.5 2.5 0 0 1 12 11.5z" />
-        </svg>
-        Terra Roxa – PR, Brasil
-      </p>
-
-      <button class="btn-close" onclick="closeModal('modalContato')">Fechar</button>
+      <button class="btn-close" data-modal-close="modalContato" onclick="closeModal && closeModal('modalContato')">Fechar</button>
     </div>
   </div>
 
-  <div>
-    <button id="btnInstall" hidden>📲 Instalar LuthierPro</button>
+  <!-- botão de instalação PWA (oculto até receber beforeinstallprompt) -->
+  <button id="btnInstall" hidden aria-hidden="true">📲 Instalar LuthierPro</button>
+
+  <!-- containers de UI usados pelo app (draw/lightbox) -->
+  <div id="drawModal" class="modal" aria-hidden="true"></div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" style="display:none;">
+    <img id="lightbox-img" alt="imagem ampliada" />
   </div>
 
-
-
-  <div id="drawModal" class="modal" aria-="true"></div>
-
-
-  <!-- Lightbox (uma única vez no body) -->
-  <div class="lightbox" id="lightbox" aria-="true">
-    <img alt="imagem ampliada" />
-  </div>
+  <!-- ===========================
+       SCRIPTS (ordem preservada e otimizada)
+       =========================== -->
 
   <!-- Núcleo base (core app logic) -->
   <script src="./js/checklist.js?v=20251013-1"></script>
@@ -5920,15 +5878,11 @@
   <!-- Contexto p/ chaves (usa Instrumento + Projeto) -->
   <script src="./js/step23-media-context.js"></script>
 
-  <!-- Mídias e viewer unificado (precisamos destas APIs de imagem antes do backup-restore) -->
+  <!-- Mídias e viewer unificado (precisam vir antes do backup-restore) -->
   <script src="./js/viewer.global.js"></script>
   <script src="./js/step14-images-persist.v4.1.js"></script>
   <script src="./js/load-assets.patch.js"></script>
   <script src="./js/step12-draw.v4.2.js"></script>
-
-  <!-- Painel unificado Instrumento+Projeto (UI do seletor e botões) -->
-  <!-- IMPORTANTE: step22 usa BackupRestore, então deve vir APÓS backup-restore.v1.js -->
-  <!-- Não insira ainda; ver abaixo -->
 
   <!-- Medidas & presets (dependem do instrumento) -->
   <script src="./js/step17-measures-instrumentos.js"></script>
@@ -5945,37 +5899,32 @@
   <!-- Sincroniza classe do body com instrumento -->
   <script src="./js/step9-bodyclass-sync.js"></script>
 
-  <!-- Outros -->
+  <!-- Outros consumidores / utilitários -->
   <script src="./js/intro-toggle.js"></script>
   <script type="module" src="./js/wood-catalog.js"></script>
 
-  <!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore -->
+  <!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore
+       ATENÇÃO: atualize esse valor sempre que mudar CACHE_VERSION no service-worker.js -->
   <script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.4.3';</script>
 
-  <!-- Backup/Restore (precisa do "providers" de imagens + BL_PROJECT presentes) -->
+  <!-- Backup/Restore (precisa do providers de imagens + BL_PROJECT presentes) -->
   <script src="./js/backup-restore.v1.js"></script>
 
-  <!-- Agora sim: Painel (que usa BackupRestore) -->
+  <!-- Painel (usa BackupRestore) -->
   <script src="./js/step22-project-panel.js?v=20250927-1"></script>
 
   <!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
   <script src="./js/step9-instrument.js"></script>
   <script src="./js/step15-instrument-badge.js"></script>
+
+  <!-- Footer behaviour (modais, PWA prompt, license click) -->
   <script src="./js/footer.js?v=20251109-1"></script>
+
+  <!-- SW client: registra SW, detecta waiting e mostra banner 'Atualizar' -->
   <script src="./js/sw-client.js?v=20251109-1"></script>
 
+  <!-- NOTA: O registro do SW é feito por sw-client.js; remova duplicatas de navigator.serviceWorker.register(...) -->
 
-
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js?v=20250927', { scope: './' })
-          .then(reg => console.log('SW registrado ✅', reg))
-          .catch(err => console.error('Erro ao registrar SW:', err));
-      });
-    }
-  </script>
 
 </body>
 
