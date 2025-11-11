@@ -145,11 +145,39 @@
                 align-items: flex-start
             }
         }
+
+        /* =========================
+           Estilos de impressão
+           ========================= */
+        @media print {
+            html, body {
+                height: auto !important;
+                overflow: visible !important;
+                background: #fff !important;
+                padding: 0 !important;
+            }
+            .wrap {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 !important;
+                max-width: 100% !important;
+                padding: 0.5cm !important;
+            }
+            /* esconder botões e elementos de UI não relevantes */
+            .no-print, .actions { display: none !important; }
+            /* forçar containers com overflow a expandir */
+            .manual-container, .wrap { height: auto !important; max-height: none !important; overflow: visible !important; }
+            .section, .doc-section { break-inside: avoid; page-break-inside: avoid; page-break-after: auto; }
+            /* ajustar imagens para caber na página */
+            img { max-width: 100% !important; height: auto !important; }
+            * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
     </style>
 </head>
 
 <body>
-    <div class="wrap">
+    <!-- observe que acrescentei a classe manual-container (usada no print) -->
+    <div class="wrap manual-container">
         <header>
             <div>
                 <div class="brand">LuthierPro — Manual do Usuário</div>
@@ -177,8 +205,6 @@
             💡 Dica: após resgatar a licença, basta acessar o login normalmente.
             O app reconhece automaticamente o dispositivo e ativa o acesso.
         </div>
-
-
 
         <nav class="toc" aria-label="Sumário">
             <strong>Sumário</strong>
@@ -287,9 +313,6 @@
             </p>
         </section>
 
-
-        </section>
-
         <section id="updates" class="doc-section">
             <h2>7. Atualizações do App</h2>
             <p>Quando houver atualização, o app mostrará um banner “Nova versão disponível — Atualizar”. Clique para
@@ -319,19 +342,124 @@
         </section>
 
         <div class="actions">
-            <button class="btn" onclick="window.print()">Imprimir / Salvar PDF</button>
+            <!-- botão atualizado para usar a função que gera a janela de impressão -->
+            <button class="btn" onclick="printManual()">Imprimir / Salvar PDF</button>
             <a href="/" style="text-decoration:none"><button class="btn" style="background:#555">Voltar ao
                     app</button></a>
             <a href="https://luthierpro.vercel.app/index.html" target="_blank" rel="noopener">
                 <button class="btn">Abrir LuthierPro</button>
             </a>
-
         </div>
 
         <footer class="manual-foot">
             <div>Baratieri Luthieria • LuthierPro • © 2025</div>
         </footer>
     </div>
+
+    <script>
+        /**
+         * printManual()
+         * - clona o container .manual-container numa nova janela
+         * - injeta estilos existentes
+         * - garante <details> abertos e imagens carregadas antes de imprimir
+         * - chama window.print() e fecha a janela após print
+         */
+        function gatherStylesHtml() {
+            // pega todas as tags <style> e <link rel="stylesheet"> do documento atual
+            let html = '';
+            document.querySelectorAll('link[rel="stylesheet"], style').forEach(node => {
+                html += node.outerHTML;
+            });
+
+            // adiciona um bloco extra de CSS de impressão (fallback)
+            html += `<style>
+                @media print {
+                  html,body{height:auto !important;overflow:visible !important;}
+                  .no-print, .actions { display: none !important; }
+                  .manual-container, .wrap { height:auto !important; max-height:none !important; overflow:visible !important; }
+                  .section, .doc-section { break-inside: avoid; page-break-inside: avoid; }
+                  img{max-width:100% !important;height:auto !important;}
+                  *{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+                }
+            </style>`;
+            return html;
+        }
+
+        function waitForImagesToLoad(container) {
+            const imgs = Array.from(container.querySelectorAll('img'));
+            if (imgs.length === 0) return Promise.resolve();
+            const checks = imgs.map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(res => {
+                    img.onload = img.onerror = () => res();
+                    // caso fique travado, timeout como fallback
+                    setTimeout(res, 5000);
+                });
+            });
+            return Promise.all(checks);
+        }
+
+        function expandAllDetails(cloneDoc) {
+            // abre todos os <details>
+            cloneDoc.querySelectorAll('details').forEach(d => d.open = true);
+            // remove atributos inline de 'display:none' usados por accordions (heurística)
+            cloneDoc.querySelectorAll('[style*="display:none"]').forEach(el => {
+                el.style.display = '';
+            });
+            // remove classes 'hidden' comuns
+            cloneDoc.querySelectorAll('.hidden, .is-hidden, [aria-hidden="true"]').forEach(el => {
+                el.removeAttribute('aria-hidden');
+                el.classList.remove('hidden', 'is-hidden');
+                el.style.display = '';
+            });
+        }
+
+        function printManual() {
+            const sourceEl = document.querySelector('.manual-container') || document.body;
+            const styles = gatherStylesHtml();
+            const content = sourceEl.innerHTML;
+
+            // abrir janela — acionado por clique do usuário, então pop-up permitido
+            const w = window.open('', '_blank', 'noopener,noreferrer');
+            if (!w) {
+                alert('Não foi possível abrir a janela de impressão. Permita popups para este site e tente novamente.');
+                return;
+            }
+
+            const doc = w.document;
+            doc.open();
+            doc.write(`<!doctype html><html><head><meta charset="utf-8"><title>Imprimir - LuthierPro</title>${styles}</head><body><div class="wrap manual-container">${content}</div></body></html>`);
+            doc.close();
+
+            // quando a nova janela terminar de carregar, garantimos que tudo esteja pronto
+            w.onload = async () => {
+                try {
+                    expandAllDetails(w.document);
+                    await waitForImagesToLoad(w.document);
+                } catch (e) {
+                    // ignorar erros menores e seguir
+                    console.warn('Erro ao preparar impressão: ', e);
+                }
+
+                // pequena espera pra reflow; então imprime
+                setTimeout(() => {
+                    // chama print e fecha a janela depois
+                    try {
+                        w.focus();
+                        w.print();
+                    } catch (err) {
+                        console.warn('Erro print():', err);
+                    }
+                    // fecha a janela após o print dialog fechar (onafterprint pode não disparar em todos os browsers)
+                    w.onafterprint = () => w.close();
+                    // fallback para fechar (não fecha se usuário cancelar dialog)
+                    setTimeout(() => {
+                        try { w.close(); } catch (e) { /* noop */ }
+                    }, 1000);
+                }, 200);
+            };
+        }
+    </script>
 </body>
 
 </html>

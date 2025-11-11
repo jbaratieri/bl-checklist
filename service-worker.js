@@ -1,5 +1,5 @@
-// service-worker.js — LuthierPro v2.4.3 (offline forte + login sem cache + ignora /api)
-const CACHE_VERSION = 'luthierpro-v2.4.3';
+// service-worker.js — LuthierPro v2.4.4 (offline forte + login sem cache + ignora /api)
+const CACHE_VERSION = 'luthierpro-v2.4.4';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
