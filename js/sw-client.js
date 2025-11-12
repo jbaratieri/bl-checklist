@@ -1,13 +1,13 @@
-// FILE: js/sw-client.js — LuthierPro (ajustado: dynamic registration + logs + fallback)
+// FILE: js/sw-client.js — LuthierPro (updated: dynamic registration, logs, only show banner when waiting)
 (function () {
   'use strict';
 
-  // atualize a query quando fizer deploy pra forçar fetch do service-worker.js novo
-  const SW_URL = '/service-worker.js?v=20251111-v1';
+  // Update this query on each deploy to force fetching a new service-worker.js
+  const SW_URL = '/service-worker.js?v=20251111';
   const BANNER_ID = 'sw-update-banner';
 
   if (!('serviceWorker' in navigator)) {
-    console.log('[sw-client] serviceWorker não suportado neste navegador');
+    console.log('[sw-client] serviceWorker not supported in this browser');
     return;
   }
 
@@ -23,41 +23,48 @@
   }
 
   function watchRegistration(reg) {
-    // log básico
     try {
       console.log('[sw-client] watchRegistration — reg:', reg);
+      // If there's already a waiting SW, show banner
       if (reg.waiting) {
         console.log('[sw-client] reg.waiting detected on watchRegistration');
-        showUpdateBanner(); // não passa reg aqui; handler buscará a registration atual dinamicamente
+        showUpdateBanner(); // showUpdateBanner will check dynamic registration on click
       }
     } catch (e) {
       console.warn('[sw-client] watchRegistration error', e);
     }
 
-    // updatefound -> instalar nova SW
+    // Listen for new installing SWs
     reg.addEventListener('updatefound', () => {
       const newSW = reg.installing;
       console.log('[sw-client] updatefound — installing:', !!newSW);
       if (!newSW) return;
-      newSW.addEventListener('statechange', () => {
+      newSW.addEventListener('statechange', async () => {
         console.log('[sw-client] installing statechange ->', newSW.state);
         if (newSW.state === 'installed') {
-          // se já existe controlador, então é uma atualização (waiting)
-          if (navigator.serviceWorker.controller) {
-            console.log('[sw-client] new SW installed and controller exists -> show banner');
-            showUpdateBanner();
-          } else {
-            console.log('[sw-client] new SW installed but no controller -> first install (no banner)');
+          // Re-check registration to avoid stale objects
+          try {
+            const r = await navigator.serviceWorker.getRegistration();
+            if (r && r.waiting) {
+              console.log('[sw-client] new SW installed and waiting exists -> show banner');
+              showUpdateBanner();
+              return;
+            }
+            // If there's no waiting, SW probably activated quickly. Show a subtle toast.
+            console.log('[sw-client] new SW installed but no waiting (activated quickly). No banner needed.');
+            const toast = document.createElement('div');
+            toast.textContent = 'Nova versão aplicada.';
+            toast.style.cssText = 'position:fixed;bottom:20px;left:20px;background:#222;color:#fff;padding:8px 12px;border-radius:8px;z-index:99999;font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
+            document.body.appendChild(toast);
+            setTimeout(()=>toast.remove(), 2500);
+          } catch (err) {
+            console.warn('[sw-client] error re-checking registration', err);
           }
         }
       });
     });
-
-    // opcional: monitor periodicamente (pode desligar)
-    // setInterval(() => reg.update(), 1000 * 60 * 30);
   }
 
-  // showUpdateBanner — não depende de uma registration "presa"; handler verifica dinamicamente no clique
   function showUpdateBanner() {
     if (document.getElementById(BANNER_ID)) {
       console.log('[sw-client] banner already shown');
@@ -96,41 +103,42 @@
     btnReload.style.cssText = 'background:#8a623f;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600';
     btnReload.addEventListener('click', async () => {
       try {
-        // pega a registration mais atual possível no momento do clique
+        console.log('[sw-client] click Atualizar — attempting dynamic registration check');
+        // fetch the most up-to-date registration
         const reg = await navigator.serviceWorker.getRegistration();
         console.log('[sw-client] click Atualizar — current registration:', reg);
 
         if (!reg) {
           console.warn('[sw-client] no registration found on click');
+          btnReload.disabled = true;
+          btnReload.textContent = 'Sem registro';
+          setTimeout(()=>banner.remove(), 2500);
           return;
         }
 
-        // se não houver waiting, tenta forçar um update (pode criar installing -> waiting)
+        // If no waiting, try to force update which may create installing -> waiting
         if (!reg.waiting) {
           console.warn('[sw-client] no waiting SW at click; calling reg.update() to try to fetch new SW');
           try { await reg.update(); } catch (err) { console.warn('[sw-client] reg.update() failed', err); }
         }
 
-        // re-check
+        // Re-check registration after update attempt
         const regAfter = await navigator.serviceWorker.getRegistration();
         if (!(regAfter && regAfter.waiting)) {
           console.warn('[sw-client] still no waiting SW after update(); nothing to activate at this moment');
-          // opcional: informar usuário
           btnReload.disabled = true;
           btnReload.textContent = 'Sem atualização no momento';
-          setTimeout(() => {
-            try { banner.remove(); } catch (_) {}
-          }, 2500);
+          setTimeout(() => { try { banner.remove(); } catch (_) {} }, 2000);
           return;
         }
 
-        // existe waiting — envia SKIP_WAITING
+        // There is a waiting SW - ask it to skipWaiting
         btnReload.disabled = true;
         btnReload.textContent = 'Aplicando...';
         console.log('[sw-client] sending SKIP_WAITING to waiting sw');
         regAfter.waiting.postMessage({ type: 'SKIP_WAITING' });
 
-        // aguarda controllerchange para recarregar — 1 reload apenas
+        // Handle controllerchange once and reload page
         let reloaded = false;
         function onController() {
           if (reloaded) return;
@@ -140,7 +148,7 @@
         }
         navigator.serviceWorker.addEventListener('controllerchange', onController);
 
-        // fallback: se nada acontecer em 7s, forçar reload mesmo assim
+        // fallback: if nothing happens in 7s, force reload
         setTimeout(() => {
           if (!reloaded) {
             console.warn('[sw-client] controllerchange timeout — forcing reload');
@@ -166,6 +174,6 @@
     console.log('[sw-client] update banner shown');
   }
 
-  // registrar logo que o script carrega
+  // register the service worker
   registerSW();
 })();
