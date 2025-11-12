@@ -1,4 +1,4 @@
-// service-worker.js — LuthierPro v2.4.4 (offline forte + login sem cache + ignora /api)
+// service-worker.js — LuthierPro v2.4.4 (ajustado: banner-control + manual network-first)
 const CACHE_VERSION = 'luthierpro-v2.4.4';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
@@ -74,7 +74,8 @@ self.addEventListener('install', (event) => {
         console.warn('[Service Worker] Falha ao adicionar no cache:', url, err);
       }
     }
-    await self.skipWaiting();
+    // Nota: NÃO chamamos self.skipWaiting() aqui — deixamos o novo SW em "waiting"
+    // para que o cliente (sw-client.js) possa controlar quando aplicar via SKIP_WAITING.
   })());
 });
 
@@ -88,6 +89,21 @@ self.addEventListener('activate', (event) => {
         .filter(n => ![SHELL_CACHE, RUNTIME_CACHE].includes(n))
         .map(n => caches.delete(n))
     );
+
+    // Opcional: remover entradas antigas de manual.html no runtime cache
+    try {
+      const runtime = await caches.open(RUNTIME_CACHE);
+      const keys = await runtime.keys();
+      await Promise.all(
+        keys
+          .filter(k => k.url && k.url.includes('/manual.html'))
+          .map(k => runtime.delete(k))
+      );
+      console.log('[Service Worker] manual.html entries cleaned from runtime cache (if any)');
+    } catch (e) {
+      console.warn('[Service Worker] error cleaning manual entries', e);
+    }
+
     await self.clients.claim();
   })());
 });
@@ -105,6 +121,7 @@ self.addEventListener('fetch', (event) => {
 
   // Navegação HTML
   if (request.mode === 'navigate' || (request.headers.get('accept') || '').includes('text/html')) {
+    // login: sempre network-first (mantido)
     if (url.pathname.endsWith('/login.html') || url.pathname.endsWith('login.html')) {
       event.respondWith((async () => {
         try {
@@ -117,6 +134,25 @@ self.addEventListener('fetch', (event) => {
       return;
     }
 
+    // manual.html: tratar como network-first (garante que mudanças no manual sejam buscadas)
+    if (url.pathname.endsWith('/manual.html') || url.pathname.endsWith('manual')) {
+      event.respondWith((async () => {
+        try {
+          const net = await fetch(request);
+          // atualiza runtime cache com nova versão do manual
+          const cache = await caches.open(RUNTIME_CACHE);
+          cache.put(request, net.clone());
+          return net;
+        } catch {
+          // fallback: serve o manual do cache se offline
+          const cache = await caches.open(RUNTIME_CACHE);
+          return (await cache.match(request)) || (await cache.match('./offline.html')) || Response.error();
+        }
+      })());
+      return;
+    }
+
+    // fallback para outras navegações: network-first e atualiza index.html em cache
     event.respondWith((async () => {
       const cache = await caches.open(SHELL_CACHE);
       try {
