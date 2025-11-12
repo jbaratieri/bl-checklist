@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  const SW_URL = '/service-worker.js?v=20250927'; // ajuste a query se necessário no deploy
+  const SW_URL = '/service-worker.js?v=20251111'; // ajuste a query se necessário no deploy
   const BANNER_ID = 'sw-update-banner';
 
   if (!('serviceWorker' in navigator)) return;
