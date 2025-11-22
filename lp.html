@@ -11,7 +11,7 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="LuthierPro — Guia Interativo de Luthieria">
-  <meta property="og:description" content="Experimente o LuthierPro e padronize seu processo de construção.">
+  <meta property="og:description" content="Experimente uma prévia interativa antes de comprar.">
   <meta property="og:image" content="https://luthierpro.vercel.app/assets/banners/mockup-luthierpro.webp">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#0f172a">
@@ -82,6 +82,17 @@
       margin: 0 auto;
       padding: 14px 24px;
     }
+
+
+.nav .logo {
+  height: 72px;
+  border-radius: 10px;
+  padding: 6px;
+  background: rgba(255,255,255,0.06); /* ajuste a opacidade */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+  display: inline-block;
+  vertical-align: middle;
+}
 
     .logo {
       height: 72px;
@@ -487,28 +498,32 @@
   <nav class="nav" role="navigation" aria-label="Principal">
     <div class="nav-inner">
       <a href="/" aria-label="LuthierPro — voltar ao início"><img class="logo"
-          src="https://luthierpro.vercel.app/assets/logos/logo-luthierpro1.webp" alt="LuthierPro"></a>
+          src="https://luthierpro.vercel.app/assets/logos/logo_ret_lp.png" alt="LuthierPro"></a>
 
       <div class="cta-top" aria-hidden="false">
 
+         <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>       
+         
         <a class="btn btn-ghost"
           href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=navbar&utm_campaign=mensal"
-          target="_blank" rel="noopener" data-deadline="2000-01-01T00:00:00Z" data-full="R$ 31,90"
-          >
+          target="_blank" rel="noopener" data-deadline="2025-11-20T23:59:59-03:00" data-full="R$ 31,90/mês"
+          data-promo="R$ 31,90/mês">
           <span class="title">Mensal</span>
           <span class="price-line">
-            <strong>R$ 31,90</strong>
+            <strong>R$ 31,90/mês</strong>
           </span>
+          <!--<span class="badge tag">Promo de lançamento até <time datetime="2025-11-20">20/11/2025</time></span>-->
         </a>
 
         <a class="btn btn-primary"
           href="https://pay.hotmart.com/T102449346T?utm_source=site&utm_medium=navbar&utm_campaign=vitalicio"
-          target="_blank" rel="noopener" data-deadline="2000-01-01T00:00:00Z" data-full="R$ 319,90"
-          >
+          target="_blank" rel="noopener" data-deadline="2025-11-20T23:59:59-03:00" data-full="R$ 319,90"
+          data-promo="R$ 319,90">
           <span class="title">Vitalício</span>
           <span class="price-line">
             <strong>R$ 319,90</strong>
           </span>
+          <!--<span class="badge tag hot">Promo somente até <time datetime="2025-11-20">20/11/2025</time></span>-->
         </a>
       </div>
     </div>
@@ -537,6 +552,8 @@
             href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero&utm_campaign=mensal"
             target="_blank" rel="noopener">Assinatura Mensal — R$ 31,90</a>
 
+          <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
+
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
         <div class="badge" aria-label="Selo informativo">Acesso imediato • </div>
@@ -555,7 +572,7 @@
       </div>
       <div>
         <h1 id="hero-title-2">Criado por luthier para luthiers</h1>
-
+    
         <p>Sou luthier e criei o LuthierPro para unir tradição e inovação: respeitar os métodos clássicos e usar a
           tecnologia para facilitar o aprendizado e a prática diária. Este guia é o companheiro que eu queria ter na
           bancada quando comecei.</p>
@@ -571,6 +588,7 @@
           <a class="btn btn-ghost"
             href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero2&utm_campaign=mensal"
             target="_blank" rel="noopener">Assinatura Mensal — R$ 31,90</a>
+           <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
         <div class="badge">Acesso imediato • </div>
@@ -606,6 +624,7 @@
           <a class="btn btn-ghost"
             href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=hero3&utm_campaign=mensal"
             target="_blank" rel="noopener">Assinatura Mensal — R$ 31,90</a>
+          <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
           <a class="btn btn-ghost" href="./login.html" target="_blank" rel="noopener">Já tenho licença</a>
         </div>
         <div class="badge">Acesso imediato •</div>
@@ -673,8 +692,130 @@
 
     <script>
       // Dados extraídos do index.html do app
-      const DATA = [ /* ...mantive seu array DATA intacto... */ ];
+      const DATA = [
+        {
+          "etapa": "1) Preparação de Materiais",
+          "subs": [
+            "Selecionar e climatizar madeiras",
+            "Cortar blanks (tampo, fundo, laterais, braço)"
+          ]
+        },
+        {
+          "etapa": "2) Braço / Taco Espanhol & Encaixe do Braço",
+          "subs": [
+            "Moldagem bruta do braço (Espessura e Comprimento)",
+            "Cortar o Headstock (15°)",
+            "Retificar as partes inclinadas",
+            "Colagem das peças do headstock",
+            "Preparar o taco do tróculo",
+            "Colar o tróculo no braço",
+            "Colar a soleta no headstock",
+            "Esquadrejar o braço",
+            "Planejar e riscar o braço",
+            "Riscar e usinar a mão",
+            "Recortar e furar a mão (headstock) para as tarrachas",
+            "Cortes e pré-usinagem do tróculo"
+          ]
+        },
+        {
+          "etapa": "3) Tampo",
+          "subs": [
+            "Retificar juntas",
+            "Colar e raspar",
+            "Recortar e aproximar contorno",
+            "Incrustar roseta",
+            "Calibrar tampo (2,0–2,8 mm)",
+            "Abrir boca (soundhole)",
+            "Preparar Travessas e barras harmônicas",
+            "Instalar travessas, reforço da boca e leque harmônico",
+            "Ajuste fino e voicing das varetas"
+          ]
+        },
+        {
+          "etapa": "4) Fundo",
+          "subs": [
+            "Retificar",
+            "Preparar adorno central",
+            "Unir e colar fundo",
+            "Raspar e nivelar a 3 mm",
+            "Instalar Barras e reforço central"
+          ]
+        },
+        {
+          "etapa": "5) Laterais (Faixas)",
+          "subs": [
+            "Corte longitudinal, calibragem e preparo das faixas",
+            "Dobrar as laterais/faixas"
+          ]
+        },
+        {
+          "etapa": "6) Montagem da Caixa",
+          "subs": [
+            "Colar laterais ao Tróculo/Culatra",
+            "Colar reengrosso (linings/contrafaixas) — tampo e fundo",
+            "Alinhar o braço ao corpo",
+            "Colar o tampo ao conjunto",
+            "Colar o fundo"
+          ]
+        },
+        {
+          "etapa": "7) Filetes / Binding & Purfling",
+          "subs": [
+            "Abrir canal dos filetes (binding & purfling)",
+            "Instalar filetes / purfling",
+            "Raspar e nivelar filetes (acabamento das bordas)",
+            "Pézinho do tróculo (tapeta do tacão)"
+          ]
+        },
+        {
+          "etapa": "8) Escala / Trastes",
+          "subs": [
+            "Preparar a escala & cortar os slots dos trastes",
+            "Instalar marcadores (opcional)",
+            "Colar escala no braço",
+            "Plainar e Lixar Progressivamente",
+            "Instalar os trastes"
+          ]
+        },
+        {
+          "etapa": "9) Cavalete",
+          "subs": [
+            "Preparar cavalete (alturas, canais, furação)",
+            "Marcar área de colagem do cavalete (pré-acabamento)",
+            "Colar o cavalete no tampo",
+            "Construir o rastilho (saddle)"
+          ]
+        },
+        {
+          "etapa": "10) Acabamento (Lixar, Selar, Verniz / Goma-laca)",
+          "subs": [
+            "Lixamento progressivo",
+            "Seladora / Pore fill",
+            "Aplicar acabamento final (verniz / goma-laca)"
+          ]
+        },
+        {
+          "etapa": "11) Montagem Final",
+          "subs": [
+            "Pestana (nut): dimensionar, canalizar e ajustar",
+            "Encordoamento (amarração, enrolamento e assentamento)",
+            "Regulagem das cordas (ação, alívio, pestana e rastilho)",
+            "Inspeção final (pré-entrega)"
+          ]
+        },
+        {
+          "etapa": "12) Regulagem & Entrega",
+          "subs": [
+            "Ajuste final da ação",
+            "Compensação de entonação",
+            "Limpeza final e retoques",
+            "Etiqueta e registro",
+            "Fotos e entrega ao cliente"
+          ]
+        }
+      ];
     </script>
+
     <script>
       (function () {
         const container = document.getElementById('toc-local');
@@ -726,11 +867,13 @@
         <div>
           <h3 class="h3">Assinatura Mensal</h3>
           <div class="price">
-            <span class="price-line" data-deadline="2000-01-01T00:00:00Z" data-full="R$ 31,90/mês">
+            <span class="price-line" data-deadline="2025-11-20T23:59:59-03:00" data-full="R$ 31,90/mês"
+              data-promo="R$ 31,90/mês">
               <strong>R$ 31,90/mês</strong>
             </span>
           </div>
           <p class="muted">Sem fidelidade. Cancele quando quiser pela Hotmart.</p>
+          <span class="badge tag">Lançamento até <time datetime="2025-11-20">20/11/2025</time></span>
         </div>
         <a class="btn btn-ghost"
           href="https://pay.hotmart.com/C102414992X?utm_source=site&utm_medium=pricing&utm_campaign=mensal"
@@ -741,11 +884,13 @@
         <div>
           <h3 class="h3">Acesso Vitalício</h3>
           <div class="price">
-            <span class="price-line" data-deadline="2000-01-01T00:00:00Z" data-full="R$ 319,90">
+            <span class="price-line" data-deadline="2025-11-20T23:59:59-03:00" data-full="R$ 319,90"
+              data-promo="R$ 319,90">
               <strong>R$ 319,90</strong>
             </span>
           </div>
           <p class="muted">Pagamento único. Sem renovação mensal.</p>
+          <span class="badge tag hot">Lançamento até <time datetime="2025-11-20">20/11/2025</time></span>
         </div>
         <a class="btn btn-accent"
           href="https://pay.hotmart.com/T102449346T?utm_source=site&utm_medium=pricing&utm_campaign=vitalicio"
@@ -795,6 +940,7 @@
 
     <a id="cta-buy" class="btn btn-primary" href="#precos" aria-label="Ver planos e preços — LuthierPro">Ver
       planos e Preços</a>
+   <button class="btn btn-accent js-trial" type="button">🎁 Teste grátis por 7 dias — sem cartão</button>
   </div>
 
   <!-- FAQ Schema (SEO) -->
@@ -838,7 +984,7 @@
           if (priceLine) {
             const full = el.getAttribute('data-full') || priceLine.getAttribute('data-full') || '';
             const promo = el.getAttribute('data-promo') || priceLine.getAttribute('data-promo') || '';
-            priceLine.innerHTML = `<s>${full}</s> <strong>${promo}</strong>`;
+            priceLine.innerHTML = `<strong>${promo}</strong>`;
           }
         }
       });
@@ -892,6 +1038,87 @@
       }
     })();
   </script>
+<!-- Modal Trial 7 dias -->
+<div id="trialModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); align-items:center; justify-content:center; z-index:9999;">
+  <div style="background:#fff; color:#111; padding:18px; border-radius:12px; max-width:420px; width:92vw; box-shadow:0 10px 30px rgba(0,0,0,.35);">
+    <h3 style="margin:0 0 8px">Teste de 7 dias</h3>
+    <p style="margin:0 0 10px">Digite seu e-mail para gerar um código de teste.</p>
+    <input id="trialEmail" type="email" placeholder="seu@email.com"
+           style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:8px;">
+    <div style="margin-top:12px; display:flex; gap:8px; flex-wrap:wrap;">
+      <button id="trialSubmit" class="btn btn-primary" type="button">Gerar código</button>
+      <button id="trialClose" class="btn" type="button" style="background:#e5e7eb; color:#111">Cancelar</button>
+    </div>
+    <div id="trialResult" style="margin-top:12px; font-size:14px;"></div>
+  </div>
+</div>
+
+<script>
+  // Trial modal wiring (suporta vários botões .js-trial)
+  (function(){
+    const modal = document.getElementById('trialModal');
+    const btnsTrial = document.querySelectorAll('.js-trial'); // <- vários
+    const btnClose = document.getElementById('trialClose');
+    const btnSubmit = document.getElementById('trialSubmit');
+    const inputEmail = document.getElementById('trialEmail');
+    const out = document.getElementById('trialResult');
+
+    function openModal(){
+      modal.style.display='flex';
+      out.textContent='';
+      out.style.color='#333';
+      inputEmail.value='';
+      setTimeout(()=>inputEmail.focus(), 0);
+    }
+    function closeModal(){ modal.style.display='none'; }
+
+    btnsTrial.forEach(btn => btn.addEventListener('click', openModal));
+    if (btnClose) btnClose.addEventListener('click', closeModal);
+
+    if (btnSubmit) btnSubmit.addEventListener('click', async () => {
+      const email = (inputEmail.value||'').trim();
+      if (!email || !email.includes('@')) { out.textContent='Informe um e-mail válido.'; out.style.color='red'; return; }
+      out.textContent = 'Gerando código...'; out.style.color='#333';
+
+      try {
+        const r = await fetch('/api/trial-create', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body: JSON.stringify({ email })
+        });
+        const data = await r.json();
+        if (!data.ok) { out.textContent = 'Erro: ' + (data.msg||'falha ao gerar'); out.style.color='red'; return; }
+
+        const code = data.code || '(verifique seu e-mail)';
+        out.innerHTML = `
+          <div style="padding:10px; border:1px dashed #aaa; border-radius:8px; margin-top:6px; background:#f8fafc;">
+            <div style="font-size:12px; color:#475569; margin-bottom:4px;">Seu código de teste</div>
+            <div style="font-weight:700; font-size:18px; letter-spacing:1px; color:#0f172a;">${code}</div>
+          </div>
+          <div style="margin-top:10px; display:flex; gap:8px; flex-wrap:wrap;">
+            <button type="button" class="btn" onclick="navigator.clipboard.writeText('${code}')">Copiar código</button>
+            <a class="btn btn-primary" href="/login.html">Abrir login</a>
+          </div>
+          <div style="margin-top:8px; color:#475569; font-size:12px;">Válido por 7 dias a partir da primeira ativação.</div>
+        `;
+        out.style.color='#0a0';
+
+        // tracking opcional
+        try {
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ event:'trial_generated', email });
+          if (typeof gtag === 'function') gtag('event','trial_generated',{email});
+        } catch {}
+      } catch(e){
+        out.textContent='Falha de rede. Tente novamente.'; out.style.color='red';
+      }
+    });
+
+    // Close ao clicar fora e ESC
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+  })();
+</script>
 </body>
 
 </html>
