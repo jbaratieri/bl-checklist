@@ -212,7 +212,8 @@
    Responsividade
    ========================= */
 @media (max-width: 600px) {
-  .project-selectors {
+  .project-selectors,
+  .project-actions {
     flex-direction: column;
     align-items: stretch;
   }
@@ -223,7 +224,8 @@
     flex-wrap: wrap;
   }
 
-  .project-buttons .btn {
+  .project-buttons .btn,
+  .project-actions .btn {
     flex: 1 1 45%; /* 2 colunas no mobile */
     min-width: 120px;
   }
