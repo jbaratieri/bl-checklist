@@ -20,3 +20,35 @@
   .measures-close{ background:#2a2a2a; border-color:rgba(255,255,255,.12); }
 }
 
+/* Isolamento de seções para evitar que float/inline quebrado afete o layout */
+#measuresBody .tuning-root { width: 100%; }
+#measuresBody .tuning-section {
+  display: block;
+  width: 100%;
+  clear: both;            /* garante nova linha */
+  margin-bottom: 0.8rem;
+}
+
+/* Títulos */
+#measuresBody .tuning-title {
+  display: block;
+  width: 100%;
+  margin: 0.6rem 0 0.25rem;
+  font-weight: 600;
+}
+
+/* Wrapper da tabela — protege de floats e overflow */
+#measuresBody .tuning-table-wrap {
+  display: block;
+  width: 100%;
+  overflow: auto;
+}
+
+/* Reusar estilo de tabela existente, mas assegurar largura */
+#measuresBody .measures-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Pequena proteção para <code> */
+#measuresBody code { white-space: nowrap; }

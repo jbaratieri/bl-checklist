@@ -44,52 +44,61 @@ const ACTION_RANGES = [
 //  Construção do HTML
 // ----------------------
 function buildTuningsHtml() {
-
-  let html = `
+  let html = `<div class="tuning-root">
     <h3>Afinações comuns</h3>
   `;
 
   TUNINGS.forEach(section => {
     html += `
-      <h4>${section.instrument}</h4>
-      <table class="measures-table">
-        <thead><tr><th>Nome / Uso</th><th>Afinação</th></tr></thead>
-        <tbody>
+      <section class="tuning-section" aria-labelledby="">
+        <h4 class="tuning-title">${section.instrument}</h4>
+        <div class="tuning-table-wrap">
+          <table class="measures-table">
+            <thead><tr><th>Nome / Uso</th><th>Afinação</th></tr></thead>
+            <tbody>
     `;
     section.examples.forEach(ex => {
       html += `
-        <tr>
-          <td>${ex.name}</td>
-          <td><code>${ex.tuning}</code></td>
-        </tr>
+            <tr>
+              <td>${ex.name}</td>
+              <td><code>${ex.tuning}</code></td>
+            </tr>
       `;
     });
     html += `
-        </tbody>
-      </table>
+            </tbody>
+          </table>
+        </div> <!-- .tuning-table-wrap -->
+      </section>
     `;
   });
 
   // Ação típica
   html += `
     <h3>Ação típica — valores indicativos</h3>
-    <table class="measures-table">
-      <thead><tr><th>Instrumento</th><th>Traste 1</th><th>Traste 12</th></tr></thead>
-      <tbody>
+    <section class="tuning-section">
+      <div class="tuning-table-wrap">
+        <table class="measures-table">
+          <thead><tr><th>Instrumento</th><th>Traste 1</th><th>Traste 12</th></tr></thead>
+          <tbody>
   `;
   ACTION_RANGES.forEach(r => {
     html += `
-      <tr>
-        <td>${r.instrument}</td>
-        <td>${r.fret1}</td>
-        <td>${r.fret12}</td>
-      </tr>
+          <tr>
+            <td>${r.instrument}</td>
+            <td>${r.fret1}</td>
+            <td>${r.fret12}</td>
+          </tr>
     `;
   });
   html += `
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
     <p style="font-size:.9em;color:#555">Valores comuns entre luthiers; ajuste varia conforme cordas e preferência.</p>
+  </div>
   `;
 
   return html;
