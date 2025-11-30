@@ -52,3 +52,76 @@
 
 /* Pequena proteção para <code> */
 #measuresBody code { white-space: nowrap; }
+
+/* =========================
+   Ajustes de comportamento (modal & tabelas)
+   Colar no final de measures-presets.css
+   ========================= */
+
+/* garante box-sizing previsível dentro do modal */
+#measuresModal, #measuresModal * {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Força que o diálogo respeite a viewport (evita overflow lateral) */
+.measures-dlg {
+  width: 92vw;
+  max-width: 880px;
+  margin: 5vh auto;
+  box-sizing: border-box;
+}
+
+/* .measures-body já é grid 2 colunas no desktop — em mobile vira 1 coluna */
+@media (max-width: 760px) {
+  .measures-body {
+    grid-template-columns: 1fr; /* 1 coluna em telas menores */
+    padding: 12px;             /* mantém espaço interno razoável */
+    gap: 10px;
+    max-height: 70vh;          /* mantém limite de altura */
+    overflow: auto;
+  }
+
+  /* garante que cada tabela fique full-width dentro da coluna */
+  .measures-body .measures-table {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Wrapper que ativa scroll horizontal se a tabela for maior que a tela */
+.measures-body .tuning-table-wrap,
+#measuresBody .tuning-table-wrap,
+.measures-dlg .tuning-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+/* Tabelas: ocupar 100% e evitar min-width problemático */
+.measures-table {
+  width: 100%;
+  min-width: 0;
+  border-collapse: collapse;
+}
+
+/* Células: permitir quebra de conteúdo e evitar white-space estranho */
+.measures-table th,
+.measures-table td {
+  white-space: normal;
+  word-break: break-word;
+  padding: 8px 10px;
+}
+
+/* Evita sobra à direita causada por inline-block ou elementos flutuantes */
+.measures-dlg, .measures-body, .measures-table, .tuning-table-wrap {
+  max-width: 100%;
+}
+
+/* Opcional: reduzir gap/padding em telas muito pequenas */
+@media (max-width: 360px) {
+  .measures-dlg { padding: 10px; }
+  .measures-body { padding: 8px; gap: 8px; }
+  .measures-table th, .measures-table td { font-size: 13px; padding: 6px 8px; }
+}
