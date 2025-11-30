@@ -1,20 +1,17 @@
-/* =========================
+/* ========================= 
    Layout base dos containers
    ========================= */
 .project-panel {
   margin: 20px auto;
-  box-sizing: border-box;     /* evita estourar a largura */
-  padding: 20px;              /* padding uniforme */
+  padding: 20px;
+  box-sizing: border-box;
   background: #fff;
   border: 1px solid #e6e0d8;
   border-radius: 12px;
-  max-width: 1100px;          /* alinhado ao .container */
+  max-width: 1100px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* =========================
-   Painel do Projeto
-   ========================= */
 .project-panel h3 {
   font-size: 1.2rem;
   margin-bottom: 16px;
@@ -24,7 +21,9 @@
   color: #333;
 }
 
-/* Linha de seleção */
+/* =========================
+   Seletores do projeto
+   ========================= */
 .project-selectors {
   display: flex;
   flex-wrap: wrap;
@@ -56,18 +55,21 @@
 }
 
 /* =========================
-   Botões
+   Áreas unificadas de botões
    ========================= */
-.project-buttons {
+.project-area {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
 }
 
-.project-buttons .btn {
-  display: flex;
+.project-area .btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;                    /* ícone + legenda */
+  gap: 6px;
   padding: 8px 14px;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -77,63 +79,30 @@
   background: #fff;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-.project-buttons .btn .icon {
+.project-area .btn:hover {
+  background: #f6f2ec;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.project-area .btn .icon {
   font-size: 1rem;
   line-height: 1;
 }
 
-.project-buttons .btn:hover {
-  background: #f6f2ec;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
 /* Botão excluir */
-.project-buttons #btnProjectDel {
+.project-area .btn.danger,
+.project-area #btnProjectDel {
   border-color: #c33;
   color: #c33;
 }
-.project-buttons #btnProjectDel:hover {
+.project-area .btn.danger:hover,
+.project-area #btnProjectDel:hover {
   background: #fbeaea;
   color: #a00;
-}
-
-/* =========================
-   Ações do cronograma
-   ========================= */
-.project-panel .project-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.project-actions .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.project-actions .btn .icon {
-  font-size: 1.1rem;
-  line-height: 1;
-}
-
-.project-actions .btn:hover {
-  background: #f6f2ec;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 /* Estado do botão Cronograma */
@@ -191,42 +160,36 @@
   margin-top: 12px;
   border-top: 1px solid #e8dfd1;
   padding-top: 12px;
-
-  /* responsividade */
   width: 100%;
-  overflow-x: auto;                  /* rolagem horizontal */
-  -webkit-overflow-scrolling: touch; /* rolagem suave iOS */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 #planTable table {
-  min-width: 480px;                  /* evita esmagar colunas */
+  min-width: 480px;
   border-collapse: collapse;
 }
 
 #planTable th,
 #planTable td {
-  white-space: nowrap;               /* impede quebra feia */
+  white-space: nowrap;
 }
 
 /* =========================
    Responsividade
    ========================= */
 @media (max-width: 600px) {
-  .project-selectors,
-  .project-actions {
+  .project-selectors {
     flex-direction: column;
     align-items: stretch;
   }
 
-  .project-buttons,
-  .project-actions {
+  .project-area {
     justify-content: flex-start;
-    flex-wrap: wrap;
   }
 
-  .project-buttons .btn,
-  .project-actions .btn {
-    flex: 1 1 45%; /* 2 colunas no mobile */
+  .project-area .btn {
+    flex: 1 1 45%;
     min-width: 120px;
   }
 
@@ -234,61 +197,5 @@
   #planTable td {
     font-size: 0.8rem;
     padding: 6px 8px;
-  }
-}
-/* =========================
-   Unificar comportamento dos botões
-   ========================= */
-
-/* Base compartilhada — faz .project-actions herdar o estilo de .project-buttons */
-.project-actions .btn {
-  /* mesclar comportamento com .project-buttons .btn */
-  display: flex !important;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;            /* iguala ao .project-buttons */
-  line-height: 1.2;
-  background: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
-}
-
-/* Ícone com mesmo tamanho/linha */
-.project-actions .btn .icon {
-  font-size: 1rem;
-  line-height: 1;
-}
-
-/* Hover idêntico */
-.project-actions .btn:hover {
-  background: #f6f2ec;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Estado visual do botão excluir (se aplicável dentro de project-actions) */
-.project-actions .btn.danger,
-.project-actions #btnProjectDel {
-  border-color: #c33;
-  color: #c33;
-}
-.project-actions .btn.danger:hover,
-.project-actions #btnProjectDel:hover {
-  background: #fbeaea;
-  color: #a00;
-}
-
-/* Responsividade: mesmo comportamento mobile (mantém 2 colunas) */
-@media (max-width: 600px) {
-  .project-buttons .btn,
-  .project-actions .btn {
-    flex: 1 1 45%;
-    min-width: 120px;
   }
 }
