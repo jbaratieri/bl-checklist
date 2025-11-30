@@ -184,13 +184,13 @@
         <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
           📏 <span class="label">Medidas</span>
         </button>
+        <button class="btn" id="btnTuningTable" title="Afinações e ação das cordas">
+          🎚️ <span class="label">Afinação & Ação</span>
+        </button>
       </div>
       <div id="planTable" aria-live="polite"></div>
+      <div id="tuningModalContainer" aria-live="polite"></div>
     </section>
-
-
-
-
 
     <nav class="toc">
       <strong>Índice</strong>
@@ -5598,18 +5598,26 @@
                 <li>Cheque leve <em>relief</em> por volta da 7ª (folga mínima ao pressionar 1ª e última casa).</li>
               </ul>
 
-              <p class="callout" data-instruments="vcl vla">
-                <strong>Clássico/Viola:</strong> ação-alvo típica 2,7–3,0&nbsp;mm (1ª) / 3,6–4,0&nbsp;mm (6ª) na
-                12ª.
+              <p class="callout" data-instruments="vcl">
+                <strong>Violão Clássico:</strong> Primeiro traste: ação-alvo típica 0,50-0,75&nbsp;mm (1ª corda) /
+                0,50-0,75&nbsp;mm (6ª corda).<br>Decimo Segundo traste: ação-alvo típica 2,7-3,5&nbsp;mm (1ª corda) /
+                3,50-4,0&nbsp;mm (6ª corda).<br>
+                <strong>Violão Aço:</strong> Primeiro traste: ação-alvo típica 0,25-0,50&nbsp;mm (1ª corda) /
+                0,50-0,75&nbsp;mm (6ª corda).<br>Decimo Segundo traste: ação-alvo típica 1,5-2,0&nbsp;mm (1ª corda) /
+                2,0-2,5&nbsp;mm (6ª corda).
+              </p>
+              <p class="callout" data-instruments="vla">
+                <strong>Viola:</strong> Primeiro traste: ação-alvo típica 0,25-0,50&nbsp;mm (1ª corda) /
+                0,50-0,75&nbsp;mm (6ª corda).<br>Decimo Segundo traste: ação-alvo típica 1,5-2,0&nbsp;mm (1ª corda) /
+                2,0-2,5&nbsp;mm (6ª corda).
               </p>
               <p class="callout" data-instruments="cav">
                 <strong>Cavaquinho:</strong> ação baixa exige trastes impecáveis; alvo 1,8–2,4&nbsp;mm (1ª) /
-                2,2–2,8&nbsp;mm (4ª).
+                2,2–2,8&nbsp;mm (4ª traste).
               </p>
               <p class="callout" data-instruments="uku">
                 <strong>Ukulele:</strong> 1,8–2,2&nbsp;mm (1ª) / 2,2–2,6&nbsp;mm (4ª) na 12ª; compense depois no
-                rastilho se
-                preciso.
+                rastilho se preciso.
               </p>
 
               <figure class="tech-figure" data-key="reg1-tech" data-cap="Medida da ação na 12ª e ajuste pelo rastilho">
@@ -5896,6 +5904,7 @@
   <script src="./js/step16-measures-presets.v3.js"></script>
   <script src="./js/step16-range-support.js"></script>
   <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
+  <script src="./js/step16-aficacao.js"></script>
 
   <!-- Plano do projeto (cronograma) -->
   <script src="./js/step19-project-plan.v7.js"></script>
