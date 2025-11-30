@@ -47,13 +47,6 @@
   font-size: .9rem;
 }
 
-.project-actions {
-  margin-top: 10px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
 #planTable {
   margin-top: 12px;
 }

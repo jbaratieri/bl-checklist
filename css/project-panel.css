@@ -217,7 +217,8 @@
     align-items: stretch;
   }
 
-  .project-buttons {
+  .project-buttons,
+  .project-actions {
     justify-content: flex-start;
     flex-wrap: wrap;
   }
