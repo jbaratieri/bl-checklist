@@ -28,7 +28,7 @@ const APP_SHELL = [
   './js/step12-draw.v4.2.js',
   './js/step17-measures-instrumentos.js',
   './js/step16-measures-presets.v3.js',
-  './js/step16-afinacao.js',
+  './js/step16-tuning-modal.js',
   './js/step16-range-support.js',
   './js/step16-measures-toggle.js',
   './js/step19-project-plan.v7.js',
