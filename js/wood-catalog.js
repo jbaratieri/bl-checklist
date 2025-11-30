@@ -9,12 +9,21 @@
   const LS_PREFIX = 'woodCatalog:';
 
   const DEFAULTS = [
-    { nome: 'Abeto (Spruce)', uso: 'Tampo', obs: 'Alta rigidez específica' },
-    { nome: 'Cedro', uso: 'Tampo', obs: 'Resposta rápida' },
-    { nome: 'Jacarandá (Dalbergia)', uso: 'Fundo/Laterais', obs: 'Projeção e graves' },
-    { nome: 'Pau-ferro', uso: 'Fundo/Laterais', obs: '' },
-    { nome: 'Mogno', uso: 'Braço', obs: '' },
-    { nome: 'Ébano', uso: 'Escala', obs: 'Muito duro; poros finos' }
+    { nome: 'Abeto (Spruce)', uso: 'Tampo', obs: 'Brilhante, forte, claro, alta projeção' },
+    { nome: 'Cedro', uso: 'Tampo', obs: 'Quente, suave, encorpado, foco nos graves' },
+    { nome: 'Mogno', uso: 'Tampo', obs: 'Quente, focado nos médios, equilibrado' },
+    { nome: 'Jacarandá', uso: 'Fundo/Laterais', obs: 'Referência! forte sustain, graves profundos e agudos brilhantes' },
+    { nome: 'Mogno', uso: 'Fundo/Laterais', obs: 'Timbre quente, equilibrado e com ênfase nos médios' },
+    { nome: 'Maple', uso: 'Fundo/Laterais', obs: 'Timbre Neutro - Fidedigno' },
+    { nome: 'Guajuvira', uso: 'Fundo/Laterais', obs: 'Som brilhante e equilibrado' },
+    { nome: 'Imbuia', uso: 'Fundo/Laterais', obs: 'Destaca-se pelo sustain e projeção' },
+    { nome: 'Mogno', uso: 'Braço', obs: 'Confiabilidade' },
+    { nome: 'Cedro', uso: 'Braço', obs: 'Leveza' },
+    { nome: 'Maple', uso: 'Braço', obs: 'Duro e denso' },
+    { nome: 'Ébano', uso: 'Escala', obs: 'Muito densa; poros finos' },
+    { nome: 'Jacarandá', uso: 'Escala', obs: 'Mais bela, menos densa' },
+    { nome: 'Pau Ferro', uso: 'Escala', obs: 'Densidade intermediária' },
+    { nome: 'Ipê', uso: 'Escala', obs: 'Densa e maleável' }
   ];
 
   const qs = (sel, el = document) => el.querySelector(sel);

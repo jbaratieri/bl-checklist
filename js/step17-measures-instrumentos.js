@@ -13,47 +13,47 @@
   // === Violão (vcl) ===
   merge('vcl', {
     braco: {
-      madeira: "Cedro",
-      inclinacao_headstock: "15",
+      madeira: "Cedro, Mogno, Maple",
+      inclinacao_headstock: "12-15 graus",
       largura_nut: "52",
       largura_casa12: "61",
       espessura_nut: "21",
       espessura_casa10: "23"
     },
     tampo: {
-      madeira: "Abeto",
+      madeira: "Abeto, Cedro",
       comprimento: "480",
       largura_bojo: "360",
       largura_cintura: "235",
       largura_ombro: "275",
       espessura_final: "2.4–2.8"
     },
-    fundo: { madeira: "Jacarandá", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Jacarandá", comprimento: "480", largura_culatra: "95", largura_troculo: "85" },
-    escala: { madeira: "Ébano", espessura: "6.0", largura_nut: "52", largura_casa12: "61" },
+    fundo: { madeira: "Jacarandá, Imbuia ", espessura_final: "2.6–3.0" },
+    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "480", largura_culatra: "95", largura_troculo: "85" },
+    escala: { madeira: "Ébano, Ipê", espessura: "6.0", largura_nut: "52", largura_casa12: "61" },
     medidas_gerais: {Distancia_Pestana_Rastilho: "650", Distancia_Pestana_Traste_12: "325" }
   });
 
   // === Viola (vla) ===
   merge('vla', {
     braco: {
-      madeira: "Cedro",
-      inclinacao_headstock: "14",
+      madeira: "Cedro, Mogno",
+      inclinacao_headstock: "13-14 graus",
       largura_nut: "47",
       largura_casa12: "60",
       espessura_nut: "18",
       espessura_casa10: "22"
     },
     tampo: {
-      madeira: "Abeto",
+      madeira: "Abeto, Cedro",
       comprimento: "480",
       largura_bojo: "360",
       largura_cintura: "235",
       largura_ombro: "275",
       espessura_final: "2.4–2.7"
     },
-    fundo: { madeira: "Jacarandá", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Jacarandá", comprimento: "480", largura_culatra: "95", largura_troculo: "85" },
+    fundo: { madeira: "Jacarandá, Imbuia", espessura_final: "2.6–3.0" },
+    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "480", largura_culatra: "95", largura_troculo: "85" },
     escala: { madeira: "Ébano", espessura: "6.0", largura_nut: "47", largura_casa12: "60" },
     medidas_gerais: {Distancia_Pestana_Rastilho: "580", Distancia_Pestana_Traste_12: "290" }
   });
@@ -69,7 +69,7 @@
       espessura_casa10: "22"
     },
     tampo: {
-      madeira: "Abeto",
+      madeira: "Abeto, Marupá",
       comprimento: "340",
       largura_bojo: "240",
       largura_cintura: "180",
