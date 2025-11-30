@@ -236,3 +236,59 @@
     padding: 6px 8px;
   }
 }
+/* =========================
+   Unificar comportamento dos botões
+   ========================= */
+
+/* Base compartilhada — faz .project-actions herdar o estilo de .project-buttons */
+.project-actions .btn {
+  /* mesclar comportamento com .project-buttons .btn */
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;            /* iguala ao .project-buttons */
+  line-height: 1.2;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* Ícone com mesmo tamanho/linha */
+.project-actions .btn .icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Hover idêntico */
+.project-actions .btn:hover {
+  background: #f6f2ec;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Estado visual do botão excluir (se aplicável dentro de project-actions) */
+.project-actions .btn.danger,
+.project-actions #btnProjectDel {
+  border-color: #c33;
+  color: #c33;
+}
+.project-actions .btn.danger:hover,
+.project-actions #btnProjectDel:hover {
+  background: #fbeaea;
+  color: #a00;
+}
+
+/* Responsividade: mesmo comportamento mobile (mantém 2 colunas) */
+@media (max-width: 600px) {
+  .project-buttons .btn,
+  .project-actions .btn {
+    flex: 1 1 45%;
+    min-width: 120px;
+  }
+}
