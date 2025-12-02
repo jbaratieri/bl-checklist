@@ -6,7 +6,7 @@ const TUNINGS = [
   {
     instrument: 'Viola caipira (afinações comuns)',
     examples: [
-      {name: 'Cebolão em Ré (muito comum)', tuning: '5ª ordem -> 1ª ordem: D A F# D A'},
+      {name: 'Cebolão em Ré', tuning: '5ª -> 1ª: D A F# D A'},
       {name: 'Cebolão em Mi', tuning: 'E B G# E B'},
       {name: 'Rio Abaixo / Boiadeira', tuning: 'varia — consulte afinações locais'}
     ]
@@ -34,10 +34,10 @@ const TUNINGS = [
 ];
 
 const ACTION_RANGES = [
-  {instrument: 'Violão aço', fret1: '≈ 0.4 – 1.0 mm', fret12: '≈ 1.5 – 3.0 mm'},
-  {instrument: 'Violão nylon', fret1: '≈ 0.8 – 1.6 mm', fret12: '≈ 2.5 – 4.0 mm'},
+  {instrument: 'Violão aço', fret1: '≈ 0.4 – 1.0 mm', fret12: '≈ 2.0 – 3.0 mm'},
+  {instrument: 'Violão nylon', fret1: '≈ 0.8 – 1.6 mm', fret12: '≈ 2.5 – 4.5 mm'},
   {instrument: 'Ukulele / cavaquinho', fret1: '≈ 0.3 – 0.8 mm', fret12: '≈ 1.5 – 2.5 mm'},
-  {instrument: 'Viola caipira', fret1: '≈ 0.8 – 2.0 mm', fret12: '≈ 2.5 – 4.5 mm'}
+  {instrument: 'Viola caipira', fret1: '≈ 0.5 – 1.0 mm', fret12: '≈ 2.5 – 3.5 mm'}
 ];
 
 // ----------------------
