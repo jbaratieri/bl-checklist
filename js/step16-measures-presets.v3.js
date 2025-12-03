@@ -2,6 +2,7 @@
    - Se apoia em class="persist" do seu app
    - Atualiza placeholders ao trocar de instrumento (sem F5)
    - Botão global: TABELA DE MEDIDAS
+   - Atualizado: usa .open + body.modal-open para abrir/fechar modal
 */
 (function () {
   'use strict';
@@ -76,6 +77,7 @@
         });
       }
 
+      // ---------- Modal factory / controls (ajustado para .open + body.modal-open) ----------
       function ensureModal() {
         let m = $('#measuresModal'); if (m) return m;
         m = document.createElement('div'); m.id = 'measuresModal'; m.className = 'measures-modal';
@@ -93,12 +95,57 @@
             </footer>
           </div>`;
         document.body.appendChild(m);
-        m.addEventListener('click', (e) => { if (e.target.hasAttribute('data-close')) m.style.display = 'none'; });
-        $('#btnApplyPlaceholders', m).addEventListener('click', () => { applyPlaceholders(document); alert('Placeholders atualizados.'); });
-        $('#btnFillEmpty', m).addEventListener('click', () => { fillEmptyValues(document); alert('Campos vazios preenchidos.'); });
+
+        // helpers de abrir / fechar (centralizados)
+        function openModalInternal() {
+          m.classList.add('open');
+          document.body.classList.add('modal-open');
+          // manter compatibilidade com scripts que leem display
+          m.style.display = 'flex';
+        }
+        function closeModalInternal(restoreFooter = true) {
+          m.classList.remove('open');
+          document.body.classList.remove('modal-open');
+          m.style.display = 'none';
+          // restaurar footer se solicitado
+          const ft = m.querySelector('.measures-ft');
+          if (restoreFooter && ft) ft.style.display = '';
+        }
+
+        // fechar ao clicar no backdrop (data-close) — usa closeModalInternal para restaurar corretamente
+        m.addEventListener('click', (e) => {
+          if (e.target && e.target.hasAttribute && e.target.hasAttribute('data-close')) {
+            closeModalInternal();
+          }
+        });
+
+        // fechar via botão .measures-close
+        const btnClose = $('.measures-close', m);
+        if (btnClose) {
+          btnClose.addEventListener('click', () => closeModalInternal());
+        }
+
+        // aplicar placeholders / preencher
+        const applyBtn = $('#btnApplyPlaceholders', m);
+        const fillBtn = $('#btnFillEmpty', m);
+        if (applyBtn) applyBtn.addEventListener('click', () => { applyPlaceholders(document); alert('Placeholders atualizados.'); });
+        if (fillBtn) fillBtn.addEventListener('click', () => { fillEmptyValues(document); alert('Campos vazios preenchidos.'); });
+
+        // ESC fecha o modal se estiver aberto
+        document.addEventListener('keydown', (ev) => {
+          if (ev.key === 'Escape' && m.classList.contains('open')) {
+            closeModalInternal();
+          }
+        });
+
+        // Expõe métodos simples no elemento para uso externo (compatibilidade)
+        m.open = openModalInternal;
+        m.close = closeModalInternal;
+
         return m;
       }
 
+      // openModal agora delega à API do modal (open/close) e mantém restauração de footer
       function openModal(sectionFilter = null) {
         const m = ensureModal(); const code = INSTR(); const names = { vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
         $('#measuresInst', m).textContent = names[code] || code.toUpperCase();
@@ -116,7 +163,19 @@
           });
           table.appendChild(head); table.appendChild(tb); body.appendChild(table);
         });
-        m.style.display = 'block';
+
+        // esconder footer temporariamente se desejar (o comportamento anterior escondia o footer para tuning)
+        // Mas aqui vamos manter o footer visível por padrão; quem quiser escondê-lo antes de abrir,
+        // faz: const m = ensureModal(); const ft = m.querySelector('.measures-ft'); if (ft) ft.style.display='none';
+        // Abrimos via API:
+        if (m.open && typeof m.open === 'function') {
+          m.open();
+        } else {
+          // fallback: ajustar display/scroll
+          m.classList.add('open');
+          document.body.classList.add('modal-open');
+          m.style.display = 'flex';
+        }
       }
 
       // no final da IIFE, depois de ensureModal / openModal estarem definidos:
@@ -125,8 +184,6 @@
         window.ensureModal = ensureModal;
         window.openMeasuresModal = openModal; // nome amigável — openModal é interno
       } catch (e) { /* noop */ }
-
-
 
       function injectGlobalButton() {
         // Só injeta se o botão não existir (no HTML principal ele já existe)

@@ -1,5 +1,6 @@
 // ======================================================================
-//  step17-tuning-modal.js — Usa o MESMO modal do step16 (measuresModal)
+//  step16-tuning-modal.js — Usa o MESMO modal do step16 (measuresModal)
+//  Atualizado: usa .measures-modal.open + body.modal-open para abrir/fechar
 // ======================================================================
 
 const TUNINGS = [
@@ -129,21 +130,97 @@ function openTuningModalViaMeasures() {
   const ft = m.querySelector('.measures-ft');
   if (ft) ft.style.display = 'none';
 
-  // Exibe modal
-  m.style.display = 'block';
-
-  // Foco no botão de fechar
-  const closeBtn = m.querySelector('.measures-close');
-  if (closeBtn) closeBtn.focus();
-
-  // Ao fechar, restaurar footer do modal normal
-  if (closeBtn) {
-    const restore = () => {
-      m.style.display = 'none';
-      if (ft) ft.style.display = ''; // volta ao normal
-    };
-    closeBtn.onclick = restore;
+  // EXIBIÇÃO: preferimos usar .open + body.modal-open; manter display por compatibilidade
+  function doOpen() {
+    m.classList.add('open');
+    document.body.classList.add('modal-open');
+    // compatibilidade com trechos que leem display
+    m.style.display = 'flex';
+    // foco no botão de fechar se existir
+    const closeBtn = m.querySelector('.measures-close, .close');
+    if (closeBtn) closeBtn.focus();
   }
+
+  function doCloseAndRestore() {
+    // fecha visualmente
+    m.classList.remove('open');
+    document.body.classList.remove('modal-open');
+    m.style.display = 'none';
+    // restaura footer
+    if (ft) ft.style.display = '';
+  }
+
+  // Abra: se houver window.measuresModal (helper global), use-o, senão faça localmente.
+  if (window.measuresModal && typeof window.measuresModal.open === 'function') {
+    window.measuresModal.open(); // measuresModal.open também seta .open e style, mas chamamos para manter compatibilidade
+  } else {
+    doOpen();
+  }
+
+  // Ao fechar, precisamos restaurar o footer. Para não sobrescrever handlers antigos, usamos listener dedicado.
+  // Primeiro, remover qualquer handler inline antigo que o código anterior possa ter definido (para evitar duplicação)
+  const closeBtn = m.querySelector('.measures-close, .close, [data-action="close-measures"]');
+  // remover onclick se existia (cautela)
+  if (closeBtn && closeBtn.onclick) closeBtn.onclick = null;
+
+  // Handler que garante restauração ao fechar
+  const restoreHandler = () => {
+    // se existir helper global, use-o para fechar; caso contrário, faça manualmente
+    if (window.measuresModal && typeof window.measuresModal.close === 'function') {
+      window.measuresModal.close();
+    } else {
+      doCloseAndRestore();
+    }
+    // também garantir footer restaurado se measuresModal.close não fez isso
+    if (ft) ft.style.display = '';
+    // remover listener depois de usado
+    if (closeBtn) closeBtn.removeEventListener('click', restoreHandler);
+    // remover listener de escape também
+    document.removeEventListener('keydown', escHandler);
+  };
+
+  // ESC também fecha e restaura
+  const escHandler = (ev) => {
+    if (ev.key === 'Escape') {
+      restoreHandler();
+    }
+  };
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', restoreHandler);
+  }
+
+  document.addEventListener('keydown', escHandler);
+
+  // fechar ao clicar no backdrop — só se o modal suportar isso
+  const backdropClickHandler = (ev) => {
+    if (ev.target === m) restoreHandler();
+  };
+  m.addEventListener('click', backdropClickHandler);
+
+  // Para limpar: caso outro código feche o modal sem passar por aqui, tentamos observar remoção da classe 'open'
+  // e então restauramos footer. Isso é um fallback conservador.
+  const observer = new MutationObserver((records) => {
+    for (const rec of records) {
+      if (rec.attributeName === 'class') {
+        if (!m.classList.contains('open')) {
+          // modal aparentemente fechado
+          if (ft) ft.style.display = '';
+          // desconectar e limpar listeners que adicionamos
+          observer.disconnect();
+          m.removeEventListener('click', backdropClickHandler);
+          document.removeEventListener('keydown', escHandler);
+          if (closeBtn) closeBtn.removeEventListener('click', restoreHandler);
+        }
+      }
+    }
+  });
+  observer.observe(m, { attributes: true });
+
+  // Return an object in case callers want to close programmatically
+  return {
+    close: restoreHandler
+  };
 }
 
 // ---------------------------

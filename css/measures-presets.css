@@ -1,127 +1,148 @@
+/* ===========================
+   Enhancements para measuresModal
+   =========================== */
 
-/* measures-presets.css */
-.measures-modal{ position:fixed; inset:0; display:none; z-index:2100; }
-.measures-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.6); }
-.measures-dlg{ position:relative; margin:5vh auto; max-width:880px; width:92vw; background:#fff; color:#222; border-radius:16px; overflow:hidden; box-shadow:0 20px 60px rgba(0,0,0,.35); }
-.measures-hd{ display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(0,0,0,.08); background:#faf7f2; }
-.measures-body{ max-height:70vh; overflow:auto; padding:16px; display:grid; grid-template-columns:repeat(2,minmax(1fr)); gap:12px; }
-.measures-table{ width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border-radius:12px; box-shadow:0 1px 8px rgba(0,0,0,.06); }
-.measures-table thead th{ text-align:left; padding:10px 12px; background:#f5efe6; font-weight:600; font-size:.95rem; }
-.measures-table td{ padding:8px 12px; border-top:1px solid #eee; }
-.measures-ft{ display:flex; gap:10px; padding:14px 16px; border-top:1px solid rgba(0,0,0,.08); background:#faf7f2; }
-.measures-close{ border:1px solid rgba(0,0,0,.12); border-radius:10px; padding:6px 10px; background:#fff; }
-.measures-close:hover{ background:#fff; box-shadow:0 4px 14px rgba(0,0,0,.12); }
-@media (prefers-color-scheme: dark){
-  .measures-dlg{ background:#222; color:#eee; }
-  .measures-hd, .measures-ft{ background:#191919; border-color: rgba(255,255,255,.08); }
-  .measures-table{ box-shadow:0 1px 8px rgba(0,0,0,.4); }
-  .measures-table thead th{ background:#2a2a2a; }
-  .measures-table td{ border-top-color:#333; }
-  .measures-close{ background:#2a2a2a; border-color:rgba(255,255,255,.12); }
+/* Modal visível quando possuir a classe .open */
+.measures-modal.open {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
 }
 
-/* Isolamento de seções para evitar que float/inline quebrado afete o layout */
-#measuresBody .tuning-root { width: 100%; }
-#measuresBody .tuning-section {
-  display: block;
-  width: 100%;
-  clear: both;            /* garante nova linha */
-  margin-bottom: 0.8rem;
-}
-
-/* Títulos */
-#measuresBody .tuning-title {
-  display: block;
-  width: 100%;
-  margin: 0.6rem 0 0.25rem;
-  font-weight: 600;
-}
-
-/* Wrapper da tabela — protege de floats e overflow */
-#measuresBody .tuning-table-wrap {
-  display: block;
-  width: 100%;
-  overflow: auto;
-}
-
-/* Reusar estilo de tabela existente, mas assegurar largura */
-#measuresBody .measures-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* Pequena proteção para <code> */
-#measuresBody code { white-space: nowrap; }
-
-/* =========================
-   Ajustes de comportamento (modal & tabelas)
-   Colar no final de measures-presets.css
-   ========================= */
-
-/* garante box-sizing previsível dentro do modal */
-#measuresModal, #measuresModal * {
-  box-sizing: border-box;
-  max-width: 100%;
-}
-
-/* Força que o diálogo respeite a viewport (evita overflow lateral) */
+/* Container principal */
 .measures-dlg {
-  width: 92vw;
-  max-width: 880px;
-  margin: 5vh auto;
+  display: flex;
+  flex-direction: column;
+  width: min(92vw, 920px);
+  max-width: 95vw;
+  max-height: calc(100vh - 6vh);
+  border-radius: 14px;
+  overflow: hidden;
+  transform: translateY(0);
+  transition: transform .18s ease, opacity .18s ease;
   box-sizing: border-box;
 }
 
-/* .measures-body já é grid 2 colunas no desktop — em mobile vira 1 coluna */
-@media (max-width: 760px) {
-  .measures-body {
-    grid-template-columns: 1fr; /* 1 coluna em telas menores */
-    padding: 12px;             /* mantém espaço interno razoável */
-    gap: 10px;
-    max-height: 70vh;          /* mantém limite de altura */
-    overflow: auto;
-  }
-
-  /* garante que cada tabela fique full-width dentro da coluna */
-  .measures-body .measures-table {
-    width: 100%;
-    min-width: 0;
-  }
+/* Header / footer fixos */
+.measures-hd,
+.measures-ft {
+  flex: 0 0 auto;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
-/* Wrapper que ativa scroll horizontal se a tabela for maior que a tela */
-.measures-body .tuning-table-wrap,
-#measuresBody .tuning-table-wrap,
-.measures-dlg .tuning-table-wrap {
+/* Body rolável */
+.measures-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  max-height: calc(100vh - 160px);
+  box-sizing: border-box;
+}
+
+/* Área das tabelas */
+.tuning-table-wrap {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
+  border-radius: 10px;
 }
 
-/* Tabelas: ocupar 100% e evitar min-width problemático */
+/* Tabelas internas */
 .measures-table {
   width: 100%;
   min-width: 0;
   border-collapse: collapse;
+  table-layout: auto;
 }
 
-/* Células: permitir quebra de conteúdo e evitar white-space estranho */
 .measures-table th,
 .measures-table td {
-  white-space: normal;
   word-break: break-word;
+  white-space: normal;
   padding: 8px 10px;
 }
 
-/* Evita sobra à direita causada por inline-block ou elementos flutuantes */
-.measures-dlg, .measures-body, .measures-table, .tuning-table-wrap {
+/* Proteção contra overflow de <code> / <pre> */
+.measures-table td code,
+.measures-table td pre,
+.measures-table th code,
+.measures-table th pre {
+  display: inline-block;
   max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Opcional: reduzir gap/padding em telas muito pequenas */
-@media (max-width: 360px) {
-  .measures-dlg { padding: 10px; }
-  .measures-body { padding: 8px; gap: 8px; }
-  .measures-table th, .measures-table td { font-size: 13px; padding: 6px 8px; }
+/* Botão fechar */
+.measures-close {
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 10px;
+  padding: 6px 12px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.measures-close:hover,
+.measures-close:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .measures-hd, .measures-ft { background: #121212; border-color: rgba(255,255,255,.06); }
+  .measures-close {
+    background: #1f1f1f;
+    border-color: rgba(255,255,255,.08);
+    color: #eee;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 10px; }
+  .measures-body {
+    gap: 10px;
+    padding: 10px;
+    grid-template-columns: 1fr;
+  }
+  .measures-table th,
+  .measures-table td {
+    padding: 6px 8px;
+    font-size: 13px;
+  }
+  .measures-hd h3 { font-size: 1rem; }
+  .measures-ft { gap: 8px; padding: 10px; }
+}
+
+/* Evitar overflow lateral */
+.measures-modal,
+.measures-dlg,
+.measures-body,
+.tuning-table-wrap,
+.measures-table {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* Espaço final após tabela */
+.measures-body::after {
+  content: "";
+  display: block;
+  height: 8px;
+  width: 100%;
+}
+
+/* Bloqueio de fundo quando modal está aberto */
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
 }
