@@ -1,39 +1,67 @@
 /* ===========================
-   Enhancements para measuresModal
+   measures-modal — versão limpa e organizada
    =========================== */
 
-/* Modal visível quando possuir a classe .open */
-.measures-modal.open {
-  display: flex;
+/* --- Base do modal (anexado ao <body>) --- */
+.measures-modal {
+  position: fixed;
+  inset: 0;
+  display: none;               /* controlado pela classe .open */
   align-items: center;
   justify-content: center;
   padding: 16px;
+  z-index: 12000;              /* ajuste se necessário no seu projeto */
+  box-sizing: border-box;
+  pointer-events: auto;
 }
 
-/* Container principal */
-.measures-dlg {
+.measures-modal.open {
   display: flex;
-  flex-direction: column;
+}
+
+/* Backdrop (fundo escuro) */
+.measures-modal .measures-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 11990;
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dialog — caixa central */
+.measures-modal .measures-dlg {
+  position: relative;
+  z-index: 12001;
   width: min(92vw, 920px);
   max-width: 95vw;
   max-height: calc(100vh - 6vh);
+  display: flex;
+  flex-direction: column;
   border-radius: 14px;
-  overflow: hidden;
-  transform: translateY(0);
+  overflow: hidden;            /* header/footer fixos, corpo rolável */
+  background: #ffffff;         /* fundo branco para evitar transparência */
+  color: #222;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+  transform: none;
+  opacity: 1;
   transition: transform .18s ease, opacity .18s ease;
   box-sizing: border-box;
+  padding: 0;                  /* padding no header/body/footer */
 }
 
 /* Header / footer fixos */
-.measures-hd,
-.measures-ft {
+.measures-modal .measures-hd,
+.measures-modal .measures-ft {
   flex: 0 0 auto;
-  z-index: 2;
   box-sizing: border-box;
+  padding: 12px 16px;
+  background: transparent;
 }
 
-/* Body rolável */
-.measures-body {
+/* Corpo rolável entre header e footer */
+.measures-modal .measures-body {
   flex: 1 1 auto;
   overflow: auto;
   padding: 14px;
@@ -44,7 +72,31 @@
   box-sizing: border-box;
 }
 
-/* Área das tabelas */
+/* Espaço final visual */
+.measures-modal .measures-body::after {
+  content: "";
+  display: block;
+  height: 8px;
+  width: 100%;
+}
+
+/* Botão fechar — visual neutro e acessível */
+.measures-modal .measures-close {
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 10px;
+  padding: 6px 12px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+.measures-modal .measures-close:hover,
+.measures-modal .measures-close:focus {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+}
+
+/* --- Tabelas dentro do modal --- */
 .tuning-table-wrap {
   width: 100%;
   overflow-x: auto;
@@ -53,7 +105,6 @@
   border-radius: 10px;
 }
 
-/* Tabelas internas */
 .measures-table {
   width: 100%;
   min-width: 0;
@@ -61,6 +112,7 @@
   table-layout: auto;
 }
 
+/* células: permitir quebra de texto para evitar squeeze */
 .measures-table th,
 .measures-table td {
   word-break: break-word;
@@ -68,7 +120,7 @@
   padding: 8px 10px;
 }
 
-/* Proteção contra overflow de <code> / <pre> */
+/* Tratamento especial para <code>/<pre> (desktop: manter em linha, mobile quebra) */
 .measures-table td code,
 .measures-table td pre,
 .measures-table th code,
@@ -80,36 +132,21 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* Botão fechar */
-.measures-close {
-  border: 1px solid rgba(0,0,0,.12);
-  border-radius: 10px;
-  padding: 6px 12px;
-  background: #fff;
-  cursor: pointer;
-  font-size: 1.1rem;
-  line-height: 1;
-}
-.measures-close:hover,
-.measures-close:focus {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.12);
-}
-
-/* Dark mode */
+/* --- Dark mode adjustments --- */
 @media (prefers-color-scheme: dark) {
-  .measures-hd, .measures-ft { background: #121212; border-color: rgba(255,255,255,.06); }
-  .measures-close {
+  .measures-modal .measures-hd,
+  .measures-modal .measures-ft { background: #121212; border-color: rgba(255,255,255,.06); }
+  .measures-modal .measures-close {
     background: #1f1f1f;
     border-color: rgba(255,255,255,.08);
     color: #eee;
   }
 }
 
-/* Responsividade */
+/* --- Responsividade geral --- */
 @media (max-width: 480px) {
-  .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 10px; }
-  .measures-body {
+  .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 10px; }
+  .measures-modal .measures-body {
     gap: 10px;
     padding: 10px;
     grid-template-columns: 1fr;
@@ -119,46 +156,20 @@
     padding: 6px 8px;
     font-size: 13px;
   }
-  .measures-hd h3 { font-size: 1rem; }
-  .measures-ft { gap: 8px; padding: 10px; }
+  .measures-modal .measures-hd h3 { font-size: 1rem; }
+  .measures-modal .measures-ft { gap: 8px; padding: 10px; }
 }
 
-/* Evitar overflow lateral */
-.measures-modal,
-.measures-dlg,
-.measures-body,
-.tuning-table-wrap,
-.measures-table {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Espaço final após tabela */
-.measures-body::after {
-  content: "";
-  display: block;
-  height: 8px;
-  width: 100%;
-}
-
-/* Bloqueio de fundo quando modal está aberto */
-body.modal-open {
-  overflow: hidden;
-  touch-action: none;
-}
-/* small screens: allow table content to wrap instead of forcing narrow first column */
+/* --- Ajustes para telas muito pequenas (evita primeira coluna espremida) --- */
 @media (max-width: 400px) {
-  .measures-body { grid-template-columns: 1fr; } /* garante um cell por linha no grid (cada tabela ocupa toda largura) */
-
-  .tuning-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .measures-modal .measures-body { grid-template-columns: 1fr; } /* cada tabela ocupa toda largura */
 
   .measures-table {
     width: 100%;
-    table-layout: fixed; /* importante: divide espaço previsível entre colunas */
+    table-layout: fixed; /* divide espaço previsível entre colunas */
     border-collapse: collapse;
   }
 
-  /* permite que as células quebrem e que o código também quebre linhas */
   .measures-table th,
   .measures-table td {
     white-space: normal !important;
@@ -171,47 +182,36 @@ body.modal-open {
   .measures-table th code,
   .measures-table td pre,
   .measures-table th pre {
-    white-space: normal !important; /* antes você tinha nowrap para desktop; aqui removemos */
+    white-space: normal !important;
     overflow-wrap: anywhere;
     display: inline-block;
     max-width: 100%;
   }
 }
-/* Garantir modal acima e evitar interação com área principal quando aberto */
+
+/* --- Evitar overflow lateral e proteger box-sizing --- */
+.measures-modal,
+.measures-modal .measures-dlg,
+.measures-modal .measures-body,
+.tuning-table-wrap,
+.measures-table {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- Bloqueio de fundo quando modal está aberto --- */
+body.modal-open {
+  overflow: hidden;
+  touch-action: none;
+}
+
+/* --- Enquanto modal aberto, desabilitar interações na UI principal (proteção contra overlays que interceptam cliques) --- */
 body.modal-open .project-area,
 body.modal-open .project-selectors,
 body.modal-open #projectPanel,
 body.modal-open #btnProjectDel,
 body.modal-open .toolbar,
 body.modal-open .container {
-  pointer-events: none; /* evita clicks na UI atrás do modal */
-}
-
-/* Modal stacking definitivo */
-.measures-modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 12000; /* ajuste se necessário */
-}
-
-.measures-modal.open {
-  display: flex;
-}
-
-.measures-modal .measures-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 11990;
-}
-
-.measures-modal .measures-dlg {
-  position: relative;
-  z-index: 12001;
-  max-height: calc(100vh - 6vh);
-  overflow: hidden;
-  transform: none;
+  pointer-events: none;
+  user-select: none;
 }
