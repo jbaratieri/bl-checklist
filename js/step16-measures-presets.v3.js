@@ -79,71 +79,59 @@
 
       // ---------- Modal factory / controls (ajustado para .open + body.modal-open) ----------
       function ensureModal() {
-        let m = $('#measuresModal'); if (m) return m;
-        m = document.createElement('div'); m.id = 'measuresModal'; m.className = 'measures-modal';
+        let m = document.querySelector('#measuresModal');
+        if (m) {
+          // garantir que o modal esteja sempre no body
+          if (m.parentElement !== document.body) {
+            document.body.appendChild(m);
+          }
+          return m;
+        }
+
+        // criar modal
+        m = document.createElement('div');
+        m.id = 'measuresModal';
+        m.className = 'measures-modal';
         m.innerHTML = `
-          <div class="measures-backdrop" data-close></div>
-          <div class="measures-dlg" role="dialog" aria-modal="true" aria-labelledby="measuresTitle">
-            <header class="measures-hd">
-              <h3 id="measuresTitle">Tabela de Medidas — <span id="measuresInst"></span></h3>
-              <button class="btn measures-close" type="button" data-close aria-label="Fechar">×</button>
-            </header>
-            <div class="measures-body" id="measuresBody"></div>
-            <footer class="measures-ft">
-              <button class="btn" id="btnApplyPlaceholders" type="button">Aplicar como placeholder</button>
-              <button class="btn primary" id="btnFillEmpty" type="button">Preencher campos vazios</button>
-            </footer>
-          </div>`;
+    <div class="measures-backdrop" data-close></div>
+    <div class="measures-dlg" role="dialog" aria-modal="true" aria-labelledby="measuresTitle">
+      <header class="measures-hd">
+        <h3 id="measuresTitle">Tabela de Medidas — <span id="measuresInst"></span></h3>
+        <button class="btn measures-close" type="button" data-close aria-label="Fechar">×</button>
+      </header>
+      <div class="measures-body" id="measuresBody"></div>
+      <footer class="measures-ft">
+        <button class="btn" id="btnApplyPlaceholders" type="button">Aplicar como placeholder</button>
+        <button class="btn primary" id="btnFillEmpty" type="button">Preencher campos vazios</button>
+      </footer>
+    </div>
+  `;
+
+        // garantir que o modal seja SEMPRE filho direto do body
         document.body.appendChild(m);
 
-        // helpers de abrir / fechar (centralizados)
-        function openModalInternal() {
-          m.classList.add('open');
-          document.body.classList.add('modal-open');
-          // manter compatibilidade com scripts que leem display
-          m.style.display = 'flex';
-        }
-        function closeModalInternal(restoreFooter = true) {
-          m.classList.remove('open');
-          document.body.classList.remove('modal-open');
-          m.style.display = 'none';
-          // restaurar footer se solicitado
-          const ft = m.querySelector('.measures-ft');
-          if (restoreFooter && ft) ft.style.display = '';
-        }
-
-        // fechar ao clicar no backdrop (data-close) — usa closeModalInternal para restaurar corretamente
+        // fecha ao clicar no backdrop ou no botão de fechar
         m.addEventListener('click', (e) => {
-          if (e.target && e.target.hasAttribute && e.target.hasAttribute('data-close')) {
-            closeModalInternal();
+          if (e.target.hasAttribute('data-close')) {
+            m.style.display = 'none';
+            document.body.classList.remove('modal-open');
           }
         });
 
-        // fechar via botão .measures-close
-        const btnClose = $('.measures-close', m);
-        if (btnClose) {
-          btnClose.addEventListener('click', () => closeModalInternal());
-        }
-
-        // aplicar placeholders / preencher
-        const applyBtn = $('#btnApplyPlaceholders', m);
-        const fillBtn = $('#btnFillEmpty', m);
-        if (applyBtn) applyBtn.addEventListener('click', () => { applyPlaceholders(document); alert('Placeholders atualizados.'); });
-        if (fillBtn) fillBtn.addEventListener('click', () => { fillEmptyValues(document); alert('Campos vazios preenchidos.'); });
-
-        // ESC fecha o modal se estiver aberto
-        document.addEventListener('keydown', (ev) => {
-          if (ev.key === 'Escape' && m.classList.contains('open')) {
-            closeModalInternal();
-          }
+        // ações dos botões internos
+        m.querySelector('#btnApplyPlaceholders').addEventListener('click', () => {
+          applyPlaceholders(document);
+          alert('Placeholders atualizados.');
         });
 
-        // Expõe métodos simples no elemento para uso externo (compatibilidade)
-        m.open = openModalInternal;
-        m.close = closeModalInternal;
+        m.querySelector('#btnFillEmpty').addEventListener('click', () => {
+          fillEmptyValues(document);
+          alert('Campos vazios preenchidos.');
+        });
 
         return m;
       }
+
 
       // openModal agora delega à API do modal (open/close) e mantém restauração de footer
       function openModal(sectionFilter = null) {

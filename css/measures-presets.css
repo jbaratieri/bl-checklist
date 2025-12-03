@@ -146,3 +146,72 @@ body.modal-open {
   overflow: hidden;
   touch-action: none;
 }
+/* small screens: allow table content to wrap instead of forcing narrow first column */
+@media (max-width: 400px) {
+  .measures-body { grid-template-columns: 1fr; } /* garante um cell por linha no grid (cada tabela ocupa toda largura) */
+
+  .tuning-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+  .measures-table {
+    width: 100%;
+    table-layout: fixed; /* importante: divide espaço previsível entre colunas */
+    border-collapse: collapse;
+  }
+
+  /* permite que as células quebrem e que o código também quebre linhas */
+  .measures-table th,
+  .measures-table td {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    padding: 8px;
+  }
+
+  .measures-table td code,
+  .measures-table th code,
+  .measures-table td pre,
+  .measures-table th pre {
+    white-space: normal !important; /* antes você tinha nowrap para desktop; aqui removemos */
+    overflow-wrap: anywhere;
+    display: inline-block;
+    max-width: 100%;
+  }
+}
+/* Garantir modal acima e evitar interação com área principal quando aberto */
+body.modal-open .project-area,
+body.modal-open .project-selectors,
+body.modal-open #projectPanel,
+body.modal-open #btnProjectDel,
+body.modal-open .toolbar,
+body.modal-open .container {
+  pointer-events: none; /* evita clicks na UI atrás do modal */
+}
+
+/* Modal stacking definitivo */
+.measures-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 12000; /* ajuste se necessário */
+}
+
+.measures-modal.open {
+  display: flex;
+}
+
+.measures-modal .measures-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 11990;
+}
+
+.measures-modal .measures-dlg {
+  position: relative;
+  z-index: 12001;
+  max-height: calc(100vh - 6vh);
+  overflow: hidden;
+  transform: none;
+}
