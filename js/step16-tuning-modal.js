@@ -7,7 +7,7 @@ const TUNINGS = [
   {
     instrument: 'Viola caipira (afinações comuns)',
     examples: [
-      {name: 'Cebolão em Ré', tuning: '5ª -> 1ª: D A F# D A'},
+      {name: 'Cebolão em Ré', tuning: 'D A F# D A'},
       {name: 'Cebolão em Mi', tuning: 'E B G# E B'},
       {name: 'Rio Abaixo / Boiadeira', tuning: 'varia — consulte afinações locais'}
     ]
@@ -15,13 +15,13 @@ const TUNINGS = [
   {
     instrument: 'Violão (padrão)',
     examples: [
-      {name: 'Standard', tuning: '6ª → 1ª: E A D G B E'}
+      {name: 'Standard', tuning: 'E A D G B E'}
     ]
   },
   {
     instrument: 'Cavaquinho',
     examples: [
-      {name: 'Tradicional', tuning: '1ª → 4ª: D B G D'},
+      {name: 'Tradicional', tuning: 'D B G D'},
       {name: 'Imita violão', tuning: 'E B G D'},
       {name: 'Afin. bandolim', tuning: 'E A D G'}
     ]
@@ -29,7 +29,7 @@ const TUNINGS = [
   {
     instrument: 'Ukulele (soprano/concerto/tenor)',
     examples: [
-      {name: 'Padrão (C)', tuning: 'G C E A (G reentrante)'}
+      {name: 'Padrão (C)', tuning: 'G C E A'}
     ]
   }
 ];
