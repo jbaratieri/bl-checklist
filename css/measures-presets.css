@@ -149,7 +149,7 @@
 
 /* ---------- medium narrow screens: avoid first-column squeeze ---------- */
 /* breakpoint medium: when viewport is not fully desktop but not tiny mobile */
-@media (max-width: 920px) and (min-width: 480px) {
+@media (max-width: 920px) and (min-width: 360px) {
   .measures-table { table-layout: fixed; }
   .measures-table th:first-child,
   .measures-table td:first-child {
@@ -172,7 +172,7 @@
   .measures-modal .measures-body { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
 
   /* cardified table */
-  .measures-table thead { display: none; }
+ /* .measures-table thead { display:block;justify-self:center; }*/
   .measures-table, .measures-table tbody, .measures-table tr, .measures-table td {
     display: block;
     width: 100%;
@@ -187,7 +187,7 @@
   }
   .measures-table td {
     padding: 6px 8px;
-    display: block;
+    display: inline;
     width: 100%;
   }
   .measures-table td:nth-child(1) {
