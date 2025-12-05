@@ -1,0 +1,232 @@
+/* wood-catalog.css — estilo integrado ao BL Checklist */
+
+/* ====== Modal ====== */
+.wc-modal::backdrop {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.wc-modal {
+  border: none;
+  border-radius: 14px;
+  background: var(--card, #fff);
+  color: var(--ink, #2e2a26);
+  padding: 0;
+  width: min(960px, 96vw);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  font-family: system-ui, Segoe UI, Roboto, Arial;
+}
+
+/* fallback */
+#wc-dialog[open] {
+  display: block !important;
+  position: fixed;
+  top: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999;
+}
+
+/* ====== Cabeçalho ====== */
+.wc-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background: #f5eadb;
+  border-bottom: 1px solid #e9d7bf;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+.wc-head h4 {
+  margin: 0;
+  font: 600 1.1rem system-ui, Segoe UI, Roboto, Arial;
+  color: #3a2d1c;
+}
+
+/* ====== Corpo ====== */
+.wc-body {
+  padding: 16px;
+}
+
+.wc-search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+.wc-search input {
+  flex: 1;
+  padding: 8px 10px;
+  border: 1px solid #e0d7c8;
+  border-radius: 10px;
+  font-size: 0.9rem;
+}
+.wc-pill {
+  padding: 4px 10px;
+  border: 1px solid #e0d7c8;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: #faf7f2;
+  color: #5c3b1e;
+}
+
+/* ====== Linhas de edição ====== */
+.wc-list .wc-row {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 2.4fr) auto;
+  gap: 12px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #e8dfd1;
+  border-radius: 12px;
+  padding: 10px;
+  margin-bottom: 10px;
+  transition: box-shadow 0.15s ease;
+}
+.wc-row:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+.wc-row input[type="text"] {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #e0d7c8;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  background: #fff;
+}
+.wc-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Área para adicionar item */
+.wc-add {
+  display: grid;
+  grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.2fr) minmax(0, 2.4fr) auto;
+  gap: 12px;
+  margin-top: 14px;
+}
+.wc-add input {
+  width: 100%;
+}
+
+/* ====== Rodapé ====== */
+.wc-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 1px solid #e9d7bf;
+  background: #faf7f2;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+.wc-foot .wc-pill {
+  background: #fff;
+}
+
+/* ====== Botões ====== */
+.wc-btn {
+  border: 1px solid #e9d7bf;
+  background: #f5eadb;
+  color: #3a2d1c;
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s, border 0.2s;
+}
+.wc-btn:hover {
+  background: #efe6d9;
+}
+.wc-btn.primary {
+  background: var(--acc, #8a623f);
+  border-color: var(--acc, #8a623f);
+  color: #fff;
+}
+.wc-btn.ghost {
+  background: #fff;
+  border-color: var(--acc-2, #cf995f);
+  color: var(--acc, #8a623f);
+}
+
+/* ====== Resumo ====== */
+.wc-summary .wc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.wc-chipbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wc-chip {
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  background: #fff;
+  cursor: pointer;
+}
+.wc-chip.is-on {
+  background: #cf995f;
+  border-color: #cf995f;
+  color: #fff;
+}
+
+.wc-summary .wc-bucket {
+  margin-bottom: 16px;
+}
+.wc-summary .wc-bucket h5 {
+  margin: 6px 0 10px;
+  font: 600 0.9rem system-ui, Segoe UI, Roboto, Arial;
+  color: #3a2d1c;
+}
+
+.wc-summary .wc-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 880px) {
+  .wc-summary .wc-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.wc-summary .wc-card {
+  border: 1px solid #e8dfd1;
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.wc-summary .wc-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+.wc-summary .wc-card h4 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+.wc-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.wc-tag {
+  background: #f3efe9;
+  border: 1px solid #eadfce;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.75rem;
+}
+
+/* ====== Mobile ====== */
+@media (max-width: 600px) {
+  .wc-row,
+  .wc-add {
+    grid-template-columns: 1fr !important;
+  }
+}

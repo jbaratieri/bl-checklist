@@ -1,0 +1,323 @@
+/* ==============================
+   responsive.css — ajustes Mobile First
+   ============================== */
+
+/* ===========================
+   Header / Toolbar + Logo
+   =========================== */
+
+/* Desktop (padrão) */
+header.app .app-logo {
+  max-width: 220px;
+  /* largura máxima no desktop */
+  height: auto;
+  /* altura ajustada proporcional */
+  flex-shrink: 0;
+}
+
+/* Telas até 768px (tablets e celulares em modo paisagem) */
+@media (max-width: 768px) {
+
+  /* Tipografia */
+  body {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-size: 1.2em;
+  }
+
+  /* Containers e seções */
+  .section-body,
+  .etapa-body {
+    padding: 12px;
+  }
+
+  /* Índice / TOC */
+  .toc-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .toc-list li {
+    flex: 1 1 45%;
+    font-size: 0.95em;
+  }
+
+  /* Formulários (projeto/cronograma) */
+  form label,
+  .measures-grid label {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  form input,
+  .measures-grid input,
+  form select,
+  form textarea {
+    width: 100%;
+    font-size: 1em;
+    padding: 10px;
+  }
+
+  /* Galerias */
+  .img-row {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+
+  .img-row .thumb {
+    border-radius: 8px;
+  }
+
+  /* Toolbar responsiva */
+  header.app .toolbar {
+    justify-content: center;
+    /* centraliza botões */
+    gap: 8px;
+  }
+
+  header.app .toolbar .btn {
+    flex: 1 1 45%;
+    /* ocupa até metade da largura */
+    min-width: unset;
+    /* remove largura mínima */
+    max-width: 200px;
+    /* evita botões largos demais */
+  }
+
+  header.app .app-logo {
+    max-width: 160px;
+    /* menor em tablets */
+    margin-bottom: 8px;
+  }
+}
+
+/* Telas até 480px (celulares em modo retrato) */
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  header.app .app-logo {
+    max-width: 120px;
+    /* ainda menor */
+  }
+
+  h1 {
+    font-size: 1.3em;
+  }
+
+  h2 {
+    font-size: 1.1em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+
+  /* Intro + índice */
+  .intro {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+
+  .toc-list {
+    flex-direction: column;
+  }
+
+  .toc-list li {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  /* Galerias */
+  .img-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Toolbar em grade 2xN */
+@media (max-width: 480px) {
+  header.app .toolbar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    width: 100%;
+    max-width: 320px;
+    /* largura máxima da grade */
+    margin: 0 auto;
+    /* centraliza a grade no header */
+    justify-content: center;
+  }
+
+  header.app .toolbar .btn {
+    flex: unset;
+    width: 100%;
+    max-width: none;
+    margin-bottom: 0;
+    /* remove espaçamento extra */
+  }
+}
+
+/* ==============================
+   Ajustes específicos por orientação
+   ============================== */
+
+/* Paisagem: otimiza uso horizontal da tela */
+@media (orientation: landscape) {
+
+  body {
+    font-size: 15px;
+  }
+
+  .intro {
+    padding: 8px 12px;
+  }
+
+  .toc-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .toc-list li {
+    margin: 0;
+  }
+
+  .img-row {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 8px;
+  }
+
+  .measures-grid,
+  form .fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 12px;
+  }
+
+  .measures-grid label,
+  form label {
+    width: 100%;
+  }
+
+  .btn-group,
+  .actions-row {
+    display: grid;
+    grid-auto-flow: column;
+    gap: 10px;
+  }
+}
+
+/* Retrato reforçado */
+@media (orientation: portrait) and (max-width: 480px) {
+  .toc-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+/* =============================
+   Ajustes extras: toolbar móvel + tabelas modal
+   Colar no final do responsive.css
+   ============================= */
+
+/* Toolbar mais elástica em telas pequenas:
+   permite auto-ajuste do número de colunas e garante padding */
+@media (max-width: 480px) {
+  header.app .toolbar {
+    display: grid;
+    /* auto-fit tenta acomodar o máximo de botões que couberem,
+       cada botão fica no mínimo 110px e cresce até 1fr */
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 8px; /* evita que botão encoste na borda da tela */
+    box-sizing: border-box;
+    align-items: center;
+  }
+
+  /* Cada botão ocupa toda a célula e tem box-sizing definido */
+  header.app .toolbar .btn {
+    width: 100%;
+    max-width: none;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Em telas muito pequenas, opcional: esconder texto e mostrar só ícone
+     (se preferir manter texto, remova este bloco) */
+  @media (max-width: 360px) {
+    header.app .toolbar .btn .label { display: none; }
+  }
+}
+
+/* ===========================
+   Modal / Tabelas (measuresModal)
+   =========================== */
+
+/* Garante que o diálogo do modal não ultrapasse a largura da viewport */
+#measuresModal .measures-dlg {
+  width: 94%;
+  max-width: 940px;
+  box-sizing: border-box;
+  margin: 8px auto;
+  padding: 12px;
+}
+
+/* Corpo do modal ocupa 100% e não adiciona padding lateral extra */
+#measuresModal .measures-body,
+#measuresBody {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Wrapper que força scroll horizontal quando necessário (mobile) */
+#measuresModal .tuning-table-wrap,
+#measuresBody .tuning-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+}
+
+/* Faz a tabela tentar ocupar 100% do container sem exceder */
+#measuresModal .measures-table,
+#measuresBody .measures-table {
+  width: 100%;
+  min-width: 0;            /* evita que use largura mínima que cause overflow */
+  border-collapse: collapse;
+  box-sizing: border-box;
+}
+
+/* Quebra conteúdo longo para evitar espaços em branco à direita */
+#measuresModal .measures-table td,
+#measuresModal .measures-table th,
+#measuresBody .measures-table td,
+#measuresBody .measures-table th {
+  word-break: break-word;
+  white-space: normal;
+  padding: 6px 8px;
+}
+
+/* Proteção geral contra overflow da própria árvore do modal */
+#measuresModal, #measuresModal * {
+  max-width: 100%;
+  box-sizing: border-box;
+}

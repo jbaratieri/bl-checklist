@@ -1,229 +1,234 @@
 /* ===========================
-   measures-modal — LuthierPro skin
-   Generated from page color sampling
+   measures-modal — Wood-themed (substitua seu bloco modal por este)
    =========================== */
 
+/* Paleta baseada no wood-catalog.css */
 :root {
-  --lp-bg: rgb(247, 242, 234);
-  --lp-surface: rgb(255, 255, 255);
-  --lp-text: rgb(51, 51, 51);
-  --lp-muted: rgb(46, 42, 38);
-  --lp-primary: rgb(46, 42, 38);
-  --lp-primary-contrast: #ffffff;
-  --lp-accent: rgb(46, 42, 38);
-  --lp-border: rgb(230, 224, 216);
+  --wc-card: #ffffff;           /* correspondência a --card */
+  --wc-ink: #3a2d1c;            /* correspondência a --ink */
+  --wc-acc: #8a623f;            /* correspondência a --acc */
+  --wc-acc-2: #cf995f;
+  --wc-bg: #f7f2ea;             /* app light background */
+  --wc-border: #e9d7bf;
+  --wc-muted: #5c3b1e;
+  --wc-surface: #fff;
+  --wc-shadow: rgba(0,0,0,0.12);
+  --modal-backdrop: rgba(0,0,0,0.44);
+  --modal-radius: 14px;
+  --modal-gap: 14px;
+  --max-modal-width: 960px;
 }
 
-/* Base layout */
+/* --- Container modal --- */
 .measures-modal {
   position: fixed;
   inset: 0;
-  display: none;
+  display: none; /* toggled by .open */
   align-items: center;
   justify-content: center;
-  padding: 16px;
-  z-index: 12000;
-  box-sizing: border-box;
-  background: transparent;
-  color: var(--lp-text);
+  padding: clamp(10px, 3vw, 28px);
+  z-index: 14000;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
 }
 
+/* visible */
 .measures-modal.open { display: flex; }
 
-/* Backdrop */
+/* backdrop */
 .measures-modal .measures-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.36);
-  z-index: 11990;
-  pointer-events: auto;
-  opacity: 1;
-  visibility: visible;
+  background: var(--modal-backdrop);
+  z-index: 14001;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
-/* Dialog */
+/* dialog */
 .measures-modal .measures-dlg {
   position: relative;
-  z-index: 12001;
-  width: min(92vw, 920px);
+  z-index: 14002;
+  width: min(92vw, var(--max-modal-width));
   max-width: 95vw;
-  max-height: calc(100vh - 6vh);
+  max-height: calc(100vh - 8vh);
   display: flex;
   flex-direction: column;
-  border-radius: 14px;
+  border-radius: var(--modal-radius);
   overflow: hidden;
-  background: var(--lp-surface);
-  color: var(--lp-text);
-  border: 1px solid var(--lp-border);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
-  transform: none;
-  opacity: 1;
+  background: var(--wc-surface);
+  color: var(--wc-ink);
+  border: 1px solid var(--wc-border);
+  box-shadow: 0 12px 36px var(--wc-shadow);
   transition: transform .18s ease, opacity .18s ease;
   box-sizing: border-box;
 }
 
-/* Header / footer */
-.measures-modal .measures-hd,
-.measures-modal .measures-ft {
-  flex: 0 0 auto;
-  box-sizing: border-box;
-  padding: 12px 16px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.00));
-  color: var(--lp-text);
+/* header (com o visual do wood modal) */
+.measures-modal .measures-hd {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 16px;
+  background: #f5eadb; /* igual ao wc-head */
+  border-bottom: 1px solid #e9d7bf;
+}
+.measures-modal .measures-hd h3 {
+  margin:0;
+  font-weight:600;
+  font-size:1.05rem;
+  color: var(--wc-ink);
 }
 
-/* Body */
+/* footer */
+.measures-modal .measures-ft {
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:flex-end;
+  padding: 12px 14px;
+  border-top: 1px solid #e9d7bf;
+  background: #faf7f2;
+}
+
+/* body */
 .measures-modal .measures-body {
-  flex: 1 1 auto;
-  overflow: auto;
   padding: 14px;
+  overflow:auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 14px;
-  max-height: calc(100vh - 160px);
+  gap: var(--modal-gap);
+  max-height: calc(100vh - 180px);
   box-sizing: border-box;
 }
 
-.measures-modal .measures-body::after {
-  content: "";
-  display: block;
-  height: 8px;
-  width: 100%;
-}
-
-/* Close button */
-.measures-modal .measures-close {
-  border: 1px solid rgba(0,0,0,.08);
-  border-radius: 10px;
-  padding: 6px 12px;
-  background: var(--lp-surface);
-  cursor: pointer;
-  font-size: 1.1rem;
-  line-height: 1;
-  color: var(--lp-text);
-}
-.measures-modal .measures-close:hover,
-.measures-modal .measures-close:focus {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.12);
-}
-
-/* Tables */
+/* tuning table wrap */
 .tuning-table-wrap {
-  width: 100%;
-  overflow-x: auto;
+  width:100%;
+  overflow-x:auto;
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   border-radius: 10px;
   background: transparent;
 }
 
+/* table base */
 .measures-table {
-  width: 100%;
-  min-width: 0;
+  width:100%;
+  min-width:0;
   border-collapse: collapse;
-  table-layout: auto;
+  table-layout: auto; /* default desktop behavior */
   background: transparent;
 }
 
+/* cells */
 .measures-table th,
 .measures-table td {
+  padding: 8px 10px;
+  vertical-align: middle;
+  color: var(--wc-ink);
+  font-size: 0.95rem;
   word-break: break-word;
   white-space: normal;
-  padding: 8px 10px;
-  color: var(--lp-text);
 }
 
-/* code blocks */
+/* code/pre inside table: desktop nowrap, soft bg */
 .measures-table td code,
 .measures-table td pre,
 .measures-table th code,
 .measures-table th pre {
-  display: inline-block;
+  display:inline-block;
+  padding: 3px 8px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.03);
+  color: var(--wc-ink);
+  border: 1px solid rgba(0,0,0,0.03);
+  white-space: nowrap;
   max-width: 100%;
   overflow-x: auto;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  background: rgba(0,0,0,0.02);
-  padding: 2px 6px;
-  border-radius: 6px;
-  color: var(--lp-text);
-  border: 1px solid rgba(0,0,0,0.04);
 }
 
-/* Buttons styling */
-.measures-modal .btn.primary {
-  background: var(--lp-primary);
-  color: var(--lp-primary-contrast);
-  border: 1px solid transparent;
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-.measures-modal .btn {
-  background: transparent;
-  color: var(--lp-text);
-  border: 1px solid var(--lp-border);
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
-/* Small screens */
-@media (max-width: 480px) {
-  .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 10px; }
-  .measures-modal .measures-body {
-    gap: 10px;
-    padding: 10px;
-    grid-template-columns: 1fr;
+/* ---------- medium narrow screens: avoid first-column squeeze ---------- */
+/* breakpoint medium: when viewport is not fully desktop but not tiny mobile */
+@media (max-width: 920px) and (min-width: 480px) {
+  .measures-table { table-layout: fixed; }
+  .measures-table th:first-child,
+  .measures-table td:first-child {
+    width: 40%;
+    min-width: 120px;
+    max-width: 45%;
   }
-  .measures-table th,
+  .measures-table th:nth-child(2),
+  .measures-table td:nth-child(2) {
+    width: 60%;
+  }
+  /* allow code to wrap inside the table cells in this range */
+  .measures-table td code,
+  .measures-table th code { white-space: normal; }
+}
+
+/* ---------- mobile: stack rows as label/value cards earlier (<=600px) ---------- */
+@media (max-width: 600px) {
+  .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 12px; }
+  .measures-modal .measures-body { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
+
+  /* cardified table */
+  .measures-table thead { display: none; }
+  .measures-table, .measures-table tbody, .measures-table tr, .measures-table td {
+    display: block;
+    width: 100%;
+  }
+  .measures-table tr {
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #efe8dc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  }
   .measures-table td {
     padding: 6px 8px;
-    font-size: 13px;
-  }
-  .measures-modal .measures-hd h3 { font-size: 1rem; }
-  .measures-modal .measures-ft { gap: 8px; padding: 10px; }
-}
-
-/* Very small screens: prevent squeeze */
-@media (max-width: 400px) {
-  .measures-modal .measures-body { grid-template-columns: 1fr; }
-  .measures-table {
+    display: block;
     width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
   }
-  .measures-table th,
-  .measures-table td {
-    white-space: normal !important;
-    word-break: break-word;
-    overflow-wrap: anywhere;
-    padding: 8px;
+  .measures-table td:nth-child(1) {
+    font-weight: 700;
+    color: var(--wc-muted);
   }
-  .measures-table td code,
-  .measures-table th code,
-  .measures-table td pre,
-  .measures-table th pre {
-    white-space: normal !important;
+  .measures-table td:nth-child(2) {
+    margin-top: 6px;
+    color: var(--wc-ink);
+  }
+  .measures-table td code, .measures-table td pre {
+    white-space: normal;
     overflow-wrap: anywhere;
     display: inline-block;
     max-width: 100%;
   }
 }
 
-/* Prevent background scroll while modal is open */
-body.modal-open {
-  overflow: hidden;
-  touch-action: none;
+/* accessibility focus */
+.measures-modal .btn:focus,
+.measures-modal .measures-close:focus {
+  outline: 3px solid rgba(138,98,63,0.12); /* soft wood color */
+  outline-offset: 2px;
 }
 
-/* Disable interactions behind modal when open */
+/* buttons themed like wc */
+.measures-modal .btn {
+  border-radius: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--wc-border);
+  background: transparent;
+  color: var(--wc-ink);
+}
+.measures-modal .btn.primary {
+  background: var(--wc-acc);
+  border-color: var(--wc-acc);
+  color: #fff;
+}
+
+/* prevent background interactions when modal open */
+body.modal-open { overflow: hidden; touch-action: none; }
 body.modal-open .project-area,
 body.modal-open .project-selectors,
-body.modal-open #projectPanel,
-body.modal-open #btnProjectDel,
-body.modal-open .toolbar,
-body.modal-open .container {
-  pointer-events: none;
-  user-select: none;
-}
+body.modal-open #projectPanel { pointer-events: none; user-select: none; }
