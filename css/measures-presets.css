@@ -187,16 +187,15 @@
   overflow-x: auto;
 }
 
-/* Tuning sub-sections */
-/* Ajustei o seletor para garantir que os títulos das medidas apareçam */
+/* Tuning sub-sections (Global Styles) */
 
 /* Este seletor garante que o wrapper da seção ocupe uma coluna no grid do body */
 .measures-modal .measures-body > .tuning-section {
     grid-column: span 1; 
 }
-/* Estilo para títulos H4 dentro da seção de tuning ou medidas */
+/* Estilo global para títulos H4 dentro da seção de tuning ou medidas */
 .measures-modal .measures-body .tuning-section .tuning-title {
-    display: block; /* Garante visibilidade */
+    display: block; /* Garante visibilidade no desktop */
     margin: 0 0 10px 0;
     font-size: 1.15rem;
     font-weight: 600;
@@ -210,13 +209,26 @@
     grid-column: 1 / -1; /* Ocupa a largura total (2 colunas de grid) no desktop */
 }
 
+/* ----------------------------------------------------------------------- */
 /* ---------- mobile: stack rows as label/value cards earlier (<=600px) ---------- */
 @media (max-width: 600px) {
   .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 12px; }
   .measures-modal .measures-body { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
+  
+  /* Garante que o título principal do modal de tuning (H3) apareça no mobile */
   .measures-modal .measures-body .tuning-root h3 {
     font-size: 1.25rem;
   }
+  
+  /* CORREÇÃO FINAL: Garante que o título da subseção (H4) seja visível no mobile */
+  .measures-modal .measures-body .tuning-section .tuning-title {
+      display: block;
+      margin: 0 0 10px 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--wc-acc);
+  }
+
   .tuning-root .tuning-section.action-table-wrap {
     grid-column: span 1; /* Volta a ser 1 coluna no mobile */
   }
