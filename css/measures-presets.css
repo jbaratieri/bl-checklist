@@ -1,5 +1,5 @@
 /* ===========================
-   measures-modal — Wood-themed (substitua seu bloco modal por este)
+   measures-modal — Wood-themed (Final Version)
    =========================== */
 
 /* Paleta baseada no wood-catalog.css */
@@ -101,10 +101,11 @@
   max-height: calc(100vh - 180px);
   box-sizing: border-box;
 }
-/* Estilo para as sub-seções (usado em medidas e afinações) */
+/* Estilo para as sub-seções (usado em afinações) */
 .measures-modal .measures-body .tuning-root {
   display: contents; /* Permite que os filhos se comportem como itens do grid */
 }
+/* Título principal do modal de tuning (H3) */
 .measures-modal .measures-body .tuning-root h3 {
     grid-column: 1 / -1; /* Ocupa a largura total para títulos principais */
     margin: 0 0 8px 0;
@@ -193,9 +194,9 @@
 .measures-modal .measures-body > .tuning-section {
     grid-column: span 1; 
 }
-/* Estilo global para títulos H4 dentro da seção de tuning ou medidas */
+/* Estilo global para títulos H4 (títulos de seção como 'BRAÇO') */
 .measures-modal .measures-body .tuning-section .tuning-title {
-    display: block; /* Garante visibilidade no desktop */
+    display: block; 
     margin: 0 0 10px 0;
     font-size: 1.15rem;
     font-weight: 600;
@@ -203,7 +204,6 @@
 }
 
 /* Tratamento especial para a tabela de Ação típica (3 colunas) */
-/* Aplica a largura total para o modal de Tuning (que usa .tuning-root) e o modal de Measures (sem .tuning-root) */
 .tuning-root .tuning-section.action-table-wrap,
 .measures-modal .measures-body > .tuning-section.action-table-wrap {
     grid-column: 1 / -1; /* Ocupa a largura total (2 colunas de grid) no desktop */
@@ -220,11 +220,11 @@
     font-size: 1.25rem;
   }
   
-  /* CORREÇÃO FINAL: Garante que o título da subseção (H4) seja visível no mobile */
+  /* ⭐️ FIX FINAL: Garante que o título da subseção (H4) seja visível no mobile */
   .measures-modal .measures-body .tuning-section .tuning-title {
-      display: block;
-      margin: 0 0 10px 0;
-      font-size: 1.15rem;
+      display: block !important; /* Usamos !important para garantir precedência */
+      margin: 0 0 10px 0; 
+      font-size: 1.15rem; 
       font-weight: 600;
       color: var(--wc-acc);
   }
