@@ -133,76 +133,44 @@
       }
 
 
-      // openModal agora delega à API do modal (open/close) e mantém restauração de footer
+      // openModal: AGORA CORRIGIDO, GERA H4 FORA DA TABELA
       function openModal(sectionFilter = null) {
         const m = ensureModal(); const code = INSTR(); const names = { vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
         $('#measuresInst', m).textContent = names[code] || code.toUpperCase();
         const body = $('#measuresBody', m); body.innerHTML = '';
         const secs = (window.BL_MEASURE_PRESETS && window.BL_MEASURE_PRESETS[code]) || {};
+        
         Object.keys(secs).forEach(sec => {
           if (sectionFilter && sectionFilter !== sec) return;
-          const table = document.createElement('table'); table.className = 'measures-table';
-          const head = document.createElement('thead'); head.innerHTML = `<tr><th colspan="2">${sec.toUpperCase()}</th></tr>`;
+
+          // NOVO: Criar a seção e o título H4 (para que o título seja visível no mobile)
+          const section = document.createElement('section');
+          section.className = 'tuning-section';
+          section.innerHTML = `<h4 class="tuning-title">${sec.toUpperCase()}</h4>`; 
+
+          // NOVO: Criar o wrapper da tabela
+          const tableWrap = document.createElement('div');
+          tableWrap.className = 'tuning-table-wrap';
+          const table = document.createElement('table'); 
+          table.className = 'measures-table';
+          
+          // REMOVIDO: A criação do thead
+          
           const tb = document.createElement('tbody');
           Object.entries(secs[sec]).forEach(([field, val]) => {
             const tr = document.createElement('tr');
             tr.innerHTML = `<td>${field.replace(/_/g, ' ')}</td><td>${val || '—'}</td>`;
             tb.appendChild(tr);
           });
-          table.appendChild(head); table.appendChild(tb); body.appendChild(table);
-        });// openModal agora delega à API do modal (open/close) e mantém restauração de footer
-        function openModal(sectionFilter = null) {
-          const m = ensureModal(); const code = INSTR(); const names = { vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
-          $('#measuresInst', m).textContent = names[code] || code.toUpperCase();
-          const body = $('#measuresBody', m); body.innerHTML = '';
-          const secs = (window.BL_MEASURE_PRESETS && window.BL_MEASURE_PRESETS[code]) || {};
+          
+          // NOVO: Montar a estrutura da seção
+          table.appendChild(tb); 
+          tableWrap.appendChild(table);
+          section.appendChild(tableWrap);
 
-          Object.keys(secs).forEach(sec => {
-            if (sectionFilter && sectionFilter !== sec) return;
-
-            // NOVO: Criar a seção e o título H4 (para que o título seja visível no mobile)
-            const section = document.createElement('section');
-            section.className = 'tuning-section';
-            section.innerHTML = `<h4 class="tuning-title">${sec.toUpperCase()}</h4>`;
-
-            // NOVO: Criar o wrapper da tabela
-            const tableWrap = document.createElement('div');
-            tableWrap.className = 'tuning-table-wrap';
-            const table = document.createElement('table');
-            table.className = 'measures-table';
-
-            // REMOVIDO: A criação do thead (cabeçalho da seção), pois agora ele é o H4 acima.
-            // const head = document.createElement('thead'); head.innerHTML = `<tr><th colspan="2">${sec.toUpperCase()}</th></tr>`;
-
-            const tb = document.createElement('tbody');
-            Object.entries(secs[sec]).forEach(([field, val]) => {
-              const tr = document.createElement('tr');
-              tr.innerHTML = `<td>${field.replace(/_/g, ' ')}</td><td>${val || '—'}</td>`;
-              tb.appendChild(tr);
-            });
-
-            // NOVO: Montar a estrutura da seção
-            table.appendChild(tb);
-            tableWrap.appendChild(table);
-            section.appendChild(tableWrap);
-
-            // NOVO: Adicionar a seção completa ao corpo do modal
-            body.appendChild(section);
-          });
-
-          // esconder footer temporariamente se desejar (o comportamento anterior escondia o footer para tuning)
-          // Mas aqui vamos manter o footer visível por padrão; quem quiser escondê-lo antes de abrir,
-          // faz: const m = ensureModal(); const ft = m.querySelector('.measures-ft'); if (ft) ft.style.display='none';
-          // Abrimos via API:
-          if (m.open && typeof m.open === 'function') {
-            m.open();
-          } else {
-            // fallback: ajustar display/scroll
-            m.classList.add('open');
-            document.body.classList.add('modal-open');
-            m.style.display = 'flex';
-          }
-        }
+          // NOVO: Adicionar a seção completa ao corpo do modal
+          body.appendChild(section);
+        });
 
         // esconder footer temporariamente se desejar (o comportamento anterior escondia o footer para tuning)
         // Mas aqui vamos manter o footer visível por padrão; quem quiser escondê-lo antes de abrir,
