@@ -147,25 +147,6 @@
   overflow-x: auto;
 }
 
-/* ---------- medium narrow screens: avoid first-column squeeze ---------- */
-/* breakpoint medium: when viewport is not fully desktop but not tiny mobile */
-@media (max-width: 920px) and (min-width: 360px) {
-  .measures-table { table-layout: fixed; }
-  .measures-table th:first-child,
-  .measures-table td:first-child {
-    width: 40%;
-    min-width: 120px;
-    max-width: 45%;
-  }
-  .measures-table th:nth-child(2),
-  .measures-table td:nth-child(2) {
-    width: 60%;
-  }
-  /* allow code to wrap inside the table cells in this range */
-  .measures-table td code,
-  .measures-table th code { white-space: normal; }
-}
-
 /* ---------- mobile: stack rows as label/value cards earlier (<=600px) ---------- */
 @media (max-width: 600px) {
   .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 12px; }

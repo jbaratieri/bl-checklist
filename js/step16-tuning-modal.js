@@ -5,25 +5,24 @@
 
 const TUNINGS = [
   {
-    instrument: 'Viola caipira (afinações comuns)',
+    instrument: 'Viola caipira (do 5º para o 1º par)',
     examples: [
-      {name: 'Cebolão em Ré', tuning: 'D A F# D A'},
-      {name: 'Cebolão em Mi', tuning: 'E B G# E B'},
-      {name: 'Rio Abaixo / Boiadeira', tuning: 'varia — consulte afinações locais'}
+      {name: 'Cebolão em Ré', tuning: 'A D F# A D'},
+      {name: 'Cebolão em Mi', tuning: 'B E G# B E'},
+      {name: 'Rio Abaixo', tuning: 'D B G D G'}
     ]
   },
   {
-    instrument: 'Violão (padrão)',
+    instrument: 'Violão (da 6ª para a 1ª corda)',
     examples: [
       {name: 'Standard', tuning: 'E A D G B E'}
     ]
   },
   {
-    instrument: 'Cavaquinho',
+    instrument: 'Cavaquinho (da 4ª para a 1ª corda)',
     examples: [
-      {name: 'Tradicional', tuning: 'D B G D'},
-      {name: 'Imita violão', tuning: 'E B G D'},
-      {name: 'Afin. bandolim', tuning: 'E A D G'}
+      {name: 'Tradicional', tuning: 'D G B D'},
+      {name: 'Imita violão', tuning: 'D G B E'},
     ]
   },
   {
@@ -35,10 +34,11 @@ const TUNINGS = [
 ];
 
 const ACTION_RANGES = [
-  {instrument: 'Violão aço', fret1: '≈ 0.4 – 1.0 mm', fret12: '≈ 2.0 – 3.0 mm'},
-  {instrument: 'Violão nylon', fret1: '≈ 0.8 – 1.6 mm', fret12: '≈ 2.5 – 4.5 mm'},
-  {instrument: 'Ukulele / cavaquinho', fret1: '≈ 0.3 – 0.8 mm', fret12: '≈ 1.5 – 2.5 mm'},
-  {instrument: 'Viola caipira', fret1: '≈ 0.5 – 1.0 mm', fret12: '≈ 2.5 – 3.5 mm'}
+  {instrument: 'Violão aço', fret1: '≈ 0.4 – 1.0 ', fret12: '≈ 2.0 – 3.0 '},
+  {instrument: 'Violão nylon', fret1: '≈ 0.8 – 1.6 ', fret12: '≈ 2.5 – 4.5 '},
+  {instrument: 'Viola caipira', fret1: '≈ 0.5 – 1.0 ', fret12: '≈ 2.5 – 3.5 '},
+  {instrument: 'Ukuleles', fret1: '≈ 0.3 – 0.8 ', fret12: '≈ 1.5 – 2.5 '},
+  {instrument: 'Cavaquinho', fret1: '≈ 0.3 – 0.8 ', fret12: '≈ 1.5 – 2.5 '},
 ];
 
 // ----------------------
@@ -75,7 +75,7 @@ function buildTuningsHtml() {
 
   // Ação típica
   html += `
-    <h3>Ação típica — valores indicativos</h3>
+    <h3>Ação típica — valores indicativos [milímetros ()]</h3>
     <section class="tuning-section">
       <div class="tuning-table-wrap">
         <table class="measures-table">
@@ -216,7 +216,7 @@ function openTuningModalViaMeasures() {
   });
   observer.observe(m, { attributes: true });
 
-  // Return an object in case callers want to close programmatically
+  // Return an object in case callers want to close prograatically
   return {
     close: restoreHandler
   };
