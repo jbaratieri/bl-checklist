@@ -55,7 +55,6 @@ function buildTuningsHtml() {
         <h4 class="tuning-title">${section.instrument}</h4>
         <div class="tuning-table-wrap">
           <table class="measures-table">
-            <thead><tr><th>Nome / Uso</th><th>Afinação</th></tr></thead>
             <tbody>
     `;
     section.examples.forEach(ex => {
