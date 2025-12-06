@@ -15,7 +15,7 @@
   --wc-shadow: rgba(0,0,0,0.12);
   --modal-backdrop: rgba(0,0,0,0.44);
   --modal-radius: 14px;
-  --modal-gap: 14px;
+  --modal-gap: 16px; /* Aumentado um pouco o espaçamento geral */
   --max-modal-width: 960px;
 }
 
@@ -29,6 +29,7 @@
   padding: clamp(10px, 3vw, 28px);
   z-index: 14000;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  font-size: 16px; /* Garante tamanho base */
 }
 
 /* visible */
@@ -58,7 +59,7 @@
   background: var(--wc-surface);
   color: var(--wc-ink);
   border: 1px solid var(--wc-border);
-  box-shadow: 0 12px 36px var(--wc-shadow);
+  box-shadow: 0 16px 48px var(--wc-shadow); /* Sombra mais destacada */
   transition: transform .18s ease, opacity .18s ease;
   box-sizing: border-box;
 }
@@ -68,38 +69,50 @@
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding: 14px 16px;
+  padding: 14px 18px; /* Padding ajustado */
   background: #f5eadb; /* igual ao wc-head */
   border-bottom: 1px solid #e9d7bf;
 }
 .measures-modal .measures-hd h3 {
   margin:0;
-  font-weight:600;
-  font-size:1.05rem;
-  color: var(--wc-ink);
+  font-weight:700; /* Mais destaque */
+  font-size:1.15rem;
+  color: var(--wc-muted); /* Usando muted para o título principal */
 }
 
 /* footer */
 .measures-modal .measures-ft {
   display:flex;
-  gap:10px;
+  gap:12px;
   align-items:center;
   justify-content:flex-end;
-  padding: 12px 14px;
+  padding: 12px 18px; /* Padding ajustado */
   border-top: 1px solid #e9d7bf;
   background: #faf7f2;
 }
 
 /* body */
 .measures-modal .measures-body {
-  padding: 14px;
+  padding: var(--modal-gap);
   overflow:auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Min-width um pouco maior */
   gap: var(--modal-gap);
   max-height: calc(100vh - 180px);
   box-sizing: border-box;
 }
+/* Estilo para as sub-seções (usado em medidas e afinações) */
+.measures-modal .measures-body .tuning-root {
+  display: contents; /* Permite que os filhos se comportem como itens do grid */
+}
+.measures-modal .measures-body .tuning-root h3 {
+    grid-column: 1 / -1; /* Ocupa a largura total para títulos principais */
+    margin: 0 0 8px 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--wc-acc);
+}
+
 
 /* tuning table wrap */
 .tuning-table-wrap {
@@ -109,6 +122,7 @@
   box-sizing: border-box;
   border-radius: 10px;
   background: transparent;
+  border: 1px solid var(--wc-border); /* Borda mais suave para a tabela */
 }
 
 /* table base */
@@ -116,19 +130,45 @@
   width:100%;
   min-width:0;
   border-collapse: collapse;
-  table-layout: auto; /* default desktop behavior */
-  background: transparent;
+  table-layout: auto;
+  background: var(--wc-surface);
 }
 
-/* cells */
+/* cells, desktop styles */
 .measures-table th,
 .measures-table td {
-  padding: 8px 10px;
+  padding: 10px 12px; /* Padding ajustado */
   vertical-align: middle;
   color: var(--wc-ink);
   font-size: 0.95rem;
   word-break: break-word;
   white-space: normal;
+  border-bottom: 1px solid var(--wc-border); /* Linha divisória entre linhas */
+}
+
+/* header row */
+.measures-table thead th {
+    background: #f5eadb; /* Cor de fundo para cabeçalhos */
+    font-weight: 700;
+    color: var(--wc-muted);
+    border-bottom: 2px solid var(--wc-border);
+}
+
+/* header row for measure tables (section titles) */
+.measures-table thead tr:first-child th {
+    background: #e9d7bf; /* Cor ligeiramente mais escura para títulos de seção */
+    color: var(--wc-ink);
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+/* zebra stripe */
+.measures-table tbody tr:nth-child(even) {
+    background-color: #fcfaf7; /* Fundo levemente off-white para linhas pares */
+}
+.measures-table tbody tr:last-child td {
+    border-bottom: none; /* Remove borda da última linha */
 }
 
 /* code/pre inside table: desktop nowrap, soft bg */
@@ -137,23 +177,47 @@
 .measures-table th code,
 .measures-table th pre {
   display:inline-block;
-  padding: 3px 8px;
+  padding: 4px 10px; /* Padding ajustado */
   border-radius: 8px;
-  background: rgba(0,0,0,0.03);
+  background: rgba(138,98,63,0.06); /* Usando a cor de acento (wood color) */
   color: var(--wc-ink);
-  border: 1px solid rgba(0,0,0,0.03);
+  border: 1px solid rgba(138,98,63,0.1);
   white-space: nowrap;
   max-width: 100%;
   overflow-x: auto;
+}
+
+/* Tuning sub-sections */
+.tuning-root .tuning-section {
+    grid-column: span 1; /* Padrão de 1 coluna no grid do body (para as tabelas menores) */
+}
+.tuning-root .tuning-section .tuning-title {
+    margin: 0 0 10px 0;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--wc-acc);
+}
+
+/* Tratamento especial para a tabela de Ação típica (3 colunas, força layout de 3 colunas) */
+.tuning-root .tuning-section.action-table-wrap {
+    grid-column: 1 / -1; /* Ocupa a largura total (2 colunas de grid) no desktop */
 }
 
 /* ---------- mobile: stack rows as label/value cards earlier (<=600px) ---------- */
 @media (max-width: 600px) {
   .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 12px; }
   .measures-modal .measures-body { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
+  .measures-modal .measures-body .tuning-root h3 {
+    font-size: 1.25rem;
+  }
+  .tuning-root .tuning-section.action-table-wrap {
+    grid-column: span 1; /* Volta a ser 1 coluna no mobile */
+  }
 
   /* cardified table */
- /* .measures-table thead { display:block;justify-self:center; }*/
+  /* Remove o thead nas tabelas cardificadas, exceto se for a tabela de 3 colunas */
+  .measures-table:not(.action-table) thead { display: none; }
+
   .measures-table, .measures-table tbody, .measures-table tr, .measures-table td {
     display: block;
     width: 100%;
@@ -170,42 +234,88 @@
     padding: 6px 8px;
     display: inline;
     width: 100%;
+    border-bottom: none; /* Remove borda entre células no modo card */
   }
   .measures-table td:nth-child(1) {
     font-weight: 700;
     color: var(--wc-muted);
   }
+  /* Célula de valor */
   .measures-table td:nth-child(2) {
     margin-top: 6px;
     color: var(--wc-ink);
   }
+  /* Tratamento específico para a 3ª coluna da tabela de Ação (mobile) */
+  .measures-table td:nth-child(3) {
+      margin-top: 6px;
+      color: var(--wc-ink);
+      font-style: italic;
+  }
+
   .measures-table td code, .measures-table td pre {
     white-space: normal;
     overflow-wrap: anywhere;
     display: inline-block;
     max-width: 100%;
   }
+
+  /* Tablela de Ação (3 colunas) - Mantém o header e o visual de tabela no mobile para melhor clareza */
+  .measures-table.action-table {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+      box-shadow: none; /* Sem sombra e borda dupla no wrap */
+  }
+  .measures-table.action-table thead, .measures-table.action-table tr {
+      display: table-row;
+  }
+  .measures-table.action-table th, .measures-table.action-table td {
+      display: table-cell;
+      width: auto;
+      text-align: center;
+      padding: 8px 6px;
+  }
+  .measures-table.action-table thead th:first-child,
+  .measures-table.action-table tbody td:first-child {
+      text-align: left;
+      font-weight: 500;
+      color: var(--wc-ink);
+  }
+  .measures-table.action-table tr {
+      margin-bottom: 0;
+      background: var(--wc-surface);
+      border: none;
+      border-radius: 0;
+  }
+  .measures-table.action-table tbody tr:nth-child(even) {
+    background-color: #fcfaf7;
+  }
 }
 
 /* accessibility focus */
 .measures-modal .btn:focus,
 .measures-modal .measures-close:focus {
-  outline: 3px solid rgba(138,98,63,0.12); /* soft wood color */
+  outline: 3px solid rgba(138,98,63,0.3); /* soft wood color mais visível */
   outline-offset: 2px;
 }
 
 /* buttons themed like wc */
 .measures-modal .btn {
   border-radius: 10px;
-  padding: 8px 12px;
+  padding: 8px 14px; /* Padding ajustado */
   border: 1px solid var(--wc-border);
   background: transparent;
   color: var(--wc-ink);
+  font-weight: 500;
+  cursor: pointer;
 }
 .measures-modal .btn.primary {
   background: var(--wc-acc);
   border-color: var(--wc-acc);
   color: #fff;
+}
+.measures-modal .btn:hover {
+    opacity: 0.85;
 }
 
 /* prevent background interactions when modal open */

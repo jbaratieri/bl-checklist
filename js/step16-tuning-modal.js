@@ -49,6 +49,8 @@ function buildTuningsHtml() {
     <h3>Afinações comuns</h3>
   `;
 
+
+
   TUNINGS.forEach(section => {
     html += `
       <section class="tuning-section" aria-labelledby="">
@@ -73,13 +75,11 @@ function buildTuningsHtml() {
     `;
   });
 
-  // Ação típica
+    // Ação típica
   html += `
-    <h3>Ação típica — valores indicativos [milímetros ()]</h3>
-    <section class="tuning-section">
-      <div class="tuning-table-wrap">
-        <table class="measures-table">
-          <thead><tr><th>Instrumento</th><th>Traste 1</th><th>Traste 12</th></tr></thead>
+    <h3>Ação típica — valores em milímetros</h3>
+    <section class="tuning-section action-table-wrap">  <div class="tuning-table-wrap">
+        <table class="measures-table action-table">     <thead><tr><th>Instrumento</th><th>Traste 1</th><th>Traste 12</th></tr></thead>
           <tbody>
   `;
   ACTION_RANGES.forEach(r => {
