@@ -188,18 +188,25 @@
 }
 
 /* Tuning sub-sections */
-.tuning-root .tuning-section {
-    grid-column: span 1; /* Padrão de 1 coluna no grid do body (para as tabelas menores) */
+/* Ajustei o seletor para garantir que os títulos das medidas apareçam */
+
+/* Este seletor garante que o wrapper da seção ocupe uma coluna no grid do body */
+.measures-modal .measures-body > .tuning-section {
+    grid-column: span 1; 
 }
-.tuning-root .tuning-section .tuning-title {
+/* Estilo para títulos H4 dentro da seção de tuning ou medidas */
+.measures-modal .measures-body .tuning-section .tuning-title {
+    display: block; /* Garante visibilidade */
     margin: 0 0 10px 0;
     font-size: 1.15rem;
     font-weight: 600;
     color: var(--wc-acc);
 }
 
-/* Tratamento especial para a tabela de Ação típica (3 colunas, força layout de 3 colunas) */
-.tuning-root .tuning-section.action-table-wrap {
+/* Tratamento especial para a tabela de Ação típica (3 colunas) */
+/* Aplica a largura total para o modal de Tuning (que usa .tuning-root) e o modal de Measures (sem .tuning-root) */
+.tuning-root .tuning-section.action-table-wrap,
+.measures-modal .measures-body > .tuning-section.action-table-wrap {
     grid-column: 1 / -1; /* Ocupa a largura total (2 colunas de grid) no desktop */
 }
 
