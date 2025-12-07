@@ -237,9 +237,6 @@ header.app .app-logo {
 @media (max-width: 480px) {
   header.app .toolbar {
     display: grid;
-    /* auto-fit tenta acomodar o máximo de botões que couberem,
-       cada botão fica no mínimo 110px e cresce até 1fr */
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
     gap: 8px;
     width: 100%;
     max-width: 100%;

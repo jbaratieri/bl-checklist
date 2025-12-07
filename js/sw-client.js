@@ -3,7 +3,7 @@
   'use strict';
 
   // Update this query on each deploy to force fetching a new service-worker.js
-  const SW_URL = '/service-worker.js?v=20251130';
+  const SW_URL = '/service-worker.js?v=20251207';
   const BANNER_ID = 'sw-update-banner';
 
   if (!('serviceWorker' in navigator)) {

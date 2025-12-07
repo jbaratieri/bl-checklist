@@ -9,7 +9,7 @@ const TUNINGS = [
     examples: [
       {name: 'Cebolão em Ré', tuning: 'A D F# A D'},
       {name: 'Cebolão em Mi', tuning: 'B E G# B E'},
-      {name: 'Rio Abaixo', tuning: 'D B G D G'}
+      {name: 'Rio Abaixo', tuning: 'G D G B D'}
     ]
   },
   {
