@@ -1,5 +1,5 @@
-// service-worker.js — LuthierPro v2.4.6 (ajustado: banner-control + manual network-first)
-const CACHE_VERSION = 'luthierpro-v2.4.6';
+// service-worker.js — Método Baratieri v2.5.0
+const CACHE_VERSION = 'metodo-baratieri-v2.5.0';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
@@ -37,7 +37,7 @@ const APP_SHELL = [
   './js/login.js',
   './icon/icon-192.webp',
   './icon/icon-512.webp',
-  './assets/logos/logo-luthierpro1.webp'
+  './assets/logos/logo-metodo-baratieri.png'
 ];
 
 async function putWithTrim(cacheName, request, response, matchPrefixList = []) {

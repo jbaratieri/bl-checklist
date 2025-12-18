@@ -1,13 +1,13 @@
 {
-  "id": "./",
-  "name": "LuthierPro — Guia Interativo de Luthieria",
-  "short_name": "LuthierPro",
-  "description": "Aplicativo interativo para construção artesanal de instrumentos de corda. Desenvolvido por Baratieri Luthieria.",
+  "id": "/",
+  "name": "Método Baratieri — Guia Interativo de Luthieria",
+  "short_name": "Baratieri",
+  "description": "App interativo para construção artesanal de instrumentos de cordas. Desenvolvido por Baratieri Luthieria.",
   "lang": "pt-BR",
   "dir": "ltr",
 
-  "start_url": "./?source=pwa",
-  "scope": "./",
+  "start_url": "/?source=pwa",
+  "scope": "/",
   "display": "standalone",
   "display_override": ["standalone", "fullscreen", "browser"],
   "background_color": "#f4f0ea",
@@ -16,9 +16,9 @@
   "categories": ["education", "productivity", "utilities"],
 
   "icons": [
-    { "src": "./icon/icon-192.webp", "sizes": "192x192", "type": "image/webp", "purpose": "any" },
-    { "src": "./icon/icon-512.webp", "sizes": "512x512", "type": "image/webp", "purpose": "any" },
-    { "src": "./icon/icon-192-maskable.webp", "sizes": "192x192", "type": "image/webp", "purpose": "maskable" },
-    { "src": "./icon/icon-512-maskable.webp", "sizes": "512x512", "type": "image/webp", "purpose": "maskable" }
+    { "src": "/icon/icon-192.webp", "sizes": "192x192", "type": "image/webp", "purpose": "any" },
+    { "src": "/icon/icon-512.webp", "sizes": "512x512", "type": "image/webp", "purpose": "any" },
+    { "src": "/icon/icon-192-maskable.webp", "sizes": "192x192", "type": "image/webp", "purpose": "maskable" },
+    { "src": "/icon/icon-512-maskable.webp", "sizes": "512x512", "type": "image/webp", "purpose": "maskable" }
   ]
 }
