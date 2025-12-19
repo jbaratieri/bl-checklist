@@ -18,6 +18,7 @@
       --brand: #5c3b1e;
       --accent: #8a623f;
       --radius: 16px;
+      --border: #e4ded6;
     }
 
     * {
@@ -104,20 +105,76 @@
       font-size: 0.9rem;
     }
 
-  .affiliate-text {
-    width: 100%;
-    min-height: 140px;
-    padding: 12px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: #0c1326;
-    color: #e5e7eb;
-    resize: vertical;
-    font: 14px/1.4 system-ui, sans-serif;
-    margin-bottom: 8px;
-  }
+    .affiliate-text {
+      width: 100%;
+      min-height: 140px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #faf8f4;
+      color: #2e2a26;
+      resize: vertical;
+      font: 14px/1.5 system-ui, sans-serif;
+      margin-bottom: 8px;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px dashed var(--accent);
+      color: var(--accent);
+    }
 
 
+
+    /* ===== Dicas para Afiliados ===== */
+    .affiliate-tips {
+      margin-top: 18px;
+    }
+
+    .affiliate-tips h2 {
+      margin: 0 0 8px 0;
+      font-size: 22px;
+    }
+
+    .tip-intro {
+      color: var(--muted);
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .tip-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .tip-list li {
+      display: flex;
+      gap: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+    }
+
+    .tip-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .tip-list strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+    }
+
+    .tip-list p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ink);
+    }
   </style>
 </head>
 
@@ -140,7 +197,8 @@
         PDF com explicação do produto, público-alvo, fluxo de compra,
         modelos de texto e orientações de divulgação.
       </p>
-      <a class="btn" href="https://drive.google.com/drive/folders/1MNz85TpGrXoPiFMku9RaWHG7r0Wibfih?usp=drive_link" target="_blank">Baixar Kit em PDF</a>
+      <a class="btn" href="https://drive.google.com/drive/folders/1MNz85TpGrXoPiFMku9RaWHG7r0Wibfih?usp=drive_link"
+        target="_blank">Baixar Kit em PDF</a>
     </section>
 
     <section class="card">
@@ -157,8 +215,55 @@
         <li>728×90</li>
         <li>160×600</li>
       </ul>
-      <a class="btn secondary" href="https://drive.google.com/drive/folders/1MNz85TpGrXoPiFMku9RaWHG7r0Wibfih?usp=drive_link" target="_blank">Acessar Banners</a>
+      <a class="btn secondary"
+        href="https://drive.google.com/drive/folders/1MNz85TpGrXoPiFMku9RaWHG7r0Wibfih?usp=drive_link"
+        target="_blank">Acessar Banners</a>
     </section>
+
+    <section class="card affiliate-tips">
+      <h2>Como divulgar o Método Baratieri</h2>
+
+      <p class="tip-intro">
+        Antes de copiar os textos prontos, leia estas orientações rápidas.
+        Elas aumentam muito suas conversões.
+      </p>
+
+      <ul class="tip-list">
+        <li>
+          <span class="tip-icon">🔰</span>
+          <div>
+            <strong>Público iniciante</strong>
+            <p>
+              Use termos como <em>passo a passo</em>, <em>aprenda do zero</em>,
+              <em>guia simples</em>, <em>primeiro instrumento</em>.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <span class="tip-icon">🧠</span>
+          <div>
+            <strong>Público experiente</strong>
+            <p>
+              Prefira <em>método</em>, <em>processo</em>, <em>padronização</em>,
+              <em>clareza técnica</em> e <em>controle da construção</em>.
+            </p>
+          </div>
+        </li>
+
+        <li>
+          <span class="tip-icon">🎯</span>
+          <div>
+            <strong>Regra de ouro</strong>
+            <p>
+              Não misture os dois tons no mesmo perfil ou anúncio.
+              Clareza gera confiança — e vendas.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
 
     <section class="card" id="textos-afiliados" style="margin-top:18px">
       <h2 class="h2">✍️ Textos prontos para divulgação</h2>
@@ -229,6 +334,147 @@ SEU_LINK_DE_AFILIADO</textarea>
       </p>
     </section>
 
+    <section class="card" style="margin-top:18px">
+      <h2>📲 Instagram — Bio e Stories</h2>
+      <p class="muted">Textos prontos para copiar e colar.</p>
+
+      <h3>🔰 Bio — Público iniciante</h3>
+      <textarea readonly class="affiliate-text">🎸 Luteria do zero, passo a passo
+🪵 Construção artesanal de instrumentos
+📱 Método Baratieri — guia interativo
+👇 Acesse aqui
+SEU_LINK_DE_AFILIADO</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar bio</button>
+
+      <h3 style="margin-top:14px">🧠 Bio — Público experiente</h3>
+      <textarea readonly class="affiliate-text">🎸 Luteria com método e clareza
+🪵 Processo artesanal organizado
+📐 Medidas, etapas e controle técnico
+👇 Método Baratieri
+SEU_LINK_DE_AFILIADO</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar bio</button>
+
+      <h3 style="margin-top:18px">🔰 Stories — Público iniciante (3 telas)</h3>
+      <textarea readonly class="affiliate-text">Story 1
+Quer aprender luteria,
+mas não sabe por onde começar? 🎸
+
+Story 2
+O Método Baratieri
+mostra o passo a passo completo
+da construção artesanal.
+
+Story 3
+Guia interativo no celular
+para construir seu instrumento.
+👇 Acesse aqui
+SEU_LINK_DE_AFILIADO</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar stories</button>
+
+      <h3 style="margin-top:18px">🧠 Stories — Público experiente (3 telas)</h3>
+      <textarea readonly class="affiliate-text">Story 1
+Seu processo de construção
+pode ser mais claro e organizado.
+
+Story 2
+O Método Baratieri estrutura
+etapas, medidas e decisões técnicas.
+
+Story 3
+Mais controle na bancada.
+👇 Conheça o Método Baratieri
+SEU_LINK_DE_AFILIADO</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar stories</button>
+
+      <p class="muted" style="font-size:13px;margin-top:10px">
+        💡 Use um único perfil por público. Evite misturar iniciante e avançado.
+      </p>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>🎥 Reels — Roteiros prontos</h2>
+      <p class="muted">
+        Grave com o celular na vertical. Seja natural. Não leia — fale.
+      </p>
+
+      <h3>🔰 Reel — Problema → Solução</h3>
+      <textarea readonly class="affiliate-text">Você quer aprender luteria,
+mas se perde no meio do processo?
+
+O Método Baratieri organiza tudo
+em etapas simples e claras.
+
+É como ter um guia de bancada
+no celular.
+
+Link na bio.</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar roteiro</button>
+
+      <h3 style="margin-top:14px">🧠 Reel — Processo organizado</h3>
+      <textarea readonly class="affiliate-text">Construir instrumento sem método
+gera retrabalho.
+
+O Método Baratieri organiza
+etapas, medidas e decisões técnicas.
+
+Mais clareza na bancada.
+Link na bio.</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar roteiro</button>
+
+      <h3 style="margin-top:18px">📱 Reel — Mostrando o app</h3>
+      <textarea readonly class="affiliate-text">Esse app aqui
+me mostra o passo a passo
+da construção artesanal.
+
+Tudo organizado:
+etapas, medidas, imagens.
+
+Método Baratieri.
+Link na bio.</textarea>
+      <button class="btn btn-ghost copy-btn">Copiar roteiro</button>
+
+      <p class="muted" style="font-size:13px;margin-top:10px">
+        💡 Dica: vídeos de 10–20s performam melhor. Use legenda automática do Instagram.
+      </p>
+    </section>
+
+<section class="card" style="margin-top:18px">
+  <h2>📢 Anúncios pagos — textos prontos</h2>
+  <p class="muted">
+    Use estes textos em Meta Ads (Instagram/Facebook).
+  </p>
+
+  <h3>🔰 Anúncio — Iniciante</h3>
+  <textarea readonly class="affiliate-text">Quer aprender luteria,
+mas não sabe por onde começar?
+
+O Método Baratieri organiza
+a construção artesanal
+em etapas claras e sequenciais.
+
+Ideal para quem está começando.</textarea>
+  <button class="btn btn-ghost copy-btn">Copiar texto</button>
+
+  <h3 style="margin-top:14px">🧠 Anúncio — Processo</h3>
+  <textarea readonly class="affiliate-text">Na luteria, método evita retrabalho.
+
+O Método Baratieri organiza
+processos, etapas e decisões técnicas
+na construção artesanal.
+
+Mais clareza na bancada.</textarea>
+  <button class="btn btn-ghost copy-btn">Copiar texto</button>
+
+  <h3 style="margin-top:14px">📱 Anúncio — App</h3>
+  <textarea readonly class="affiliate-text">Este app guia toda a construção
+artesanal de instrumentos de cordas.
+
+Etapas, medidas e organização
+em um único lugar.</textarea>
+  <button class="btn btn-ghost copy-btn">Copiar texto</button>
+</section>
+
+
 
     <section class="card">
       <h2>ℹ️ Informações Importantes</h2>
@@ -248,19 +494,19 @@ SEU_LINK_DE_AFILIADO</textarea>
   </footer>
 
   <script>
-  document.querySelectorAll('.copy-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const textarea = btn.previousElementSibling;
-      textarea.select();
-      textarea.setSelectionRange(0, 99999);
-      navigator.clipboard.writeText(textarea.value);
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const textarea = btn.previousElementSibling;
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(textarea.value);
 
-      const original = btn.textContent;
-      btn.textContent = 'Copiado ✔';
-      setTimeout(() => btn.textContent = original, 1500);
+        const original = btn.textContent;
+        btn.textContent = 'Copiado ✔';
+        setTimeout(() => btn.textContent = original, 1500);
+      });
     });
-  });
-</script>
+  </script>
 
 
 </body>
