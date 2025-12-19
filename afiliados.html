@@ -1,271 +1,268 @@
 <!doctype html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Programa de Afiliados — Método Baratieri</title>
-  <meta name="description" content="Se torne afiliado do Método Baratieri: comissões, materiais prontos e suporte para você faturar recomendando o primeiro app profissional de luthieria do Brasil." />
-  <meta property="og:title" content="Programa de Afiliados — Método Baratieri" />
-  <meta property="og:description" content="Ganhe comissões promovendo o Método Baratieri. Materiais prontos, suporte e bônus para afiliados ativos." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="/assets/og-luthierpro.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <title>Afiliados — Método Baratieri</title>
+  <meta name="description"
+    content="Materiais oficiais para afiliados do Método Baratieri. Banners, textos prontos e orientações de divulgação." />
+  <link rel="icon" href="/icon/icon-192.webp" />
+
   <style>
-    :root{
-      --bg:#FBF7F1; /* parchment */
-      --accent:#6B4C35; /* wood */
-      --muted:#6b6b6b;
-      --card:#fff;
-      --accent-2:#c48a53;
-      --max-width:1100px;
-      --radius:14px;
-      --shadow: 0 6px 20px rgba(30,30,30,0.08);
-    }
-    *{box-sizing:border-box}
-    body{font-family:Roboto,system-ui,Segoe UI,Arial; background:var(--bg); color:#222; margin:0; -webkit-font-smoothing:antialiased}
-    .container{max-width:var(--max-width); margin:40px auto; padding:24px}
-    header{display:flex;align-items:center;gap:18px}
-    .logo{display:flex;flex-direction:column;align-items:flex-start}
-    .brand{font-family:'Playfair Display',serif;color:var(--accent);font-size:24px;margin:0}
-    .tag{color:var(--muted);font-size:13px}
-
-    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:18px}
-    .card{background:var(--card);padding:22px;border-radius:var(--radius);box-shadow:var(--shadow)}
-    h1{font-size:28px;margin:0 0 8px 0}
-    p.lead{color:var(--muted);margin-top:0}
-    .cta{display:flex;gap:10px;margin-top:18px}
-    .btn{background:var(--accent);color:white;padding:12px 16px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
-    .btn.ghost{background:transparent;color:var(--accent);border:1px solid var(--accent)}
-
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px}
-    .feature{padding:14px;border-radius:12px;background:linear-gradient(180deg,#fff, #fff);border:1px solid rgba(0,0,0,0.03)}
-    .feature h4{margin:0 0 6px 0}
-    .screenshot{width:100%;height:260px;border-radius:10px;background:linear-gradient(180deg,#efe8dd,#fff);display:flex;align-items:center;justify-content:center;color:var(--muted);font-weight:700}
-
-    .how{display:flex;gap:20px;margin-top:24px}
-    .steps{flex:1}
-    .step{display:flex;gap:12px;margin-bottom:12px}
-    .step .num{width:36px;height:36px;border-radius:10px;background:var(--accent-2);display:flex;align-items:center;justify-content:center;color:white;font-weight:700}
-
-    .materials{width:420px}
-    .material-list{display:flex;flex-direction:column;gap:10px}
-    .material-item{display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:10px;border:1px dashed rgba(0,0,0,0.06);background:linear-gradient(180deg,#fff,#faf7f4)}
-
-    section{margin-top:36px}
-    .two-col{display:grid;grid-template-columns:1fr 380px;gap:20px}
-
-    footer{margin-top:40px;padding:18px;text-align:center;color:var(--muted);font-size:14px}
-
-    @media(max-width:980px){
-      .hero{grid-template-columns:1fr}
-      .features{grid-template-columns:repeat(2,1fr)}
-      .two-col{grid-template-columns:1fr}
-      .materials{width:100%}
-    }
-    @media(max-width:640px){
-      .features{grid-template-columns:1fr}
+    :root {
+      --bg: #f4f0ea;
+      --card: #ffffff;
+      --ink: #2e2a26;
+      --muted: #6f675f;
+      --brand: #5c3b1e;
+      --accent: #8a623f;
+      --radius: 16px;
     }
 
-    /* small badges */
-    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--accent-2);color:white;font-weight:700;font-size:12px}
-    .muted{color:var(--muted)}
-    .small{font-size:13px}
+    * {
+      box-sizing: border-box;
+    }
 
-    /* FAQ */
-    .faq .q{font-weight:700;margin-bottom:6px}
-    .faq .a{color:var(--muted);margin-bottom:12px}
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
 
-    /* CTA sticky */
-    .sticky-cta{position:sticky;top:22px}
+    header {
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    header img {
+      width: 92px;
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    header p {
+      max-width: 680px;
+      margin: 12px auto 0;
+      color: var(--muted);
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 1.25rem;
+    }
+
+    .card p {
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 12px 16px;
+      background: var(--brand);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+
+    .btn.secondary {
+      background: var(--accent);
+    }
+
+    ul {
+      padding-left: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 20px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+  .affiliate-text {
+    width: 100%;
+    min-height: 140px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: #0c1326;
+    color: #e5e7eb;
+    resize: vertical;
+    font: 14px/1.4 system-ui, sans-serif;
+    margin-bottom: 8px;
+  }
+
+
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <header>
-      <div class="logo">
-        <div style="display:flex;align-items:center;gap:12px">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="24" height="24" rx="6" fill="#6B4C35"/><path d="M7 15c2-3 6-3 8 0" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div>
-            <div class="brand">Método Baratieri</div>
-            <div class="tag">Programa de Afiliados • Ganhe promovendo o app</div>
-          </div>
-        </div>
-      </div>
-    </header>
 
-    <main class="hero">
-      <div>
-        <div class="card">
-          <h1>Ganhe comissões promovendo o Método Baratieri</h1>
-          <p class="lead">Materiais prontos, suporte direto com o criador e um produto único no nicho de luthieria — fácil de vender para luthiers, músicos e artesãos.</p>
+  <header>
+    <img src="/icon/icon-192.webp" alt="Método Baratieri" />
+    <h1>Central de Afiliados</h1>
+    <p>
+      Materiais oficiais para divulgação do <strong>Método Baratieri</strong>.<br>
+      Utilize sempre seu link de afiliado Hotmart.
+    </p>
+  </header>
 
-          <div class="features">
-            <div class="feature">
-              <h4>Comissão competitiva</h4>
-              <p class="small muted">Configurable na Hotmart — compartilhe seu link e ganhe a cada venda.</p>
-            </div>
-            <div class="feature">
-              <h4>Materiais prontos</h4>
-              <p class="small muted">Banners, copies, roteiros para Reels e um PDF Guia do Afiliado.</p>
-            </div>
-            <div class="feature">
-              <h4>Suporte direto</h4>
-              <p class="small muted">Ajuda individual com estratégias de primeira venda.</p>
-            </div>
-          </div>
+  <main>
 
-          <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
-            <button class="btn" onclick="goToAffiliate()">Quero me afiliar</button>
-            <button class="btn ghost" onclick="openWhatsapp()">Falar com Jacir</button>
-            <div style="margin-left:auto" class="small muted">Tempo médio para primeira venda: <strong>48h</strong></div>
-          </div>
+    <section class="card">
+      <h2>📘 Kit Oficial de Afiliados</h2>
+      <p>
+        PDF com explicação do produto, público-alvo, fluxo de compra,
+        modelos de texto e orientações de divulgação.
+      </p>
+      <a class="btn" href="https://drive.google.com/drive/folders/1MNz85TpGrXoPiFMku9RaWHG7r0Wibfih?usp=drive_link" target="_blank">Baixar Kit em PDF</a>
+    </section>
 
-          <div style="margin-top:18px;font-size:13px;color:var(--muted)">Link de afiliação: <code id="hotmart-link" style="user-select:text">HOTMART_LINK_AQUI</code></div>
-        </div>
+    <section class="card">
+      <h2>🖼 Banners para Divulgação</h2>
+      <p>
+        Conjunto completo de banners nos formatos mais usados em anúncios
+        e blogs.
+      </p>
+      <ul>
+        <li>250×250</li>
+        <li>300×250</li>
+        <li>336×280</li>
+        <li>468×60</li>
+        <li>728×90</li>
+        <li>160×600</li>
+      </ul>
+      <a class="btn secondary" href="https://drive.google.com/drive/folders/1MNz85TpGrXoPiFMku9RaWHG7r0Wibfih?usp=drive_link" target="_blank">Acessar Banners</a>
+    </section>
 
-        <section class="card how">
-          <div class="steps">
-            <h3>Como funciona (3 passos)</h3>
-            <div class="step"><div class="num">1</div><div><strong>Cadastre-se</strong><div class="muted small">Crie sua conta de afiliado na Hotmart e pegue o link.</div></div></div>
-            <div class="step"><div class="num">2</div><div><strong>Divulgue</strong><div class="muted small">Use os materiais prontos: posts, stories, roteiros e banners.</div></div></div>
-            <div class="step"><div class="num">3</div><div><strong>Receba</strong><div class="muted small">Comissão por cada venda realizada através do seu link.</div></div></div>
-          </div>
+    <section class="card" id="textos-afiliados" style="margin-top:18px">
+      <h2 class="h2">✍️ Textos prontos para divulgação</h2>
+      <p class="muted">
+        Copie, personalize se quiser e use seu link de afiliado.
+      </p>
 
-          <aside class="materials sticky-cta">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-              <div><strong>Materiais incluídos</strong><div class="small muted">Prontos para postar</div></div>
-              <div class="badge">Grátis</div>
-            </div>
-            <div class="material-list">
-              <div class="material-item">Copy para Instagram <button class="btn" onclick="download('copy-instagram')">Baixar</button></div>
-              <div class="material-item">Roteiro de Reels <button class="btn" onclick="download('roteiro')">Baixar</button></div>
-              <div class="material-item">Banner PNGs <button class="btn" onclick="download('banners')">Baixar</button></div>
-              <div class="material-item">Guia do Afiliado (PDF) <button class="btn" onclick="download('guia')">Baixar</button></div>
-            </div>
-          <div style="margin-top:18px;font-size:13px;color:var(--muted)"><strong>Link de afiliação:</strong><br><a href="https://app-vlc.hotmart.com/affiliate-recruiting/view/2105L102449367" target="_blank">https://app-vlc.hotmart.com/affiliate-recruiting/view/2105L102449367</a></div>
-</aside>
-        </section>
+      <!-- TWEET 1 -->
+      <div class="card" style="margin-top:12px">
+        <h3 class="h3">Tweet / X — Opção 1</h3>
+        <textarea readonly class="affiliate-text">🎸 Quer aprender luteria com método e clareza?
 
-        <section>
-          <div class="card">
-            <h3>Por que o Método Baratieri vende bem?</h3>
-            <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:12px">
-              <div style="flex:1;min-width:220px">
-                <strong>Produto nichado</strong>
-                <p class="muted small">Ferramenta única para construtores de instrumentos — público com alta intenção de compra.</p>
-              </div>
-              <div style="flex:1;min-width:220px">
-                <strong>Baixa concorrência</strong>
-                <p class="muted small">Poucos produtos semelhantes no mercado brasileiro — vantagem para quem promove.</p>
-              </div>
-              <div style="flex:1;min-width:220px">
-                <strong>Ticket acessível</strong>
-                <p class="muted small">Preço convidativo que facilita decisões de compra por hobbyistas e estudantes.</p>
-              </div>
-            </div>
-          </div>
-        </section>
+Conheça o Método Baratieri — guia interativo para construção artesanal de instrumentos de cordas.
 
-        <section class="card two-col">
-          <div>
-            <h3>Bônus e incentivos</h3>
-            <ul style="margin-top:8px;color:var(--muted)">
-              <li><strong>1ª venda:</strong> material exclusivo (checklist avançado de acabamento).</li>
-              <li><strong>5 vendas/mês:</strong> mini-curso gravado de lutheria.</li>
-              <li><strong>Top afiliado do mês:</strong> divulgação no perfil oficial + brinde.</li>
-            </ul>
-
-            <h3 style="margin-top:18px">Regras rápidas</h3>
-            <ul style="margin-top:8px;color:var(--muted)">
-              <li>Permitido: posts orgânicos, reviews, stories, grupos.</li>
-              <li>Proibido: anúncios pagos usando a marca Método Baratieri, spam, prints alterados.</li>
-            </ul>
-          </div>
-
-          <aside class="card">
-            <h4 class="small">Depoimentos</h4>
-            <div class="muted small">"Já vendi 3 licenças no primeiro fim de semana com o material padrão." — <em>Afiliado Beta</em></div>
-            <div style="height:18px"></div>
-            <h4 class="small">Resultados médios</h4>
-            <div class="muted small">Afiliados iniciantes costumam fazer a primeira venda em até 48h após postar com nossos roteiros.</div>
-          </aside>
-        </section>
-
-        <section class="card">
-          <h3>Perguntas frequentes</h3>
-          <div class="faq">
-            <div class="q">Qual é a comissão?</div>
-            <div class="a">A comissão é configurada pela Hotmart. Coloque aqui o percentual/valor fixo que você definiu.</div>
-
-            <div class="q">Como recebo o pagamento?</div>
-            <div class="a">Os pagamentos são feitos pela Hotmart diretamente ao afiliado, conforme regras da plataforma.</div>
-
-            <div class="q">Posso usar anúncios pagos?</div>
-            <div class="a">Anúncios pagos são permitidos desde que não utilizem a marca "Método Baratieri" como palavra-chave. Consulte as regras completas no Guia do Afiliado.</div>
-          </div>
-        </section>
-
+👉 SEU_LINK_DE_AFILIADO</textarea>
+        <button class="btn btn-ghost copy-btn">Copiar texto</button>
       </div>
 
-      <aside>
-        <div class="card">
-          <div class="screenshot">IMAGEM DO APP (insira imagens em /assets)</div>
-          <h3 style="margin-top:12px">Comece agora</h3>
-          <p class="muted small">Cadastre-se como afiliado na Hotmart e receba materiais imediatamente.</p>
-          <div style="display:flex;gap:8px;margin-top:12px">
-            <button class="btn" style="flex:1" onclick="goToAffiliate()">Me afiliar</button>
-            <button class="btn ghost" style="flex:1" onclick="openWhatsapp()">Suporte</button>
-          </div>
+      <!-- TWEET 2 -->
+      <div class="card" style="margin-top:12px">
+        <h3 class="h3">Tweet / X — Opção 2</h3>
+        <textarea readonly class="affiliate-text">Da madeira ao instrumento pronto.
+O Método Baratieri guia você passo a passo na construção artesanal.
 
-          <div style="margin-top:12px;font-size:13px;color:var(--muted)"><strong>Hotmart link:</strong><div style="word-break:break-all">HOTMART_LINK_AQUI</div></div>
-          <div style="margin-top:12px;font-size:13px;color:var(--muted)"><strong>WhatsApp:</strong> WHATSAPP_NUMBER_AQUI</div>
-        </div>
+Acesse aqui:
+👉 SEU_LINK_DE_AFILIADO</textarea>
+        <button class="btn btn-ghost copy-btn">Copiar texto</button>
+      </div>
 
-        <div style="height:18px"></div>
-        <div class="card">
-          <h4 class="small">Precisa de ajuda?</h4>
-          <p class="muted small">Envie uma mensagem no WhatsApp que eu (Jacir) te ajudo pessoalmente a montar sua primeira postagem.</p>
-          <button class="btn" style="width:100%;margin-top:10px" onclick="openWhatsapp()">Falar com Jacir</button>
-        </div>
-      </aside>
+      <!-- EMAIL 1 -->
+      <div class="card" style="margin-top:12px">
+        <h3 class="h3">E-mail — Modelo 1</h3>
+        <textarea readonly class="affiliate-text">Assunto: Um método prático para construir seu instrumento artesanal
 
-    </main>
+Olá,
 
-    <footer>
-      <div style="max-width:var(--max-width);margin:0 auto;padding:12px 24px">© Método Baratieri • Programa de Afiliados — Desenvolvido por Jacir Baratieri</div>
-    </footer>
-  </div>
+Quero te apresentar o Método Baratieri, um guia interativo criado por luthier para luthiers.
+
+Ele organiza todo o processo de construção de instrumentos de cordas em etapas claras, com checklists, medidas e desenhos técnicos — direto no celular ou computador.
+
+É ideal para quem está começando ou para quem quer padronizar o próprio método de trabalho.
+
+Conheça aqui:
+SEU_LINK_DE_AFILIADO
+
+Abraço,</textarea>
+        <button class="btn btn-ghost copy-btn">Copiar texto</button>
+      </div>
+
+      <!-- EMAIL 2 -->
+      <div class="card" style="margin-top:12px">
+        <h3 class="h3">E-mail — Modelo 2 (curto)</h3>
+        <textarea readonly class="affiliate-text">Assunto: Guia interativo de luteria artesanal
+
+Olá,
+
+O Método Baratieri é um app que guia, passo a passo, a construção de violões, violas, cavaquinhos e ukuleles.
+
+Tudo organizado em etapas, com clareza técnica e foco artesanal.
+
+Veja os detalhes:
+SEU_LINK_DE_AFILIADO</textarea>
+        <button class="btn btn-ghost copy-btn">Copiar texto</button>
+      </div>
+
+      <p class="muted" style="margin-top:10px;font-size:13px">
+        💡 Dica: substitua <strong>SEU_LINK_DE_AFILIADO</strong> pelo link gerado na Hotmart.
+      </p>
+    </section>
+
+
+    <section class="card">
+      <h2>ℹ️ Informações Importantes</h2>
+      <p>
+        O cliente compra pela Hotmart e resgata a licença através de um
+        link exclusivo antes de fazer login no aplicativo.
+      </p>
+      <p>
+        Caso tenha dúvidas, entre em contato com o suporte.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    © Método Baratieri — Construção artesanal de instrumentos de cordas
+  </footer>
 
   <script>
-    // Substitua as duas constantes abaixo com suas URLs reais
-    const HOTMART_LINK = 'HOTMART_LINK_AQUI';
-    const WHATSAPP_NUMBER = 'WHATSAPP_NUMBER_AQUI'; // exemplo: https://wa.me/5511999999999
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const textarea = btn.previousElementSibling;
+      textarea.select();
+      textarea.setSelectionRange(0, 99999);
+      navigator.clipboard.writeText(textarea.value);
 
-    function goToAffiliate(){
-      if(HOTMART_LINK && HOTMART_LINK !== 'HOTMART_LINK_AQUI'){
-        window.open(HOTMART_LINK,'_blank');
-      } else {
-        alert('Substitua HOTMART_LINK na variável HOTMART_LINK do arquivo com a URL do seu programa de afiliados na Hotmart.');
-      }
-    }
+      const original = btn.textContent;
+      btn.textContent = 'Copiado ✔';
+      setTimeout(() => btn.textContent = original, 1500);
+    });
+  });
+</script>
 
-    function openWhatsapp(){
-      if(WHATSAPP_NUMBER && WHATSAPP_NUMBER !== 'WHATSAPP_NUMBER_AQUI'){
-        window.open(WHATSAPP_NUMBER,'_blank');
-      } else {
-        alert('Substitua WHATSAPP_NUMBER na variável WHATSAPP_NUMBER do arquivo com o link do WhatsApp (ex: https://wa.me/55...).');
-      }
-    }
 
-    function download(key){
-      // esse botão é um placeholder — ao subir o site, aponte para os assets reais ou para um bucket
-      alert('Ao publicar, vincule o arquivo correspondente ao botão (ex: /assets/'+key+'.pdf)');
-    }
-
-    // Inserir os links visíveis no HTML
-    // Link visível diretamente no HTML; elemento removido.
-  </script>
 </body>
+
 </html>
