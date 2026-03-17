@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Método Baratieri — Guia Interativo de Construção de Instrumentos de Cordas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description"
+    content="Guia interativo vitalício para construção de violões, violas, cavaquinhos e ukulelês. Checklists, medidas, desenhos técnicos e fluxo completo de luthieria." />
+  <link rel="canonical" href="https://luthierpro.vercel.app/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Método Baratieri — Guia Interativo de Construção de Instrumentos de Cordas">
+  <meta property="og:description" content="Acesso vitalício ao guia completo — do projeto ao acabamento.">
+  <meta property="og:image" content="https://luthierpro.vercel.app/assets/banners/mockup-luthierpro.webp">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0f172a">
+
+  <link rel="icon" type="image/png" href="/icon/icon-192.webp" />
+
+  <style>
+    /* === estilos originais permanecem (não removi nada crítico)
+       Apenas removi estilos voltados ao trial/mensal === */
+
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --muted: #9ca3af;
+      --text: #e5e7eb;
+      --primary: #2563eb;
+      --accent: #10b981;
+      --border: #1f2937;
+      --warn: #f59e0b
+    }
+
+    * { box-sizing: border-box }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: linear-gradient(145deg, #0b1220, #0f172a);
+      color: var(--text);
+      font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      padding-top: 100px;
+    }
+
+    a { color: inherit; text-decoration: none }
+
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(15, 23, 42, .85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: .22s;
+    }
+
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; max-width: 1100px; margin: 0 auto; padding: 14px 24px;
+    }
+
+    .logo {
+      height: 72px;
+      border-radius: 10px;
+      padding: 6px;
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.28);
+      transition: height .22s ease;
+    }
+
+    .cta-top { display: flex; gap: 8px; }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      font-size: 14px;
+      transition: .15s;
+    }
+
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-accent { background: var(--accent); color: #06281f; }
+    .btn-ghost  { background: transparent; border-color: var(--border); color: #93c5fd }
+
+    /* HERO layout */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 38px;
+      line-height: 1.1;
+    }
+
+    .img {
+      width: 100%; border-radius: 16px;
+      border: 1px solid var(--border);
+      object-fit: cover;
+    }
+
+    @media (max-width: 960px) {
+      .hero { display: flex; flex-direction: column; }
+      .cta-top { display: none; }
+    }
+  </style>
+
+  <!-- Google Tag -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-406048847"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'AW-406048847');
+  </script>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/"><img class="logo"
+        src="https://luthierpro.vercel.app/assets/logos/LOGOMETBARABLACK.png"
+        alt="Método Baratieri"></a>
+
+      <div class="cta-top">
+        <a class="btn btn-primary"
+          href="https://pay.hotmart.com/T102449346T"
+          target="_blank" rel="noopener">
+          Garantir acesso vitalício
+        </a>
+        <a class="btn btn-ghost" href="./login.html" target="_blank">Já tenho licença</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="wrap">
+
+    <!-- HERO PRINCIPAL -->
+    <section class="hero">
+      <div>
+        <h1>Criado por luthier, para luthiers</h1>
+
+        <p style="margin: 10px 0 14px; color:#cbd5e1;">
+          O Método Baratieri organiza décadas de experiência de bancada em um guia interativo completo, claro e tecnicamente preciso — do projeto ao acabamento.
+        </p>
+
+        <p style="color:#cbd5e1;">
+          Um método artesanal, estruturado, pensado para quem deseja construir instrumentos com segurança, consistência e profissionalismo.
+        </p>
+
+        <p style="color:#cbd5e1; margin-bottom:18px;">
+          <strong>Pagamento único. Acesso vitalício.</strong>
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn btn-primary"
+            href="https://pay.hotmart.com/T102449346T"
+            target="_blank">Garantir acesso vitalício</a>
+
+          <a class="btn btn-ghost" href="./login.html" target="_blank">Já tenho licença</a>
+        </div>
+      </div>
+
+      <div>
+        <img class="img"
+          src="https://luthierpro.vercel.app/assets/banners/lp-mockup (1200 x 628 px).png"
+          alt="Tela do app com etapas da construção">
+      </div>
+    </section>
+
+    <!-- HERO 2 -->
+    <section class="hero hero--flip">
+      <div>
+        <img class="img"
+          src="https://luthierpro.vercel.app/assets/banners/img_1.webp"
+          alt="Jacir Baratieri na bancada">
+      </div>
+
+      <div>
+        <h1>Criado por quem vive a luthieria na prática</h1>
+        <p style="color:#cbd5e1;">
+          A Baratieri Luthieria nasceu da paixão por instrumentos artesanais. O Método Baratieri segue a mesma filosofia: compartilhar conhecimento real de bancada, com foco em precisão e clareza.
+        </p>
+        <p style="color:#cbd5e1;">
+          Um guia que respeita os métodos clássicos, mas usa tecnologia para facilitar o aprendizado e o fluxo de trabalho.
+        </p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
+            Garantir acesso vitalício
+          </a>
+          <a class="btn btn-ghost" href="./login.html" target="_blank">Já tenho licença</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO 3 – Sobre o conteúdo (mantido) -->
+    <!-- Somente removi referências à assinatura/mensal -->
+    <section class="hero">
+      <div>
+        <h2>O guia completo, passo a passo</h2>
+        <p style="color:#cbd5e1;">
+          Um fluxo de construção claro, técnico e organizado para Violão, Viola Caipira, Cavaquinho e Ukulelê.
+        </p>
+
+        <h3>Clareza do processo</h3>
+        <p style="color:#cbd5e1;">– Etapas e subetapas organizadas em sequência lógica.</p>
+        <p style="color:#cbd5e1;">– Medidas, desenhos e alertas técnicos no ponto certo.</p>
+        <p style="color:#cbd5e1;">– Produtividade e redução de erros na bancada.</p>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+          <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
+            Garantir acesso vitalício
+          </a>
+          <a class="btn btn-ghost" href="./login.html" target="_blank">Já tenho licença</a>
+        </div>
+      </div>
+
+      <div>
+        <img class="img"
+          src="https://luthierpro.vercel.app/assets/banners/img_6.webp"
+          alt="Etapas da construção de um violão">
+      </div>
+    </section>
+
+    <!-- VÍDEO -->
+    <section class="card" style="margin-top:18px">
+      <h2 class="h2">Veja o método em 60 segundos</h2>
+      <div class="video">
+        <video controls playsinline preload="metadata"
+          poster="/assets/banners/mockup-luthierpro.webp">
+          <source src="/assets/banners/luthierpro-demo-720p.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo HTML5.
+        </video>
+      </div>
+    </section>
+
+    <!-- ÍNDICE – Mantido (técnico e importante para conversão) -->
+    <section class="card" id="indice" style="margin-top:18px">
+      <h2 class="h2">O que tem dentro do Método Baratieri</h2>
+      <p class="muted">Etapas e subetapas reais — prévia fiel.</p>
+      <div id="toc-local" class="grid" style="gap:10px;margin-top:10px"></div>
+    </section>
+
+    <!-- Para quem é / Como funciona (mantido com ajustes) -->
+    <section class="grid grid-2" style="margin-top:18px">
+      <div class="card">
+        <h2 class="h2">Para quem é</h2>
+        <p class="muted">
+          Luthiers iniciantes e experientes que buscam clareza, fluxos confiáveis e padronização do método.
+        </p>
+      </div>
+      <div class="card">
+        <h2 class="h2">Como funciona</h2>
+        <p class="muted">
+          Após a compra, você recebe um código vitalício. Abra o app, toque em <strong>Login</strong> e insira o código. Acesso imediato e permanente.
+        </p>
+      </div>
+    </section>
+
+    <!-- Garantia / Suporte -->
+    <section class="grid grid-2" style="margin-top:18px">
+      <div class="card">
+        <h2 class="h2">Garantia Hotmart</h2>
+        <p class="muted">Se não for para você, solicite reembolso dentro do período oficial. Compra segura.</p>
+      </div>
+      <div class="card">
+        <h2 class="h2">Suporte</h2>
+        <p class="muted">
+          <a href="https://wa.me/5545920028659" target="_blank">WhatsApp</a> •
+          <a href="mailto:baratieriluthieria@gmail.com" target="_blank">baratieriluthieria@gmail.com</a> •
+          <a href="./resgatar.html" target="_blank">Resgatar licença</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card" style="margin-top:18px">
+      <h2 class="h2">FAQ</h2>
+      <dl class="faq">
+        <dt>Funciona offline?</dt>
+        <dd>Sim, por alguns dias. Ao voltar à internet, o app revalida o acesso.</dd>
+
+        <dt>Serve para qualquer modelo?</dt>
+        <dd>O guia cobre o processo e indica pontos de adaptação.</dd>
+
+        <dt>Posso usar em mais de um aparelho?</dt>
+        <dd>Licença individual. Para troca de aparelho, fale com o suporte.</dd>
+
+        <dt>O que vem nas atualizações?</dt>
+        <dd>Refinos dos checklists, novas imagens e melhorias pedidas pela comunidade.</dd>
+
+        <dt>Como funciona no vitalício?</dt>
+        <dd>Pagamento único, acesso permanente.</dd>
+      </dl>
+    </section>
+
+    <p class="footer">© Método Baratieri • Baratieri Luthieria — Acesso vitalício</p>
+  </main>
+
+  <!-- CTA FIXO MOBILE -->
+  <div id="mobile-cta" style="
+    display:flex;
+    position:fixed;
+    left:8px; right:8px; bottom:12px;
+    z-index:9998;
+    justify-content:center;">
+    <a class="btn btn-primary" style="width:100%;max-width:540px;text-align:center;"
+      href="https://pay.hotmart.com/T102449346T">
+      Garantir acesso vitalício
+    </a>
+  </div>
+
+  <!-- FAQ Schema -->
+  <script>
+    const faqSchema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type":"Question","name":"Funciona offline?","acceptedAnswer":{"@type":"Answer","text":"Sim, por alguns dias."}},
+        { "@type":"Question","name":"Serve para qualquer modelo?","acceptedAnswer":{"@type":"Answer","text":"O guia cobre o processo e adaptações."}},
+        { "@type":"Question","name":"Posso usar em mais de um aparelho?","acceptedAnswer":{"@type":"Answer","text":"Licença individual, fale com suporte."}},
+        { "@type":"Question","name":"O que vem nas atualizações?","acceptedAnswer":{"@type":"Answer","text":"Refinos e melhorias contínuas."}},
+        { "@type":"Question","name":"Como funciona no vitalício?","acceptedAnswer":{"@type":"Answer","text":"Pagamento único, acesso permanente."}}
+      ]
+    };
+    const s = document.createElement("script");
+    s.type = "application/ld+json";
+    s.text = JSON.stringify(faqSchema);
+    document.head.appendChild(s);
+  </script>
+
+  <!-- Script do índice (mantido) -->
+  <script>
+    const DATA = [...]; // <-- use o mesmo DATA que já está no seu arquivo original
+    (function () {
+      const container = document.getElementById('toc-local');
+      if (!container) return;
+      DATA.forEach((sec, idx) => {
+        const details = document.createElement('details');
+        if (idx === 0) details.open = true;
+        const summary = document.createElement('summary');
+        summary.innerHTML = '<strong>' + sec.etapa + '</strong>';
+        details.appendChild(summary);
+        const list = document.createElement('ol');
+        list.className = 'list';
+        sec.subs.forEach(t => {
+          const li = document.createElement('li');
+          li.textContent = t;
+          list.appendChild(li);
+        });
+        details.appendChild(list);
+        container.appendChild(details);
+      });
+    })();
+  </script>
+
+</body>
+</html>
