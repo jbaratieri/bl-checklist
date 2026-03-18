@@ -1,7 +1,8 @@
 {
+  "cleanUrls": true,
   "headers": [
     {
-      "source": "/admin.html",
+      "source": "/(boasvindas|admin).html",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet" },
         { "key": "Cache-Control", "value": "no-store, max-age=0" }
