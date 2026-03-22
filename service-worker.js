@@ -1,5 +1,5 @@
-// service-worker.js — Método Baratieri v2.5.1
-const CACHE_VERSION = 'metodo-baratieri-v2.5.1';
+// service-worker.js — Método Baratieri v2.5.2 - 2026-03-22
+const CACHE_VERSION = 'metodo-baratieri-v2.5.2';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
