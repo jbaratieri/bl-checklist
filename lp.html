@@ -3,14 +3,21 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>Método Baratieri — App Interativo de Construção de Instrumentos</title>
+  <title>Método Baratieri - App de Luthieria e Construção de Violão, Viola, Cavaquinho e Ukulele</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description"
-    content="Um app interativo que organiza, guia e acompanha a construção de Violão, Viola, Cavaquinho e Ukulele — com teoria aplicada, checklists, medidas e registro de projetos." />
+    content="Método Baratieri é um app de luthieria com checklists, medidas, desenhos técnicos e etapas completas para construção de violão, viola caipira, cavaquinho e ukulele.">
+  <meta name="keywords"
+    content="luthieria, construção de violão, como construir violão, curso de luthieria, violão artesanal, construir viola caipira, construir cavaquinho, construir ukulele, app de luthieria, método de luthieria, guia do luthier">
+
+  <link rel="canonical" href="https://metodo.luthieriabaratieri.com.br/lp">
+
   <meta name="theme-color" content="#0f172a">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/icon/icon-192.webp" />
+
+
 
   <!-- ====================== -->
   <!-- CSS PREMIUM (ROXO)     -->
@@ -238,116 +245,131 @@
     }
 
     /* Botão Flutuante WhatsApp */
-.whatsapp-float {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 25px;
-  right: 25px;
-  background-color: #25d366;
-  color: #fff;
-  border-radius: 50px;
-  text-align: center;
-  font-size: 30px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-  animation: pulse-green 2s infinite;
-}
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: #fff;
+      border-radius: 50px;
+      text-align: center;
+      font-size: 30px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      animation: pulse-green 2s infinite;
+    }
 
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  color: #fff;
-}
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      color: #fff;
+    }
 
-.whatsapp-float svg {
-  width: 35px;
-  height: 35px;
-  fill: currentColor;
-}
+    .whatsapp-float svg {
+      width: 35px;
+      height: 35px;
+      fill: currentColor;
+    }
 
-.balloon {
-  position: relative;
-  background: linear-gradient(145deg, #5b5fcf, #4a4eb8); /* gradiente roxo */
-  color: #fff; /* texto branco para contraste */
-  border-radius: 12px;
-  padding: 16px;
-  margin: 8px 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
+    .balloon {
+      position: relative;
+      background: linear-gradient(145deg, #5b5fcf, #4a4eb8);
+      /* gradiente roxo */
+      color: #fff;
+      /* texto branco para contraste */
+      border-radius: 12px;
+      padding: 16px;
+      margin: 8px 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
 
-.balloon.left {
-  text-align: left;
-}
+    .balloon.left {
+      text-align: left;
+    }
 
-.balloon.right {
-  text-align: right;
-}
+    .balloon.right {
+      text-align: right;
+    }
 
-.balloon.left::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 20px;
-  border-width: 10px 10px 0;
-  border-style: solid;
-  border-color: #5b5fcf transparent; /* mesma cor inicial do gradiente */
-}
+    .balloon.left::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 20px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #5b5fcf transparent;
+      /* mesma cor inicial do gradiente */
+    }
 
-.balloon.right::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  right: 20px;
-  border-width: 10px 10px 0;
-  border-style: solid;
-  border-color: #4a4eb8 transparent; /* mesma cor final do gradiente */
-}
+    .balloon.right::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      right: 20px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: #4a4eb8 transparent;
+      /* mesma cor final do gradiente */
+    }
 
-.gallery-app img {
-  width: 100%;
-  border-radius: 12px;
-  border: 1px solid var(--border);
-  transition: transform 0.2s ease;
-}
+    .gallery-app img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: transform 0.2s ease;
+    }
 
-.gallery-app img:hover {
-  transform: scale(1.05);
-}
+    .gallery-app img:hover {
+      transform: scale(1.05);
+    }
 
-.phone img:hover,
-.hero img:hover {
-  transform: scale(1.03);
-  transition: transform 0.25s ease;
-}
+    .phone img:hover,
+    .hero img:hover {
+      transform: scale(1.03);
+      transition: transform 0.25s ease;
+    }
 
-/* Hover para FAQ e índice */
-#faq-recursos details:hover,
-#indice details:hover {
-  transform: translateX(4px); /* desloca um pouco para a direita */
-  transition: transform 0.25s ease, font-size 0.25s ease;
-  font-size: 1.02em; /* aumenta levemente a fonte */
-  background: #16213e; /* opcional: muda o fundo para destacar */
-}
+    /* Hover para FAQ e índice */
+    #faq-recursos details:hover,
+    #indice details:hover {
+      transform: translateX(4px);
+      /* desloca um pouco para a direita */
+      transition: transform 0.25s ease, font-size 0.25s ease;
+      font-size: 1.02em;
+      /* aumenta levemente a fonte */
+      background: #16213e;
+      /* opcional: muda o fundo para destacar */
+    }
 
-@keyframes pulse-green {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-}
+    @keyframes pulse-green {
+      0% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+      }
 
-/* Ajuste para telas pequenas não cobrirem o CTA final */
-@media (max-width: 600px) {
-  .whatsapp-float {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    right: 15px;
-  }
-}
+      70% {
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+      }
+    }
+
+    /* Ajuste para telas pequenas não cobrirem o CTA final */
+    @media (max-width: 600px) {
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+      }
+    }
 
     /* MOBILE */
     @media (max-width: 900px) {
@@ -375,7 +397,7 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="nav-inner">
-      <img class="logo" src="https://metodo.luthieriabaratieri.com.br/assets/logos/LOGOMETBARAWHITE.png">
+      <img class="logo" src="https://metodo.luthieriabaratieri.com.br/assets/logos/LOGOMETBARAWHITE.png" alt="logotipo do App Método Baratieri>"
       <div class="cta-top">
         <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
           Quero acesso vitalício
@@ -388,60 +410,108 @@
   <main class="wrap">
 
 
-    <!-- =============================== -->
-    <!-- HERO PRINCIPAL                  -->
-    <!-- =============================== -->
     <section class="hero">
       <div>
-        <h1>Pare de se perder na construção de instrumentos.<br>
-Tenha um método claro do início ao fim.</h1>
+        <h1>
+          <h1>
+            App de Luthieria Método Baratieri – Guia Completo para Construção de Violão, Viola, Cavaquinho e Ukulele
+          </h1>
+          <h2>
+            <h2>
+              Organize seus projetos, siga etapas profissionais, veja medidas na hora certa
+              e acompanhe toda a construção do instrumento do início ao fim.
+            </h2>
+          </h2>
 
-        <h2>
-           O Método Baratieri é um app interativo que organiza, guia e acompanha
-      toda a construção — com etapas, medidas, checklists e registro completo do projeto.
-        </h2>
+          <p class="hero-sub">
+            Organize sua luthieria, reduza erros de construção e tenha um processo claro
+            para construir instrumentos com mais segurança, qualidade e organização.
+          </p>
 
-        <div style="margin-top:12px">
-          <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
-            👉 Quero acesso vitalício
-          </a>
-          </a>
-        </div>
+          <div style="margin-top:12px">
+            <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
+              👉 Quero acesso vitalício
+            </a>
+          </div>
+
+          <p class="muted" style="margin-top:8px">
+            Pagamento único • Acesso vitalício • Funciona no celular e computador
+          </p>
+          <p class="muted" style="margin-top:14px; font-size:15px">
+            <strong>O Método Baratieri não é um curso.</strong><br>
+            É um app que organiza, guia e acompanha a construção de instrumentos de cordas do início ao fim.
+          </p>
       </div>
+
       <div>
-        <img class="img" src="/assets/banners/mockup-metbar.png">
+        <img class="img" src="/assets/banners/mockup-metbar.png"
+          alt="App de luthieria Método Baratieri para construção de violão e instrumentos de cordas">
       </div>
     </section>
 
+    <section class="card">
+      <h2>Como funciona a construção de um violão na luthieria</h2>
 
+      <p>
+        A construção de um violão na luthieria segue uma sequência técnica que envolve
+        preparação das madeiras, construção do braço, montagem da caixa acústica,
+        instalação da escala, trastes, acabamento e regulagem final.
+      </p>
+
+      <p>
+        Um dos maiores desafios para quem está aprendendo luthieria é saber
+        a ordem correta das etapas, as medidas corretas e os pontos críticos
+        onde erros podem comprometer o instrumento.
+      </p>
+
+      <p>
+        O App Método Baratieri organiza toda essa sequência em etapas e subetapas,
+        funcionando como um guia completo de construção de instrumentos de cordas.
+      </p>
+    </section>
 
     <!-- =============================== -->
     <!-- O QUE É O MÉTODO BARATIERI      -->
     <!-- =============================== -->
     <section class="card">
       <h2>O que é o Método Baratieri</h2>
-      <p>
-        O Método Baratieri é um <strong>app profissional de apoio ao luthier</strong>.
-        Ele organiza, orienta e acompanha a construção completa do instrumento — do corte das madeiras à regulagem
-        final.
+
+      p>
+      <strong>O Método Baratieri não é um curso.
+        É um sistema de organização e acompanhamento da construção de instrumentos de cordas do início ao fim.</strong>
       </p>
 
       <p>
-        Ele não substitui sua experiência. <strong>Ele a potencializa.</strong>
-        Organiza teoria e prática no ponto exato onde você precisa, evitando dúvidas, travas e passos perdidos.
+        O Método Baratieri é um <strong>app de luthieria que guia a construção de instrumentos passo a passo</strong>,
+        reunindo em um só lugar tudo o que você precisa para construir com segurança:
+        etapas organizadas, medidas técnicas, checklists e acompanhamento completo do projeto.
+      </p>
+
+      <p>
+        Diferente de conteúdos soltos ou cursos genéricos, o app funciona como um
+        <strong>companheiro de bancada</strong>, mostrando exatamente o que fazer em cada subetapa da construção —
+        do corte das madeiras até a entrega final do instrumento.
+      </p>
+
+      <p>
+        Você não precisa mais ficar alternando entre vídeos, anotações e referências.
+        Tudo está estruturado de forma lógica, no momento certo da construção.
       </p>
 
       <ul>
-        <li>✔ Checklists técnicos interativos</li>
-        <li>✔ Teoria prática explicada dentro de cada subetapa</li>
-        <li>✔ Medidas e tolerâncias configuráveis</li>
-        <li>✔ Figuras e desenhos técnicos</li>
-        <li>✔ Galeria para suas imagens do projeto</li>
-        <li>✔ Medições específicas para Violão, Viola, Cavaquinho e Ukulele</li>
-        <li>✔ Exportação, PDF e acompanhamento do progresso</li>
+        <li>✔ Etapas e subetapas organizadas da construção completa</li>
+        <li>✔ Checklists interativos para não pular nenhum processo</li>
+        <li>✔ Medidas de luthieria exibidas no momento certo</li>
+        <li>✔ Desenhos técnicos e explicações práticas</li>
+        <li>✔ Registro completo de cada instrumento (fotos e anotações)</li>
+        <li>✔ Suporte para violão, viola caipira, cavaquinho e ukulele</li>
+        <li>✔ Exportação de projetos e geração de PDF</li>
       </ul>
-    </section>
 
+      <p>
+        <strong>O resultado:</strong> mais clareza na bancada, menos erros e uma construção muito mais consistente.
+      </p>
+    </section>
 
 
     <!-- =============================== -->
@@ -452,12 +522,12 @@ Tenha um método claro do início ao fim.</h1>
 
         <!-- TEXTO -->
         <div>
-          <h1 style="font-size:28px; line-height:1.2; margin-bottom:10px;">
+          <h2 style="font-size:28px; line-height:1.2; margin-bottom:10px;">
             Pare de se perder na construção — tenha um método claro do início ao fim
-          </h1>
+          </h2>
 
           <!-- SUBHEAD (seu h2 atual vira apoio) -->
-          <h2>Veja o Método Baratieri por dentro </h2>
+          <h3>Veja o Método Baratieri por dentro </h3>
 
           <p class="muted">
             Em menos de 2 minutos você entende como o app guia cada etapa da construção.
@@ -480,7 +550,7 @@ Tenha um método claro do início ao fim.</h1>
         <!-- VÍDEO -->
         <div class="video">
           <video controls playsinline preload="metadata" poster="/assets/banners/assista.png">
-            <source src="/assets/vid/0320.mp4" type="video/mp4">
+            <source src="/assets/vid/0320.mp4" type="video/mp4" alt="vídeo que mostra como o App Metodo Baratieri funciona por dentro, suas etapas e benefícios para o luthier">
           </video>
         </div>
 
@@ -500,39 +570,39 @@ Tenha um método claro do início ao fim.</h1>
 
         <div class="app-shot">
           <div class="phone">
-            <img src="/assets/banners/projeto.png">
+            <img src="/assets/banners/projeto.png" alt="imagem de uma tela do App Método Baratieri - que organiza, guia e acompanha a construção de instrumentos de cordas do início ao fim">
           </div>
           <p class="caption">Consigo organizar tudo</p>
         </div>
 
         <div class="app-shot">
           <div class="phone">
-            <img src="/assets/banners/etapas.png">
+            <img src="/assets/banners/etapas.png" alt="imagem de uma etapa do App Método Baratieri - que organiza, guia e acompanha a construção de instrumentos de cordas do início ao fim">
           </div>
           <p class="caption">Sei exatamente a próxima etapa</p>
         </div>
         <div class="app-shot">
           <div class="phone">
-            <img src="/assets/banners/subetapa.png">
+            <img src="/assets/banners/subetapa.png" alt="imagem de uma subetapa do App Método Baratieri - que organiza, guia e acompanha a construção de instrumentos de cordas do início ao fim">
           </div>
           <p class="caption">Tudo explicado nos mínimos detalhes</p>
         </div>
         <div class="app-shot">
           <div class="phone">
-            <img src="/assets/banners/medidas.png">
+            <img src="/assets/banners/medidas.png" alt="imagem de uma tela do App Método Baratieri - que mostra as medidas da construção de instrumentos de cordas">
           </div>
           <p class="caption">Todas as medidas no momento certo</p>
         </div>
 
         <div class="app-shot">
           <div class="phone">
-            <img src="/assets/banners/checklist.png">
+            <img src="/assets/banners/checklist.png" alt="imagem de uma tela do checklist do Método Baratieri - que mostra o checklist da construção de instrumentos de cordas">>
           </div>
           <p class="caption">Acompanho o progresso da construção</p>
         </div>
         <div class="app-shot">
           <div class="phone">
-            <img src="/assets/banners/mobile.jpg">
+            <img src="/assets/banners/mobile.jpg" alt="imagem de uma tela de um móbile mostrando o App Método Baratieri">
           </div>
           <p class="caption">Tudo na palma da mão</p>
         </div>
@@ -565,6 +635,7 @@ Tenha um método claro do início ao fim.</h1>
           <li>Salva suas fotos e anotações automaticamente</li>
           <li>Gera PDF e exporta projetos</li>
           <li>Reduz drasticamente erros comuns de construção</li>
+          <li>Organiza, guia e acompanha a construção de instrumentos de cordas do início ao fim</li>
         </ul>
       </div>
     </section>
@@ -832,53 +903,55 @@ Tenha um método claro do início ao fim.</h1>
 
 
     <!-- =============================== -->
-<!-- ESTUDOS DE CASO FICTÍCIOS       -->
-<!-- =============================== -->
-<section class="card">
-  <h2>Histórias de Bancada</h2>
-  <p class="muted">Cenários comuns que mostram como o Método Baratieri ajuda na prática</p>
+    <!-- ESTUDOS DE CASO FICTÍCIOS       -->
+    <!-- =============================== -->
+    <section class="card">
+      <h2>Histórias de Bancada</h2>
+      <p class="muted">Cenários comuns que mostram como o Método Baratieri ajuda na prática</p>
 
-  <div class="grid grid-2" style="margin-top:12px">
-    <div class="card">
-      <strong>Organização de projetos</strong><br>
-      Um luthier que atendia vários clientes ao mesmo tempo costumava se perder em anotações soltas. 
-      Com o Método Baratieri, passou a registrar cada instrumento com nome do cliente, datas e cronograma. 
-      Resultado: clareza total e menos atrasos.
-    </div>
+      <div class="grid grid-2" style="margin-top:12px">
+        <div class="card">
+          <strong>Organização de projetos</strong><br>
+          Um luthier que atendia vários clientes ao mesmo tempo costumava se perder em anotações soltas.
+          Com o Método Baratieri, passou a registrar cada instrumento com nome do cliente, datas e cronograma.
+          Resultado: clareza total e menos atrasos.
+        </div>
 
-    <div class="card">
-      <strong>Segurança na bancada</strong><br>
-      Durante a construção de um violão, um iniciante tinha dúvidas sobre medidas e tolerâncias. 
-      O app ajustou automaticamente todas as dimensões ao escolher o instrumento. 
-      Isso evitou erros e desperdício de madeira.
-    </div>
+        <div class="card">
+          <strong>Segurança na bancada</strong><br>
+          Durante a construção de um violão, um iniciante tinha dúvidas sobre medidas e tolerâncias.
+          O app ajustou automaticamente todas as dimensões ao escolher o instrumento.
+          Isso evitou erros e desperdício de madeira.
+        </div>
 
-    <div class="card">
-      <strong>Fluxo de trabalho</strong><br>
-      Um luthier experiente queria acelerar a produção sem perder qualidade. 
-      O app dividiu a construção em 12 etapas com subetapas lógicas. 
-      Ele marcou cada passo concluído e acompanhou o progresso. 
-      Resultado: ritmo constante e entrega dentro do prazo.
-    </div>
-  </div>
-</section>
+        <div class="card">
+          <strong>Fluxo de trabalho</strong><br>
+          Um luthier experiente queria acelerar a produção sem perder qualidade.
+          O app dividiu a construção em 12 etapas com subetapas lógicas.
+          Ele marcou cada passo concluído e acompanhou o progresso.
+          Resultado: ritmo constante e entrega dentro do prazo.
+        </div>
+      </div>
+    </section>
 
 
-<!-- =============================== -->
-<!-- DEPOIMENTOS ASPIRACIONAIS        -->
-<!-- =============================== -->
-<!-- =============================== -->
-<!-- DEPOIMENTOS ASPIRACIONAIS        -->
-<!-- =============================== -->
-<section class="card">
-  <div class="grid grid-2" style="margin-top:12px">
-  <div class="balloon left">“Agora cada instrumento que construo tem registro completo e organizado.”</div>
-  <div class="balloon right">“O Método Baratieri me dá segurança: sei exatamente qual é o próximo passo.”</div>
-  <div class="balloon left">“É como ter um manual técnico na palma da mão, mas dividido em partes práticas.”</div>
-  <div class="balloon right">“Com o app, consigo mostrar fotos do processo para meus clientes e aumentar a confiança deles.”</div>
-  <div class="balloon left">“Nunca foi tão fácil manter clareza e foco na bancada.”</div>
-  <div class="balloon right">“O progresso automático me motiva a seguir até a entrega final.”</div>
-</section>
+    <!-- =============================== -->
+    <!-- DEPOIMENTOS ASPIRACIONAIS        -->
+    <!-- =============================== -->
+    <!-- =============================== -->
+    <!-- DEPOIMENTOS ASPIRACIONAIS        -->
+    <!-- =============================== -->
+    <section class="card">
+      <div class="grid grid-2" style="margin-top:12px">
+        <div class="balloon left">“Agora cada instrumento que construo tem registro completo e organizado.”</div>
+        <div class="balloon right">“O Método Baratieri me dá segurança: sei exatamente qual é o próximo passo.”</div>
+        <div class="balloon left">“É como ter um manual técnico na palma da mão, mas dividido em partes práticas.”
+        </div>
+        <div class="balloon right">“Com o app, consigo mostrar fotos do processo para meus clientes e aumentar a
+          confiança deles.”</div>
+        <div class="balloon left">“Nunca foi tão fácil manter clareza e foco na bancada.”</div>
+        <div class="balloon right">“O progresso automático me motiva a seguir até a entrega final.”</div>
+    </section>
 
     <!-- =============================== -->
     <!-- FAQ – RECURSOS DO APP (ACCORDION) -->
@@ -889,8 +962,9 @@ Tenha um método claro do início ao fim.</h1>
       <details>
         <summary><strong>O Método Baratieri é um curso?</strong></summary>
         <p>
-          Não. Ele é um <strong>app interativo de apoio ao luthier</strong>, que organiza, orienta e acompanha a
-          construção do instrumento passo a passo.
+          Não. O Método Baratieri não é um curso.
+          Ele é um app interativo que funciona como um sistema de organização,
+          orientação e acompanhamento da construção de instrumentos passo a passo.
         </p>
       </details>
 
@@ -905,7 +979,8 @@ Tenha um método claro do início ao fim.</h1>
       <details>
         <summary><strong>Posso registrar meus projetos?</strong></summary>
         <p>
-          Sim. Você pode criar projetos individuais com nome do cliente, datas, cronograma, progresso, notas e imagens.
+          Sim. Você pode criar projetos individuais com nome do cliente, datas, cronograma, progresso, notas e
+          imagens.
         </p>
       </details>
 
@@ -945,7 +1020,8 @@ Tenha um método claro do início ao fim.</h1>
       <details>
         <summary><strong>O app traz figuras técnicas e plantas?</strong></summary>
         <p>
-          Sim. As etapas possuem figuras técnicas, ilustrações anotáveis, desenhos e galerias de referência com centenas
+          Sim. As etapas possuem figuras técnicas, ilustrações anotáveis, desenhos e galerias de referência com
+          centenas
           de imagens explicativas.
         </p>
       </details>
@@ -1029,16 +1105,14 @@ Tenha um método claro do início ao fim.</h1>
 
   </main>
 
-  <a href="https://wa.me/5545920028659?text=Olá! Estava vendo a página do Método Baratieri e gostaria de tirar uma dúvida." 
-   class="whatsapp-float" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   title="Dúvidas pelo WhatsApp">
-  <!-- Ícone do WhatsApp em SVG (Leve e não depende de bibliotecas externas) -->
-  <svg viewBox="0 0 24 24">
-    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-  </svg>
-</a>
+  <a href="https://wa.me/5545920028659?text=Olá! Estava vendo a página do Método Baratieri e gostaria de tirar uma dúvida."
+    class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Dúvidas pelo WhatsApp">
+    <!-- Ícone do WhatsApp em SVG (Leve e não depende de bibliotecas externas) -->
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  </a>
 
   <script>
     (function () {

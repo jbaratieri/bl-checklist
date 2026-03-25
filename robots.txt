@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /lp
+Allow: /parceiros
+Disallow: /admin
+Disallow: /login
+Disallow: /afiliados
+Disallow: /boasvindas
+Disallow: /free7
+Disallow: /manual
+Disallow: /offline
+Disallow: /resgatar
+Sitemap: https://metodo.luthieriabaratieri.com.br/sitemap.xml
