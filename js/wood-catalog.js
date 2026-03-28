@@ -23,7 +23,20 @@
     { nome: 'Ébano', uso: 'Escala', obs: 'Muito densa; poros finos' },
     { nome: 'Jacarandá', uso: 'Escala', obs: 'Mais bela, menos densa' },
     { nome: 'Pau Ferro', uso: 'Escala', obs: 'Densidade intermediária' },
-    { nome: 'Ipê', uso: 'Escala', obs: 'Densa e maleável' }
+    { nome: 'Ipê', uso: 'Escala', obs: 'Densa e maleável' },
+    { nome: 'Adirondack (Red Spruce)', uso: 'Tampo', obs: 'O "Santo Graal" dos tampos de aço. Tem o maior teto dinâmico; não distorce mesmo tocando com muita força. Muito ataque e volume' },
+    { nome: 'Koa Havaiano', uso: 'Tampo', obs: 'Brilhante como o Maple no início, mas "abre" com o tempo para um som doce e rico em harmônicos' },
+    { nome: 'Pinho Paraná (Araucária)', uso: 'Tampo', obs: 'Uma alternativa nacional interessante. Possui um som cristalino e muito equilibrado, embora exija uma seleção rigorosa dos veios.' },
+    { nome: 'Caviúna', uso: 'Fundo/Laterais', obs: 'Muito próxima do Jacarandá da Bahia em termos de densidade. Proporciona graves encorpados e um visual exuberante' },
+    { nome: 'Walnut (Nogueira)', uso: 'Fundo/Laterais', obs: 'O "meio termo" perfeito entre o Mogno e o Jacarandá. Tem o brilho dos agudos do primeiro e o corpo dos graves do segundo.' },
+    { nome: 'Cerejeira (Amburana)', uso: 'Fundo/Laterais', obs: 'Confere um timbre doce e aveludado, muito utilizada em projetos que buscam uma estética clara e som equilibrado.' },
+    { nome: 'Ziricote', uso: 'Fundo/Laterais', obs: 'Extremamente densa. Oferece um som muito articulado e focado, com uma separação de notas (clareza) excepcional' },
+    { nome: 'Roxinho (Purpleheart)', uso: 'Escala', obs: 'Densa e maleávelExtremamente dura e densa. Além da cor exótica, oferece um ataque muito rápido às notas.' },
+    { nome: 'Braúna', uso: 'Escala', obs: 'Uma das madeiras mais densas do Brasil. Frequentemente usada como substituta nacional do Ébano devido à sua cor escura e poros quase inexistentes' },
+    { nome: 'Marupá', uso: 'Braço', obs: 'Muito leve e estável. É a escolha favorita para quem busca reduzir o peso total do instrumento sem perder a sustentação, especialmente em violões de nylon' },
+    { nome: 'Freijo', uso: 'Braço', obs: 'Frequentemente chamado de "Mogno Brasileiro". Tem excelente trabalhabilidade e estabilidade dimensional, sendo muito confiável para braços' },
+    { nome: 'Marupá', uso: 'Tampo', obs: 'Brilhante e Aberto: Oferece agudos muito limpos e uma resposta rápida ao toque, mas menos sustain' },
+    { nome: 'Freijo', uso: 'Fundo/Laterais', obs: 'Não tem os graves profundos do Jacarandá, nem os agudos cortantes do Maple. Ele foca na "doçura" das frequências médias' }
   ];
 
   const qs = (sel, el = document) => el.querySelector(sel);
