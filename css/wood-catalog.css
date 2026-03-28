@@ -154,21 +154,17 @@
   border-color: var(--acc, #8a623f);
   color: #fff;
 }
-.wc-btn.primary:hover {
-  background: var(--acc, #48311c);
-  
-}
 
 .wc-btn.ghost {
   background: #fff;
   border-color: var(--acc-2, #cf995f);
   color: var(--acc, #8a623f);
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 .wc-btn.ghost:hover {
-  background: #cf995f;
-  font-size: 16px;
+  background: #b3aaaa;
+  font-size: 0.85rem;
   
 }
 
