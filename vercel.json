@@ -14,5 +14,12 @@
         { "key": "Cache-Control", "value": "no-store, max-age=0" }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/lp",
+      "destination": "/metodo-baratieri-app-luthieria",
+      "permanent": true
+    }
   ]
 }
