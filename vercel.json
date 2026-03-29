@@ -20,6 +20,11 @@
       "source": "/lp",
       "destination": "/metodo-baratieri-app-luthieria",
       "permanent": true
+    },
+    {
+      "source": "/parceiros",
+      "destination": "/parceiros-afiliados-metodo-baratieri",
+      "permanent": true
     }
   ]
 }
