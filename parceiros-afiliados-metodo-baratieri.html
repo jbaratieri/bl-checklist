@@ -24,12 +24,12 @@
   <link rel="icon" href="/icon/icon-192.webp" />
 
   <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-PP8XBSX8MJ');
-</script>
+    gtag('config', 'G-PP8XBSX8MJ');
+  </script>
 </head>
 <style>
   :root {
@@ -56,6 +56,7 @@
   }
 
   header {
+    background: var(--bg);
     padding: 60px 20px 40px;
     text-align: center;
   }
@@ -120,7 +121,7 @@
     background: var(--accent);
   }
 
-    .btn.secondary:hover {
+  .btn.secondary:hover {
     background: var(--card);
     color: var(--brand);
     border: 2px solid var(--brand);
@@ -131,7 +132,8 @@
     border: 2px solid var(--brand);
     color: var(--brand);
   }
-.btn.outline:hover {
+
+  .btn.outline:hover {
     background: var(--accent);
     color: var(--card);
   }
@@ -169,34 +171,156 @@
   }
 
   .box-ganhos {
-  background: #f4efe6;
-  border: 2px solid #c8a96a;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 30px 0;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
+    background: #f4efe6;
+    border: 2px solid #c8a96a;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 30px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
 
-.ganhos-icone {
-  font-size: 40px;
-}
+  .ganhos-icone {
+    font-size: 40px;
+  }
 
-.ganhos-texto strong {
-  font-size: 20px;
-  color: #5a4326;
-}
+  .ganhos-texto strong {
+    font-size: 20px;
+    color: #5a4326;
+  }
 
-.ganhos-texto p {
-  margin: 5px 0 0 0;
-}
+  .ganhos-texto p {
+    margin: 5px 0 0 0;
+  }
 
-  footer {
-    text-align: center;
-    padding: 32px 20px;
-    color: var(--muted);
-    font-size: 0.9rem;
+  /* =========================
+   RODAPÉ – LUTHIERIA BARATIERI
+   ========================= */
+
+  .footer {
+    background: var(--ink);
+    color: #f1f1f1;
+    padding: 40px 20px;
+    margin-top: 60px;
+    font-size: 14px;
+  }
+
+  .footer-container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .footer-col {
+    flex: 1;
+    min-width: 220px;
+  }
+
+  .footer h3 {
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: #ffffff;
+  }
+
+  .footer a {
+    display: block;
+    color: #e0d6c8;
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: 0.2s;
+  }
+
+  .footer a:hover {
+    color: #ffffff;
+    transform: translateX(3px);
+  }
+
+  .footer-copy {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  .footer-local {
+    font-size: 13px;
+    color: #d6c6b4;
+  }
+
+  .btn-footer {
+    display: inline-block;
+    background: #c89b6d;
+    color: #2b1a0d !important;
+    padding: 10px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .btn-footer:hover {
+    background: #e0b382;
+  }
+
+  .afiliados {
+    font-size: 13px;
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+
+  /* =========================
+   FOOTER MOBILE
+   ========================= */
+
+  @media (max-width: 768px) {
+
+    .footer {
+      text-align: center;
+      padding: 30px 15px;
+    }
+
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .footer-col {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .footer h3 {
+      margin-bottom: 8px;
+    }
+
+    .footer a {
+      margin-bottom: 6px;
+    }
+
+    .btn-footer {
+      width: 100%;
+      text-align: center;
+    }
+
+    .afiliados {
+      margin-top: 8px;
+    }
+
+    .footer-col {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 15px;
+    }
+
+    .footer-col:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
   }
 </style>
 </head>
@@ -227,7 +351,8 @@
         <li>Criado por luthier, para luthiers e estudantes</li>
       </ul>
 
-      <a class="btn secondary" href="https://metodo.luthieriabaratieri.com.br/metodo-baratieri-app-luthieria" target="_blank">
+      <a class="btn secondary" href="https://metodo.luthieriabaratieri.com.br/metodo-baratieri-app-luthieria"
+        target="_blank">
         Ver página de vendas
       </a>
     </section>
@@ -250,37 +375,37 @@
       </div>
     </section>
 
-   
-      <div class="box-ganhos">
-        <div class="ganhos-icone">💰</div>
-        <div class="ganhos-texto">
-          <h2>Comissão e ganhos</h2>
 
-          <p><strong>Comissão do afiliado:</strong> 40% por venda</p>
-
-          <ul>
-            <li>Preço do produto: até <strong>R$ 319,90</strong></li>
-            <li>Comissão média do afiliado: <strong>aprox. R$ 110 a R$ 130</strong> por venda</li>
-            <li>Pagamentos automáticos pela Hotmart</li>
-          </ul>
-
-          <p>
-            O valor exato da comissão varia conforme taxas da plataforma e
-            forma de pagamento, sendo calculado automaticamente pela Hotmart.
-          </p>
-        </div>
-      </div>
-
-      <div class="box-ganhos">
+    <div class="box-ganhos">
       <div class="ganhos-icone">💰</div>
       <div class="ganhos-texto">
-        
+        <h2>Comissão e ganhos</h2>
+
+        <p><strong>Comissão do afiliado:</strong> 40% por venda</p>
+
+        <ul>
+          <li>Preço do produto: até <strong>R$ 319,90</strong></li>
+          <li>Comissão média do afiliado: <strong>aprox. R$ 110 a R$ 130</strong> por venda</li>
+          <li>Pagamentos automáticos pela Hotmart</li>
+        </ul>
+
+        <p>
+          O valor exato da comissão varia conforme taxas da plataforma e
+          forma de pagamento, sendo calculado automaticamente pela Hotmart.
+        </p>
+      </div>
+    </div>
+
+    <div class="box-ganhos">
+      <div class="ganhos-icone">💰</div>
+      <div class="ganhos-texto">
+
         <p>
           Apenas <strong>1 venda por dia</strong> pode representar mais de <strong>R$ 3.000 por mês</strong>
         </p>
       </div>
-      </div>
-    
+    </div>
+
     <section class="card">
       <h2>Como funciona</h2>
       <ol>
@@ -295,40 +420,40 @@
     </section>
 
     <section class="card">
-  <h2>Programa de Afiliados de Luthieria, Música e Instrumentos Artesanais</h2>
+      <h2>Programa de Afiliados de Luthieria, Música e Instrumentos Artesanais</h2>
 
-  <p>
-    O <strong>Programa de Afiliados Hotmart</strong> do Método Baratieri é voltado
-    para pessoas que desejam <strong>ganhar dinheiro divulgando curso</strong>
-    na área de luteria, música e construção artesanal de instrumentos de cordas,
-    recebendo comissão por cada venda realizada.
-  </p>
+      <p>
+        O <strong>Programa de Afiliados Hotmart</strong> do Método Baratieri é voltado
+        para pessoas que desejam <strong>ganhar dinheiro divulgando curso</strong>
+        na área de luteria, música e construção artesanal de instrumentos de cordas,
+        recebendo comissão por cada venda realizada.
+      </p>
 
-  <p>
-    O Método Baratieri é um App Interativo voltado ao processo de construção de violão,
-    viola caipira, cavaquinho e ukulele, sendo indicado para
-    luthiers iniciantes, estudantes de luteria, marceneiros,
-    artesãos e músicos. Por isso, é uma excelente oportunidade
-    para quem procura trabalhar como <strong>afiliado de curso de luthieria</strong>,
-    <strong>afiliado de instrumentos musicais</strong> ou
-    <strong>afiliado de curso online de música</strong>.
-  </p>
+      <p>
+        O Método Baratieri é um App Interativo voltado ao processo de construção de violão,
+        viola caipira, cavaquinho e ukulele, sendo indicado para
+        luthiers iniciantes, estudantes de luteria, marceneiros,
+        artesãos e músicos. Por isso, é uma excelente oportunidade
+        para quem procura trabalhar como <strong>afiliado de curso de luthieria</strong>,
+        <strong>afiliado de instrumentos musicais</strong> ou
+        <strong>afiliado de curso online de música</strong>.
+      </p>
 
-  <p>
-    O produto também se conecta com o público de construção manual,
-    sendo uma boa opção para quem atua como
-    <strong>afiliado de artesanato</strong> ou
-    <strong>afiliado de marcenaria</strong>, pois envolve técnicas
-    de construção em madeira, ferramentas e processos artesanais.
-  </p>
+      <p>
+        O produto também se conecta com o público de construção manual,
+        sendo uma boa opção para quem atua como
+        <strong>afiliado de artesanato</strong> ou
+        <strong>afiliado de marcenaria</strong>, pois envolve técnicas
+        de construção em madeira, ferramentas e processos artesanais.
+      </p>
 
-  <p>
-    Afiliados podem divulgar o produto através de redes sociais,
-    YouTube, blogs, sites ou anúncios, utilizando a plataforma
-    Hotmart para geração de links de afiliado, acompanhamento
-    das vendas e comissões automáticas.
-  </p>
-</section>
+      <p>
+        Afiliados podem divulgar o produto através de redes sociais,
+        YouTube, blogs, sites ou anúncios, utilizando a plataforma
+        Hotmart para geração de links de afiliado, acompanhamento
+        das vendas e comissões automáticas.
+      </p>
+    </section>
 
     <section class="cta">
       <h2>Pronto para divulgar?</h2>
@@ -344,8 +469,41 @@
 
   </main>
 
-  <footer>
-    © Método Baratieri — Construção artesanal de instrumentos de cordas
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <p class="footer-copy">
+          &copy; 2026 Luthieria Baratieri — Todos os direitos reservados
+        </p>
+        <p class="footer-local">
+          Luthieria em Terra Roxa – Paraná, atendendo todo o Brasil.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Links</h3>
+        <a href="https://luthieriabaratieri.com.br/">Site oficial</a>
+        <a href="https://luthieriabaratieri.com.br/blog/">Blog de Luthieria</a>
+        <a href="https://loja.luthieriabaratieri.com.br/">Loja</a>
+      </div>
+
+      <div class="footer-col">
+        <h3>Método Baratieri</h3>
+        <a href="https://metodo.luthieriabaratieri.com.br/metodo-baratieri-app-luthieria" class="btn-footer">
+          Quero acesso vitalício
+        </a>
+
+        <p class="afiliados">
+          🔗 Quer divulgar o Método Baratieri e ganhar comissões?
+          <br>
+          <a href="https://metodo.luthieriabaratieri.com.br/parceiros-afiliados-metodo-baratieri">
+            Programa de Afiliados
+          </a>
+        </p>
+      </div>
+
+    </div>
   </footer>
 
 </body>
