@@ -1,5 +1,5 @@
-// service-worker.js — Método Baratieri v2.5.2 - 2026-03-22
-const CACHE_VERSION = 'metodo-baratieri-v2.5.2';
+// service-worker.js — Método Baratieri v2.5.3 - 2026-04-19
+const CACHE_VERSION = 'metodo-baratieri-v2.5.3v2.5.3';
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
 const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
@@ -29,6 +29,7 @@ const APP_SHELL = [
   './js/step17-measures-instrumentos.js',
   './js/step16-measures-presets.v3.js',
   './js/step16-tuning-modal.js',
+  './js/step16-action-modal.js',
   './js/step16-range-support.js',
   './js/step16-measures-toggle.js',
   './js/step19-project-plan.v7.js',
