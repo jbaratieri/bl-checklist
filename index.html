@@ -41,7 +41,7 @@
 
   <!-- Componentes -->
   <link rel="stylesheet" href="./css/instrument-badge.css" />
-  <link rel="stylesheet" href="./css/measures-presets.css" />
+  <link rel="stylesheet" href="./css/measures-presets.css?v=20260421-1" />
   <link rel="stylesheet" href="./css/measures-block.css" />
   <link rel="stylesheet" href="./css/images-thumbs.css" />
   <link rel="stylesheet" href="./css/wood-catalog.css" />
@@ -54,6 +54,7 @@
   <link rel="stylesheet" href="./css/buttons.css">
   <!-- Responsividade -->
   <link rel="stylesheet" href="./css/responsive.css">
+  <link rel="stylesheet" href="./css/prancheta.css?v=20260421-1">
 
 </head>
 
@@ -184,6 +185,9 @@
 
         <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
           📏 <span class="label">Medidas</span>
+        </button>
+        <button class="btn" id="btnPlantGenerator" title="Abrir prancheta de construção">
+          📐 <span class="label">Prancheta</span>
         </button>
 
         <button class="btn" id="btnTuningTable" title="Afinações">
@@ -5932,12 +5936,15 @@
   <script src="./js/step12-draw.v4.2.js"></script>
 
   <!-- Medidas & presets (dependem do instrumento) -->
-  <script src="./js/step16-measures-presets.v3.js"></script>
+  <script src="./js/step16-measures-presets.v3.js?v=20260421-1"></script>
   <script src="./js/step16-range-support.js"></script>
   <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
   <script src="./js/step17-measures-instrumentos.js"></script>
-  <script src="./js/step16-tuning-modal.js"></script>
-  <script src="./js/step16-action-modal.js"></script>
+  <script src="./js/step16-tuning-modal.js?v=20260421-1"></script>
+  <script src="./js/step16-action-modal.js?v=20260421-1"></script>
+  <script src="./js/step16-plant-generator.js?v=20260421-1"></script>
+
+  
 
   <!-- Plano do projeto (cronograma) -->
   <script src="./js/step19-project-plan.v7.js"></script>
@@ -5957,7 +5964,7 @@
 
   <!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore
        ATENÇÃO: atualize esse valor sempre que mudar CACHE_VERSION no service-worker.js -->
-  <script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.5.3';</script>
+  <script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.5.4';</script>
 
 
 
@@ -5977,7 +5984,7 @@
   <script src="./js/banner-metodobaratieri.js"></script>
 
   <!-- SW client: registra SW, detecta waiting e mostra banner 'Atualizar' -->
-  <script src="./js/sw-client.js?v=20260419"></script> <!--A T E N Ç Ã O -->
+  <script src="./js/sw-client.js?v=20260421"></script> <!--A T E N Ç Ã O -->
 
   <!--A T E N Ç Ã O -->
 

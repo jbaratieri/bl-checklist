@@ -318,3 +318,56 @@ header.app .app-logo {
   max-width: 100%;
   box-sizing: border-box;
 }
+
+/* Exceção: tabela de Ação precisa poder exceder viewport para scroll horizontal */
+#measuresModal .tuning-section.action-table-wrap .tuning-table-wrap,
+#measuresBody .tuning-section.action-table-wrap .tuning-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+#measuresModal .measures-table.action-table,
+#measuresBody .measures-table.action-table {
+  min-width: 560px;
+  width: 100%;
+  max-width: none;
+  table-layout: fixed;
+}
+
+#measuresModal .measures-table.action-table th,
+#measuresModal .measures-table.action-table td,
+#measuresBody .measures-table.action-table th,
+#measuresBody .measures-table.action-table td {
+  white-space: nowrap;
+  word-break: normal;
+}
+
+/* Header da tabela de Ação: manter íntegro como o corpo */
+#measuresModal .measures-table.action-table thead th,
+#measuresBody .measures-table.action-table thead th {
+  white-space: nowrap !important;
+  word-break: normal !important;
+}
+
+/* Mesmas larguras no cabeçalho e no corpo para alinhar colunas */
+#measuresModal .measures-table.action-table thead th:nth-child(1),
+#measuresBody .measures-table.action-table thead th:nth-child(1),
+#measuresModal .measures-table.action-table tbody td:nth-child(1),
+#measuresBody .measures-table.action-table tbody td:nth-child(1) {
+  width: 28%;
+}
+
+#measuresModal .measures-table.action-table thead th:nth-child(2),
+#measuresBody .measures-table.action-table thead th:nth-child(2),
+#measuresModal .measures-table.action-table tbody td:nth-child(2),
+#measuresBody .measures-table.action-table tbody td:nth-child(2),
+#measuresModal .measures-table.action-table thead th:nth-child(3),
+#measuresBody .measures-table.action-table thead th:nth-child(3),
+#measuresModal .measures-table.action-table tbody td:nth-child(3),
+#measuresBody .measures-table.action-table tbody td:nth-child(3),
+#measuresModal .measures-table.action-table thead th:nth-child(4),
+#measuresBody .measures-table.action-table thead th:nth-child(4),
+#measuresModal .measures-table.action-table tbody td:nth-child(4),
+#measuresBody .measures-table.action-table tbody td:nth-child(4) {
+  width: 24%;
+}

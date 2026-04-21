@@ -78,6 +78,27 @@
       }
 
       // ---------- Modal factory / controls (ajustado para .open + body.modal-open) ----------
+      function ensureModalApi(m) {
+        if (!m) return;
+
+        m.open = function () {
+          m.style.display = 'flex';
+          m.classList.add('open');
+          document.body.classList.add('modal-open');
+        };
+
+        m.close = function () {
+          m.classList.remove('open');
+          m.style.display = 'none';
+          document.body.classList.remove('modal-open');
+        };
+
+        window.measuresModal = {
+          open: () => m.open(),
+          close: () => m.close()
+        };
+      }
+
       function ensureModal() {
         let m = document.querySelector('#measuresModal');
         if (m) {
@@ -85,6 +106,7 @@
           if (m.parentElement !== document.body) {
             document.body.appendChild(m);
           }
+          ensureModalApi(m);
           return m;
         }
 
@@ -96,7 +118,7 @@
     <div class="measures-backdrop" data-close></div>
     <div class="measures-dlg" role="dialog" aria-modal="true" aria-labelledby="measuresTitle">
       <header class="measures-hd">
-        <h3 id="measuresTitle">Tabela de Medidas — <span id="measuresInst"></span></h3>
+        <h3 id="measuresTitle"></h3>
         <button class="btn measures-close" type="button" data-close aria-label="Fechar">×</button>
       </header>
       <div class="measures-body" id="measuresBody"></div>
@@ -113,8 +135,7 @@
         // fecha ao clicar no backdrop ou no botão de fechar
         m.addEventListener('click', (e) => {
           if (e.target.hasAttribute('data-close')) {
-            m.style.display = 'none';
-            document.body.classList.remove('modal-open');
+            m.close();
           }
         });
 
@@ -129,6 +150,7 @@
           alert('Campos vazios preenchidos.');
         });
 
+        ensureModalApi(m);
         return m;
       }
 
@@ -136,7 +158,7 @@
       // openModal: AGORA CORRIGIDO, GERA H4 FORA DA TABELA
       function openModal(sectionFilter = null) {
         const m = ensureModal(); const code = INSTR(); const names = { vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
-        $('#measuresInst', m).textContent = names[code] || code.toUpperCase();
+        $('#measuresTitle', m).textContent = `Tabela de Medidas — ${names[code] || code.toUpperCase()}`;
         const body = $('#measuresBody', m); body.innerHTML = '';
         const secs = (window.BL_MEASURE_PRESETS && window.BL_MEASURE_PRESETS[code]) || {};
         
@@ -176,14 +198,7 @@
         // Mas aqui vamos manter o footer visível por padrão; quem quiser escondê-lo antes de abrir,
         // faz: const m = ensureModal(); const ft = m.querySelector('.measures-ft'); if (ft) ft.style.display='none';
         // Abrimos via API:
-        if (m.open && typeof m.open === 'function') {
-          m.open();
-        } else {
-          // fallback: ajustar display/scroll
-          m.classList.add('open');
-          document.body.classList.add('modal-open');
-          m.style.display = 'flex';
-        }
+        m.open();
       }
 
       // no final da IIFE, depois de ensureModal / openModal estarem definidos:

@@ -282,8 +282,13 @@
   .measures-table.action-table {
       display: table;
       width: 100%;
-      table-layout: fixed;
+      min-width: 560px; /* evita esmagar colunas no mobile */
+      table-layout: auto;
       box-shadow: none; /* Sem sombra e borda dupla no wrap */
+  }
+  .tuning-root .tuning-section.action-table-wrap .tuning-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
   }
   .measures-table.action-table thead, .measures-table.action-table tr {
       display: table-row;
@@ -292,13 +297,18 @@
       display: table-cell;
       width: auto;
       text-align: center;
-      padding: 8px 6px;
+      padding: 7px 8px;
+      font-size: 0.88rem;
+      line-height: 1.3;
+      white-space: normal;
+      word-break: keep-all;
   }
   .measures-table.action-table thead th:first-child,
   .measures-table.action-table tbody td:first-child {
       text-align: left;
       font-weight: 500;
       color: var(--wc-ink);
+      min-width: 118px;
   }
   .measures-table.action-table tr {
       margin-bottom: 0;
@@ -342,3 +352,4 @@ body.modal-open { overflow: hidden; touch-action: none; }
 body.modal-open .project-area,
 body.modal-open .project-selectors,
 body.modal-open #projectPanel { pointer-events: none; user-select: none; }
+

@@ -91,12 +91,16 @@ function openTuningModalViaMeasures() {
   const m = ensureModal();
 
   // título
-  const title = m.querySelector('#measuresInst');
-  if (title) title.textContent = 'Afinação';
+  const title = m.querySelector('#measuresTitle');
+if (title) title.textContent = 'Afinação — valores padrão';
 
   // conteúdo
   const body = m.querySelector('#measuresBody');
-  if (body) body.innerHTML = buildTuningsHtml();
+  if (body) {
+    body.classList.remove('plant-mode');
+    body.style.display = '';
+    body.innerHTML = buildTuningsHtml();
+  }
 
   // esconder footer
   const ft = m.querySelector('.measures-ft');
@@ -105,6 +109,8 @@ function openTuningModalViaMeasures() {
   // abrir modal
   if (window.measuresModal && typeof window.measuresModal.open === 'function') {
     window.measuresModal.open();
+  } else if (typeof m.open === 'function') {
+    m.open();
   } else {
     m.classList.add('open');
     document.body.classList.add('modal-open');
