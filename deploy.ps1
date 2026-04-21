@@ -1,5 +1,8 @@
 Write-Host "🚀 Iniciando deploy do BL Checklist..." -ForegroundColor Cyan
 
+# Nota: `git add .` respeita `.gitignore` (ex.: dev/dev-bypass.html não sobe no Git público).
+# Template versionado: dev/dev-bypass.example.html — copie para dev-bypass.html localmente.
+
 # Garante que estamos na branch main
 git checkout main
 

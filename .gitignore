@@ -1,0 +1,2 @@
+# Bypass local de login — não versionar (repo público + deploy.ps1 usa git add .)
+dev/dev-bypass.html

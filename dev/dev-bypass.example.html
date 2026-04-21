@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>Dev — bypass local (template)</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; }
+    body { max-width: 520px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.1rem; color: #f5a623; }
+    .warn { background: #3d2a00; border: 1px solid #f5a623; padding: 0.75rem 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.9rem; line-height: 1.45; }
+    .note { background: #222; border: 1px solid #555; padding: 0.75rem 1rem; border-radius: 8px; margin: 1rem 0; font-size: 0.88rem; }
+    button {
+      display: block; width: 100%; margin: 0.5rem 0; padding: 0.75rem 1rem;
+      border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: 600;
+    }
+    .on { background: #2d6a4f; color: #fff; }
+    .off { background: #6a2d2d; color: #fff; }
+    code { font-size: 0.85rem; background: #333; padding: 0.15rem 0.35rem; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Bypass local (somente desenvolvimento)</h1>
+  <p class="note">
+    <strong>Setup (uma vez por máquina):</strong> copie este arquivo para <code>dev-bypass.html</code> na mesma pasta
+    (<code>dev/dev-bypass.html</code>). Esse nome está no <code>.gitignore</code>, então o <code>deploy.ps1</code> não envia para o Git público.
+    No PowerShell, na raiz do projeto: <code>Copy-Item dev\dev-bypass.example.html dev\dev-bypass.html</code>
+  </p>
+  <p class="warn">
+    Abra pela <strong>mesma origem</strong> do app (ex.: <code>http://localhost:…/dev/dev-bypass.html</code>).
+    <code>file://</code> usa outro <code>localStorage</code> e não funciona com o app.
+  </p>
+  <p>A pasta <code>dev/</code> está fora do deploy na Vercel (<code>.vercelignore</code>).</p>
+
+  <button type="button" class="on" id="btnOn">Ativar bypass → index</button>
+  <button type="button" class="off" id="btnOff">Limpar chaves → login</button>
+
+  <script>
+    const KEYS = [
+      "lp_auth",
+      "lp_plan_type",
+      "lp_expires_at",
+      "lp_grace_days",
+      "lp_code",
+      "lp_license_key",
+      "lp_license",
+      "lp_last_license_check",
+      "lp:status",
+      "lp:check:lock"
+    ];
+
+    document.getElementById("btnOn").addEventListener("click", () => {
+      const code = "DEV-BYPASS";
+      localStorage.setItem("lp_auth", "ok");
+      localStorage.setItem("lp_plan_type", "vitalicio");
+      localStorage.setItem("lp_expires_at", "2099-12-31");
+      localStorage.setItem("lp_grace_days", "5");
+      localStorage.setItem("lp_code", code);
+      localStorage.setItem("lp_license_key", code);
+      localStorage.setItem("lp_license", JSON.stringify({
+        code,
+        plan: "vitalicio",
+        expires: ""
+      }));
+      localStorage.setItem("lp_last_license_check", String(Date.now()));
+      localStorage.removeItem("lp:status");
+      location.href = "../index.html";
+    });
+
+    document.getElementById("btnOff").addEventListener("click", () => {
+      KEYS.forEach((k) => {
+        try { localStorage.removeItem(k); } catch (_) {}
+      });
+      try {
+        sessionStorage.removeItem("lp:lastRedirect");
+        sessionStorage.removeItem("lp:blockHandled");
+      } catch (_) {}
+      location.href = "../login.html";
+    });
+  </script>
+</body>
+</html>
