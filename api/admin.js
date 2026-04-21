@@ -117,7 +117,7 @@ export default async function handler(req, res) {
           expires_at: isVitalicio ? null : String(expires_at).trim(),
           flagged: !!flagged,
           blocked: !!blocked,
-          MaxDevices: Number.isFinite(Number(MaxDevices)) ? Number(MaxDevices) : 2,
+          MaxDevices: Number.isFinite(Number(MaxDevices)) ? Number(MaxDevices) : 5,
           DeviceCount: 0,
           Devices: "[]",
           DeviceIDs: ""

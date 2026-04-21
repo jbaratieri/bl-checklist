@@ -46,7 +46,7 @@ export default async function handler(req, res) {
       email,
       plan_type: 'trial7',
       blocked: false,
-      MaxDevices: 2,    // seus campos numéricos
+      MaxDevices: 5,    // padrão unificado
       DeviceCount: 0    // idem
       // expires_at: (omitido; será definido na 1ª validação)
     });

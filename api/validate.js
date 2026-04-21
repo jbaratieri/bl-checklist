@@ -3,10 +3,10 @@
 // - Conta por deviceId (não por IP)
 // - TRIAL (plan_type=trial7): não conta devices; acesso ok (se não blocked/expired)
 // - PAGOS (mensal/vitalício):
-//     * MaxDevices padrão = 2 (duro)
-//     * Soft-cap 3: permite 3º device e marca flagged=true
-//     * 4º device em diante: nega (403)
+//     * MaxDevices padrão = 5 (duro)
+//     * Ao atingir o teto, nega novo device (403)
 // - Auto-replace se houver device "antigo" (> 90 dias sem uso)
+// - flagged no Airtable: manual ou heurísticas locais (churn de devices); não grava por “muitos IPs” no histórico
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store, max-age=0");
@@ -45,8 +45,7 @@ export default async function handler(req, res) {
     };
 
     const STALE_DAYS = 90;   // se lastSeen > 90 dias, pode substituir
-    const SOFT_CAP   = 3;    // até 3 devices no total (o 3º seta flagged)
-    const DEFAULT_MAX_DEVICES = 2;
+    const DEFAULT_MAX_DEVICES = 5;
 
     // Busca a licença
     const formula = `({code}='${String(code).replace(/'/g, "\\'")}')`;
@@ -107,8 +106,8 @@ export default async function handler(req, res) {
     const ipList = Array.from(ipSet).slice(-20);
     const distinctCount = ipList.length;
 
-    // Heurística antiga de auto-flag por muitos IPs (apenas sinaliza)
-    const autoFlagIPs = distinctCount >= 7;
+    // Heurística de muitos IPs distintos: só informativa na resposta (não altera `flagged` no Airtable)
+    const manyDistinctIps = distinctCount >= 7;
 
     // ===== TRIAL: não conta devices; apenas registra uso e retorna OK
     if (planNorm === "trial7") {
@@ -124,7 +123,7 @@ export default async function handler(req, res) {
             ip_history: ipList.join(","),
             last_ua: ua,
             // ⚠️ NÃO mexe em DeviceCount / Devices / DeviceIDs no trial
-            flagged: !!f.flagged || autoFlagIPs // apenas marca se quiser sinalizar IP incomum
+            flagged: !!f.flagged
           },
         }),
       });
@@ -136,7 +135,8 @@ export default async function handler(req, res) {
         expires: expDate || null,
         ip,
         distinct_ips: distinctCount,
-        flagged: !!f.flagged || autoFlagIPs,
+        flagged: !!f.flagged,
+        many_distinct_ips: manyDistinctIps,
         deviceCount: Number(f.DeviceCount || 0) || 0,
         maxDevices: Number(f.MaxDevices || 0) || DEFAULT_MAX_DEVICES,
         server_time: nowISO,
@@ -161,7 +161,7 @@ export default async function handler(req, res) {
     let updatedDevices = devices.slice();
     let deviceIDs = updatedDevices.map(d => d.deviceId).filter(Boolean);
     let deviceCountStored = Number(f.DeviceCount || updatedDevices.length || 0);
-    let flagged = !!f.flagged || autoFlagIPs;
+    let flagged = !!f.flagged;
 
     // Lógica principal: prioriza deviceId
     let isNewActivation = false;
@@ -179,7 +179,7 @@ export default async function handler(req, res) {
       } else {
         // Novo aparelho tentando ativar
         if (updatedDevices.length < maxDevices) {
-          // Dentro do limite "duro" (<=2)
+          // Dentro do limite (<= MaxDevices)
           updatedDevices.push({
             deviceId: trimmedId,
             firstSeen: nowISO,
@@ -209,44 +209,31 @@ export default async function handler(req, res) {
             // substituição legítima não precisa marcar flag adicional
             isNewActivation = true;
           } else {
-            // 2) soft-cap: permite 3º device com flagged=true
-            if (updatedDevices.length < SOFT_CAP) {
-              updatedDevices.push({
-                deviceId: trimmedId,
-                firstSeen: nowISO,
-                lastSeen: nowISO,
-                lastIp: ip,
-                userAgent: ua || ""
-              });
-              isNewActivation = true;
-              flagged = true; // marcou tolerância
-            } else {
-              // 3) hard deny a partir do 4º
-              const patchUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}/${rec.id}`;
-              await fetch(patchUrl, {
-                method: "PATCH",
-                headers: { Authorization: `Bearer ${AIRTABLE_KEY}`, "Content-Type": "application/json" },
-                cache: "no-store",
-                body: JSON.stringify({
-                  fields: {
-                    last_ip: ip,
-                    last_used: nowISO,
-                    ip_history: ipList.join(","),
-                    last_ua: ua,
-                    flagged: true // sinaliza tentativa de 4º device
-                  },
-                }),
-              });
+            // Hard deny ao atingir MaxDevices (sinaliza tentativa)
+            const patchUrl = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${TABLE}/${rec.id}`;
+            await fetch(patchUrl, {
+              method: "PATCH",
+              headers: { Authorization: `Bearer ${AIRTABLE_KEY}`, "Content-Type": "application/json" },
+              cache: "no-store",
+              body: JSON.stringify({
+                fields: {
+                  last_ip: ip,
+                  last_used: nowISO,
+                  ip_history: ipList.join(","),
+                  last_ua: ua,
+                  flagged: true
+                },
+              }),
+            });
 
-              return res.status(403).json({
-                ok: false,
-                msg: "Limite de dispositivos atingido para esta licença.",
-                plan: isVitalicio ? "vitalicio" : "mensal",
-                deviceCount: updatedDevices.length,
-                maxDevices,
-                server_time: nowISO,
-              });
-            }
+            return res.status(403).json({
+              ok: false,
+              msg: "Limite de dispositivos atingido para esta licença.",
+              plan: isVitalicio ? "vitalicio" : "mensal",
+              deviceCount: updatedDevices.length,
+              maxDevices,
+              server_time: nowISO,
+            });
           }
         }
       }
@@ -302,6 +289,7 @@ export default async function handler(req, res) {
       ip,
       distinct_ips: distinctCount,
       flagged,
+      many_distinct_ips: manyDistinctIps,
       deviceReplaced: replacedDeviceId || null,
       deviceCount: deviceCountStored,
       maxDevices,

@@ -123,7 +123,7 @@ export default async function handler(req, res) {
           name: name || target.get("name") || "",
           blocked: false,               // garante desbloqueio
           flagged: false,               // limpa alerta ao virar pago/renovar
-          MaxDevices: 2,                // pago: limite "duro" 2 (3º = flagged no /validate)
+          MaxDevices: 5,                // padrão unificado
           // preserva DeviceCount/Devices/DeviceIDs manuais
           last_transaction: tx || target.get("last_transaction") || "",
           last_event_at: now.toISOString()
@@ -155,7 +155,7 @@ export default async function handler(req, res) {
           use_count: 0,
           blocked: false,
           flagged: false,
-          MaxDevices: 2, // pago nasce já com 2
+          MaxDevices: 5, // padrão unificado
           last_transaction: tx || "",
           last_event_at: now.toISOString()
         };
