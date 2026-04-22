@@ -480,19 +480,19 @@
               </label>
 
               <label>
-                Largura Nut (mm):
+                Largura no Nut (mm):
                 <input class="persist" id="braco-largura-nut-sec02" type="number" step="0.1"
                   data-measure="braco.largura_nut" placeholder="">
               </label>
 
               <label>
-                Largura Casa 12 (mm):
+                Largura na Casa 12 (mm):
                 <input class="persist" id="braco-largura-casa12-sec02" type="number" step="0.1"
                   data-measure="braco.largura_casa12" placeholder="">
               </label>
 
               <label>
-                Espessura Nut (mm):
+                Espessura no Nut (mm):
                 <input class="persist" id="braco-espessura-nut-sec02" type="number" step="0.1"
                   data-measure="braco.espessura_nut" placeholder="">
               </label>
@@ -5426,6 +5426,9 @@
               <ul>
                 <li><strong>Ação na 12ª casa (medida topo do traste → parte inferior da corda):</strong> referência
                   comum: 1ª corda ≈ 2,5–3,0 mm; 6ª corda ≈ 3,5–4,0 mm.</li>
+                  <button class="btn btn-inline" onclick="openActionModalViaMeasures()">
+                    ↕️ Conferir ação recomendada para cada instrumento
+                  </button>
                 <li><strong>Relação rastilho → 12ª:</strong> toda correção no <em>rastilho</em> reflete ~metade na
                   12ª
                   casa (2:1). Ex.: baixar 0,5 mm na 12ª ⇒ lixar ~1,0 mm na base do rastilho.</li>
@@ -5603,22 +5606,22 @@
 
             <div class="detail" id="d-reg1">
 
-              <p>Faça a regulagem com cordas novas, instrumento na afinação de trabalho e (UR) Umidade Relativa ≈
-                45–55%.</p>
+              <p>As cordas já foram instaladas e o instrumento está na afinação de trabalho. Agora é hora de realizar um ajuste 
+                fino para verificação da ação das cordas e garantir que o instrumento está na condição ideal para o seu uso.</p>
 
-              <p>Umidade relativa ideal, pense como clima ideal, nem deserto, nem floresta tropical — o meio-termo é
-                onde a madeira se sente confortável e responde melhor.</p>
               <ul>
                 <li>Meça a altura das cordas na 12ª casa (referência comum: 2,8&nbsp;mm na 1ª e 3,8&nbsp;mm na 6ª).
                 </li>
+                <button class="btn btn-inline" onclick="openActionModalViaMeasures()">
+                  ↕️ Conferir ação recomendada para cada instrumento
+                </button>
+              </ul>
+              <p>Se necessário, ajuste a ação das cordas da seguinte forma:</p>
+              <ul
                 <li>Lixe a base do rastilho em etapas muito pequenas (taco plano), conferindo a cada ajuste.</li>
                 <li>Revise a pestana se houver desconforto nas 1–3 primeiras casas (teste da “3ª casa”).</li>
                 <li>Cheque leve <em>relief</em> por volta da 7ª (folga mínima ao pressionar 1ª e última casa).</li>
               </ul>
-
-              <button class="btn btn-inline" onclick="openActionModalViaMeasures()">
-                ↕️ Conferir ação recomendada
-              </button>
 
               <p class="callout" data-instruments="vcl">
                 <strong>Violão Clássico:</strong> Primeiro traste: ação-alvo típica 0.8 – 1.6 &nbsp;mm.<br>Decimo

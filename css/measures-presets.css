@@ -203,6 +203,18 @@
     color: var(--wc-acc);
 }
 
+/* Bloco de texto (preset com valor string), ex.: observações — não é tabela de medidas */
+.measures-modal .measures-body > .tuning-section.measures-preset-note {
+  grid-column: 1 / -1;
+}
+.measures-modal .measures-body .measures-preset-note-text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--wc-muted, rgba(255, 255, 255, 0.72));
+  max-width: 70ch;
+}
+
 /* Tratamento especial para a tabela de Ação típica (3 colunas) */
 .tuning-root .tuning-section.action-table-wrap,
 .measures-modal .measures-body > .tuning-section.action-table-wrap {

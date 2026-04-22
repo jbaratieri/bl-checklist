@@ -165,6 +165,23 @@
         Object.keys(secs).forEach(sec => {
           if (sectionFilter && sectionFilter !== sec) return;
 
+          const secData = secs[sec];
+          if (typeof secData === 'string') {
+            const section = document.createElement('section');
+            section.className = 'tuning-section measures-preset-note';
+            const h4 = document.createElement('h4');
+            h4.className = 'tuning-title';
+            h4.textContent = sec.replace(/_/g, ' ');
+            const p = document.createElement('p');
+            p.className = 'measures-preset-note-text';
+            p.textContent = secData;
+            section.appendChild(h4);
+            section.appendChild(p);
+            body.appendChild(section);
+            return;
+          }
+          if (!secData || typeof secData !== 'object') return;
+
           // NOVO: Criar a seção e o título H4 (para que o título seja visível no mobile)
           const section = document.createElement('section');
           section.className = 'tuning-section';
@@ -179,7 +196,7 @@
           // REMOVIDO: A criação do thead
           
           const tb = document.createElement('tbody');
-          Object.entries(secs[sec]).forEach(([field, val]) => {
+          Object.entries(secData).forEach(([field, val]) => {
             const tr = document.createElement('tr');
             tr.innerHTML = `<td>${field.replace(/_/g, ' ')}</td><td>${val || '—'}</td>`;
             tb.appendChild(tr);

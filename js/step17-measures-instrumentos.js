@@ -13,7 +13,7 @@
   // === Violão (vcl) ===
   merge('vcl', {
     braco: {
-      madeira: "Cedro, Mogno, Maple",
+      madeira: "Cedro, Mogno",
       inclinacao_headstock: "12-15 graus",
       largura_nut: "52",
       largura_casa12: "62",
@@ -29,9 +29,13 @@
       espessura_final: "2.4–2.8"
     },
     fundo: { madeira: "Jacarandá, Imbuia ", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "800", largura_culatra: "100", largura_troculo: "90" },
+    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "820", largura_culatra: "100", largura_troculo: "90" },
     escala: { madeira: "Ébano, Ipê", espessura: "6.0-7.0", largura_nut: "52", largura_casa12: "62" },
-    medidas_gerais: {Distancia_Pestana_Rastilho: "653", Distancia_Pestana_Traste_12: "325" }
+    medidas_gerais: {Distancia_Pestana_Rastilho: "653", Distancia_Pestana_Traste_12: "325" },
+    /* Texto único: no modal vira bloco “Observações”, sem tabela (evita uma linha por caractere). */
+    Observações:
+      "Referência: violão clássico de 6 cordas. Outros formatos podem exigir ajustes (espessura do braço, medidas da caixa, escala)."
+
   });
 
   // === Viola (vla) ===
@@ -46,16 +50,19 @@
     },
     tampo: {
       madeira: "Abeto, Cedro",
-      comprimento: "460",
+      comprimento: "450",
       largura_bojo: "330",
-      largura_cintura: "210",
-      largura_ombro: "245",
+      largura_cintura: "190",
+      largura_ombro: "240",
       espessura_final: "2.4–2.7"
     },
     fundo: { madeira: "Jacarandá, Imbuia", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "750", largura_culatra: "95", largura_troculo: "85" },
+    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "800", largura_culatra: "95", largura_troculo: "85" },
     escala: { madeira: "Ébano", espessura: "6.0", largura_nut: "48", largura_casa12: "57" },
-    medidas_gerais: {Distancia_Pestana_Rastilho: "583", Distancia_Pestana_Traste_12: "290" }
+    medidas_gerais: {Distancia_Pestana_Rastilho: "583", Distancia_Pestana_Traste_12: "290" },
+    Observações:
+    "Referência: viola caipira cinturada de 10 cordas. Outros formatos podem exigir ajustes (espessura do braço, medidas da caixa, escala)."
+
   });
 
   // === Cavaquinho (cav) ===
@@ -77,7 +84,7 @@
       espessura_final: "2.2–2.6"
     },
     fundo: { madeira: "Mogno, Imbuia", espessura_final: "2.4–3.0" },
-    laterais: { madeira: "Mogno, Imbuia", comprimento: "500", largura_culatra: "85-90", largura_troculo: "75-80" },
+    laterais: { madeira: "Mogno, Imbuia", comprimento: "600", largura_culatra: "85-90", largura_troculo: "75-80" },
     escala: { madeira: "Ébano", espessura: "5.0", largura_nut: "30", largura_casa12: "39" },
     medidas_gerais: {Distancia_Pestana_Rastilho: "330-350", Distancia_Pestana_Traste_12: "165-175"}
   });
@@ -101,7 +108,7 @@
       espessura_final: "2.4–3.0"
     },
     fundo: { madeira: "Mogno, koa", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Mogno, koa", comprimento: "500", largura_culatra: "65-70", largura_troculo: "55-60" },
+    laterais: { madeira: "Mogno, koa", comprimento: "600", largura_culatra: "65-70", largura_troculo: "55-60" },
     escala: { madeira: "Ébano", espessura: "4-5", largura_nut: "34-39", largura_casa12: "44-50" },
     soprano: {Distancia_Pestana_Rastilho: "~345"},
     concerto: {Distancia_Pestana_Rastilho: "~375"},
