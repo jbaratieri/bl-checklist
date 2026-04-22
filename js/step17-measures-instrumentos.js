@@ -16,22 +16,22 @@
       madeira: "Cedro, Mogno, Maple",
       inclinacao_headstock: "12-15 graus",
       largura_nut: "52",
-      largura_casa12: "61",
+      largura_casa12: "62",
       espessura_nut: "21",
       espessura_casa10: "23"
     },
     tampo: {
       madeira: "Abeto, Cedro",
       comprimento: "480",
-      largura_bojo: "360",
-      largura_cintura: "235",
-      largura_ombro: "275",
+      largura_bojo: "370",
+      largura_cintura: "240",
+      largura_ombro: "280",
       espessura_final: "2.4–2.8"
     },
     fundo: { madeira: "Jacarandá, Imbuia ", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "480", largura_culatra: "95", largura_troculo: "85" },
-    escala: { madeira: "Ébano, Ipê", espessura: "6.0", largura_nut: "52", largura_casa12: "61" },
-    medidas_gerais: {Distancia_Pestana_Rastilho: "650", Distancia_Pestana_Traste_12: "325" }
+    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "800", largura_culatra: "100", largura_troculo: "90" },
+    escala: { madeira: "Ébano, Ipê", espessura: "6.0-7.0", largura_nut: "52", largura_casa12: "62" },
+    medidas_gerais: {Distancia_Pestana_Rastilho: "653", Distancia_Pestana_Traste_12: "325" }
   });
 
   // === Viola (vla) ===
@@ -39,23 +39,23 @@
     braco: {
       madeira: "Cedro, Mogno",
       inclinacao_headstock: "13-14 graus",
-      largura_nut: "47",
-      largura_casa12: "60",
+      largura_nut: "48",
+      largura_casa12: "57",
       espessura_nut: "18",
       espessura_casa10: "22"
     },
     tampo: {
       madeira: "Abeto, Cedro",
-      comprimento: "480",
-      largura_bojo: "360",
-      largura_cintura: "235",
-      largura_ombro: "275",
+      comprimento: "460",
+      largura_bojo: "330",
+      largura_cintura: "210",
+      largura_ombro: "245",
       espessura_final: "2.4–2.7"
     },
     fundo: { madeira: "Jacarandá, Imbuia", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "480", largura_culatra: "95", largura_troculo: "85" },
-    escala: { madeira: "Ébano", espessura: "6.0", largura_nut: "47", largura_casa12: "60" },
-    medidas_gerais: {Distancia_Pestana_Rastilho: "580", Distancia_Pestana_Traste_12: "290" }
+    laterais: { madeira: "Jacarandá, Imbuia", comprimento: "750", largura_culatra: "95", largura_troculo: "85" },
+    escala: { madeira: "Ébano", espessura: "6.0", largura_nut: "48", largura_casa12: "57" },
+    medidas_gerais: {Distancia_Pestana_Rastilho: "583", Distancia_Pestana_Traste_12: "290" }
   });
 
   // === Cavaquinho (cav) ===
@@ -64,21 +64,21 @@
       madeira: "Cedro",
       inclinacao_headstock: "15",
       largura_nut: "30",
-      largura_casa12: "42",
-      espessura_nut: "20",
-      espessura_casa10: "22"
+      largura_casa12: "39",
+      espessura_nut: "18",
+      espessura_casa10: "21"
     },
     tampo: {
       madeira: "Abeto, Marupá",
-      comprimento: "340",
+      comprimento: "300",
       largura_bojo: "240",
-      largura_cintura: "180",
-      largura_ombro: "200",
-      espessura_final: "2.4–2.7"
+      largura_cintura: "155",
+      largura_ombro: "170",
+      espessura_final: "2.2–2.6"
     },
-    fundo: { madeira: "Mogno, Imbuia", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Mogno, Imbuia", comprimento: "800", largura_culatra: "85-90", largura_troculo: "75-80" },
-    escala: { madeira: "Ébano", espessura: "5.0", largura_nut: "30", largura_casa12: "40" },
+    fundo: { madeira: "Mogno, Imbuia", espessura_final: "2.4–3.0" },
+    laterais: { madeira: "Mogno, Imbuia", comprimento: "500", largura_culatra: "85-90", largura_troculo: "75-80" },
+    escala: { madeira: "Ébano", espessura: "5.0", largura_nut: "30", largura_casa12: "39" },
     medidas_gerais: {Distancia_Pestana_Rastilho: "330-350", Distancia_Pestana_Traste_12: "165-175"}
   });
 
@@ -101,7 +101,7 @@
       espessura_final: "2.4–3.0"
     },
     fundo: { madeira: "Mogno, koa", espessura_final: "2.6–3.0" },
-    laterais: { madeira: "Mogno, koa", comprimento: "50", largura_culatra: "65-70", largura_troculo: "55-60" },
+    laterais: { madeira: "Mogno, koa", comprimento: "500", largura_culatra: "65-70", largura_troculo: "55-60" },
     escala: { madeira: "Ébano", espessura: "4-5", largura_nut: "34-39", largura_casa12: "44-50" },
     soprano: {Distancia_Pestana_Rastilho: "~345"},
     concerto: {Distancia_Pestana_Rastilho: "~375"},
