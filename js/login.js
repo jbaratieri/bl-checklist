@@ -6,6 +6,7 @@
 (function () {
   const $ = (s) => document.querySelector(s);
   const btn = $("#btn");
+  const btnFixAccess = $("#btnFixAccess");
   const input = $("#code");
   const msg = $("#msg");
   const AFTER_LOGIN_URL = "index.html";
@@ -88,6 +89,28 @@
     }
   }
 
+  function clearAuthStateOnly() {
+    const keepKeys = new Set(['lp_device_id']);
+    try {
+      const toRemove = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (!k) continue;
+        if (k.startsWith('lp_') && !keepKeys.has(k)) toRemove.push(k);
+      }
+      toRemove.forEach(k => localStorage.removeItem(k));
+    } catch {}
+    try {
+      const toRemove = [];
+      for (let i = 0; i < sessionStorage.length; i++) {
+        const k = sessionStorage.key(i);
+        if (!k) continue;
+        if (k.startsWith('lp_')) toRemove.push(k);
+      }
+      toRemove.forEach(k => sessionStorage.removeItem(k));
+    } catch {}
+  }
+
   // --- PATCH: anti-loop — ao abrir o login, limpa travas desta aba
   try {
     sessionStorage.removeItem('lp:blockHandled');
@@ -141,9 +164,12 @@
   }
 
   // Se já tem licença válida (inclui grace offline), pula login — EXCETO se estiver bloqueado
+  // Importante: só auto-redireciona se o estado de autenticação estiver consistente.
   try {
     const statusBlocked = localStorage.getItem('lp:status') === 'blocked';
     if (!statusBlocked) {
+      const isAuthOk = localStorage.getItem("lp_auth") === "ok";
+      const authCode = localStorage.getItem("lp_code") || localStorage.getItem("lp_license_key") || "";
       const plan = (localStorage.getItem("lp_plan_type") || "").toLowerCase();
       const expStr = localStorage.getItem("lp_expires_at") || "";
       const grace = Number(localStorage.getItem("lp_grace_days") || 0);
@@ -152,9 +178,19 @@
         if (currentPage !== AFTER_LOGIN_URL) location.replace(AFTER_LOGIN_URL);
       };
 
-      if (plan === "vitalicio") { goHome(); return; }
+      // Estado parcial (plano/data sem autenticação) causava loop login <-> index.
+      if (!isAuthOk || !authCode) {
+        if (plan || expStr) {
+          localStorage.removeItem("lp_plan_type");
+          localStorage.removeItem("lp_expires_at");
+          localStorage.removeItem("lp_grace_days");
+          localStorage.removeItem("lp_license");
+        }
+      } else if (plan === "vitalicio") {
+        goHome(); return;
+      }
 
-      if (expStr) {
+      if (isAuthOk && authCode && expStr) {
         const [y, m, d] = expStr.split("-").map(Number);
         if (y && m && d) {
           const end = new Date(y, m - 1, d, 23, 59, 59, 999);
@@ -264,6 +300,13 @@
   }
 
   if (btn) btn.addEventListener("click", onLogin);
+  if (btnFixAccess) {
+    btnFixAccess.addEventListener("click", () => {
+      clearAuthStateOnly();
+      show("Dados de acesso limpos. Faça login novamente.", true);
+      setTimeout(() => location.replace("login.html?fixed=1"), 300);
+    });
+  }
   if (input) input.addEventListener("keydown", e => { if (e.key === "Enter") onLogin(); });
 
   // bônus: colar rápido
