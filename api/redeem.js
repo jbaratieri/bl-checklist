@@ -1,5 +1,8 @@
-// api/redeem.js — retorna o código por e-mail (simples)
-// Procura {email} na tabela "licenses" e devolve o code mais recente.
+// api/redeem.js — retorna o código por e-mail
+// Regras:
+// - flagged = alerta (não bloqueia resgate)
+// - blocked = bloqueio real
+// - quando houver múltiplas licenças do mesmo e-mail, preferir a mais útil e não bloqueada
 
 import Airtable from "airtable";
 
@@ -33,9 +36,9 @@ export default async function handler(req, res) {
     const b = base();
     if (!b) return res.status(200).json({ ok:false, msg:"airtable env missing" });
 
-    // Busca todos os registros do email
+    // Busca todos os registros do email (case-insensitive)
     const recs = await b(AIRTABLE_TABLE).select({
-      filterByFormula: `{email} = "${email}"`
+      filterByFormula: `LOWER({email}) = "${email.replace(/"/g, '\\"')}"`
     }).all();
 
     if (!recs.length) {
@@ -59,7 +62,12 @@ export default async function handler(req, res) {
       return cb - ca;
     });
 
-    const r = recs[0];
+    // Prioriza registro com código e sem bloqueio duro.
+    // flagged não bloqueia resgate.
+    const candidates = recs.filter((r) => (r.get("code") || "").toString().trim());
+    const firstUnblocked = candidates.find((r) => !r.get("blocked"));
+    const r = firstUnblocked || candidates[0] || recs[0];
+
     const code = (r.get("code") || "").toString().trim();
     if (!code) {
       return res.status(200).json({ ok:false, msg:"no_code" });
@@ -67,9 +75,9 @@ export default async function handler(req, res) {
 
     const plan_type  = (r.get("plan_type") || "").toString().toLowerCase();
     const expires_at = r.get("expires_at") || null;
-    const flagged    = !!r.get("flagged");
+    const blocked    = !!r.get("blocked");
 
-    if (flagged) {
+    if (blocked) {
       return res.status(200).json({ ok:false, msg:"blocked" });
     }
 
