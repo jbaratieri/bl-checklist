@@ -1,9 +1,6 @@
-/* step16-measures-presets.v3.js — presets + modal + live placeholders
-   - Se apoia em class="persist" do seu app
-   - Atualiza placeholders ao trocar de instrumento (sem F5)
-   - Botão global: TABELA DE MEDIDAS
-   - Atualizado: usa .open + body.modal-open para abrir/fechar modal
-*/
+// `step16-measures-presets.v3.js`: motor de presets de medidas e modal "Tabela de Medidas".
+// Aplica placeholders/preenchimento automatico conforme instrumento e integra com campos persistentes.
+// Atenção: e base dos modais de medidas; mudancas podem afetar varios botoes e entradas do formulario.
 (function () {
   'use strict';
 

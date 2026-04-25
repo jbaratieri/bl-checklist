@@ -1,6 +1,6 @@
-// ======================================================================
-//  step16-tuning-modal.js — Modal de AFINAÇÃO (usa measuresModal)
-// ======================================================================
+// `step16-tuning-modal.js`: abre um modal com tabelas de afinacao padrao por instrumento.
+// Reutiliza o modal de medidas para exibir conteudo educativo rapido ao usuario.
+// Atenção: depende da existencia de `ensureModal`; sem isso o botao nao abre nada.
 
 // ----------------------
 //  Dados

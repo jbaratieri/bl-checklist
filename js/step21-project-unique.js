@@ -1,4 +1,6 @@
-/* step21-project-unique.js — impede nomes duplicados por Instrumento (case/espacos ignorados) */
+// `step21-project-unique.js`: evita criar projetos com nomes duplicados no mesmo instrumento.
+// Normaliza texto (acentos/maiusculas/espacos) para comparar de forma mais segura.
+// Atenção: atua como validacao de UX; depende de `BL_PROJECT` ja estar carregado.
 (function(){
   'use strict';
   function norm(s){ return (s||'').trim().normalize('NFD').replace(/\p{Diacritic}/gu,'').toLowerCase(); }

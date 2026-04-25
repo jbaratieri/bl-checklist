@@ -1,12 +1,6 @@
-
-/* step16-range-support.js — trata presets com faixa (ex.: "44-50", "2.4–2.8 mm")
-   Como usar:
-   1) Inclua este arquivo DEPOIS do step16-measures-presets.js.
-   2) Ele intercepta o preenchimento automático e evita setar strings inválidas em <input type="number">.
-   3) Estratégia de faixa:
-      - Global: window.BL_MEASURE_FILL_STRATEGY = 'skip' | 'min' | 'max' | 'mean' (padrão: 'skip')
-      - Por campo: data-fill-range="skip|min|max|mean" (tem prioridade sobre a global)
-*/
+// `step16-range-support.js`: trata presets com faixa numerica em campos tipo `number`.
+// Converte textos como "44-50" em valor unico (min/max/media) conforme estrategia configurada.
+// Atenção: deve ser carregado depois do motor de presets para funcionar corretamente.
 (function(){
   'use strict';
 

@@ -1,9 +1,6 @@
-// /api/check-license.js — valida licença usando o campo `code` (fallback para `license_key`)
-// Regras:
-// - flagged = alerta (NÃO bloqueia)
-// - blocked = bloqueio duro (bloqueia)
-// - vitalício ignora validade
-// - trial7: define expires_at = hoje+7 na 1ª validação
+// `api/check-license.js`: valida licenca no login e retorna status de acesso.
+// Trata regras de expiracao, bloqueio, vitalicio e ativacao inicial de trial.
+// Atenção: e endpoint critico para autenticacao; mudancas afetam liberacao de usuarios.
 
 import Airtable from "airtable";
 

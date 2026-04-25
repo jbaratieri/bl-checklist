@@ -1,7 +1,6 @@
-// api/admin.js — Painel Administrativo LuthierPro (v1.9)
-// - GET sem cache (no-store) + cache-buster
-// - Ordenado por created_at desc, fallback code
-// - POST cria licença já com defaults de device-control
+// `api/admin.js`: endpoint administrativo para listar, criar e excluir licencas.
+// E consumido pelo painel admin e conversa com Airtable para operacoes de gestao.
+// Atenção: protegido por `ADMIN_KEY`; alteracoes aqui impactam controle de acessos.
 
 export default async function handler(req, res) {
   try {

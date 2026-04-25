@@ -1,4 +1,6 @@
-// Step 6 (rev): Exportar Medidas (PDF) — separado do "Imprimir checklist"
+// `step6-export.js`: gera a exportacao/impressao em PDF das medidas tecnicas do checklist.
+// Coleta campos principais de secoes definidas e monta uma folha formatada para impressao.
+// Atenção: mudancas podem quebrar seletores de campos e sair PDF vazio ou incompleto.
 (function(){
   'use strict';
   const K_SECTIONS = ['02','03','04','05','08','09'];

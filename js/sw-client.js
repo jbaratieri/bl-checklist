@@ -1,4 +1,6 @@
-// FILE: js/sw-client.js — LuthierPro (updated: dynamic registration, logs, only show banner when waiting)
+// `sw-client.js`: registra e monitora o Service Worker para cache/offline e atualizacoes do app.
+// Exibe aviso quando ha nova versao pronta e aciona recarregamento seguro da pagina.
+// Atenção: alteracoes aqui impactam atualizacao do site para todos os usuarios.
 (function () {
   'use strict';
 

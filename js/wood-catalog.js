@@ -1,9 +1,6 @@
-/* wood-catalog.js — versão lite, estável
-   - Modal único (#wc-dialog)
-   - Lista editável com persistência por chave (localStorage)
-   - Botão "Resumo por uso" que alterna para uma visão agrupada (tampo/fundo/laterais)
-   - Sem helpers globais; expõe apenas window.WoodCatalog.open(key)
-*/
+// `wood-catalog.js`: abre um catalogo de madeiras com busca, edicao e resumo por tipo de uso.
+// Salva dados no navegador e expoe apenas `window.WoodCatalog.open(key)` para abrir o modal.
+// Atenção: os dados ficam por chave no localStorage; limpar navegador apaga personalizacoes.
 
 (() => {
   const LS_PREFIX = 'woodCatalog:';

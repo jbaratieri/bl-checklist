@@ -1,7 +1,6 @@
-
-/* step17-measures-instrumentos.js — define/mescla presets por instrumento
-   → Carregue este arquivo ANTES do step16-measures-presets.js
-*/
+// `step17-measures-instrumentos.js`: define presets de medidas para cada instrumento.
+// Mescla configuracoes no objeto global usado pelo modal/tabela de medidas.
+// Atenção: deve carregar antes do script de presets para as referencias aparecerem corretamente.
 (function () {
   'use strict';
   // não sobrescreva, mescle

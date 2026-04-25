@@ -1,4 +1,6 @@
-/* step19-project-plan.v7.js — ficha do projeto + cronograma com toggle */
+// `step19-project-plan.v7.js`: monta cronograma estimado do projeto com base em datas e dias uteis.
+// Calcula distribuicao por etapa e atualiza tabela/indicacoes ao trocar contexto do projeto.
+// Atenção: e uma estimativa automatica; serve como guia e nao substitui ajuste manual fino.
 (function () {
   'use strict';
 

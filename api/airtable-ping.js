@@ -1,4 +1,6 @@
-// /api/airtable-ping.js — diagnóstico do Airtable (usa ADMIN_KEY)
+// `api/airtable-ping.js`: endpoint de diagnostico para checar conexao/campos do Airtable.
+// Exige `ADMIN_KEY` e retorna informacoes de ambiente e amostra da tabela de licencas.
+// Atenção: util para suporte e debug; nao deve ser exposto sem autenticacao.
 import Airtable from "airtable";
 
 const ADMIN_KEY     = process.env.ADMIN_KEY;

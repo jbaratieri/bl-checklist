@@ -1,6 +1,6 @@
-// ======================================================================
-//  step16-action-modal.js — Modal de AÇÃO DAS CORDAS
-// ======================================================================
+// `step16-action-modal.js`: abre o modal com tabela de referencia para acao das cordas.
+// Reaproveita o modal de medidas e injeta conteudo tecnico por tipo de instrumento.
+// Atenção: depende de `ensureModal/measuresModal`; se nao carregar antes, o botao nao funciona.
 
 // ----------------------
 //  Dados

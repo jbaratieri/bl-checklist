@@ -1,7 +1,6 @@
-/* step15-instrument-badge.js — v2
-   - Corrige mapeamento: vcl → "Violão"
-   - Permite override por window.BL_INSTRUMENT_LABELS ou localStorage 'bl:instrumentLabel:<code>'
-*/
+// `step15-instrument-badge.js`: mostra e atualiza o badge visual do instrumento atual na interface.
+// Tambem aceita personalizacao de nome por configuracao global ou localStorage.
+// Atenção: altera UI global; manter codigos de instrumento consistentes (`vcl`, `vla`, `cav`, `uku`).
 (function(){
   'use strict';
 

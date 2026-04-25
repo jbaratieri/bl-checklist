@@ -1,8 +1,6 @@
-// admin.js — Painel administrativo LuthierPro (v2.1 — devices & blocked)
-// - Status correto: BLOQUEADO só se blocked=true (flagged é alerta)
-// - Lista/edita MaxDevices e blocked
-// - Gerenciar aparelhos (remover deviceId)
-// - Export CSV com campos de devices/flags
+// `admin.js`: controla o painel administrativo de licencas do sistema.
+// Permite listar, filtrar e editar status/licenca por usuario, inclusive bloqueio e dispositivos.
+// Atenção: qualquer alteracao aqui impacta gestao de acesso e pode bloquear clientes reais.
 
 (() => {
   const keyInput = document.getElementById("adminKey");

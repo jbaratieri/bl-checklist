@@ -1,10 +1,6 @@
-/* FILE: js/backup-restore.v1.js — Backup & Restore for LuthierPro (v1.1 patched)
-   - exportProject / exportAllProjects
-   - importPayload with robust merge/overwrite heuristics
-   - importFromFile(file, options)
-   - Added heuristics to ensure project name/index keys are written on single-project import
-   - Toggle debug: window.BL_BACKUP_DEBUG = true
-*/
+// `backup-restore.v1.js`: motor de backup e restauracao de projetos e dados do app.
+// Exporta/importa JSON, tenta preservar compatibilidade entre versoes e inclui imagens/indices de projeto.
+// Atenção: qualquer erro aqui pode causar perda de dados; validar sempre com copia de seguranca.
 (function () {
   'use strict';
   if (window.__BL_BACKUP_V1__) return; window.__BL_BACKUP_V1__ = true;

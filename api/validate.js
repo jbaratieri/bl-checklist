@@ -1,12 +1,6 @@
-// api/validate.js — Validação de licença com controle por deviceId (v2 — trial livre + flagged não bloqueia)
-// Políticas:
-// - Conta por deviceId (não por IP)
-// - TRIAL (plan_type=trial7): não conta devices; acesso ok (se não blocked/expired)
-// - PAGOS (mensal/vitalício):
-//     * MaxDevices padrão = 5 (duro)
-//     * Ao atingir o teto, nega novo device (403)
-// - Auto-replace se houver device "antigo" (> 90 dias sem uso)
-// - flagged no Airtable: manual ou heurísticas locais (churn de devices); não grava por “muitos IPs” no histórico
+// `api/validate.js`: valida codigo/licenca com controle de dispositivos por `deviceId`.
+// Aplica regras de limite para planos pagos e registra auditoria de uso (IP, UA, historico).
+// Atenção: impacto direto em bloqueio/liberacao de aparelhos; testar com cenarios reais.
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store, max-age=0");

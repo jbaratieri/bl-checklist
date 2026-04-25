@@ -1,13 +1,6 @@
-/*! load-assets.patch.js — v2.7
-    - Suporta manifest JSON com lista de strings OU lista de objetos {thumb, full, caption}
-    - Corrigido: base dinâmico (usa a pasta do próprio manifest.json)
-    - Toggle abrir/fechar com data-label-open / data-label-close
-    - Renderiza legendas (captions) abaixo das miniaturas
-    - Viewer embutido caso window.openViewer não exista
-    - Fecha ao clicar em QUALQUER lugar (inclusive na imagem)
-    - Cursor de lupa(–) no overlay e na imagem
-    - Tecla ESC fecha; bloqueio/desbloqueio do scroll do body
-*/
+// `load-assets.patch.js`: carrega galerias de imagens a partir de manifest e monta miniaturas na tela.
+// Tambem abre visualizador de imagem (com fallback local) e controla abrir/fechar da galeria.
+// Atenção: depende de caminhos corretos de assets; erro de base gera varias imagens quebradas.
 (function(){
   'use strict';
 

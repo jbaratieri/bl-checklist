@@ -1,4 +1,6 @@
-// step11-tech.js — Figuras técnicas por instrumento (sem placeholders)
+// `step11-tech.js`: carrega figuras tecnicas corretas para cada instrumento.
+// Procura arquivos por convencao, cria imagem/legenda e remove blocos quando nao encontra asset.
+// Atenção: nomes e caminhos dos arquivos em `assets/tech` precisam seguir o padrao esperado.
 (function () {
   'use strict';
 

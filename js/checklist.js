@@ -1,4 +1,6 @@
-// checklist.js — v2.6 (daily check + lock + anti-loop)
+// `checklist.js`: script principal da tela de checklist de producao.
+// Salva campos marcados, atualiza progresso, controla abertura de secoes e integra persistencia de imagens.
+// Atenção: e um arquivo central e grande; mudancas pequenas podem afetar varias etapas do fluxo.
 (() => {
   'use strict';
 

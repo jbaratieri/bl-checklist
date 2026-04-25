@@ -1,4 +1,6 @@
-// step9-bodyclass-sync.js
+// `step9-bodyclass-sync.js`: sincroniza classes no `<body>` conforme instrumento selecionado.
+// Isso permite CSS e callouts reagirem automaticamente sem recarregar a pagina.
+// Atenção: mexe em classes globais; cuidado para nao remover classes de outras features.
 (function(){
   'use strict';
 

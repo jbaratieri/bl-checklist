@@ -1,3 +1,6 @@
+// `banner-metodobaratieri.js`: exibe um banner informativo e permite fechar definitivamente.
+// Usa localStorage para lembrar que o usuario ja dispensou o banner.
+// Atenção: se a chave de armazenamento mudar, o banner volta a aparecer para todos.
 (function () {
   const KEY = 'mb_evolution_banner_dismissed';
   const banner = document.getElementById('evolution-banner');

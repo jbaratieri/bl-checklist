@@ -1,4 +1,6 @@
-// FILE: js/footer.js
+// `footer.js`: concentra interacoes gerais de rodape e modais auxiliares da pagina.
+// Abre/fecha modais, trata instalacao PWA e carrega o manual dentro de um modal quando solicitado.
+// Atenção: mexe com eventos globais de clique; conflitos aqui afetam varios botoes da interface.
 (function () {
   'use strict';
   document.addEventListener('DOMContentLoaded', initFooter);

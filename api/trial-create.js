@@ -1,4 +1,6 @@
-// /api/trial-create.js (fix: não enviar expires_at vazio)
+// `api/trial-create.js`: cria ou reaproveita licenca de teste (`trial7`) para um e-mail.
+// Evita duplicacao desnecessaria e deixa a expiracao ser definida na primeira validacao.
+// Atenção: usado no fluxo de teste gratis; erros aqui travam captacao de novos usuarios.
 import Airtable from "airtable";
 
 const AIRTABLE_BASE  = process.env.AIRTABLE_BASE  || process.env.AIRTABLE_BASE_ID;

@@ -1,4 +1,6 @@
-// /api/webhook-hotmart.js — Hotmart v2 → Airtable (tabela: licenses)
+// `api/webhook-hotmart.js`: recebe eventos da Hotmart e atualiza/cria licencas no Airtable.
+// Processa aprovacao, renovacao, cancelamento e reembolso com idempotencia por transacao.
+// Atenção: endpoint financeiro critico; qualquer falha pode liberar ou bloquear clientes errado.
 import Airtable from "airtable";
 import crypto from "crypto";
 

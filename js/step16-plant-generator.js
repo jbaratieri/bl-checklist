@@ -1,6 +1,6 @@
-// ======================================================================
-// step16-plant-generator.js — PRANCHETA LUTHIER DIGITAL (STABLE)
-// ======================================================================
+// `step16-plant-generator.js`: gera e desenha uma prancheta digital de referencia luthier no canvas.
+// Calcula trastes, ponte, boca e medidas basicas por instrumento para apoio visual.
+// Atenção: a feature pode depender de flag interna e de elementos de UI especificos.
 
 (function () {
 

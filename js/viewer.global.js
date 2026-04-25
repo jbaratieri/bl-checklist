@@ -1,9 +1,6 @@
-/*! viewer.global.js — v1.0 (singleton)
-   - window.openViewer(url, alt?)  → abre
-   - window.closeViewer()          → fecha
-   - Clique em qualquer lugar/ESC → fecha
-   - Cursor zoom-out + trava scroll do body
-*/
+// `viewer.global.js`: disponibiliza um visualizador global de imagens em tela cheia.
+// Cria as funcoes `openViewer` e `closeViewer` para outros scripts reutilizarem o mesmo modal.
+// Atenção: e um singleton global; mudancas afetam todas as telas que abrem imagem.
 (function(){
   'use strict';
   if (window.BLViewer) return;

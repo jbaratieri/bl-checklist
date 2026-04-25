@@ -1,4 +1,6 @@
-// step16-measures-toggle.js — toggle com ícone 📏/🔽 e legenda dinâmica
+// `step16-measures-toggle.js`: controla abrir/recolher grades de medidas por botao.
+// Troca icone e legenda dinamicamente para indicar estado visivel/oculto.
+// Atenção: depende de `data-target` apontando para um elemento existente.
 (() => {
   'use strict';
 

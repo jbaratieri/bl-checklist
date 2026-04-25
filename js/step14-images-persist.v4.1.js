@@ -1,9 +1,6 @@
-/*! FILE: js/step14-images-persist.v4.1.js — UPDATED (v4.1 patched for IndexedDB dual-write)
-   - Mantém TODO o comportamento do v3.4/v4.1
-   - Agora grava em IndexedDB via window.blImgSave (se disponível) e mantém localStorage como fallback (duplo-write)
-   - Leitura prioriza IDB (blImgListPrefix/blImgGet) com fallback para localStorage
-   - Exclusão tenta remover tanto localStorage quanto IDB
-*/
+// `step14-images-persist.v4.1.js`: salva e restaura imagens anexadas nas etapas do projeto.
+// Trabalha com escrita dupla (IndexedDB + localStorage) para reduzir risco de perda dos anexos.
+// Atenção: se esse fluxo falhar, usuario pode perder fotos de referencia importantes.
 (function(){
   'use strict';
 

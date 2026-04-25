@@ -1,8 +1,6 @@
-// api/redeem.js — retorna o código por e-mail
-// Regras:
-// - flagged = alerta (não bloqueia resgate)
-// - blocked = bloqueio real
-// - quando houver múltiplas licenças do mesmo e-mail, preferir a mais útil e não bloqueada
+// `api/redeem.js`: recupera codigo de licenca a partir do e-mail do cliente.
+// Quando ha mais de uma licenca, escolhe a melhor candidata (prioriza nao bloqueada).
+// Atenção: endpoint usado no fluxo de "resgatar codigo"; cuidado com regras de selecao.
 
 import Airtable from "airtable";
 

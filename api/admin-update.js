@@ -1,6 +1,6 @@
-// api/admin-update.js — Atualização de registros no Airtable (robusto)
-// - Whitelist ampliada p/ controle de devices e bloqueio
-// - Saneamento de Devices (salva como JSON)
+// `api/admin-update.js`: endpoint para editar campos de uma licenca existente no Airtable.
+// Aplica whitelist e saneamento para evitar gravar campos invalidos no painel administrativo.
+// Atenção: usa `ADMIN_KEY`; validacoes daqui evitam corrupcao de dados de licenca.
 
 import Airtable from "airtable";
 

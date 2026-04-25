@@ -1,4 +1,6 @@
-/* step18-persist-fallback.v3.js — com anti-loop e debounce */
+// `step18-persist-fallback.v3.js`: persistencia geral de campos `.persist` por instrumento e projeto.
+// Inclui protecoes anti-loop/debounce para evitar eventos em cascata durante restauracao.
+// Atenção: esse modulo toca quase todos os campos do app; erro aqui pode sobrescrever valores.
 (function(){
   'use strict';
 

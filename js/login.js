@@ -1,7 +1,6 @@
-// ======================================================
-// 🔐 login.js — LuthierPro (validação via /api/check-license)
-// v2.4 — anti-loop (já incluso) + CTA de compra quando expirado + badge/remaining
-// ======================================================
+// `login.js`: faz validacao da licenca no login e decide se libera entrada no app.
+// Tambem mostra mensagens de expiracao, CTA de compra e limpa estados para evitar loop de redirecionamento.
+// Atenção: erros aqui podem impedir login ou liberar acesso indevido.
 
 (function () {
   const $ = (s) => document.querySelector(s);

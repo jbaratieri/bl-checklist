@@ -1,16 +1,6 @@
-/* step21-project-bus.js — Gerenciador de Projetos por Instrumento
-   - Mantém uma lista de projetos por instrumento
-   - Define o projeto corrente por instrumento
-   - Emite evento 'bl:project-change' quando o projeto muda
-   API:
-     BL_PROJECT.list(inst) -> [{id, name}]
-     BL_PROJECT.get(inst) -> projectId
-     BL_PROJECT.set(inst, id, {source})
-     BL_PROJECT.create(inst, name) -> id
-     BL_PROJECT.rename(inst, id, newName)
-     BL_PROJECT.remove(inst, id)  // não apaga dados, só remove da lista
-     BL_PROJECT.on(fn), off(fn), ready(cb)
-*/
+// `step21-project-bus.js`: cria a API global `BL_PROJECT` para gerenciar projetos por instrumento.
+// Mantem lista, projeto ativo e eventos de troca para sincronizar os demais modulos.
+// Atenção: e o nucleo do contexto de projeto; alteracoes impactam seletores, persistencia e backup.
 (function(){
   'use strict';
   if (window.BL_PROJECT) return;

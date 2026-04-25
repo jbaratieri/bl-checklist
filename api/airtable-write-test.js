@@ -1,3 +1,6 @@
+// `api/airtable-write-test.js`: endpoint de teste para escrita controlada no Airtable.
+// Serve para validar se o servidor consegue criar registro na tabela de licencas.
+// Atenção: use apenas em manutencao; com `?do=write` ele grava um registro de diagnostico real.
 import Airtable from "airtable";
 
 const ADMIN_KEY      = process.env.ADMIN_KEY;

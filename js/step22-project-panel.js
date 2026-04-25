@@ -1,4 +1,6 @@
-/* FILE: js/step22-project-panel.js — Backup/Restore bindings (cleaned & patched) */
+// `step22-project-panel.js`: conecta botoes/painel de projeto com criar, renomear, excluir, exportar e importar.
+// Exibe toasts, sincroniza seletores e chama APIs de backup/restore do sistema.
+// Atenção: e o ponto de operacao do usuario; qualquer regressao aqui impacta fluxo diario de uso.
 (function () {
   'use strict';
 

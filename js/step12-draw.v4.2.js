@@ -1,10 +1,6 @@
-/* step12-draw.v4.2.js — Desenho Técnico v4.4 (FULL FILE - Updated)
-   - UI simplificada (sem Resetar/Exportar/Salvar; auto-save ativo)
-   - Mobile usa "cover" (imagem ocupa mais o canvas)
-   - RESTAURA assets discovery + fallbacks e overlay restore
-   - Persiste overlay em IndexedDB (via window.blImgSave) e em localStorage (compat)
-   - Lê overlay do IndexedDB primeiro (via window.blImgListPrefix / window.blImgGet) com fallback para localStorage
-*/
+// `step12-draw.v4.2.js`: controla a area de desenho tecnico (canvas), fundo de referencia e overlay.
+// Faz autosave/restauracao do desenho e integra armazenamento em IndexedDB com fallback localStorage.
+// Atenção: arquivo sensivel para performance e persistencia visual; testar em mobile e desktop.
 (function(){
   'use strict';
 

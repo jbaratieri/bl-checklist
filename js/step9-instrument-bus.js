@@ -1,12 +1,6 @@
-/* step9-instrument-bus.js — fonte única da verdade para instrumento atual
-   API:
-     BL_INSTRUMENT.get() -> 'vcl'|'vla'|'cav'|'uku'
-     BL_INSTRUMENT.set(code, {source})  // emite evento se mudou
-     BL_INSTRUMENT.on(fn) / off(fn)     // escuta mudanças
-     BL_INSTRUMENT.ready(cb)            // chama cb quando estabilizar após boot
-
-   Integrações: dispara CustomEvent 'bl:instrument-change' em window.
-*/
+// `step9-instrument-bus.js`: cria a API global `BL_INSTRUMENT` para padronizar instrumento atual.
+// Emite eventos de troca e sincroniza mudancas vindas de localStorage/abas diferentes.
+// Atenção: funciona como "fonte da verdade"; conflitos aqui afetam todos os modulos dependentes.
 (function(){
   'use strict';
   if (window.BL_INSTRUMENT) return; // já instalado

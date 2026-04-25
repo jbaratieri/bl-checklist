@@ -1,4 +1,6 @@
-// Step 9: Instrument selector + namespaced persistence + print header
+// `step9-instrument.js`: gerencia selecao do instrumento e persistencia de dados por instrumento.
+// Tambem atualiza badge/textos e integra comportamento de cabecalho para impressao.
+// Atenção: e base para o contexto do app; erro aqui mistura dados entre instrumentos.
 (function(){
   'use strict';
 

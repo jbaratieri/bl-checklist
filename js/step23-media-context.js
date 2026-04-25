@@ -1,4 +1,6 @@
-/* step23-media-context.js — helpers para chaves por Instrumento + Projeto */
+// `step23-media-context.js`: fornece helpers para gerar chaves de dados por instrumento + projeto.
+// Centraliza funcoes de contexto (`BL_CTX`) usadas por modulos de midia/persistencia.
+// Atenção: se a regra de chave mudar, pode "sumir" dado antigo por incompatibilidade de prefixo.
 (function(){
   'use strict';
   function getInst(){
