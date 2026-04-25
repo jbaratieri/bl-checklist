@@ -1,4 +1,9 @@
-/* context-bar.css — barra unificada Instrumento + Projeto (v1.4) */
+/* context-bar.css — barra unificada de contexto (instrumento + projeto)
+   Fonte oficial atual de troca de contexto.
+   Elementos antigos (FAB/botao flutuante) ficam explicitamente ocultos aqui. */
+/* =========================
+   Tokens locais da barra
+   ========================= */
 :root {
   --ctx-bg: #fcf8f3;
   --ctx-border: #e8dfd1;
@@ -8,7 +13,9 @@
   --ctx-surface: #ffffff;
 }
 
-/* Barra fixa no topo */
+/* =========================
+   Container principal
+   ========================= */
 #contextBar {
   position: sticky;
   top: 0;
@@ -21,6 +28,7 @@
   backdrop-filter: saturate(1.05) blur(2px);
 }
 
+/* Layout interno */
 #contextBar .row {
   display: flex;
   flex-wrap: wrap;
@@ -38,6 +46,7 @@
   gap: 12px;
 }
 
+/* Controles: labels/selects/botoes */
 #contextBar label {
   display: flex;
   align-items: center;
@@ -83,6 +92,9 @@
   opacity: .75;
 }
 
+/* =========================
+   Compatibilidade/legado
+   ========================= */
 /* Oculta elementos antigos */
 .instrument-fab,
 #btnInstrument,
@@ -91,6 +103,9 @@ label[for="job-instrument"] {
   display: none !important;
 }
 
+/* =========================
+   Responsividade
+   ========================= */
 /* Mobile */
 @media (max-width: 768px) {
   #contextBar .row {
@@ -112,6 +127,7 @@ label[for="job-instrument"] {
   }
 }
 
+/* Impressao */
 /* Impressão: esconde a barra */
 @media print {
   #contextBar { display: none !important; }

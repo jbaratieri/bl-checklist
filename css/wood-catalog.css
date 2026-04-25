@@ -1,4 +1,8 @@
-/* wood-catalog.css — estilo integrado ao BL Checklist */
+/* wood-catalog.css — catalogo de madeiras integrado ao checklist
+   Escopo:
+   - modal e formulario de edicao
+   - resumo por categorias/uso
+   - responsividade do catalogo */
 
 /* ====== Modal ====== */
 .wc-modal::backdrop {
@@ -252,7 +256,7 @@
   font-size: 0.75rem;
 }
 
-/* ====== Mobile ====== */
+/* ====== Responsividade ====== */
 @media (max-width: 600px) {
 
   .wc-row,

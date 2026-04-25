@@ -1,3 +1,6 @@
+/* Camada foundation:
+   - Fonte principal de tokens globais (:root) e estrutura base da pagina.
+   - Regras globais aqui devem ser estaveis; overrides de componente ficam em arquivos especificos. */
 :root{
   --bg:#f7f2ea; --card:#fff; --ink:#2e2a26; --muted:#6f675f;
   --acc:#8a623f; --acc-2:#cf995f;
@@ -19,7 +22,11 @@ body{
 }
 .app h1{margin:0 0 4px;font-size:20px;letter-spacing:.2px}
 .app p{margin:0 0 12px;color:var(--muted);font-size:13px}
+/* Base generica da toolbar.
+   A variante principal de toolbar em header.app e mantida em buttons.css. */
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* Base generica de botao.
+   Ajustes de comportamento/hover/focus sao refinados em btn-hover-tune.css e btn-utilities.css. */
 .btn{
   border:1px solid #e0d7c8;
   color:var(--ink);
@@ -129,14 +136,9 @@ body{
 }
 .placeholder-clean figcaption{font-size:12px;color:var(--muted)}
 
-/* medidas controladas por .open */
-.measures-block .measures-grid{display:none}
-.measures-block.open .measures-grid{display:grid}
-.measures-grid{
-  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-  gap:10px;margin:10px 0 6px
-}
-.measures-grid label{display:flex;flex-direction:column;font-size:12px;color:var(--muted)}
+/* Medidas:
+   fonte oficial de layout/tipografia da grade fica em `measures-block.css`.
+   Mantemos aqui apenas ajustes complementares realmente locais. */
 .measures-grid input{margin-top:4px}
 
 .tool-row{display:flex;gap:8px;margin-top:8px}
@@ -152,10 +154,8 @@ textarea{
 
 .progress{font-size:12px;color:var(--muted)}
 
-.modal{
-  position:fixed;inset:0;background:rgba(0,0,0,.35);
-  display:none;align-items:center;justify-content:center;padding:16px
-}
+/* `.modal` (container/base) e oficial em `buttons.css`.
+   Mantemos aqui apenas estilos internos especificos como `.modal .panel`. */
 .modal .panel{
   background:#fff;
   border-radius:16px;
@@ -204,21 +204,28 @@ canvas{display:block;width:100%;height:auto;max-height:65vh}
 .intro .intro-toggle:hover{background:#74492a}
 
 header.app{position:relative}
-header.app .toolbar{
-  display:flex;align-items:center;gap:0.5em;
-}
+/* `header.app .toolbar` e oficial em `buttons.css` (camada components). */
 /*header.app .logo-box{
   position:absolute;top:50%;right:12px;transform:translateY(-50%)
 }
 header.app .logo-box img{height:200px;width:auto}*/
 
+/* =========================
+   Header auxiliar (logo/status)
+   ========================= */
 .logo-row{display:flex;justify-content:space-between;align-items:center;gap:20px}
 .status-row{display:flex;align-items:center;gap:12px; justify-content: center;
     text-align: center;}
 
+/* =========================
+   Compat de imagem tecnica
+   ========================= */
 /* adicione em step11-tech.css ou no seu CSS global */
 figure.tech-figure img{background:#fff}
 
+/* =========================
+   Ajustes locais de botoes de etapa
+   ========================= */
 /* Ajustes para botões que ficavam "sumidos" no fundo branco */
 .btn.toggle,
 .btn.add-image,
@@ -245,6 +252,9 @@ figure.tech-figure img{background:#fff}
   outline:2px solid #8a623f;outline-offset:2px;
 }
 
+/* =========================
+   Badge de aplicabilidade
+   ========================= */
 .badge-aplica{
   display:inline-flex;align-items:center;gap:6px;margin-left:.5rem;
   padding:3px 8px;border-radius:9999px;
@@ -262,6 +272,9 @@ figure.tech-figure img{background:#fff}
 .badge-aplica .sep{opacity:.5}
 .badge-aplica .off{opacity:.3;filter:grayscale(1)}
 
+/* =========================
+   Callouts por instrumento
+   ========================= */
 .callout{
   margin:.5rem 0;padding:.6rem .8rem;border-left:4px solid #c8a97a;
   background:#faf6ef;border-radius:.5rem;
@@ -274,11 +287,17 @@ figure.tech-figure img{background:#fff}
 .inst-uku .callout[data-instruments~="uku"]{display:block!important;border-left-color:#b44186}
 .callout[data-instruments~="*"]{display:block!important}
 
+/* =========================
+   Impressao (fallback/local)
+   ========================= */
 @media print{
   .app,.toc,.toolbar,#btnExportPDF{display:none!important}
   .section .section-body{display:block!important}
 }
 
+/* =========================
+   Galeria legada local
+   ========================= */
 .img-row{display:flex;flex-wrap:wrap;gap:10px;padding:6px 0}
 .img-thumb{
   position:relative;width:150px;height:150px;
@@ -300,6 +319,9 @@ figure.tech-figure img{background:#fff}
 @media (max-width:768px){
   .toc{display:none}
 }
+/* =========================
+   Banner de evolucao do produto
+   ========================= */
 #evolution-banner {
   position: fixed;
   top: 86px; /* abaixo do header */

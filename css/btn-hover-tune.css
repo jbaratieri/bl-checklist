@@ -4,16 +4,12 @@
   --btn-radius: 12px;
 }
 
-/* Base para todos os .btn (inclui anchors) */
+/* Refino da base de .btn (estrutura principal continua em checklist.css).
+   Aqui mantemos apenas comportamento/ajustes de acabamento. */
 .btn, a.btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: .35rem;
   /* Se já existir --radius no tema, usamos. Senão, caímos em --btn-radius (12px). */
   border-radius: var(--radius, var(--btn-radius, 12px));
   transition: color .2s ease, background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .08s ease;
-  text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 

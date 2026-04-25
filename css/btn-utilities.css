@@ -1,9 +1,12 @@
-/* btn-utilities.css — utilitários de botões (opt-in)
-   - Tamanhos: .btn--sm / .btn--lg
-   - Formato pill: .btn--pill
-   - Ajustes de padding e altura mínima coesos
-   - Anel de foco mais visível (a11y)
-*/
+/* btn-utilities.css — camada utilities para botoes (opt-in)
+   Escopo:
+   - Ajustes de tamanho e densidade
+   - Helpers de formato
+   - Anel de foco de acessibilidade
+   Nao deve redefinir visual principal de componente. */
+/* =========================
+   Tokens locais (utilities)
+   ========================= */
 :root{
   --btn-h: 38px;
   --btn-pad-x: 12px;
@@ -11,7 +14,9 @@
   --focus-ring: rgba(207,153,95,.35); /* usa paleta próxima de --acc */
 }
 
-/* Base refinada (sem quebrar seu .btn atual) */
+/* =========================
+   Refinos opt-in da base
+   ========================= */
 .btn, a.btn{
   min-height: var(--btn-h);
   padding: 6px var(--btn-pad-x);
@@ -19,20 +24,28 @@
   line-height: 1.1;
 }
 
-/* Tamanhos */
+/* =========================
+   Modificadores de tamanho
+   ========================= */
 .btn--sm{ --btn-h: 32px; --btn-pad-x: 10px; font-size: .92rem; }
 .btn--lg{ --btn-h: 44px; --btn-pad-x: var(--btn-pad-x-lg); font-size: 1rem; }
 
-/* Formato "pill" (opcional por classe) */
+/* =========================
+   Modificador de formato
+   ========================= */
 .btn--pill{ border-radius: 999px !important; }
 
-/* Acessibilidade: foco claro */
+/* =========================
+   Acessibilidade (focus ring)
+   ========================= */
 .btn:focus-visible, a.btn:focus-visible{
   box-shadow: 0 0 0 3px var(--focus-ring), 0 6px 18px rgba(0,0,0,.12);
   outline: none;
 }
 
-/* Dark mode: foco equilibrado */
+/* =========================
+   Dark mode
+   ========================= */
 @media (prefers-color-scheme: dark){
   :root{ --focus-ring: rgba(207,153,95,.45); }
 }

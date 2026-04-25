@@ -1,3 +1,10 @@
+/* step6-export.css — impressao/exportacao de medidas
+   Escopo:
+   - folha temporaria de export (#print-sheet)
+   - layout de cabecalho/rodape durante print */
+/* =========================
+   Folha de exportacao
+   ========================= */
 /* Step 6 (rev): folha de impressão só quando exportando medidas */
 #print-sheet{ display:none; }
 @media print {
@@ -12,7 +19,9 @@
   body.print-measures #print-sheet td.notes{ white-space: pre-wrap; }
 }
 
-
+/* =========================
+   Cabecalho e rodape impressos
+   ========================= */
 /* --- Step 8: header/footer with logo and page counters --- */
 @media print {
   body.print-measures #print-header{

@@ -1,3 +1,6 @@
+/* Camada responsive (carregada por ultimo):
+   - Centraliza overrides de breakpoint sem redefinir base desnecessariamente.
+   - Sempre preferir ajustes aqui ao inves de duplicar media query em varios arquivos. */
 /* ==============================
    responsive.css — ajustes Mobile First
    ============================== */
@@ -98,6 +101,9 @@ header.app .app-logo {
   }
 }
 
+/* ===========================
+   Breakpoint <= 480px
+   =========================== */
 /* Telas até 480px (celulares em modo retrato) */
 @media (max-width: 480px) {
   body {
@@ -142,7 +148,7 @@ header.app .app-logo {
   }
 }
 
-/* Toolbar em grade 2xN */
+/* Toolbar em grade 2xN (variante para <= 480px) */
 @media (max-width: 480px) {
   header.app .toolbar {
     display: grid;
@@ -228,8 +234,7 @@ header.app .app-logo {
   }
 }
 /* =============================
-   Ajustes extras: toolbar móvel + tabelas modal
-   Colar no final do responsive.css
+   Ajustes extras (mobile e modal)
    ============================= */
 
 /* Toolbar mais elástica em telas pequenas:
@@ -266,6 +271,7 @@ header.app .app-logo {
 
 /* ===========================
    Modal / Tabelas (measuresModal)
+   Fonte oficial de overrides responsivos do modal de medidas.
    =========================== */
 
 /* Garante que o diálogo do modal não ultrapasse a largura da viewport */

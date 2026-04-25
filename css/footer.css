@@ -1,3 +1,8 @@
+/* footer.css — rodape institucional e badge de licenca
+   Fonte oficial do visual de navegacao inferior e estados do badge de licenca. */
+/* =========================
+   Container e navegacao
+   ========================= */
 .app-footer {
   background: #faf7f2;
   border-top: 1px solid #e0d7c8;
@@ -32,6 +37,9 @@
   color: #666;
 }
 
+/* =========================
+   Badge de licenca
+   ========================= */
 /* ===== LuthierPro — Badge de Licença Integrado ===== */
 .app-footer .license-badge {
   margin-top: 10px;

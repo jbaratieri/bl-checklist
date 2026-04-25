@@ -1,3 +1,8 @@
+/* Camada components (fonte oficial):
+   - Toolbar de header.app
+   - Botoes de acao/toggle
+   - Modal generico usado por botoes utilitarios
+   Observacao: este arquivo vem depois de checklist.css para ser o "dono" dessas variacoes. */
 /* ==========================
    Botões individuais (existing)
    ========================== */
@@ -177,7 +182,7 @@ header.app .toolbar .btn.primary:hover {
 }
 
 /* ==========================
-   Import/Export compact dropdowns
+   Dropdowns de Import/Export
    ========================== */
 
 /* container of the two dropdowns */
@@ -250,6 +255,9 @@ header.app .toolbar .btn.primary:hover {
   font-size: 12px;
 }
 
+/* ==========================
+   Estado visual do planHint
+   ========================== */
 /* planHint visibility helpers */
 #planHint.plan-hint-hidden {
   display: none !important;
@@ -268,6 +276,9 @@ header.app .toolbar .btn.primary:hover {
   font-size: 0.95rem;
 }
 
+/* ==========================
+   Acao PWA (instalacao)
+   ========================== */
 /* botão PWA install (mover deste style inline) */
 #btnInstall {
   position: fixed;
@@ -292,6 +303,9 @@ header.app .toolbar .btn.primary:hover {
 
 
 
+/* ==========================
+   Responsividade de dropdowns
+   ========================== */
 /* compact behaviour for small screens: menus go full width under button */
 @media (max-width: 480px) {
   .br-menu {

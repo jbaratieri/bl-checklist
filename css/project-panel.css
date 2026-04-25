@@ -1,3 +1,7 @@
+/* Fonte oficial atual para painel de projeto e cronograma (#planTable).
+   Regras antigas de project-header.css sao mantidas apenas por compatibilidade. */
+/* Camada pages:
+   estilos especificos da secao de projeto (seletores, botoes e cronograma). */
 /* ========================= 
    Layout base dos containers
    ========================= */
@@ -173,6 +177,15 @@
 #planTable th,
 #planTable td {
   white-space: nowrap;
+}
+
+/* Cabeçalho e rodapé do cronograma (visual oficial) */
+#planTable thead th {
+  background: #efe6d9;
+}
+
+#planTable tfoot td {
+  font-weight: 600;
 }
 
 /* =========================

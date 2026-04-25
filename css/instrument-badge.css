@@ -1,4 +1,9 @@
-/* instrument-badge.css — estilo do selo do instrumento atual */
+/* instrument-badge.css — selo do instrumento atual
+   Fonte oficial do badge no header (.inst-badge).
+   Bloco .project-badge-fixed mantido apenas para compatibilidade/uso eventual. */
+/* =========================
+   Badge principal (header)
+   ========================= */
 .inst-badge{
   display: inline-flex;
   align-items: center;
@@ -22,6 +27,9 @@
   box-shadow: 0 0 0 2px rgba(0,0,0,.05) inset;
 }
 
+/* =========================
+   Variante legada/opcional
+   ========================= */
 /* Badge fixo no canto superior direito */
 .project-badge-fixed {
   position: fixed;
@@ -45,7 +53,9 @@
   text-overflow: ellipsis;
 }
 
-
+/* =========================
+   Dark mode
+   ========================= */
 @media (prefers-color-scheme: dark){
   .inst-badge{
     background: #2a2a2a;

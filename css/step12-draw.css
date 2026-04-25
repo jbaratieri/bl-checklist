@@ -15,6 +15,7 @@
   display: flex;
 }
 
+/* ===== Estrutura do dialog ===== */
 #drawModal .dialog {
   width: min(96vw, 1280px);
   max-height: 92vh;
@@ -111,6 +112,7 @@
   background: #f6f2ec;
 }
 
+/* ===== Breakpoint mobile ===== */
 /* ===== Mobile ===== */
 @media (max-width: 600px) {
   #drawModal .dialog {

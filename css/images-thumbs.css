@@ -1,4 +1,11 @@
-/* images-thumbs.css — visual polido para miniaturas */
+/* images-thumbs.css — miniaturas e visualizador de imagens
+   Fonte oficial para:
+   - grid de thumbs do usuario (.img-row)
+   - grid de assets por manifest (.assets-row)
+   - lightbox de visualizacao */
+/* =========================
+   Miniaturas de uploads
+   ========================= */
 .img-row {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -39,6 +46,9 @@
   cursor: pointer;
 }
 
+/* =========================
+   Miniaturas de assets
+   ========================= */
 /* --- extras do projeto (reaproveitam visual das thumbs do usuário) --- */
 .assets-row {
   display: grid;
@@ -90,6 +100,9 @@
 .assets-row img,
 .assets-row .thumb { cursor: zoom-in; }
 
+/* =========================
+   Lightbox/Viewer
+   ========================= */
 /* Overlay do lightbox */
 .lightbox {
   position: fixed;
@@ -115,6 +128,9 @@
 }
 
 
+/* =========================
+   Ajustes finais compartilhados
+   ========================= */
 /* cursores nas miniaturas (uploads e manifest) */
 .img-row .thumb,
 .img-row .thumb img,

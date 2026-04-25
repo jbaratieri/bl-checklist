@@ -2,6 +2,9 @@
    measures-modal — Wood-themed (Final Version)
    =========================== */
 
+/* ===========================
+   Tokens do tema (wood)
+   =========================== */
 /* Paleta baseada no wood-catalog.css */
 :root {
   --wc-card: #ffffff;           /* correspondência a --card */
@@ -19,6 +22,9 @@
   --max-modal-width: 960px;
 }
 
+/* ===========================
+   Container modal
+   =========================== */
 /* --- Container modal --- */
 .measures-modal {
   position: fixed;
@@ -32,10 +38,10 @@
   font-size: 16px; /* Garante tamanho base */
 }
 
-/* visible */
+/* Estado visivel */
 .measures-modal.open { display: flex; }
 
-/* backdrop */
+/* Backdrop */
 .measures-modal .measures-backdrop {
   position: fixed;
   inset: 0;
@@ -45,7 +51,7 @@
   -webkit-backdrop-filter: blur(3px);
 }
 
-/* dialog */
+/* Dialog */
 .measures-modal .measures-dlg {
   position: relative;
   z-index: 14002;
@@ -64,6 +70,9 @@
   box-sizing: border-box;
 }
 
+/* ===========================
+   Header / Footer
+   =========================== */
 /* header (com o visual do wood modal) */
 .measures-modal .measures-hd {
   display:flex;
@@ -91,6 +100,9 @@
   background: #faf7f2;
 }
 
+/* ===========================
+   Body e grid interno
+   =========================== */
 /* body */
 .measures-modal .measures-body {
   padding: var(--modal-gap);
@@ -115,6 +127,9 @@
 }
 
 
+/* ===========================
+   Tabelas de medidas
+   =========================== */
 /* tuning table wrap */
 .tuning-table-wrap {
   width:100%;
@@ -188,6 +203,9 @@
   overflow-x: auto;
 }
 
+/* ===========================
+   Sub-secoes (tuning/presets)
+   =========================== */
 /* Tuning sub-sections (Global Styles) */
 
 /* Este seletor garante que o wrapper da seção ocupe uma coluna no grid do body */
@@ -221,8 +239,10 @@
     grid-column: 1 / -1; /* Ocupa a largura total (2 colunas de grid) no desktop */
 }
 
-/* ----------------------------------------------------------------------- */
-/* ---------- mobile: stack rows as label/value cards earlier (<=600px) ---------- */
+/* ===========================
+   Responsividade <= 600px
+   =========================== */
+/* mobile: stack rows as label/value cards earlier (<=600px) */
 @media (max-width: 600px) {
   .measures-modal .measures-dlg { width: 98vw; max-height: calc(100vh - 4vh); border-radius: 12px; }
   .measures-modal .measures-body { grid-template-columns: 1fr; padding: 12px; gap: 10px; }
@@ -333,6 +353,9 @@
   }
 }
 
+/* ===========================
+   Acessibilidade e acoes
+   =========================== */
 /* accessibility focus */
 .measures-modal .btn:focus,
 .measures-modal .measures-close:focus {
@@ -359,6 +382,9 @@
     opacity: 0.85;
 }
 
+/* ===========================
+   Comportamento modal-open
+   =========================== */
 /* prevent background interactions when modal open */
 body.modal-open { overflow: hidden; touch-action: none; }
 body.modal-open .project-area,

@@ -1,3 +1,6 @@
+/* project-header.css (legado):
+   Mantido para compatibilidade visual de layouts antigos.
+   Fonte oficial atual do painel/cronograma: project-panel.css. */
 /* project-header.css — ficha do projeto + cronograma */
 .project-header {
   max-width: 1100px;                     /* largura unificada */
@@ -47,28 +50,31 @@
   font-size: .9rem;
 }
 
-#planTable {
+/* Escopo legado:
+   aplica estilos de cronograma somente quando o bloco estiver dentro de `.project-header`.
+   Isso evita sobreposicao no cronograma atual (fonte oficial em project-panel.css). */
+.project-header #planTable {
   margin-top: 12px;
 }
 
-#planTable table {
+.project-header #planTable table {
   width: 100%;
   border-collapse: collapse;
 }
 
-#planTable th,
-#planTable td {
+.project-header #planTable th,
+.project-header #planTable td {
   border-top: 1px solid #eadfce;
   padding: 8px 10px;
   text-align: left;
   font-size: .95rem;
 }
 
-#planTable thead th {
+.project-header #planTable thead th {
   background: #efe6d9;
 }
 
-#planTable tfoot td {
+.project-header #planTable tfoot td {
   font-weight: 600;
 }
 
@@ -90,8 +96,8 @@
     padding: 0 0 8px;
     box-shadow: none;
   }
-  #planTable th,
-  #planTable td {
+  .project-header #planTable th,
+  .project-header #planTable td {
     border-color: #ddd;
   }
 }

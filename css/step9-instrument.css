@@ -1,11 +1,9 @@
-
-/* Step 9: Instrument selector + print header */
-#btnInstrument {
-  position: fixed; right: 14px; bottom: 14px; z-index: 999;
-  padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(0,0,0,.15);
-  background: #fff; box-shadow: 0 6px 18px rgba(0,0,0,.12);
-  font: 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; cursor: pointer;
-}
+/* step9-instrument.css — modal de instrumento + regras de impressao
+   OBS: estilo visual legado de `#btnInstrument` foi removido daqui.
+   A camada oficial atual (`context-bar.css`) esconde esse FAB antigo por compatibilidade. */
+/* =========================
+   Modal de instrumento
+   ========================= */
 #inst-modal {
   position: fixed; inset: 0; display: none; place-items: center; z-index: 1000;
   background: rgba(0,0,0,.35);
@@ -29,6 +27,9 @@
 }
 #inst-modal .actions .btn.primary { background: #2f6; border-color: #2c5; }
 
+/* =========================
+   Impressao (checklist completo)
+   ========================= */
 /* Print header/footer for full checklist (not measures) */
 @media print {
   body:not(.print-measures) #app-print-header {
@@ -50,6 +51,9 @@
 }
 #app-print-header, #app-print-footer, #app-print-spacer, #app-print-spacer-bottom { display:none; }
 
+/* =========================
+   Filtro por instrumento ativo
+   ========================= */
 /* Filtra qualquer [data-instruments] pelo instrumento ativo */
 .inst-vcl [data-instruments]:not([data-instruments~="vcl"]) { display:none !important; }
 .inst-vla [data-instruments]:not([data-instruments~="vla"]) { display:none !important; }
