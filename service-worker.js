@@ -1,7 +1,10 @@
-// service-worker.js — Método Baratieri v2.5.4 - 2026-04-21
-const CACHE_VERSION = 'metodo-baratieri-v2.5.3v2.5.4';
+// service-worker.js — Metodo Baratieri
+// CACHE_VERSION e derivado da query ?v= recebida no registro do SW (sw-client.js).
+const SW_URL = new URL(self.location.href);
+const SW_QUERY_VERSION = SW_URL.searchParams.get('v') || 'dev';
+const CACHE_VERSION = `luthierpro-${SW_QUERY_VERSION}`;
 const SHELL_CACHE = `shell-${CACHE_VERSION}`;
-const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // <-- assegura nome igual ao window.__RUNTIME_CACHE_NAME
+const RUNTIME_CACHE = `runtime-${CACHE_VERSION}`; // alinhado com window.__RUNTIME_CACHE_NAME
 const IMG_CACHE_MAX_ENTRIES = 300;
 
 const APP_SHELL = [

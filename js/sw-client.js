@@ -4,8 +4,10 @@
 (function () {
   'use strict';
 
-  // Update this query on each deploy to force fetching a new service-worker.js
-  const SW_URL = '/service-worker.js?v=20260322';
+  // Usa a versao global definida no index para apontar o SW.
+  // Assim, em deploy, basta atualizar window.__APP_VERSION em um unico lugar.
+  const APP_VERSION = (window.__APP_VERSION || 'dev').toString();
+  const SW_URL = `/service-worker.js?v=${encodeURIComponent(APP_VERSION)}`;
   const BANNER_ID = 'sw-update-banner';
 
   if (!('serviceWorker' in navigator)) {

@@ -5964,9 +5964,12 @@
   <!--A T E N Ç Ã O -->
 
 
-  <!-- Garantir que o nome do cache do runtime seja conhecido pelo script de backup/restore
-       ATENÇÃO: atualize esse valor sempre que mudar CACHE_VERSION no service-worker.js -->
-  <script>window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-v2.5.4';</script>
+  <!-- Versao global do app/SW (ajuste em todo deploy).
+       Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
+  <script>
+    window.__APP_VERSION = '20260421';
+    window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
+  </script>
 
 
 
@@ -5985,8 +5988,16 @@
   <script src="./js/footer.js?v=20260322"></script>
   <script src="./js/banner-metodobaratieri.js"></script>
 
-  <!-- SW client: registra SW, detecta waiting e mostra banner 'Atualizar' -->
-  <script src="./js/sw-client.js?v=20260421"></script> <!--A T E N Ç Ã O -->
+  <!-- SW client: registra SW, detecta waiting e mostra banner 'Atualizar'
+       Carregamento automatico versionado por __APP_VERSION -->
+  <script>
+    (function () {
+      var v = encodeURIComponent((window.__APP_VERSION || 'dev').toString());
+      var s = document.createElement('script');
+      s.src = './js/sw-client.js?v=' + v;
+      document.body.appendChild(s);
+    })();
+  </script>
 
   <!--A T E N Ç Ã O -->
 
