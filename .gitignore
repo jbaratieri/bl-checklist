@@ -1,2 +1,5 @@
 # Bypass local de login — não versionar (repo público + deploy.ps1 usa git add .)
 dev/dev-bypass.html
+
+# Dependências npm — recriar com `npm install` (GitHub Pages não usa isto; Vercel instala no deploy)
+node_modules/

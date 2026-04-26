@@ -20,6 +20,40 @@
     cav: { scale: 340, frets: 15, compensation: 1.5 },
     uku: { scale: 350, frets: 15, compensation: 1.2 }
   };
+  const PROJECT_FIELDS = {
+    instrument: 'selInstrument',
+    scale: 'job-scale-mm',
+    stringType: 'job-string-type',
+    stringCount: 'job-string-count',
+    bracingSystem: 'job-bracing-system',
+    bracingCustom: 'job-bracing-custom-name'
+  };
+  const BRACING_LABELS = {
+    torres: 'Torres',
+    hauser: 'Hauser',
+    ramirez: 'Ramirez',
+    x_bracing: 'X-Bracing',
+    x_adaptado: 'X adaptado',
+    leque_3_barras: 'Leque (3 barras)',
+    leque_5_barras: 'Leque (5 barras)',
+    leque_7_barras: 'Leque (7 barras)',
+    'h-bracing': 'H-Bracing',
+    custom: 'Custom'
+  };
+  const BRACING_VALUE_ALIASES = {
+    'x': 'x_bracing',
+    'xbracing': 'x_bracing',
+    'x-bracing': 'x_bracing',
+    'xadaptado': 'x_adaptado',
+    'x-adaptado': 'x_adaptado',
+    'leque_3': 'leque_3_barras',
+    'leque_5': 'leque_5_barras',
+    'leque_7': 'leque_7_barras',
+    'leque3': 'leque_3_barras',
+    'leque5': 'leque_5_barras',
+    'leque7': 'leque_7_barras',
+    'h_bracing': 'h-bracing'
+  };
 
   const REF_POINTS = {
     // Centro da boca em fração da escala (aproximação visual)
@@ -243,8 +277,7 @@
   function buildUI() {
     return `
       <div class="plant-root">
-
-        <h3>Prancheta Luthier Digital</h3>
+        <p id="plantProjectMeta" style="margin:0 0 10px;font-size:.9rem;opacity:.8"></p>
 
         <div class="plant-controls">
           <label>
@@ -274,12 +307,77 @@
             Compensação da sela (mm)
             <input id="plantComp" type="number" step="0.1" value="2.5" />
           </label>
+          <button id="plantSaveScale" type="button" class="btn">Salvar escala no projeto</button>
         </div>
 
         <div id="plantResult"></div>
 
       </div>
     `;
+  }
+
+  function getProjectContext() {
+    const inst = (window.BL_INSTRUMENT && typeof window.BL_INSTRUMENT.get === 'function')
+      ? BL_INSTRUMENT.get()
+      : (document.getElementById(PROJECT_FIELDS.instrument)?.value || localStorage.getItem('bl:instrument') || 'vcl');
+    const scaleRaw = (document.getElementById(PROJECT_FIELDS.scale)?.value || '').toString().trim().replace(',', '.');
+    const scale = Number(scaleRaw);
+    const stringType = (document.getElementById(PROJECT_FIELDS.stringType)?.value || '').toString().trim();
+    const stringCount = (document.getElementById(PROJECT_FIELDS.stringCount)?.value || '').toString().trim();
+    const bracing = (document.getElementById(PROJECT_FIELDS.bracingSystem)?.value || '').toString().trim();
+    const bracingCustom = (document.getElementById(PROJECT_FIELDS.bracingCustom)?.value || '').toString().trim();
+    return {
+      inst: INSTR_CONFIG[inst] ? inst : 'vcl',
+      scale: Number.isFinite(scale) && scale > 0 ? scale : null,
+      stringType,
+      stringCount,
+      bracing,
+      bracingCustom
+    };
+  }
+  function normalizeBracingValue(raw) {
+    const key = (raw || '').toString().trim();
+    if (!key) return '';
+    return BRACING_VALUE_ALIASES[key] || key;
+  }
+  function getBracingDisplayLabel(raw) {
+    const normalized = normalizeBracingValue(raw);
+    return BRACING_LABELS[normalized] || normalized || '—';
+  }
+  function applyProjectContextToPlant() {
+    const ctx = getProjectContext();
+    const instEl = document.getElementById('plantInstrument');
+    const scaleEl = document.getElementById('plantScale');
+    const compEl = document.getElementById('plantComp');
+    const metaEl = document.getElementById('plantProjectMeta');
+    if (!instEl || !scaleEl || !compEl) return;
+
+    instEl.value = ctx.inst;
+    const cfg = INSTR_CONFIG[ctx.inst] || INSTR_CONFIG.vcl;
+    scaleEl.value = String(ctx.scale || cfg.scale);
+    compEl.value = String(cfg.compensation);
+
+    if (metaEl) {
+      const bracingText = ctx.bracing === 'custom'
+        ? ('Custom' + (ctx.bracingCustom ? ` — ${ctx.bracingCustom}` : ''))
+        : getBracingDisplayLabel(ctx.bracing);
+      metaEl.textContent = `Projeto atual: ${INSTR_NAMES[ctx.inst]} | Cordas: ${ctx.stringCount || '—'} | Tipo: ${ctx.stringType || '—'} | Leque: ${bracingText}`;
+    }
+  }
+  function savePlantScaleToProject() {
+    const scaleEl = document.getElementById('plantScale');
+    const projectScaleEl = document.getElementById(PROJECT_FIELDS.scale);
+    if (!scaleEl || !projectScaleEl) return;
+    const raw = (scaleEl.value || '').toString().trim().replace(',', '.');
+    const n = Number(raw);
+    if (!Number.isFinite(n) || n <= 0) {
+      alert('Informe uma escala válida em milímetros.');
+      return;
+    }
+    projectScaleEl.value = String(n);
+    try { projectScaleEl.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+    try { projectScaleEl.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
+    alert('Escala salva no projeto atual.');
   }
 
   function render() {
@@ -386,6 +484,8 @@
         render();
       });
     }
+    const btnSaveScale = document.getElementById('plantSaveScale');
+    if (btnSaveScale) btnSaveScale.addEventListener('click', savePlantScaleToProject);
 
     if (scaleEl) {
       scaleEl.addEventListener('input', render);
@@ -397,6 +497,7 @@
       compEl.addEventListener('input', render);
     }
 
+    applyProjectContextToPlant();
     render();
   }
 

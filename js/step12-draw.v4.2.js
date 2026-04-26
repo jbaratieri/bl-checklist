@@ -35,6 +35,14 @@
     } catch(_){ }
     return normInst(raw);
   }
+  function currentBracingValue(){
+    try {
+      var el = document.getElementById('job-bracing-system');
+      return (el && el.value ? String(el.value).trim() : '');
+    } catch(_){
+      return '';
+    }
+  }
 
   function getProj(inst){
     var id = null;
@@ -119,6 +127,28 @@
       }
     }
     return list;
+  }
+  function techAssetCandidates(inst, assetKey){
+    if (assetKey !== 'tampo7b-tech') return assetsFor(inst, assetKey);
+    var bracing = currentBracingValue();
+    if (!bracing || bracing === 'custom') return assetsFor(inst, assetKey);
+    var bases = basesForAssets();
+    var variant = [];
+    for (var b=0;b<bases.length;b++){
+      var base = bases[b];
+      if (/assets\/tech\/$/i.test(base)){
+        base = base + inst + '/tampo7b-tech--' + bracing;
+      } else {
+        base = base + 'tampo7b-tech--' + bracing;
+      }
+      variant.push(base + '.svg');
+      variant.push(base + '.svg.svg');
+      variant.push(base + '.webp');
+      variant.push(base + '.png');
+      variant.push(base + '.jpg');
+      variant.push(base + '.jpeg');
+    }
+    return variant.concat(assetsFor(inst, assetKey));
   }
 
   // ---------- Overlay: salvar / carregar (IDB + localStorage) ----------
@@ -380,7 +410,7 @@
 
     // Carrega o fundo com fallback de caminhos/extensões
     state.bgImg = new Image();
-    var srcs = assetsFor(state.inst, state.assetKey);
+    var srcs = techAssetCandidates(state.inst, state.assetKey);
     var idx  = 0;
 
     state.bgImg.onload = function(){

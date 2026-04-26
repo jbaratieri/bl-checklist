@@ -31,6 +31,154 @@
 
   // small helpers
   function currInst() { return (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument') || 'vcl')); }
+  const STRING_TYPE_BY_INST = {
+    vcl: ['aco', 'nylon'],
+    vla: ['aco'],
+    cav: ['aco'],
+    uku: ['nylon']
+  };
+  const STRING_COUNT_BY_INST = {
+    vcl: ['6', '7'],
+    vla: ['10'],
+    cav: ['4'],
+    uku: ['4']
+  };
+  const BRACING_BY_INST = {
+    vcl: [
+      { value: 'torres', label: 'Torres' },
+      { value: 'hauser', label: 'Hauser' },
+      { value: 'ramirez', label: 'Ramirez' },
+      { value: 'x_bracing', label: 'X-Bracing' },
+      { value: 'custom', label: 'Custom' }
+    ],
+    vla: [
+      { value: 'x_adaptado', label: 'X adaptado' },
+      { value: 'leque_7_barras', label: 'Leque (7 barras)' },
+      { value: 'custom', label: 'Custom' }
+    ],
+    cav: [
+      { value: 'leque_3_barras', label: 'Leque (3 barras)' },
+      { value: 'leque_5_barras', label: 'Leque (5 barras)' },
+      { value: 'custom', label: 'Custom' }
+    ],
+    uku: [
+      { value: 'leque_3_barras', label: 'Leque (3 barras)' },
+      { value: 'custom', label: 'Custom' }
+    ]
+  };
+  const BRACING_VALUE_ALIASES = {
+    'x': 'x_bracing',
+    'xbracing': 'x_bracing',
+    'x-bracing': 'x_bracing',
+    'xadaptado': 'x_adaptado',
+    'x-adaptado': 'x_adaptado',
+    'leque_3': 'leque_3_barras',
+    'leque_5': 'leque_5_barras',
+    'leque_7': 'leque_7_barras',
+    'leque3': 'leque_3_barras',
+    'leque5': 'leque_5_barras',
+    'leque7': 'leque_7_barras'
+  };
+  const SCALE_HINT_BY_INST = {
+    vcl: {
+      placeholder: 'Ex.: 650',
+      hint: 'Violão: tradicional 650 mm.'
+    },
+    vla: {
+      placeholder: 'Ex.: 580 ou 610',
+      hint: 'Viola caipira: comum 580 mm ou 610 mm.'
+    },
+    cav: {
+      placeholder: 'Ex.: 330 a 350',
+      hint: 'Cavaquinho: comum 330 mm a 350 mm.'
+    },
+    uku: {
+      placeholder: 'Ex.: 380 (Concert) ou 430 (Tenor)',
+      hint: 'Ukulele: Soprano 330-350 | Concert 380 | Tenor 430 | Barítono 480-510.'
+    }
+  };
+  function populateSelectOptions(selectEl, options, placeholderText) {
+    if (!selectEl) return;
+    const current = String(selectEl.value || '');
+    const placeholder = '<option value="">' + (placeholderText || 'Selecione') + '</option>';
+    const rows = options.map(function (opt) {
+      if (typeof opt === 'string') return '<option value="' + opt + '">' + opt + '</option>';
+      return '<option value="' + opt.value + '">' + opt.label + '</option>';
+    }).join('');
+    selectEl.innerHTML = placeholder + rows;
+    selectEl.value = current;
+  }
+  function normalizeBracingValue(raw) {
+    var key = String(raw || '').trim();
+    if (!key) return '';
+    return BRACING_VALUE_ALIASES[key] || key;
+  }
+  function applyProjectSpecByInstrument(inst) {
+    const selType = getEl('job-string-type');
+    const selCount = getEl('job-string-count');
+    const selBracing = getEl('job-bracing-system');
+    if (!selType || !selCount || !selBracing) return;
+
+    const typeOptions = STRING_TYPE_BY_INST[inst] || ['aco', 'nylon'];
+    const countOptions = STRING_COUNT_BY_INST[inst] || ['6'];
+    const bracingOptions = BRACING_BY_INST[inst] || [{ value: 'custom', label: 'Custom' }];
+
+    populateSelectOptions(selType, typeOptions, 'Selecione');
+    populateSelectOptions(selCount, countOptions, 'Selecione');
+    populateSelectOptions(selBracing, bracingOptions, 'Selecione');
+    selBracing.value = normalizeBracingValue(selBracing.value);
+
+    if (!typeOptions.includes(selType.value)) {
+      selType.value = typeOptions[0] || '';
+    }
+    if (!countOptions.includes(selCount.value)) {
+      selCount.value = countOptions[0] || '';
+    }
+    if (!bracingOptions.some(function (o) { return (o.value || o) === selBracing.value; })) {
+      selBracing.value = (bracingOptions[0] && bracingOptions[0].value) || '';
+    }
+
+    const singleType = typeOptions.length === 1;
+    const singleCount = countOptions.length === 1;
+    selType.disabled = singleType;
+    selCount.disabled = singleCount;
+    selType.title = singleType ? 'Padrão para este instrumento.' : '';
+    selCount.title = singleCount ? 'Padrão para este instrumento.' : '';
+    applyScaleGuidance(inst);
+  }
+  function applyScaleGuidance(inst) {
+    const cfg = SCALE_HINT_BY_INST[inst] || SCALE_HINT_BY_INST.vcl;
+    const input = getEl('job-scale-mm');
+    const hint = getEl('job-scale-hint');
+    if (input) {
+      input.placeholder = cfg.placeholder;
+      input.setAttribute('maxlength', '24');
+      input.setAttribute('title', cfg.hint);
+    }
+    if (hint) hint.textContent = cfg.hint;
+  }
+  function toggleCustomBracingFields() {
+    const selBracing = getEl('job-bracing-system');
+    const wrapName = getEl('job-bracing-custom-name-wrap');
+    const wrapNotes = getEl('job-bracing-custom-notes-wrap');
+    const inputName = getEl('job-bracing-custom-name');
+    const inputNotes = getEl('job-bracing-custom-notes');
+    if (!selBracing || !wrapName || !wrapNotes || !inputName || !inputNotes) return;
+
+    const normalizedBracing = normalizeBracingValue(selBracing.value);
+    if (normalizedBracing !== selBracing.value) selBracing.value = normalizedBracing;
+    const isCustom = normalizedBracing === 'custom';
+    wrapName.hidden = !isCustom;
+    wrapNotes.hidden = !isCustom;
+    wrapName.style.display = isCustom ? '' : 'none';
+    wrapNotes.style.display = isCustom ? '' : 'none';
+    inputName.required = isCustom;
+    inputName.setAttribute('maxlength', '120');
+    inputNotes.setAttribute('maxlength', '500');
+    if (!isCustom) {
+      inputName.required = false;
+    }
+  }
   function refreshProjectSelector() {
     if (!window.BL_PROJECT) return;
     var inst = currInst();
@@ -41,6 +189,166 @@
     try { sel.value = BL_PROJECT.get(inst); } catch (_) { }
   }
   function getEl(id) { return document.getElementById(id); }
+  function labelByMap(map, key) {
+    return map[key] || key || 'nao definido';
+  }
+  function selectedLabel(id) {
+    var el = getEl(id);
+    if (!el) return '';
+    var opt = el.options && el.options[el.selectedIndex];
+    return (opt && opt.textContent ? opt.textContent : el.value || '').trim();
+  }
+  function updateTampoProjectContextCard() {
+    var summary = getEl('tampoProjectContextSummary');
+    if (!summary) return;
+    var instMap = { vcl: 'Violao', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
+    var inst = labelByMap(instMap, (getEl('selInstrument') && getEl('selInstrument').value) || currInst());
+    var strType = selectedLabel('job-string-type') || 'nao definido';
+    var strCount = selectedLabel('job-string-count') || 'nao definido';
+    var bracing = selectedLabel('job-bracing-system') || 'nao definido';
+    var bracingCustom = ((getEl('job-bracing-custom-name') && getEl('job-bracing-custom-name').value) || '').trim();
+    var scale = ((getEl('job-scale-mm') && getEl('job-scale-mm').value) || '').trim() || 'nao definida';
+    var bracingText = (getEl('job-bracing-system') && getEl('job-bracing-system').value === 'custom' && bracingCustom)
+      ? ('Custom (' + bracingCustom + ')')
+      : bracing;
+    summary.textContent =
+      'Instrumento: ' + inst +
+      ' | Cordas: ' + strType + ', ' + strCount +
+      ' | Leque: ' + bracingText +
+      ' | Comprimento: ' + scale + ' mm';
+  }
+  function bindTampoProjectContextSync() {
+    var ids = [
+      'selInstrument',
+      'selProject',
+      'job-string-type',
+      'job-string-count',
+      'job-bracing-system',
+      'job-bracing-custom-name',
+      'job-scale-mm'
+    ];
+    ids.forEach(function (id) {
+      var el = getEl(id);
+      if (!el) return;
+      el.addEventListener('change', updateTampoProjectContextCard);
+      el.addEventListener('input', updateTampoProjectContextCard);
+    });
+    window.addEventListener('bl:project-change', function () {
+      setTimeout(updateTampoProjectContextCard, 140);
+    });
+    window.addEventListener('bl:instrument-change', function () {
+      setTimeout(updateTampoProjectContextCard, 140);
+    });
+    updateTampoProjectContextCard();
+  }
+  function safeText(v, fallback) {
+    var txt = String(v || '').trim();
+    return txt || (fallback || '—');
+  }
+  function selectedProjectName() {
+    var sel = getEl('selProject');
+    if (!sel) return '—';
+    var opt = sel.options && sel.options[sel.selectedIndex];
+    return safeText(opt && opt.textContent ? opt.textContent : sel.value, '—');
+  }
+  function countAttachedPhotos() {
+    var total = 0;
+    try {
+      document.querySelectorAll('.img-row').forEach(function (row) {
+        total += row.querySelectorAll('.thumb').length;
+      });
+    } catch (_) { }
+    return total;
+  }
+  function checklistProgressStats() {
+    var checks = Array.prototype.slice.call(document.querySelectorAll('.chk'));
+    var done = checks.filter(function (c) { return !!c.checked; }).length;
+    var total = checks.length;
+    var pct = Math.round((done / Math.max(1, total)) * 100);
+    return { done: done, total: total, pct: pct };
+  }
+  function goToSection(sectionId) {
+    if (!sectionId) return;
+    var target = document.getElementById(sectionId);
+    if (!target) return;
+    try {
+      target.classList.add('open');
+      var hdr = target.querySelector('header');
+      if (hdr) hdr.classList.remove('collapsed');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (_) {
+      target.scrollIntoView();
+    }
+    try {
+      if (typeof window.closeModal === 'function') window.closeModal('modalProjectSummary');
+    } catch (_) { }
+  }
+  function fillProjectSummaryModal() {
+    var map = {
+      project: getEl('summary-project-name'),
+      instrument: getEl('summary-instrument'),
+      client: getEl('summary-client'),
+      strings: getEl('summary-strings'),
+      bracing: getEl('summary-bracing'),
+      scale: getEl('summary-scale'),
+      dates: getEl('summary-dates'),
+      woodBraco: getEl('summary-wood-braco'),
+      woodTampo: getEl('summary-wood-tampo'),
+      woodFundo: getEl('summary-wood-fundo'),
+      woodLaterais: getEl('summary-wood-laterais'),
+      woodEscala: getEl('summary-wood-escala'),
+      progress: getEl('summary-progress'),
+      progressPct: getEl('summary-progress-pct'),
+      progressFill: getEl('summary-progress-fill'),
+      photos: getEl('summary-photos')
+    };
+    if (!map.project) return;
+    var stats = checklistProgressStats();
+    map.project.textContent = selectedProjectName();
+    map.instrument.textContent = selectedLabel('selInstrument') || labelByMap({ vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' }, currInst());
+    map.client.textContent = safeText(getEl('job-client') && getEl('job-client').value, '—');
+    map.strings.textContent = safeText(selectedLabel('job-string-type'), '—') + ' | ' + safeText(selectedLabel('job-string-count'), '—');
+    map.bracing.textContent = safeText(selectedLabel('job-bracing-system'), '—');
+    map.scale.textContent = safeText(getEl('job-scale-mm') && getEl('job-scale-mm').value, '—') + ' mm';
+    map.dates.textContent = safeText(getEl('job-start') && getEl('job-start').value, '—') + ' → ' + safeText(getEl('job-due') && getEl('job-due').value, '—');
+    map.woodBraco.textContent = safeText(getEl('braco-madeira-sec02') && getEl('braco-madeira-sec02').value, '—');
+    map.woodTampo.textContent = safeText(getEl('tampo-madeira-sec03') && getEl('tampo-madeira-sec03').value, '—');
+    map.woodFundo.textContent = safeText(getEl('fundo-madeira-sec04') && getEl('fundo-madeira-sec04').value, '—');
+    map.woodLaterais.textContent = safeText(getEl('laterais-madeira-sec05') && getEl('laterais-madeira-sec05').value, '—');
+    if (map.woodEscala) map.woodEscala.textContent = safeText(getEl('escala-madeira-sec08') && getEl('escala-madeira-sec08').value, '—');
+    map.progress.textContent = stats.done + '/' + stats.total;
+    if (map.progressPct) map.progressPct.textContent = stats.pct + '%';
+    if (map.progressFill) map.progressFill.style.width = stats.pct + '%';
+    map.photos.textContent = String(countAttachedPhotos());
+  }
+  function bindProjectSummarySync() {
+    var btnSummary = getEl('btnProjectSummary');
+    if (btnSummary) {
+      btnSummary.addEventListener('click', function () {
+        fillProjectSummaryModal();
+      });
+    }
+    window.addEventListener('bl:project-change', function () {
+      var modal = getEl('modalProjectSummary');
+      if (modal && modal.getAttribute('aria-hidden') === 'false') fillProjectSummaryModal();
+    });
+    document.addEventListener('change', function (e) {
+      var t = e && e.target;
+      if (!t || !t.id) return;
+      if (t.classList.contains('persist') || t.classList.contains('chk')) {
+        var modal = getEl('modalProjectSummary');
+        if (modal && modal.getAttribute('aria-hidden') === 'false') fillProjectSummaryModal();
+      }
+    });
+    document.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-go-section]') : null;
+      if (!btn) return;
+      var sectionId = btn.getAttribute('data-go-section') || '';
+      if (!sectionId) return;
+      e.preventDefault();
+      goToSection(sectionId);
+    });
+  }
 
   // Guard wrapper
   function guard(fn) {
@@ -75,12 +383,12 @@
   function bindEvents() {
     var selProject = document.querySelector('#selProject');
     var selInstrument = document.querySelector('#selInstrument');
+    var selBracing = getEl('job-bracing-system');
 
     if (selProject && selInstrument) {
       selProject.addEventListener('change', function (e) {
         var inst = currInst();
         var id = (e.target && e.target.value) || '';
-        if (window.__BL_PERSIST_APPLYING__) return;
         if (!window.BL_PROJECT) return;
         if (BL_PROJECT.get(inst) === id) return;
         BL_PROJECT.set(inst, id, { source: 'selector' });
@@ -92,6 +400,8 @@
         if (!val) return;
         if (window.BL_INSTRUMENT) BL_INSTRUMENT.set(val);
         else localStorage.setItem('bl:instrument', val);
+        applyProjectSpecByInstrument(val);
+        toggleCustomBracingFields();
         refreshProjectSelector();
         window.dispatchEvent(new CustomEvent('bl:instrument-change', { detail: { inst: val } }));
       });
@@ -100,6 +410,11 @@
       if (bNew) bNew.addEventListener('click', function () { var name = prompt('Nome do novo projeto:'); if (!name) return; var inst = currInst(); BL_PROJECT.create(inst, name); refreshProjectSelector(); window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst: inst } })); });
       if (bRen) bRen.addEventListener('click', function () { var inst = currInst(); var cur = BL_PROJECT.get(inst); var curName = (BL_PROJECT.list(inst).find(function (x) { return x.id === cur; }) || {}).name || ''; var name = prompt('Novo nome do projeto:', curName); if (!name) return; BL_PROJECT.rename(inst, cur, name); refreshProjectSelector(); window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst: inst, id: cur } })); });
       if (bDel) bDel.addEventListener('click', function () { var inst = currInst(); var cur = BL_PROJECT.get(inst); if (!confirm('Excluir projeto atual da lista? (dados continuam salvos)')) return; BL_PROJECT.remove(inst, cur); refreshProjectSelector(); window.dispatchEvent(new CustomEvent('bl:project-change', { detail: { inst: inst } })); });
+    }
+    if (selBracing) {
+      selBracing.addEventListener('change', function () {
+        toggleCustomBracingFields();
+      });
     }
 
     // listeners for BackupRestore
@@ -297,7 +612,25 @@
 
   } // bindEvents
 
-  function init() { try { bindEvents(); refreshProjectSelector(); } catch (e) { console.warn('[ProjectPanel] init error', e); } }
+  function init() {
+    try {
+      bindEvents();
+      bindTampoProjectContextSync();
+      bindProjectSummarySync();
+      refreshProjectSelector();
+      applyProjectSpecByInstrument(currInst());
+      toggleCustomBracingFields();
+      updateTampoProjectContextCard();
+      fillProjectSummaryModal();
+      window.addEventListener('bl:project-change', function () {
+        setTimeout(function () {
+          applyProjectSpecByInstrument(currInst());
+          toggleCustomBracingFields();
+          updateTampoProjectContextCard();
+        }, 120);
+      });
+    } catch (e) { console.warn('[ProjectPanel] init error', e); }
+  }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 
 })();

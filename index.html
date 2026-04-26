@@ -125,77 +125,117 @@
     <section class="project-panel" id="projectPanel">
       <h3>Projeto</h3>
 
-      <!-- Grupo de seleção -->
-      <div class="project-selectors">
-        <label>Instrumento
-          <select id="selInstrument">
-            <option value="vcl">Violão</option>
-            <option value="vla">Viola</option>
-            <option value="cav">Cavaquinho</option>
-            <option value="uku">Ukulele</option>
-          </select>
-        </label>
+      <div class="project-mobile-block project-block-context">
+        <div class="project-block-title">Contexto do projeto</div>
+        <!-- Grupo de seleção -->
+        <div class="project-selectors">
+          <label>Instrumento
+            <select id="selInstrument">
+              <option value="vcl">Violão</option>
+              <option value="vla">Viola</option>
+              <option value="cav">Cavaquinho</option>
+              <option value="uku">Ukulele</option>
+            </select>
+          </label>
 
-        <label>Projeto
-          <select id="selProject" class="persist"></select>
-        </label>
+          <label>Projeto
+            <select id="selProject" class="persist"></select>
+          </label>
 
+          <div class="project-area project-area-quick-actions">
+            <button class="btn" id="btnProjectNew" type="button">
+              <span class="icon">➕</span> Novo
+            </button>
+            <button class="btn" id="btnProjectRen" type="button">
+              <span class="icon">✏️</span> Renomear
+            </button>
+            <button class="btn" id="btnProjectDel" type="button">
+              <span class="icon">🗑️</span> Excluir
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-mobile-block project-block-data">
+        <div class="project-block-title">Dados do projeto</div>
+        <!-- Dados do projeto -->
+        <div class="project-grid">
+          <label>Cliente
+            <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
+          </label>
+          <label>Tipo de corda
+            <select class="persist" id="job-string-type">
+              <option value="">Selecione</option>
+              <option value="aco">Aço</option>
+              <option value="nylon">Nylon</option>
+            </select>
+          </label>
+          <label>Número de cordas
+            <select class="persist" id="job-string-count">
+              <option value="">Selecione</option>
+            </select>
+          </label>
+          <label>Sistema de leque harmônico
+            <select class="persist" id="job-bracing-system">
+              <option value="">Selecione</option>
+            </select>
+          </label>
+          <label>Escala (mm)
+            <input class="persist" id="job-scale-mm" type="text" inputmode="decimal"
+              placeholder="Ex.: 650">
+            <small id="job-scale-hint" style="opacity:.75">Referência por instrumento.</small>
+          </label>
+          <label id="job-bracing-custom-name-wrap" hidden>Leque customizado (descrição)
+            <input class="persist" id="job-bracing-custom-name" type="text"
+              placeholder="Ex.: Leque híbrido radial com barra transversal inferior">
+          </label>
+          <label id="job-bracing-custom-notes-wrap" hidden>Observações técnicas do leque
+            <textarea class="persist" id="job-bracing-custom-notes" rows="2"
+              placeholder="Ex.: Altura das barras, posição, objetivo tonal, reforços"></textarea>
+          </label>
+          <label>Início
+            <input class="persist" id="job-start" type="date">
+          </label>
+          <label>Entrega prevista
+            <input class="persist" id="job-due" type="date">
+          </label>
+          <label>Dias/semana
+            <select id="job-days-week">
+              <option value="5" selected>5 (seg–sex)</option>
+              <option value="6">6 (seg–sáb)</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <div class="project-mobile-block project-block-tools">
+        <div class="project-block-title">Ferramentas do projeto</div>
+        <!-- Cronograma -->
         <div class="project-area">
-          <button class="btn" id="btnProjectNew" type="button">
-            <span class="icon">➕</span> Novo
+          <button class="btn" id="btnPlan">
+            <span class="icon">🗓️</span>
+            <span class="label">Cronograma</span>
           </button>
-          <button class="btn" id="btnProjectRen" type="button">
-            <span class="icon">✏️</span> Renomear
+          <button class="btn" id="btnProjectSummary" data-modal="modalProjectSummary" title="Resumo do projeto">
+            📋 <span class="label">Resumo</span>
           </button>
-          <button class="btn" id="btnProjectDel" type="button">
-            <span class="icon">🗑️</span> Excluir
+          <button class="btn" id="btnPlantGenerator" title="Abrir prancheta de construção">
+            📐 <span class="label">Prancheta</span>
+          </button>
+
+          <small id="planHint" style="opacity:.8">Defina datas para gerar o cronograma.</small>
+
+          <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
+            📏 <span class="label">Medidas</span>
+          </button>
+
+          <button class="btn" id="btnTuningTable" title="Afinações">
+            🎚️ <span class="label">Afinação</span>
+          </button>
+          <button class="btn" id="btnActionTable" title="Ação das cordas">
+            ↕️ <span class="label">Ação das cordas</span>
           </button>
         </div>
-
-      </div>
-
-      <!-- Dados do projeto -->
-      <div class="project-grid">
-        <label>Cliente
-          <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
-        </label>
-        <label>Início
-          <input class="persist" id="job-start" type="date">
-        </label>
-        <label>Entrega prevista
-          <input class="persist" id="job-due" type="date">
-        </label>
-        <label>Dias/semana
-          <select id="job-days-week">
-            <option value="5" selected>5 (seg–sex)</option>
-            <option value="6">6 (seg–sáb)</option>
-          </select>
-        </label>
-      </div>
-
-      <!-- Cronograma -->
-      <div class="project-area">
-        <button class="btn" id="btnPlan">
-          <span class="icon">🗓️</span>
-          <span class="label">Cronograma</span>
-        </button>
-
-        <small id="planHint" style="opacity:.8">Defina datas para gerar o cronograma.</small>
-
-        <button class="btn" id="btnMeasuresTable" title="Tabela de medidas">
-          📏 <span class="label">Medidas</span>
-        </button>
-        <button class="btn" id="btnPlantGenerator" title="Abrir prancheta de construção">
-          📐 <span class="label">Prancheta</span>
-        </button>
-
-        <button class="btn" id="btnTuningTable" title="Afinações">
-          🎚️ <span class="label">Afinação</span>
-        </button>
-        <button class="btn" id="btnActionTable" title="Ação das cordas">
-          ↕️ <span class="label">Ação das cordas</span>
-        </button>
-
       </div>
       <div id="planTable" aria-live="polite"></div>
     </section>
@@ -1728,6 +1768,11 @@
           <div class="tick">✔</div>
         </header>
         <div class="section-body">
+
+          <div class="project-context-card" id="tampoProjectContextCard" aria-live="polite">
+            <h4>Contexto do Projeto</h4>
+            <p id="tampoProjectContextSummary">Instrumento, cordas, leque e escala do projeto atual.</p>
+          </div>
 
           <div class="measures-block">
             <button class="btn measures-toggle" type="button" data-target="measures-tampo">
@@ -5890,6 +5935,73 @@
     </div>
   </div>
 
+  <div id="modalProjectSummary" class="modal" aria-hidden="true">
+    <div class="modal-dialog project-summary-modal">
+      <h2>Resumo do Projeto</h2>
+      <div id="projectSummaryBody" class="project-summary-grid">
+        <section class="project-summary-card">
+          <h3>Visão geral</h3>
+          <p><strong>Projeto:</strong> <span id="summary-project-name">—</span></p>
+          <p><strong>Instrumento:</strong> <span id="summary-instrument">—</span></p>
+          <p><strong>Cliente:</strong> <span id="summary-client">—</span></p>
+          <p><strong>Cordas:</strong> <span id="summary-strings">—</span></p>
+          <p><strong>Leque:</strong> <span id="summary-bracing">—</span></p>
+          <p><strong>Comprimento de escala (mm):</strong> <span id="summary-scale">—</span></p>
+          <p><strong>Prazo:</strong> <span id="summary-dates">—</span></p>
+        </section>
+
+        <section class="project-summary-card">
+          <h3>Status executivo</h3>
+          <div class="project-summary-kpis">
+            <div class="project-summary-kpi">
+              <span class="label">Checklist</span>
+              <strong id="summary-progress">—</strong>
+            </div>
+            <div class="project-summary-kpi">
+              <span class="label">Conclusão</span>
+              <strong id="summary-progress-pct">—</strong>
+            </div>
+            <div class="project-summary-kpi">
+              <span class="label">Fotos</span>
+              <strong id="summary-photos">—</strong>
+            </div>
+          </div>
+          <div class="project-summary-progressbar" aria-hidden="true">
+            <span id="summary-progress-fill" style="width:0%"></span>
+          </div>
+        </section>
+
+        <section class="project-summary-card project-summary-card-full">
+          <h3>Materiais por etapa</h3>
+          <div class="project-summary-materials">
+            <div class="material-row">
+              <div><strong>Braço:</strong> <span id="summary-wood-braco">—</span></div>
+              <button class="btn btn--sm" type="button" data-go-section="sec-02">Ir para etapa</button>
+            </div>
+            <div class="material-row">
+              <div><strong>Tampo:</strong> <span id="summary-wood-tampo">—</span></div>
+              <button class="btn btn--sm" type="button" data-go-section="sec-03">Ir para etapa</button>
+            </div>
+            <div class="material-row">
+              <div><strong>Fundo:</strong> <span id="summary-wood-fundo">—</span></div>
+              <button class="btn btn--sm" type="button" data-go-section="sec-04">Ir para etapa</button>
+            </div>
+            <div class="material-row">
+              <div><strong>Laterais:</strong> <span id="summary-wood-laterais">—</span></div>
+              <button class="btn btn--sm" type="button" data-go-section="sec-05">Ir para etapa</button>
+            </div>
+            <div class="material-row">
+              <div><strong>Escala (madeira):</strong> <span id="summary-wood-escala">—</span></div>
+              <button class="btn btn--sm" type="button" data-go-section="sec-08">Ir para etapa</button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <button class="btn-close" data-modal-close="modalProjectSummary"
+        onclick="closeModal && closeModal('modalProjectSummary')">Fechar</button>
+    </div>
+  </div>
+
   <!-- botão de instalação PWA (oculto até receber beforeinstallprompt) -->
   <button id="btnInstall" hidden aria-hidden="true">📲 Instalar Método Baratieri</button>
 
@@ -5967,7 +6079,7 @@
   <!-- Versao global do app/SW (ajuste em todo deploy).
        Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
   <script>
-    window.__APP_VERSION = '20260421';
+    window.__APP_VERSION = '202604262';
     window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
   </script>
 
@@ -5978,7 +6090,7 @@
   <script src="./js/backup-restore.v1.js"></script>
 
   <!-- Painel (usa BackupRestore) -->
-  <script src="./js/step22-project-panel.js?v=20250927-1"></script>
+  <script src="./js/step22-project-panel.js?v=20260426-1"></script>
 
   <!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
   <script src="./js/step9-instrument.js"></script>

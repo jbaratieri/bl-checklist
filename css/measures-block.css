@@ -3,6 +3,27 @@
    ============================== */
 
 /* Bloco de medidas: fechado por padrão */
+.project-context-card {
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  border: 1px solid #e8dece;
+  border-radius: 10px;
+  background: #fffaf2;
+}
+.project-context-card h4 {
+  margin: 0 0 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #6b5641;
+  text-transform: uppercase;
+  letter-spacing: .2px;
+}
+.project-context-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #3d3328;
+}
+
 .measures-block .measures-grid {
   display: none; /* escondido por padrão */
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
