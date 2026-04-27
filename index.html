@@ -48,7 +48,7 @@
   <link rel="stylesheet" href="./css/footer.css">
   <!-- Layout legado removido da carga principal (arquivo mantido no projeto para referencia) -->
   <!-- Fonte oficial atual do painel de projeto -->
-  <link rel="stylesheet" href="./css/project-panel.css">
+  <link rel="stylesheet" href="./css/project-panel.css?v=20260427-1">
   <!-- Fonte oficial de toolbar/modal de botoes -->
   <link rel="stylesheet" href="./css/buttons.css">
   <!-- Responsividade global (carregar por ultimo) -->
@@ -157,9 +157,16 @@
       </div>
 
       <div class="project-mobile-block project-block-data">
-        <div class="project-block-title">Dados do projeto</div>
-        <!-- Dados do projeto -->
-        <div class="project-grid">
+        <details class="project-data-accordion" id="projectDataAccordion">
+          <summary class="project-data-accordion-summary">
+            <span class="project-data-accordion-toprow">
+              <span class="project-block-title project-data-accordion-heading">Dados do projeto</span>
+              <span class="project-data-pending-badge" id="projectDataPendingBadge" hidden aria-hidden="true">Pendente</span>
+            </span>
+            <span class="project-data-accordion-hint">Toque para preencher ou editar</span>
+          </summary>
+          <!-- Dados do projeto -->
+          <div class="project-grid">
           <label>Cliente
             <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
           </label>
@@ -206,6 +213,7 @@
             </select>
           </label>
         </div>
+        </details>
       </div>
 
       <div class="project-mobile-block project-block-tools">
@@ -6079,7 +6087,7 @@
   <!-- Versao global do app/SW (ajuste em todo deploy).
        Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
   <script>
-    window.__APP_VERSION = '202604262';
+    window.__APP_VERSION = '20260427-1';
     window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
   </script>
 
@@ -6090,7 +6098,7 @@
   <script src="./js/backup-restore.v1.js"></script>
 
   <!-- Painel (usa BackupRestore) -->
-  <script src="./js/step22-project-panel.js?v=20260426-1"></script>
+  <script src="./js/step22-project-panel.js?v=20260427-2"></script>
 
   <!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
   <script src="./js/step9-instrument.js"></script>

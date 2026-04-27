@@ -612,11 +612,79 @@
 
   } // bindEvents
 
+  /** Acordeão "Dados do projeto": só no mobile; desktop mantém <details> aberto. */
+  function installProjectDataAccordion() {
+    var root = document.getElementById('projectDataAccordion');
+    if (!root) return;
+    var badge = document.getElementById('projectDataPendingBadge');
+
+    function syncDesktopOpen() {
+      try {
+        if (window.matchMedia('(min-width: 601px)').matches) {
+          root.setAttribute('open', '');
+        }
+      } catch (_) { }
+    }
+
+    function projectDataNeedsAttention() {
+      function val(id) {
+        var el = document.getElementById(id);
+        return el && 'value' in el ? String(el.value || '').trim() : '';
+      }
+      if (!val('job-client')) return true;
+      if (!val('job-string-type')) return true;
+      if (!val('job-string-count')) return true;
+      var br = val('job-bracing-system');
+      if (!br) return true;
+      if (br === 'custom' && !val('job-bracing-custom-name')) return true;
+      if (!val('job-scale-mm')) return true;
+      return false;
+    }
+
+    function updatePendingBadge() {
+      if (!badge) return;
+      try {
+        if (window.matchMedia('(min-width: 601px)').matches) {
+          badge.setAttribute('hidden', '');
+          badge.setAttribute('aria-hidden', 'true');
+          return;
+        }
+      } catch (_) { }
+      if (projectDataNeedsAttention()) {
+        badge.removeAttribute('hidden');
+        badge.setAttribute('aria-hidden', 'false');
+      } else {
+        badge.setAttribute('hidden', '');
+        badge.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    syncDesktopOpen();
+    updatePendingBadge();
+    window.addEventListener('resize', function () {
+      syncDesktopOpen();
+      updatePendingBadge();
+    });
+    var panel = document.getElementById('projectPanel');
+    if (panel) {
+      panel.addEventListener('input', updatePendingBadge, true);
+      panel.addEventListener('change', updatePendingBadge, true);
+    }
+    window.addEventListener('bl:project-change', function () {
+      setTimeout(updatePendingBadge, 160);
+    });
+    window.addEventListener('bl:instrument-change', function () {
+      setTimeout(updatePendingBadge, 160);
+    });
+    setTimeout(updatePendingBadge, 500);
+  }
+
   function init() {
     try {
       bindEvents();
       bindTampoProjectContextSync();
       bindProjectSummarySync();
+      installProjectDataAccordion();
       refreshProjectSelector();
       applyProjectSpecByInstrument(currInst());
       toggleCustomBracingFields();
