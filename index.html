@@ -161,58 +161,58 @@
           <summary class="project-data-accordion-summary">
             <span class="project-data-accordion-toprow">
               <span class="project-block-title project-data-accordion-heading">Dados do projeto</span>
-              <span class="project-data-pending-badge" id="projectDataPendingBadge" hidden aria-hidden="true">Pendente</span>
+              <span class="project-data-pending-badge" id="projectDataPendingBadge" hidden
+                aria-hidden="true">Pendente</span>
             </span>
             <span class="project-data-accordion-hint">Toque para preencher ou editar</span>
           </summary>
           <!-- Dados do projeto -->
           <div class="project-grid">
-          <label>Cliente
-            <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
-          </label>
-          <label>Tipo de corda
-            <select class="persist" id="job-string-type">
-              <option value="">Selecione</option>
-              <option value="aco">Aço</option>
-              <option value="nylon">Nylon</option>
-            </select>
-          </label>
-          <label>Número de cordas
-            <select class="persist" id="job-string-count">
-              <option value="">Selecione</option>
-            </select>
-          </label>
-          <label>Sistema de leque harmônico
-            <select class="persist" id="job-bracing-system">
-              <option value="">Selecione</option>
-            </select>
-          </label>
-          <label>Escala (mm)
-            <input class="persist" id="job-scale-mm" type="text" inputmode="decimal"
-              placeholder="Ex.: 650">
-            <small id="job-scale-hint" style="opacity:.75">Referência por instrumento.</small>
-          </label>
-          <label id="job-bracing-custom-name-wrap" hidden>Leque customizado (descrição)
-            <input class="persist" id="job-bracing-custom-name" type="text"
-              placeholder="Ex.: Leque híbrido radial com barra transversal inferior">
-          </label>
-          <label id="job-bracing-custom-notes-wrap" hidden>Observações técnicas do leque
-            <textarea class="persist" id="job-bracing-custom-notes" rows="2"
-              placeholder="Ex.: Altura das barras, posição, objetivo tonal, reforços"></textarea>
-          </label>
-          <label>Início
-            <input class="persist" id="job-start" type="date">
-          </label>
-          <label>Entrega prevista
-            <input class="persist" id="job-due" type="date">
-          </label>
-          <label>Dias/semana
-            <select id="job-days-week">
-              <option value="5" selected>5 (seg–sex)</option>
-              <option value="6">6 (seg–sáb)</option>
-            </select>
-          </label>
-        </div>
+            <label>Cliente
+              <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
+            </label>
+            <label>Tipo de corda
+              <select class="persist" id="job-string-type">
+                <option value="">Selecione</option>
+                <option value="aco">Aço</option>
+                <option value="nylon">Nylon</option>
+              </select>
+            </label>
+            <label>Número de cordas
+              <select class="persist" id="job-string-count">
+                <option value="">Selecione</option>
+              </select>
+            </label>
+            <label>Sistema de leque harmônico
+              <select class="persist" id="job-bracing-system">
+                <option value="">Selecione</option>
+              </select>
+            </label>
+            <label>Escala (mm)
+              <input class="persist" id="job-scale-mm" type="text" inputmode="decimal" placeholder="Ex.: 650">
+              <small id="job-scale-hint" style="opacity:.75">Referência por instrumento.</small>
+            </label>
+            <label id="job-bracing-custom-name-wrap" hidden>Leque customizado (descrição)
+              <input class="persist" id="job-bracing-custom-name" type="text"
+                placeholder="Ex.: Leque híbrido radial com barra transversal inferior">
+            </label>
+            <label id="job-bracing-custom-notes-wrap" hidden>Observações técnicas do leque
+              <textarea class="persist" id="job-bracing-custom-notes" rows="2"
+                placeholder="Ex.: Altura das barras, posição, objetivo tonal, reforços"></textarea>
+            </label>
+            <label>Início
+              <input class="persist" id="job-start" type="date">
+            </label>
+            <label>Entrega prevista
+              <input class="persist" id="job-due" type="date">
+            </label>
+            <label>Dias/semana
+              <select id="job-days-week">
+                <option value="5" selected>5 (seg–sex)</option>
+                <option value="6">6 (seg–sáb)</option>
+              </select>
+            </label>
+          </div>
         </details>
       </div>
 
@@ -310,9 +310,12 @@
 
               <h5>Critérios de seleção</h5>
               <ul>
-                <li><strong>Corte e grã:</strong> prefira cortes radiais (quartersawn) para tampo, fundo e laterais, com
-                  grã reta e uniforme. Esse tipo de corte reduz a tendência ao empenamento e aumenta a estabilidade
-                  acústica.</li>
+                <li><strong>Corte e grã:</strong> Prefira cortes radiais (quartersawn) para tampo, fundo e laterais.
+                  Nesse tipo de corte, a madeira é serrada de forma que os anéis de crescimento fiquem perpendiculares
+                  à superfície da peça, resultando em uma grã reta e uniforme. Essa orientação reduz a tendência ao
+                  empenamento, aumenta a estabilidade acústica e favorece a transmissão das vibrações.
+                  Em contraste, cortes tangenciais (flatsawn) apresentam veios mais ondulados e são menos estáveis,
+                  podendo deformar com variações de umidade.</li>
                 <li><strong>Timbre:</strong> cada espécie possui características tonais específicas. O abeto (spruce)
                   gera som claro e brilhante, enquanto o cedro proporciona timbre mais quente e encorpado. Experimente o
                   “tap tone” (teste auditivo) para avaliar a sustentação.</li>
@@ -324,6 +327,9 @@
                 <li><strong>Tap tone (teste auditivo):</strong> ao bater levemente com o nó dos dedos, busque um som
                   claro, ressonante e sustentado, sem abafamento.</li>
               </ul>
+
+              <figure class="tech-figure" data-key="prep11-tech" data-cap="Orientação de Fibras">
+              </figure>
 
               <h5>Climatização e armazenamento</h5>
               <ul>
@@ -337,8 +343,8 @@
               </ul>
               <!-- Callouts universais (prep1) -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>UMC alvo:</strong> mantenha as madeiras entre <em>8–10% de umidade</em> para estabilidade
-                dimensional. Se seu texto base citar 8–12%, use 8–10% como alvo e 8–12% como faixa aceitável.
+                <strong>UMC alvo:</strong> mantenha as madeiras entre <em>8–12% de umidade</em> para estabilidade
+                dimensional.
               </p>
 
               <p class="callout" data-instruments="vcl vla cav uku">
@@ -355,17 +361,20 @@
               <!-- Por instrumento -->
               <p class="callout" data-instruments="vcl">
                 <strong>Violão clássico:</strong> tampo em abeto/cedro com rigidez alta e baixo peso; anéis regulares
-                (±1–2&nbsp;mm) e tap tone com boa sustentação. Fundo/laterais: palosanto, mogno, maple.
+                (±1–2&nbsp;mm) e tap tone com boa sustentação. Fundo/laterais: palosanto, mogno, maple, imbuia,
+                jacaranda, etc
               </p>
 
               <p class="callout" data-instruments="vla">
                 <strong>Viola caipira:</strong> priorize tampo um pouco mais “vivo” (boa rigidez longitudinal) para
-                lidar com a tensão de 10 cordas; selecione fundo/laterais estáveis (mogno, pau-ferro etc.).
+                lidar com a tensão de 10 cordas; selecione fundo/laterais estáveis (mogno, imbuia, jacaranda,
+                pau-ferro etc.).
               </p>
 
               <p class="callout" data-instruments="cav uku">
                 <strong>Cavaquinho/Ukulele:</strong> corpos menores favorecem tampo leve e homogêneo; espessuras finais
-                tendem a ser menores, então evite peças com densidade/rigidez muito discrepantes.
+                tendem a ser menores, então evite peças com densidade/rigidez muito discrepantes. Ex.: abeto,
+                cedro, marupa.
               </p>
 
 
@@ -589,7 +598,7 @@
               </p>
 
               <p>Caso não seja possível obter tudo de uma peça única, o tróculo pode ser construído com blocos
-                colados: por exemplo, quatro peças de 20&nbsp;mm ou três peças de 25&nbsp;mm.</p>
+                colados: por exemplo, quatro peças de 25&nbsp;mm ou duas peças de 50&nbsp;mm de espessura.</p>
 
               <h5>Procedimento — peça única</h5>
               <ul>
@@ -615,8 +624,11 @@
                   superfície, deixando-a pronta para os cortes subsequentes.</li>
               </ul>
 
+              <figure class="tech-figure" data-key="sol1"
+                data-cap="Peça preparada para o braço - medida para violão e viola caipira. "></figure>
+
               <!-- Callouts universais (sol1) -->
-              <p class="callout" data-instruments="vcl vla cav uku">
+              <p class=" callout" data-instruments="vcl vla cav uku">
                 <strong>Reserva para a mão (headstock):</strong> deixe material extra para o corte a ~15° e a
                 colagem/encaixe da mão.
                 Planeje no bruto pelo menos +40&nbsp;mm além do comprimento útil do braço.
@@ -640,14 +652,21 @@
                 pensando em escalope posterior e reforços locais (ex.: região da pestana e tróculo).
               </p>
 
-              <p class="callout" data-instruments="vla cav uku">
-                <strong>Viola/Cavaquinho/Ukulele:</strong> ajuste as dimensões brutas às escalas menores e ao número de
-                cordas.
-                Mesmo assim, mantenha reserva suficiente para esquadrejamento e correções.
+              <p class="callout" data-instruments="vla">
+                <strong>Viola Caipira:</strong> madeira de cedro ou mogno, pode ser feita em peça única de
+                aproximadamente 1000&nbsp;mm
+                × 80&nbsp;mm × 25&nbsp;mm. Recomenda-se usar reforço central de ipê, ébano ou pau-ferro, com 6–8&nbsp;mm
+                de
+                espessura, bem calibrada e com faces paralelas.
               </p>
 
-
-
+              <p class="callout" data-instruments="cav uku">
+                <strong>Cavaquinho/Ukulele:</strong> ajuste as dimensões brutas às escalas menores e ao número
+                de cordas. Segere-se madeira de cedro ou mogno, que pode ser feito em peça única de aproximadamente
+                800&nbsp;mm
+                × 80&nbsp;mm × 20&nbsp;mm.
+                Mesmo assim, sempre mantenha reserva suficiente para esquadrejamento e correções.
+              </p>
 
               <div class="img-row"></div>
 
@@ -717,17 +736,11 @@
                   ângulo</strong> faz-se em relação à <strong>lateral esquadrejada</strong> (não à linha central).</p>
 
 
-              <h5>💡 Dicas práticas</h5>
+              <h5>💡 Resumo do corte:</h5>
               <ul>
-                <li>Antes da colagem, verifique o encaixe “a seco” (sem cola) para garantir perfeito contato entre
-                  as
-                  superfícies.</li>
-                <li>Utilize grampos com protetores de madeira para distribuir uniformemente a pressão durante a
-                  colagem.
-                </li>
-                <li>Deixe a peça colada curar por pelo menos 12–24 horas em ambiente estável, antes de prosseguir
-                  com
-                  novos cortes.</li>
+                <li>Marque o ângulo de 15° a partir da lateral esquadrejada do bloco e trace a linha de corte.</li>
+                <li>Use serrote de precisão ou serra‑fita bem regulada, mantendo o plano limpo e reto.</li>
+                <li>Após o corte, confira o esquadro e ajuste com plaina fina sobre superfície de referência.</li>
               </ul>
 
               <figure class="tech-figure" data-key="sol2-tech"
@@ -738,28 +751,6 @@
                 <strong>Ângulo &amp; reserva:</strong> use 15° como padrão (13–16° aceitável). Deixe
                 <em>reserva</em> para a mão (headstock) e para esquadrejamento.
               </p>
-
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Scarf joint:</strong> a peça da mão é colada invertida, favorecendo fibras longas
-                na região da pestana. Evite “short grain” próximo ao nut.
-              </p>
-
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Alinhamento:</strong> marque a linha central nas duas partes; confira com régua/linha
-                de centro antes da colagem. Use gabarito a 15°.
-              </p>
-
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Cola &amp; prensagem:</strong> cola alifática (ex.: Titebond Original), pressão
-                uniforme com calços em cunha. Limpe o excesso e deixe curar 12–24&nbsp;h.
-              </p>
-
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Acabamento do plano:</strong> superfícies planas e coplanares; ajuste final com plaina
-                fina/raspilha em superfície de referência.
-              </p>
-
-
 
               <div class="img-row"></div>
 
@@ -797,7 +788,7 @@
                 do chanfro para obter <strong>planicidade</strong> e <strong>coplanaridade</strong> perfeitas.
                 Isso garante contato integral na colagem e alinhamento correto do conjunto.</p>
 
-              <h5>Passo a passo</h5>
+              <h5>Método 1: Passo a passo</h5>
               <ul>
                 <li>Com um <strong>esquadro</strong>, trace linhas de referência no início (parte mais fina) e no fim
                   (parte mais espessa) do chanfro. Faça isso nas <strong>duas peças</strong> (corpo do braço e mão).
@@ -811,10 +802,47 @@
                   estão planas e com bom encaixe.</li>
               </ul>
 
+              <h5>O melhor método de retificação</h5>
+              <ul>
+                <li>
+                  <strong>Fixe lixa de grão 80 sobre a superfície plana</strong> — grão mais grosso
+                  para as primeiras passadas, quando há mais material a remover
+                </li>
+                <li>
+                  <strong>Apoie a face sobre a lixa e trabalhe em movimentos circulares</strong>,
+                  com pressão uniforme em toda a superfície — sem concentrar força no centro
+                  (cria convexidade) nem nas bordas (cria concavidade)
+                </li>
+                <li>
+                  <strong>Verifique com régua após cada série de movimentos</strong> — apoie a régua
+                  na face e observe contra a luz. Qualquer folga indica ponto alto que ainda precisa
+                  de remoção
+                </li>
+                <li>
+                  <strong>Use giz de alfaiate para monitorar o progresso</strong>: cubra a face com giz
+                  antes de lixar — o giz desaparece primeiro nos pontos mais altos, indicando exatamente
+                  onde trabalhar
+                </li>
+                <li>
+                  <strong>Passe para grão 120 quando a planicidade estiver próxima</strong> — o grão
+                  mais fino refina a superfície sem remover mais material do que o necessário
+                </li>
+                <li>
+                  <strong>Finalize em grão 150</strong> — a textura deixada por esse grão é ideal
+                  para ancoragem da cola. Não vá além: faces muito lisas (grão 220 ou mais) reduzem
+                  a aderência da cola alifática
+                </li>
+                <li>
+                  <strong>Repita o processo na segunda face</strong> com o mesmo rigor
+                </li>
+                <li>
+                  <strong>Teste final contra a luz</strong>: encoste as duas faces e verifique —
+                  nenhuma luz visível em nenhum ponto
+                </li>
+              </ul>
+
               <h5>Outras maneiras de realizar a etapa</h5>
               <ul>
-                <li>Em vez de fixar a peça, fixe um <strong>gabarito de lixa</strong> (ex.: placa 500×500&nbsp;mm com
-                  lixa 60–80 bem colada) e <em>esfregue</em> a face da peça até obter o plano.</li>
                 <li>Use <strong>lixadeira de cinta/orbital</strong> com passadas controladas para não ultrapassar a
                   marca.
                   Se passar da linha, refaça a marcação e corrija o plano.</li>
@@ -970,7 +998,8 @@
 
                 <li><strong>Largura:</strong> igual à do braço bruto (conforme o instrumento).</li>
 
-                <li><strong>Comprimento:</strong> ~<strong>150 mm</strong> (dividido entre tróculo externo e interno;
+                <li><strong>Comprimento:</strong> ~<strong>100 - 150 mm</strong> (dividido entre tróculo externo e
+                  interno;
                   consulte os moldes).</li>
               </ul>
 
@@ -1016,10 +1045,10 @@
                 <button class="btn add-image" data-subetapa="sol5" type="button">Minhas Imagens</button>
                 <button class="btn open-draw" data-subetapa="sol5">Ilustração Técnica Anotável</button>
                 <!-- ADICIONE data-target -->
-                <button class="btn load-assets" data-manifest="./assets/extras/albuns/sol5/sol5.json"
+                <!--<button class="btn load-assets" data-manifest="./assets/extras/albuns/sol5/sol5.json"
                   data-target="#assets-sol5" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
                   Galeria da Etapa
-                </button>
+                </button>-->
               </div>
               <div class="assets-row" id="assets-sol5"></div>
 
@@ -1065,8 +1094,7 @@
               <!-- Específicos por instrumento -->
               <p class="callout" data-instruments="vcl">
                 <strong>Violão clássico:</strong> use 3–4 grampos (centro + bordas). Confirme esquadro a 90° no conjunto
-                e
-                mantenha a linha de centro contínua braço↔tróculo durante a prensagem.
+                e mantenha a linha de centro contínua braço↔tróculo durante a prensagem.
               </p>
 
               <p class="callout" data-instruments="vla">
@@ -1201,7 +1229,7 @@
                 </p>
                 <p class="callout" data-instruments="cav">
                   <strong>Cavaquinho:</strong> prefira leve: 2,0–2,5 mm. Cheque diâmetro das buchas para não invadir o
-                  filete central.
+                  filete central, se tiver.
                 </p>
                 <p class="callout" data-instruments="uku">
                   <strong>Ukulele:</strong> massa no head pesa no equilíbrio; 1,8–2,4 mm se o projeto permitir. Atenção
@@ -1390,7 +1418,7 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="sol8a-tech"
+              <figure class="tech-figure" data-key="sol8b-tech"
                 data-cap="Planejar e riscar o braço — linha central, traste 12 e tróculo">
               </figure>
 
@@ -1469,14 +1497,19 @@
 
               <!-- Layout da mão por instrumento (inline) -->
               <p><strong>Layout da mão / tarraxas:</strong>
-                <span data-instruments="vcl"> headstock vazado 3+3 (slots).</span>
-                <span data-instruments="vla"> headstock vazado 3+3 (slots); atenção à simetria por causa da tensão
-                  total. Alguns luthies utilizam headstock sólido, então é necessário confirme diâmetro das buchas/ilhós
-                  antes dos
+                <span data-instruments="vcl"> <strong>Violão:</strong> Headstock Vazado (Slotted Headstock): Possui
+                  fendas (slots) onde as cordas passam, com as tarraxas posicionadas lateralmente. É o padrão
+                  tradicional dos violões de nylon (clássicos) e também aparece em alguns modelos de aço inspirados em
+                  designs antigos.vazado 3+3 (slots) ou <strong>Headstock Maciço (Solid Headstock):</strong> As tarraxas
+                  são inseridas
+                  por trás ou fixadas na face da mão. É o modelo mais comum em violões de aço modernos</span>
+                <span data-instruments="vla"> headstock vazado 5+5 (slots). Porém, algumas violas caipiras possuem
+                  headstock maciço.</span>
+                <span data-instruments="cav"> 2+2 vazado é comum em cavaquinhos. Mas, utiliza-se também headstock
+                  maciço. Nesse caso, confirme diâmetro das buchas/ilhós antes dos
                   furos.</span>
-                <span data-instruments="cav"> 2+2 sólido é comum; confirme diâmetro das buchas/ilhós antes dos
-                  furos.</span>
-                <span data-instruments="uku"> 2+2 ou inline 4; defina antes do risco para não interferir no filete
+                <span data-instruments="uku"> 2+2 sólido ou inline 4; defina antes do risco para não interferir no
+                  filete
                   central.</span>
               </p>
 
@@ -1501,7 +1534,7 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="sol9-tech"
+              <figure class="tech-figure" data-key="sol9a-tech"
                 data-cap="Mão (headstock) — riscar com molde e usinar com tupia">
               </figure>
 
@@ -1561,7 +1594,7 @@
               <p>Revise ou refaça os riscos conforme o modelo da mão do instrumento. Use molde (papel, papelão, acrílico
                 ou outro material rígido) como guia para a silhueta e, se for o caso, os <em>slots</em>.</p>
 
-              <h5>Recortar e furar a mão (headstock) para as tarrachas</h5>
+              <h5>Recortar e furar a mão (headstock) vazado para as tarrachas</h5>
               <ul>
                 <li><strong>Posicionamento:</strong> alinhe o conjunto de tarrachas à <strong>linha central</strong> e à
                   referência do <em>nut</em>.</li>
@@ -1606,7 +1639,7 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="sol10-tech"
+              <figure class="tech-figure" data-key="sol10a-tech"
                 data-cap="Headstock — marcação, furação e abertura de slots">
               </figure>
 
@@ -1659,6 +1692,13 @@
 
               <p>Após riscar o braço com precisão, prepare o <strong>tróculo</strong> para uni-lo à caixa. No método
                 espanhol, tróculo externo e interno formam uma única peça integrada ao corpo.</p>
+              <p>No método americano, a construção difere do espanhol porque a parte interna não é integrada ao tróculo
+                externo. Em vez disso, ela é confeccionada separadamente e depois unida por encaixes de precisão, como o
+                rabo de andorinha ou outros sistemas de união tradicionais. </p>
+
+              <h5>Abordagem no Método Baratieri</h5>
+              <p>No método Baratieri, o tróculo é construído como uma peça única, com o tróculo externo e interno
+                formando uma única peça integrada ao corpo, conforme segue:</p>
 
               <h5>Abrir os slots laterais no tróculo (traste 12)</h5>
               <p>Para violão clássico (escala 650 mm), o <strong>12º traste</strong> fica exatamente na metade
@@ -1668,14 +1708,16 @@
               <ul>
                 <li>Nesta altura, o braço deve estar perfeitamente esquadrejado e riscado. Abra os <strong>slots
                     laterais</strong>
-                  onde as faixas se encaixam, exatamente sobre a linha do <strong>traste 12</strong>.</li>
+                  onde as faixas se encaixam, exatamente sobre a linha do <strong>traste 12</strong>. Para fazer isso,
+                  pode usar o serrote, cortando exatamente sobre a linha do traste 12 e aprofundando o corte até o
+                  limite do pescoço do tróculo. Ou, usar a serra circular, ajustando a altura para alcançar a
+                  profundidade até o limite do pescoço.</li>
 
                 <li><strong>Profundidade (até o “pescoço” do tróculo):</strong> ~6 mm a partir da linha central em cada
-                  lado
-                  (largura total do pescoço ≈ 12 mm).</li>
+                  lado (ou seja, a largura total do pescoço será de aproximadamene ≈ 12 mm). </li>
 
                 <!-- Inline por instrumento: espessura do slot -->
-                <li><strong>Espessura do slot (≈ 2× espessura da faixa):</strong>
+                <li><strong>Espessura do slot (≈ 2× espessura da faixa + 1 mm):</strong>
                   <span data-instruments="vcl"> faixas 2.0–2.5 mm → slot ~4.5–5.5 mm</span>
                   <span data-instruments="vla"> faixas 2.2–2.6 mm → slot ~5.0–6.0 mm</span>
                   <span data-instruments="cav"> faixas 1.8–2.2 mm → slot ~4.0–4.8 mm</span>
@@ -1685,6 +1727,13 @@
                 <li>Mantenha a ferramenta aprumada, com cortes retos e precisos; faça passes leves e simétricos.</li>
               </ul>
 
+              <h5>Por que abrir os slots laterais no tróculo em espessurar maior que a faixa?</h5>
+              <ul>
+                <li>Ao abrir os slots laterais no tróculo em espessurar maior que a faixa, estamos criando um espaço
+                  extra
+                  para a faixa se encaixar e a sobra será preenchida com cunhas de madeira e cola, permitindo um encaixe
+                  mais firme e seguro.</li>
+              </ul>
               <h5>Método alternativo (serra circular)</h5>
               <ul>
                 <li>Ajuste a altura para alcançar a profundidade até o limite do pescoço.</li>
@@ -1871,7 +1920,7 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo1-tech"
+              <figure class="tech-figure" data-key="tampo1a-tech"
                 data-cap="Retificar juntas do tampo — bookmatch, shooting board e checagem à contraluz">
               </figure>
 
@@ -1930,6 +1979,10 @@
                 <li>Após a cura (mínimo 12 horas), use raspilha ou plaina fina para limpar a superfície da emenda.</li>
               </ul>
 
+              <figure class="tech-figure" data-key="tampo21-tech" data-cap="Colagem do tampo — prensa de cunha">
+              </figure>
+
+
               <h5>Método da corda (universal)</h5>
               <ul>
                 <li>Prepare duas ripas de madeira retas, um pouco mais longas que a largura do tampo.</li>
@@ -1951,8 +2004,7 @@
                 uniformizar a espessura (~3 mm) antes das varetas.</p>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo2-tech"
-                data-cap="Colagem do tampo — prensa de cunha e método da corda (raspagem da junta)">
+              <figure class="tech-figure" data-key="tampo22-tech" data-cap="Colagem do tampo — método da corda">
               </figure>
 
               <!-- Callouts por instrumento (deltas) -->
@@ -2063,6 +2115,10 @@
                   do soundhole.</li>
               </ol>
 
+              <!-- Figura técnica / ilustração -->
+              <figure class="tech-figure" data-key="tampo2aa-tech"
+                data-cap="Traçado aumentado e recorte do tampo — métodos manuais e semimanual"></figure>
+
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
                 <strong>Violão clássico:</strong> prefira lâminas finas e cortes em múltiplas passadas. Mantenha a
@@ -2087,9 +2143,7 @@
                 remova quando finalizar o acabamento.
               </p>
 
-              <!-- Figura técnica / ilustração -->
-              <figure class="tech-figure" data-key="tampo2a-tech"
-                data-cap="Traçado aumentado e recorte do tampo — métodos manuais e semimanual"></figure>
+
 
               <div class="img-row"></div>
               <div class="tool-row">
@@ -2228,7 +2282,7 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo4-tech"
+              <figure class="tech-figure" data-key="tampo4a-tech"
                 data-cap="Calibrar tampo — nivelamento da roseta, desbaste progressivo e mapa de espessura">
               </figure>
 
@@ -2301,9 +2355,55 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo5-tech"
+              <figure class="tech-figure" data-key="tampo5a-tech"
                 data-cap="Boca (soundhole) — marcação, corte e acabamento">
               </figure>
+
+              <h5>Método alternativo: corte por pivô central (estilete)</h5>
+              <p>Este método utiliza um ponto fixo no centro da boca e um braço giratório com lâmina, funcionando como
+                um compasso de corte. Proporciona alta precisão e circularidade perfeita.</p>
+
+              <ul>
+                <li><strong>Definição do centro:</strong> localize com exatidão o centro da boca (geralmente já definido
+                  pela roseta) e faça um furo fino e perpendicular ao tampo.</li>
+
+                <li><strong>Instalação do pivô:</strong> insira um pino metálico ou parafuso justo no furo, garantindo
+                  que fique firme e sem folga. Esse pino será o centro de giro do braço de corte e pode ser fixado numa
+                  base de madeira ou metal, de tamanho adequado para acomodar o tampo do instrumento.</li>
+
+                <li><strong>Preparação do braço de corte:</strong> utilize uma régua ou haste
+                  rígida, com um furo passante em uma extremidade e com um estilete bem afiado na outra extremidade.
+                  Ajuste a distância entre o pino e a lâmina conforme
+                  o raio da boca.</li>
+
+                <li><strong>Corte progressivo:</strong> gire o braço ao redor do pivô, realizando cortes leves e
+                  sucessivos. Evite forçar — aprofunde gradualmente até atravessar o tampo.</li>
+
+                <li><strong>Controle de profundidade:</strong> mantenha o estilete perpendicular à superfície e aumente
+                  a profundidade aos poucos para evitar lascas, especialmente na saída do corte.</li>
+
+                <li><strong>Acabamento:</strong> finalize a borda interna com lixa ou raspilha para uniformizar qualquer
+                  irregularidade mínima.</li>
+              </ul>
+
+              <h5>Erros comuns</h5>
+              <ul class="erros">
+                <li>
+                  <strong>Forçar o corte de uma vez:</strong>
+                  <span>causa lasca na roseta.</span>
+                </li>
+                <li>
+                  <strong>Pivô com folga:</strong>
+                  <span>círculo ovalado e perda de precisão.</span>
+                </li>
+                <li>
+                  <strong>Lâmina cega:</strong>
+                  <span>rasga as fibras ao invés de cortar.</span>
+                </li>
+              </ul>
+
+
+
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="vcl vla">
@@ -2345,7 +2445,426 @@
             </div>
           </div>
 
+          <div class="step" data-step="tampo6">
+            <input class="chk persist" id="tampo6" type="checkbox" />
+            <label class="label" for="tampo6">Leque harmônico do Projeto</label>
+            <button class="btn toggle" data-target="d-tampo6" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
 
+            <div class="detail" id="d-tampo6">
+
+              <h5>Objetivo</h5>
+              <p>Fixar o <strong>sistema de leque harmônico</strong> deste instrumento como referência antes de preparar
+                barras e colar no tampo. A figura técnica e as notas abaixo acompanham o valor escolhido em
+                <strong>Dados do projeto → Sistema de leque harmônico</strong> (e a escala do projeto, quando
+                relevante).
+              </p>
+
+              <h5>Etapas</h5>
+              <ul>
+                <li><strong>Confirmar o projeto:</strong> em Dados do projeto, verifique instrumento, escala e sistema
+                  de leque (incluindo descrição/notas se for <em>Custom</em>).</li>
+                <li><strong>Usar esta etapa como “mapa”:</strong> compare a ilustração com o seu desenho ou planta;
+                  anote simetria, ordem das varetas e pontos críticos (boca, cavalete, extremidades).</li>
+                <li><strong>Planejar a execução:</strong> nas etapas seguintes (preparar barras e instalar), mantenha
+                  coerência com este padrão — alturas e comprimentos saem daqui para a solera e para o voicing fino.
+                </li>
+              </ul>
+
+              <!-- Callouts gerais (instrumento; sem filtro de leque) -->
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Projeto:</strong> se o campo do leque estiver em “Selecione”, escolha o sistema em Dados do
+                projeto para carregar a figura e os callouts específicos desta etapa.
+              </p>
+
+              <!-- Figura técnica da etapa -->
+              <figure class="tech-figure" data-key="tampo6-tech"
+                data-cap="Leque harmônico do projeto — referência (conforme sistema selecionado nos dados do projeto)">
+              </figure>
+
+
+
+              <!-- Violão clássico — por sistema de leque -->
+              <div class="callout" data-instruments="vcl" data-bracing="torres">
+                <h4>Torres (abanico clássico)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Som equilibrado e natural, com boa resposta dinâmica e projeção
+                  uniforme.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 5 a 7 varetas dispostas em leque simétrico, partindo da região inferior da boca.<br>
+                  🔹 As varetas se abrem como “raios” de um sol, acompanhando o formato do tampo.
+                </p>
+
+                <p><strong>Madeira recomendada:</strong> Spruce (abeto) ou cedro leve.<br>
+                  <strong>Dimensões típicas:</strong> Altura inicial 5–6 mm · Largura 2–2,5 mm (antes do voicing).<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, afinando progressivamente nas pontas.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Distribuir vibração mantendo flexibilidade longitudinal e controle lateral — o tampo vibra livremente,
+                  sem perder estabilidade.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Excesso de altura no centro → mata a resposta.<br>
+                  ⚠️ Falta de simetria (&gt; ±1 mm) → desequilíbrio entre graves e agudos.<br>
+                  💡 Faça leve alívio nas pontas para liberar o tampo e aumentar o sustain.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Uma batida seca no tampo e observe se o som “respira” — o tampo deve vibrar de forma uniforme, sem
+                  áreas rígidas ou abafadas.
+                </p>
+              </div>
+
+
+              <div class="callout" data-instruments="vcl" data-bracing="hauser">
+                <h4>Hauser</h4>
+
+                <p><strong>Objetivo acústico:</strong> Som mais focado, com melhor separação de notas e projeção limpa.
+                </p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 Leque derivado do Torres, mas mais organizado e previsível.<br>
+                  🔹 Distribuição de massa controlada, especialmente sob o cavalete.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Altura inicial ~4,5–5,5 mm · Largura 2–2,5 mm (antes do
+                  voicing).<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, com afinação precisa nas pontas.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Maior controle na região central do tampo, resultando em clareza e definição sonora.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Pequenas variações de altura impactam muito o resultado — sistema sensível ao voicing fino.<br>
+                  ⚠️ Excesso de rigidez → som engessado.<br>
+                  💡 Trabalhe com paciência: afinação gradual das barras garante resposta refinada.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque escalas lentas e observe se cada nota soa distinta e clara, sem “embolar” nos médios.
+                </p>
+              </div>
+
+              <div class="callout" data-instruments="vcl" data-bracing="ramirez">
+                <h4>Ramirez / derivados</h4>
+
+                <p><strong>Objetivo acústico:</strong> Mais volume e corpo, com graves presentes e projeção robusta.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 Variações do leque clássico, geralmente com reforços adicionais.<br>
+                  🔹 Pode apresentar leve assimetria e maior massa estrutural na região do cavalete.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Altura semelhante ao Torres (~5–6 mm), mas com reforços extras.
+                  Largura 2–2,5 mm (antes do voicing).<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, afinando nas pontas para compensar a massa
+                  adicional.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Proporcionar maior potência sonora e graves mais encorpados, mantendo estabilidade estrutural.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Excesso de rigidez pode “travar” o tampo e reduzir a resposta dinâmica.<br>
+                  ⚠️ Massa extra sem alívio nas pontas → som pesado e sem brilho.<br>
+                  💡 Compense afinando bem as pontas das varetas para liberar vibração.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque acordes graves e observe se o som tem corpo e potência, mas ainda responde bem às variações de
+                  ataque.
+                </p>
+              </div>
+
+              <div class="callout" data-instruments="vcl" data-bracing="x_bracing">
+                <h4>X‑Bracing</h4>
+
+                <p><strong>Objetivo acústico:</strong> Graves fortes, timbre mais “americano”, com maior rigidez
+                  estrutural.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 Duas barras principais cruzadas formando um “X” logo abaixo da boca.<br>
+                  🔹 O ponto de cruzamento define o comportamento do tampo.
+                </p>
+
+                <p><strong>Madeira recomendada:</strong> Spruce mais rígido.<br>
+                  <strong>Dimensões típicas:</strong> Barras principais mais altas (~6–8 mm).<br>
+                  <strong>Perfil:</strong> Geralmente triangular ou arredondado, mantendo robustez.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Aumentar rigidez estrutural e suportar maior tensão das cordas, garantindo estabilidade mesmo em uso
+                  intenso.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Cruzamento mal posicionado → resposta irregular do tampo.<br>
+                  ⚠️ Excesso de altura → som duro e pouco responsivo.<br>
+                  💡 Ajuste fino do ponto de cruzamento é essencial para equilibrar graves e médios.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque acordes graves e médios; o som deve ser encorpado e potente, sem perder clareza nas notas
+                  individuais.
+                </p>
+              </div>
+
+
+              <!-- Viola caipira -->
+              <div class="callout" data-instruments="vla" data-bracing="x_adaptado">
+                <h4>X adaptado (viola)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Suportar maior tensão das múltiplas cordas sem perder resposta
+                  rápida.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 Duas barras cruzadas em “X”, mas mais abertas que no violão aço.<br>
+                  🔹 Ajustadas para escala menor e características da viola caipira.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Barras mais baixas que no violão (~4–5 mm).<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, mantendo leveza.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Garantir rigidez suficiente sem engessar o tampo, preservando brilho e ataque característico.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Exagerar na rigidez → som perde brilho.<br>
+                  💡 Ajuste fino da abertura do “X” ajuda a equilibrar graves e agudos.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque ponteios rápidos e observe se o som responde com clareza e brilho imediato.
+                </p>
+              </div>
+
+
+              <div class="callout" data-instruments="vla" data-bracing="leque_7_barras">
+                <h4>Leque 7 barras (viola)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Distribuir melhor a tensão das cordas, oferecendo som mais
+                  equilibrado.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 7 varetas em leque proporcionalmente mais aberto que no violão clássico.<br>
+                  🔹 Simetria importante para manter consistência sonora.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Altura inicial ~4–5 mm.<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, afinando nas pontas.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Produzir som mais equilibrado e menos agressivo que o X adaptado, com bom corpo e sustain.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Pontas mal afinadas → som fechado e sem brilho.<br>
+                  💡 Controle fino nas pontas define o brilho final.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque acordes abertos e observe se o som se mantém cheio e equilibrado, sem perder agilidade.
+                </p>
+              </div>
+
+              <!-- Cavaquinho -->
+              <div class="callout" data-instruments="cav" data-bracing="leque_3_barras">
+                <h4>Leque 3 barras (cavaquinho)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Máxima resposta com mínima estrutura — ataque rápido e brilho
+                  intenso.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 3 varetas em leque simples, partindo da região inferior da boca.<br>
+                  🔹 Estrutura leve para liberar vibração imediata.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Altura inicial ~3–4 mm.<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, afinando nas pontas.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Produzir ataque rápido e timbre brilhante, com pouco sustain.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Qualquer excesso de cola ou massa muda o resultado.<br>
+                  💡 Trabalhe com precisão mínima para preservar a resposta viva.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque batidas rápidas e observe se o som é imediato e brilhante, sem engasgos.
+                </p>
+              </div>
+
+
+              <div class="callout" data-instruments="cav" data-bracing="leque_5_barras">
+                <h4>Leque 5 barras (cavaquinho)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Mais controle estrutural e equilíbrio entre corpo e sustain.</p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 5 varetas em leque, proporcionando maior estabilidade.<br>
+                  🔹 Barras externas afinadas para liberar vibração.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Altura inicial ~3,5–4,5 mm.<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, afinando nas pontas.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Som mais cheio e com sustain, menos “estalado” que o de 3 barras.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Barras externas muito rígidas → tampo fechado e som abafado.<br>
+                  💡 Afine bem as pontas para manter brilho e resposta.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque acordes abertos e observe se o som tem corpo e sustain, sem perder agilidade.
+                </p>
+              </div>
+
+              <p class="callout" data-instruments="cav" data-bracing="custom">
+                <strong>Custom (cavaquinho):</strong> indique se é ladder, mini-fan, misto ou cópia de referência
+                (marca/modelo). Documente espessura-alvo do tampo e tensão das cordas; em instrumentos pequenos, poucos
+                milímetros de massa ou posição mudam a resposta — mantenha desenho e notas visíveis até o voicing.
+              </p>
+
+              <!-- Ukulele -->
+              <div class="callout" data-instruments="uku" data-bracing="leque_3_barras">
+                <h4>Leque 3 barras (ukulele)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Padrão leve para tampo fino — resposta rápida e volume imediato.
+                </p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 3 varetas em leque simples, proporcional ao tamanho reduzido do ukulele.<br>
+                  🔹 Estrutura mínima para liberar vibração rápida.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Altura inicial ~2,5–3,5 mm.<br>
+                  <strong>Perfil:</strong> Triangular ou arredondado, afinando nas pontas.
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Garantir ataque imediato e timbre brilhante, sem comprometer a leveza do tampo.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Excesso de rigidez mata completamente o instrumento.<br>
+                  💡 Trabalhe com mínima massa para preservar a resposta viva.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque dedilhados leves e observe se o som responde rápido e com clareza.
+                </p>
+              </div>
+
+
+              <div class="callout" data-instruments="uku" data-bracing="custom">
+                <h4>Custom (ukulele)</h4>
+
+                <p><strong>Objetivo acústico:</strong> Ajustar o padrão de barras conforme tamanho e estilo do ukulele.
+                </p>
+
+                <p><strong>Visualização:</strong><br>
+                  🔹 Pode ser ladder, fan reduzido ou híbrido.<br>
+                  🔹 Configuração varia conforme soprano, concert, tenor ou barítono.
+                </p>
+
+                <p><strong>Dimensões típicas:</strong> Definidas conforme projeto e tensão das cordas.<br>
+                  <strong>Perfil:</strong> Adaptado ao objetivo (volume vs. sustain).
+                </p>
+
+                <p><strong>Função acústica:</strong><br>
+                  Moldar o timbre e a resposta do instrumento de acordo com a escolha do construtor.
+                </p>
+
+                <p><strong>Erros comuns / Dicas rápidas:</strong><br>
+                  ⚠️ Contradições entre desenho e metas acústicas → resultado inconsistente.<br>
+                  💡 Documente claramente metas (volume, sustain, cordas baixas vs. reentrante).
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Compare acordes abertos e notas isoladas; o som deve refletir o objetivo definido (mais volume ou mais
+                  sustain).
+                </p>
+              </div>
+
+
+              <div class="callout" data-instruments="vcl vla cav" data-bracing="custom">
+                <h4>Customizado</h4>
+
+                <p><strong>Você está criando o comportamento acústico do instrumento.</strong><br>
+                  Se não definiu um leque no projeto, use esta etapa como espaço para experimentar sua própria
+                  imaginação.
+                </p>
+
+                <p><strong>Defina obrigatoriamente:</strong><br>
+                  • Número de varetas<br>
+                  • Altura inicial (em mm)<br>
+                  • Padrão (simétrico ou assimétrico)<br>
+                  • Zonas mais rígidas vs. zonas mais livres
+                </p>
+
+                <p><strong>Pergunta guia:</strong><br>
+                  O que você quer privilegiar?<br>
+                  → Mais <em>volume</em>?<br>
+                  → Mais <em>sustain</em>?<br>
+                  → Ataque <em>rápido</em>?
+                </p>
+
+                <p><strong>Regra prática:</strong><br>
+                  ➕ Mais massa = mais controle, menos resposta.<br>
+                  ➖ Menos massa = mais resposta, menos controle.
+                </p>
+
+                <p><strong>Dica para iniciantes:</strong><br>
+                  Comece simples: desenhe 3 a 5 varetas em leque básico e ajuste alturas aos poucos.<br>
+                  Documente suas escolhas — cada detalhe muda o som final.
+                </p>
+
+                <p><strong>Como ouvir o resultado:</strong><br>
+                  Toque acordes abertos e veja se o som reflete sua intenção (mais cheio, mais brilhante ou mais
+                  rápido).
+                  Ajuste conforme necessário.
+                </p>
+              </div>
+
+
+
+              <!-- Galeria padrão da etapa -->
+              <div class="img-row"></div>
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="tampo6">Minhas Imagens</button>
+                <button class="btn open-draw" type="button" data-subetapa="tampo6a-tech">Ilustração Técnica
+                  Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/tampo6/tampo6.json"
+                  data-target="#assets-tampo6" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da etapa
+                </button>
+              </div>
+              <div class="assets-row" id="assets-tampo6"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-tampo6" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+
+            </div>
+          </div>
 
           <div class="step" data-step="tampo7a">
             <input class="chk persist" id="tampo7a" type="checkbox" />
@@ -2356,27 +2875,40 @@
 
             <div class="detail" id="d-tampo7a">
 
-              <p>As barras harmônicas formam o “esqueleto” acústico do tampo. A qualidade de sua execução influencia
-                diretamente a projeção e o timbre do instrumento. As travessas são importantes para sustentação da
-                estrutura do instrumento.</p>
+              <p>Esta etapa é dedicada exclusivamente à <strong>preparação das travessas e barras harmônicas</strong> —
+                ainda não ocorre a colagem.
+                O objetivo é selecionar a madeira, cortar e moldar as peças conforme o abaluamento do tampo e o desenho
+                do
+                leque harmônico do projeto.</p>
 
               <h5>Etapas</h5>
               <ul>
-                <li>Corte tiras de madeira (cedro, abeto ou pinho bem seco) com dimensões em bruto de <em>6–8 mm de
-                    altura</em> por
-                  <em>5–6 mm de largura</em>.
-                </li>
-                <li>Garanta orientação radial (veios “em pé”), isto é, fibras perpendiculares ao tampo — nunca
-                  paralelas.</li>
-                <li>Marque posições na solera e ajuste o comprimento conforme o desenho do leque harmônico adotado.</li>
-                <li>Entalhe/assente cada barra para casar a curvatura da solera (método do lápis curto ou giz para
-                  transferência).</li>
-                <li>Perfil: mais alto no centro, afinando progressivamente para as extremidades.</li>
-                <li>Finalize com galgas e lixas; quebre levemente arestas do coroamento para fluxo sonoro suave.</li>
+                <li><strong>Escolha da madeira:</strong> Cedro, abeto ou pinho bem seco, com veios radiais (“em pé”)
+                  para
+                  máxima resistência e transmissão acústica.</li>
+                <li><strong>Corte inicial:</strong> Tiras com dimensões brutas de <em>6–8 mm de altura</em> × <em>5–6 mm
+                    de largura</em>.</li>
+                <li><strong>Curvatura da base:</strong> Prepare a face convexa das barras de acordo com o raio da solera
+                  ou molde da soleta — esse ajuste define o abaluamento do tampo.</li>
+                <li><strong>Marcação:</strong> Posicione as barras sobre o molde e marque o comprimento conforme o
+                  desenho
+                  do leque harmônico.</li>
+                <li><strong>Assentamento:</strong> Use o método do lápis curto ou giz para transferir o contorno da
+                  solera
+                  e garantir encaixe perfeito antes da colagem.</li>
+                <li><strong>Modelagem opcional:</strong> Se preferir, já molde o perfil das travessas e varetas (mais
+                  alto
+                  no centro, afinando para as pontas) antes da colagem.</li>
+                <li><strong>Acabamento:</strong> Utilize galgas e lixas finas para suavizar arestas e garantir fluxo
+                  sonoro contínuo.</li>
               </ul>
 
+              <p><em>Observação:</em> A colagem das barras e travessas será realizada na próxima etapa.
+                Aqui, o foco é preparar cada peça com precisão e coerência com o sistema de leque harmônico escolhido.
+              </p>
+
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo7a-tech"
+              <figure class="tech-figure" data-key="tampo7aa-tech"
                 data-cap="Barras harmônicas — estoque, assentamento na solera e perfil/coroamento">
               </figure>
 
@@ -2395,17 +2927,29 @@
               </p>
 
               <!-- Callouts gerais -->
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Cola:</strong> filme fino e contínuo; pressão homogênea (deck de varas, cunhas ou sargentos +
-                tacos).
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Assentamento:</strong> não cole se houver “balanço”. A barra deve encostar em toda a extensão.
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Controle:</strong> use gabarito de raio/solera e verifique simetria do perfil entre barras
-                equivalentes.
-              </p>
+
+              <div class="callout" data-instruments="vcl vla cav uku">
+                <h4>🔧 Dicas práticas de oficina</h4>
+
+                <p><strong>Sequência alternativa:</strong><br>
+                  Muitos luthiers preferem colar as barras primeiro (já com o raio ajustado) e, após a cura, entalhar e
+                  perfilar.
+                  Esse método garante maior estabilidade durante o entalhe e permite ajustes finos diretamente no tampo.
+                </p>
+
+                <p><strong>Direção das fibras:</strong><br>
+                  Sempre use madeira com veios radiais (“em pé”), ou seja, fibras perpendiculares ao tampo.
+                  Isso aumenta a resistência e melhora a transmissão acústica.
+                  Evite fibras paralelas, que reduzem eficiência e podem deformar.
+                </p>
+
+                <p><strong>Método do lápis curto:</strong><br>
+                  Segure o lápis quase deitado, com a ponta curta encostando na solera.
+                  Ao deslizar a barra sobre o tampo, o grafite marca os pontos de contato.
+                  Entalhe até que a barra assente sem balanço, garantindo colagem firme e uniforme.
+                </p>
+              </div>
+
 
               <!-- Galeria padrão da etapa -->
               <div class="img-row"></div>
@@ -2427,7 +2971,6 @@
             </div>
           </div>
 
-
           <div class="step" data-step="tampo7b">
             <input class="chk persist" id="tampo7b" type="checkbox" />
             <label class="label" for="tampo7b">Instalar travessas, reforço da boca e leque harmônico</label>
@@ -2437,67 +2980,86 @@
 
             <div class="detail" id="d-tampo7b">
 
-
               <h5>Objetivo</h5>
-              <p>Definir e colar a estrutura interna do tampo (reforços da boca, travessas e leque harmônico), que
-                determina a resistência mecânica e a resposta acústica do instrumento.</p>
+              <p>Nesta etapa, o luthier <strong>instala e cola</strong> as travessas, o reforço da boca e o leque
+                harmônico sobre o tampo.
+                É aqui que se define a estrutura acústica e mecânica do instrumento — o equilíbrio entre resistência e
+                resposta sonora.</p>
 
               <h5>Etapas</h5>
               <ul>
-                <li><strong>Definição do projeto acústico:</strong> escolha o padrão (Torres, Hauser, Bouchet, ladder,
-                  mini-fan etc.). O mais difundido no violão/viola é o leque clássico de 6–7 varetas em “abanico”.</li>
-                <li><strong>Transferência do desenho:</strong> marque no lado interno do tampo a posição de travessas,
-                  reforços e varetas, usando plantilla/planta/solera como guia.</li>
-                <li><strong>Madeira e dimensões:</strong> abeto/cedro/marupá bem seco. Bruto típico das varetas: 6–8 mm
-                  (altura) × 5–6 mm (largura). Fibras <em>em pé</em> (perpendiculares ao tampo).</li>
-                <li><strong>Preparação e ajuste:</strong>
-                  <ul>
-                    <li>Recorte no comprimento; se houver arqueamento, ajuste a base à curvatura da solera (método do
-                      lápis curto).</li>
-                    <li>Numere cada vareta para manter a ordem de montagem.</li>
-                  </ul>
+                <li><strong>1. Marcação e posicionamento:</strong> transfira o desenho do leque para o lado interno do
+                  tampo, usando planta, molde ou projeto como guia.
+                  Numere cada vareta para manter a ordem de montagem.</li>
+
+                <li><strong>2. Reforço da boca:</strong> cole primeiro as tiras horizontais junto à boca ou o face-graft
+                  fino.
+                  A grã deve ficar <em>cruzada</em> ao tampo, para resistir melhor às fissuras longitudinais.</li>
+
+                <li><strong>3. Travessas transversais:</strong> posicione e cole as travessas principais (superior e
+                  inferior).
+                  Ajuste a base à curvatura da solera usando o método do lápis curto para garantir contato integral.
                 </li>
-                <li><strong>Reforço da boca:</strong> duas tiras “horizontais” junto ao furo (ou um face-graft fino). A
-                  grã das tiras deve acompanhar o comprimento da tira, portanto fica <em>cruzada</em> ao tampo — isso
-                  resiste melhor às fissuras ao longo da grã do tampo.</li>
-                <li><strong>Colagem:</strong> instale primeiro reforço da boca, depois travessas transversais e por fim
-                  o leque. Use solera + “go-bar deck”/cunhas/sargentos com tacos. Papel antiaderente para proteção.</li>
-                <li><strong>Modelagem final:</strong> após cura, perfilar e aliviar pontas. Ferramentas: formão pequeno,
-                  mini-plaina, raspilha e lixas P120→P400.</li>
-                <li><strong>Alturas finais:</strong> pontas que chegam às laterais ~3 mm, com transição suave no
-                  reengrosso.</li>
+
+                <li><strong>4. Leque harmônico:</strong> cole as varetas do leque conforme o sistema adotado (Torres,
+                  Hauser, Ramirez etc.).
+                  Trabalhe com cola fina e uniforme, sem excesso.</li>
+
+                <li><strong>5. Cura e verificação:</strong> após a colagem, deixe curar completamente.
+                  Verifique o assentamento com luz rasante — nenhuma vareta deve “balançar”.</li>
+
+                <li><strong>6. Modelagem final:</strong> depois da cura, perfilar e aliviar pontas.
+                  Ferramentas: formão pequeno, mini-plaina, raspilha e lixas P120→P400.
+                  Pontas que chegam às laterais ~3 mm, com transição suave no reengrosso.</li>
               </ul>
 
-              <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo7b-tech"
+              <figure class="tech-figure" data-key="tampo7bb-tech"
                 data-cap="Travessas, reforço da boca e leque — marcação, colagem e perfil">
               </figure>
 
-              <!-- Callouts por instrumento (deltas) -->
+              <div class="callout" data-instruments="vcl vla cav uku">
+                <h4>Uso da Go‑Bar Deck</h4>
+                <p><strong>Função:</strong> sistema de pressão vertical para colagem precisa e uniforme das barras e
+                  travessas.</p>
+                <p><strong>Como usar:</strong><br>
+                  • Monte o tampo sobre a solera dentro da estrutura da go‑bar deck.<br>
+                  • Posicione cada vareta ou travessa com cola fina e uniforme.<br>
+                  • Use varas flexíveis (go‑bars) para aplicar pressão vertical — uma por peça ou mais conforme o
+                  tamanho.<br>
+                  • Ajuste a altura das varas para que a pressão seja firme, mas sem deformar o tampo.<br>
+                  • Proteja o tampo com papel antiaderente ou filme plástico fino.<br>
+                  • Após a cura, retire as varas e verifique o assentamento completo.
+                </p>
+                <p><strong>Dica:</strong> mantenha o ambiente estável (sem variação de umidade) e distribua as varas
+                  simetricamente para evitar empenamento.</p>
+              </div>
+
               <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> leque em abanico (6–7). Reforço de boca ~2.0–2.5 mm. Travessa superior
-                mais robusta (região do braço).
+                <strong>Violão/Viola:</strong> leque em abanico (6–7 varetas) ou X bracing. Reforço de boca ~2.0–2.5 mm.
+                Travessa superior mais robusta (região do braço).
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> ladder (2–3 travessas) ou mini-fan leve; mantenha massa baixa para
-                preservar ataque/brilho.
+                <strong>Cavaquinho:</strong> ladder (2–3 travessas) ou mini‑fan leve; mantenha massa baixa para
+                preservar ataque e brilho.
               </p>
               <p class="callout" data-instruments="uku">
                 <strong>Ukulele:</strong> fan leve (3–5 varetas curtas) ou ladder simples; tampo fino pede barras
                 discretas e cola uniforme.
               </p>
 
-              <!-- Callouts gerais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Assentamento:</strong> não cole se “balançar” — contato integral na base da vareta em toda a
-                extensão.
+                <strong>Dicas de colagem:</strong><br>
+                • Use cola fresca e espalhe em camada fina.<br>
+                • Evite excesso — o filme deve ser contínuo, sem bolhas.<br>
+                • Trabalhe com tempo controlado: cola aberta por mais de 5 min perde aderência.<br>
+                • Após cura, inspecione cada junção com luz rasante para garantir contato total.
               </p>
+
               <p class="callout" data-instruments="vcl vla cav uku">
                 <strong>Perfil:</strong> coroamento mais alto no centro, aliviando para as pontas; quebre levemente
                 arestas (sem cantos vivos).
               </p>
 
-              <!-- Galeria padrão da etapa -->
               <div class="img-row"></div>
               <div class="tool-row">
                 <button class="btn add-image" type="button" data-subetapa="tampo7b">Minhas Imagens</button>
@@ -2519,6 +3081,7 @@
 
 
 
+
           <div class="step" data-step="tampo8">
             <input class="chk persist" id="tampo8" type="checkbox" />
             <label class="label" for="tampo8">Ajuste fino e voicing das varetas</label>
@@ -2529,37 +3092,52 @@
             <div class="detail" id="d-tampo8">
 
               <h5>Objetivo</h5>
-              <p>Refinar o perfil das varetas e travessas do tampo, ajustando espessura e altura para obter o equilíbrio
-                acústico desejado em resposta, volume e timbre.</p>
+              <p>Refinar o perfil das varetas e travessas do tampo, ajustando espessura e altura para alcançar
+                equilíbrio acústico em resposta, volume e timbre.</p>
 
-              <h5>Procedimento recomendado</h5>
+              <h5>Sequência recomendada</h5>
+              <ol>
+                <li><strong>Travessas:</strong> mantenha altura nas zonas que exigem rigidez; afine progressivamente em
+                  direção às extremidades, começando ~5 cm antes das faixas. Evite retirar material junto ao cavalete e
+                  nos encontros com laterais/travessas.</li>
+                <li><strong>Leque harmônico:</strong> reduza gradualmente a altura, deixando o centro mais alto e
+                  afinando em direção às extremidades. Perfis usuais:
+                  <ul>
+                    <li>Triangular ou meia-cana: rigidez central e flexibilidade nas bordas.</li>
+                    <li>Arredondados (Torres/Hauser) ou baixos/largos (Bouchet/derivados).</li>
+                  </ul>
+                </li>
+                <li><strong>Microajustes localizados:</strong> alivie discretamente sob as cordas graves (4ª–6ª) para
+                  liberar graves; preserve rigidez sob as agudas (1ª–3ª) para clareza e ataque. Em corpos pequenos
+                  (cavaquinho, ukulele), trabalhe em retiradas mínimas e teste a cada passo.</li>
+              </ol>
+
+              <h5>Controle e feedback</h5>
               <ul>
-                <li><strong>Afinamento progressivo:</strong> reduza gradualmente a altura das varetas (principalmente as
-                  do leque), deixando o centro mais alto e afinando em direção às extremidades.</li>
-                <li><strong>Perfis usuais:</strong>
-                  <ul>
-                    <li>Perfil triangular ou em meia-cana para rigidez no dorso e flexibilidade nas bordas.</li>
-                    <li>Perfis mais arredondados (Torres/Hauser) x perfis mais baixos e largos (Bouchet/derivados).</li>
-                  </ul>
+                <li><strong>Auditivo:</strong> bata levemente no tampo (nós dos dedos ou martelo de borracha) e avalie
+                  resposta (grave/aguda, sustentação, clareza).</li>
+                <li><strong>Tátil:</strong> pressione o tampo em diferentes áreas para sentir rigidez e flexibilidade.
                 </li>
-                <li><strong>Controle auditivo:</strong> bata levemente no tampo (nós dos dedos ou martelo de borracha) e
-                  avalie a
-                  resposta (grave/aguda, sustentação, clareza). Ajuste em micro-incrementos.</li>
-                <li><strong>Ferramentas:</strong> formão pequeno, mini plaina, raspilha e lixas finas; retire material
-                  em pequenas
-                  quantidades para não fragilizar.</li>
-                <li><strong>Ajustes localizados:</strong>
-                  <ul>
-                    <li>Alivie discretamente sob as cordas graves (4ª–6ª) para liberar graves.</li>
-                    <li>Mantenha mais rigidez sob as agudas (1ª–3ª) para preservar clareza e ataque.</li>
-                  </ul>
-                </li>
-                <li><strong>Espessura final típica:</strong> extremidades ~2.5–4.5 mm; cume até ~6 mm (varia conforme o
-                  projeto).</li>
+                <li><strong>Iterativo:</strong> altere uma zona por vez e teste; evite mexer em tudo de uma só vez.</li>
               </ul>
 
+              <h5>Ferramentas</h5>
+              <ul>
+                <li>Formão pequeno, mini plaina, raspilha e lixas finas.</li>
+                <li>Retire material em pequenas quantidades para não fragilizar.</li>
+                <li>Marque com lápis as zonas já trabalhadas para evitar excesso.</li>
+              </ul>
+
+              <h5>Espessuras típicas</h5>
+              <p>Extremidades: ~2.5–4.5 mm; cume até ~6 mm (varia conforme projeto). Não ultrapassar cerca de 30–40% de
+                redução da altura original.</p>
+
+              <h5>Documentação</h5>
+              <p>Registre medidas finais e impressões sonoras de cada instrumento. Compare com tampo já pronto ou
+                registros anteriores para calibrar melhor o voicing.</p>
+
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="tampo8-tech"
+              <figure class="tech-figure" data-key="tampo8a-tech"
                 data-cap="Voicing das varetas — mapa auditivo, afinamento direcionado e limites">
               </figure>
 
@@ -2568,6 +3146,7 @@
                 <strong>Graves x agudos:</strong> para mais calor nos graves, alivie discretamente sob 4ª–6ª; preserve
                 rigidez sob 1ª–3ª para clareza.
               </p>
+
               <p class="callout" data-instruments="cav uku">
                 <strong>Corpos pequenos:</strong> micro-ajustes mudam muito o timbre — trabalhe em retiradas mínimas e
                 teste a cada passo.
@@ -2575,12 +3154,11 @@
 
               <!-- Callouts gerais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Iterativo:</strong> altere uma zona por vez e teste; evite “mexer em tudo” de uma só vez.
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
                 <strong>Zonas de segurança:</strong> não afine demais junto ao cavalete e nos encontros com
                 laterais/travessas.
               </p>
+
+
 
               <!-- Galeria padrão da etapa -->
               <div class="img-row"></div>
@@ -2588,10 +3166,10 @@
                 <button class="btn add-image" type="button" data-subetapa="tampo8">Minhas Imagens</button>
                 <button class="btn open-draw" type="button" data-subetapa="tampo8-tech">Ilustração Técnica
                   Anotável</button>
-                <!-- <button class="btn load-assets" data-manifest="./assets/extras/albuns/tampo8/tampo8.json"
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/tampo8/tampo8.json"
                   data-target="#assets-tampo8" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
                   Galeria da etapa
-                </button> -->
+                </button>
               </div>
               <div class="assets-row" id="assets-tampo8"></div>
 
@@ -2647,28 +3225,29 @@
             </button>
 
             <div class="detail" id="d-fundo1">
-
               <h5>Objetivo</h5>
-              <p>A preparação do fundo segue os mesmos princípios aplicados ao tampo.
-                A retificação das juntas garante uma colagem forte, sem frestas visíveis.</p>
+              <p>Garantir juntas perfeitas para colagem forte e sem frestas visíveis, mantendo simetria no bookmatch.
+              </p>
 
-              <h5>Procedimento recomendado</h5>
+              <h5>Sequência recomendada</h5>
+              <ol>
+                <li><strong>Orientação:</strong> defina topo/cauda e mantenha metades espelhadas.</li>
+                <li><strong>Retífica:</strong> base plana com lixa 36–50 ou plaina afiada a 90°.</li>
+                <li><strong>Checagem:</strong> teste de luz rasante; se passar luz, retifique novamente.</li>
+                <li><strong>Esquadria:</strong> confira com esquadro em três pontos.</li>
+                <li><strong>Opcional:</strong> tupia + guia paralela para bordas retas antes da retífica fina.</li>
+              </ol>
+
+              <h5>Segurança</h5>
               <ul>
-                <li><strong>Orientação e bookmatch:</strong> defina topo/cauda e mantenha as metades espelhadas
-                  (figuração contínua).</li>
-                <li><strong>Retífica da aresta:</strong> use base plana com lixa 36–50 (shooting board) ou plaina muito
-                  afiada com passada longa, sempre a 90°.</li>
-                <li><strong>Checagem:</strong> una as metades e faça o teste de luz rasante/contraluz; se passar luz,
-                  volte a retificar.</li>
-                <li><strong>Esquadria local:</strong> confira com esquadro em três pontos ao longo da junta.</li>
-                <li><strong>Opcional:</strong> com tupia + guia paralela você cria bordas retas antes da retífica fina.
-                </li>
+                <li>Marque topo/cauda claramente para não inverter.</li>
+                <li>Somente avance para colagem quando não houver passagem de luz.</li>
               </ul>
 
-              <!-- Figura técnica da etapa -->
               <figure class="tech-figure" data-key="fundo1-tech"
-                data-cap="Retífica das juntas do fundo — bookmatch, shooting board e teste de luz">
+                data-cap="Retífica das juntas do fundo — bookmatch e teste de luz">
               </figure>
+
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="vcl vla">
@@ -2933,52 +3512,56 @@
 
             <div class="detail" id="d-fundo4">
 
-              <p>A estrutura interna do fundo é composta por duas ou três travessas (<em>back braces</em>) e um reforço
-                central
-                colado na contrafibra, trabalhando em conjunto com o <em>adorno central</em> já inserido entre as
-                metades.</p>
+              <h5>Objetivo</h5>
+              <p>Montar a estrutura interna do fundo com travessas (<em>back braces</em>) e reforço central
+                (<em>espelho</em>), garantindo estabilidade, bombeamento controlado e integração acústica com o tampo.
+              </p>
 
-              <h5>Etapas</h5>
+              <h5>Sequência recomendada</h5>
+              <ol>
+                <li><strong>Reforço central (espelho):</strong> tira ~25 mm × ~2 mm, fibras na contrafibra; colar sobre
+                  a emenda (adorno central), plano e contínuo.</li>
+                <li><strong>Travessas:</strong> 2, 3 ou 4 peças, conforme o projeto, grão perpendicular ao fundo; altura
+                  inicial típica 8–12 mm antes do perfilamento; pré-curvar para ~3 mm de bombeamento no centro.</li>
+                <li><strong>Curvatura das travessas:</strong> A maioria dos instrumentos têm as travessas curvas para o
+                  centro do fundo, então, de acordo com o seu projeto, preparar as travessar na curvatura ideal,
+                  fazendo-as assentar perfeitamente na soleira.</li>
+                <li><strong>Ajuste na solera:</strong> transferir curvatura da soleira para as travessascom lápis curto
+                  ou outro método de marcação; assentar sem forçar; acertar raio com galgas/lixas.</li>
+                <li><strong>Colagem:</strong> pressão uniforme (go-bar, cunhas ou grampos); filme fino de cola; limpar
+                  excesso imediatamente; cura completa antes de perfilar.</li>
+                <li><strong>Perfil final:</strong> modelar com formão/plaina/lixas; afinar progressivo nas pontas até
+                  casar no reengrosso (~3 mm); perfis arredondados ou chanfrados conforme estilo.</li>
+              </ol>
+
+              <h5>Medidas típicas</h5>
               <ul>
-                <li><strong>Reforço central (espelho):</strong> tira ~25&nbsp;mm (largura) × ~2&nbsp;mm (espessura) com
-                  fibras na
-                  <em>contrafibra</em>; colar exatamente sobre a emenda (sobre o adorno), plano e contínuo.
-                </li>
-                <li><strong>Travessas:</strong> 2–3 peças com grã o mais perpendicular possível ao fundo; pré-curvar
-                  conforme o
-                  bombeamento (≈3&nbsp;mm no centro ao longo da largura).</li>
-                <li><strong>Ajuste na solera:</strong> transferir a curvatura com lápis curto; assentar por gravidade,
-                  sem forçar.
-                  Acertar raio com galgas/lixas.</li>
-                <li><strong>Colagem:</strong> pressão uniforme (calços, barras, cunhas ou go-bar) em base plana; remover
-                  excesso de
-                  cola; cura completa antes de perfilar.</li>
-                <li><strong>Perfil final:</strong> modelar (formão, mini plaina, lixas 120→400); afinar progressivo nas
-                  pontas para
-                  casar no reengrosso (~3&nbsp;mm).</li>
+                <li>Espelho: 1.8–2.2 mm de espessura.</li>
+                <li>Travessas: altura inicial 8–12 mm, afinadas nas pontas.</li>
+                <li>Bombeamento: ~3 mm no centro da largura.</li>
               </ul>
 
-              <!-- Figura técnica -->
-              <figure class="tech-figure" data-key="fundo4-tech"
-                data-cap="Fundo — reforço central (espelho), travessas, colagem e perfil final">
-              </figure>
+              <h5>Segurança</h5>
+              <ul>
+                <li>Não afinar demais próximo às laterais para evitar fragilidade.</li>
+                <li>Grão das travessas nunca paralelo ao fundo.</li>
+                <li>Integração com o adorno: espelho deve cobrir a emenda sem degraus; se necessário, chanfrar
+                  travessas.</li>
+              </ul>
 
-              <!-- Callouts universais -->
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Integração com o adorno:</strong> o espelho deve cobrir a emenda sem degraus. Se preciso, faça
-                leve alívio
-                (chanfro/entalhe) nas travessas para não “empurrar” o adorno.
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Grão das travessas:</strong> perpendicular (ou levemente inclinado) ao plano do fundo — nunca
-                paralelo.
-              </p>
+              <h5>Documentação</h5>
+              <p>Registre dimensões finais (altura das travessas, espessura do espelho, curvatura aplicada) e
+                observações acústicas. Compare com instrumentos anteriores para calibrar futuros projetos.</p>
+
+              <!-- Figura técnica -->
+              <figure class="tech-figure" data-key="fundo4a-tech"
+                data-cap="Fundo — reforço central, travessas, colagem e perfil final">
+              </figure>
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> 2 travessas + espelho é configuração comum; bordas mais baixas ajudam
-                no
-                controle do bombeamento.
+                <strong>Violão clássico:</strong> 3 travessas + espelho é configuração comum; bordas mais baixas ajudam
+                no controle do bombeamento.
               </p>
               <p class="callout" data-instruments="vla">
                 <strong>Viola caipira:</strong> pode exigir travessa extra próxima ao cavalete; monitore arqueamento com
@@ -2987,6 +3570,8 @@
               <p class="callout" data-instruments="cav uku">
                 <strong>Cavaquinho/Ukulele:</strong> 2 travessas bem perfiladas costumam bastar; evite massa excessiva.
               </p>
+
+
 
               <!-- Galeria padrão da etapa -->
               <div class="img-row"></div>
@@ -3076,7 +3661,19 @@
                   região do <em>tróculo</em> mais estreita e <em>culatra</em> mais larga.
                   <span class="callout inline" data-instruments="vcl">
                     Referência (guitarra clássica): ~<strong>90–95&nbsp;mm</strong> no braço e
-                    ~<strong>95–100&nbsp;mm</strong> na culatra; comprimento típico ~<strong>750&nbsp;mm</strong>.
+                    ~<strong>95–100&nbsp;mm</strong> na culatra; comprimento típico ~<strong>850&nbsp;mm</strong>.
+                  </span>
+                  <span class="callout inline" data-instruments="vla">
+                    Referência (Viola Caipira): ~<strong>85–90&nbsp;mm</strong> no braço e
+                    ~<strong>90-95&nbsp;mm</strong> na culatra; comprimento típico ~<strong>800&nbsp;mm</strong>.
+                  </span>
+                  <span class="callout inline" data-instruments="cav">
+                    Referência (Cavaquinho): ~<strong>75–80&nbsp;mm</strong> no braço e
+                    ~<strong>85-90&nbsp;mm</strong> na culatra; comprimento típico ~<strong>600&nbsp;mm</strong>.
+                  </span>
+                  <span class="callout inline" data-instruments="uku">
+                    Referência (Ukulele): ~<strong>55-60&nbsp;mm</strong> no braço e
+                    ~<strong>65-70&nbsp;mm</strong> na culatra; comprimento típico ~<strong>600&nbsp;mm</strong>.
                   </span>
                 </li>
                 <li><strong>Corte manual limpo:</strong> prenda as peças à mesa com régua de alumínio/madeira como
@@ -3107,16 +3704,19 @@
                 Para violão flamenco, alguns autores preferem ~<strong>2,5&nbsp;mm</strong> por robustez.
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola caipira:</strong> referência prática ~<strong>1,8–2,2&nbsp;mm</strong>; ajuste à sua
+                <strong>Viola caipira:</strong> referência prática espessura-alvo de ~<strong>1,8–2,2&nbsp;mm</strong>;
+                ajuste à sua
                 plantilla/planta e ao encordoamento.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> ~<strong>1,6–2,0&nbsp;mm</strong>; corpos menores pedem controle fino
+                <strong>Cavaquinho:</strong> espessura-alvo de ~<strong>1,6–2,0&nbsp;mm</strong>; corpos menores pedem
+                controle fino
                 para
                 evitar trincas na dobra.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> ~<strong>1,4–1,8&nbsp;mm</strong>; trabalhe com retiradas mínimas e base
+                <strong>Ukulele:</strong> espessura-alvo de ~<strong>1,4–1,8&nbsp;mm</strong>; trabalhe com retiradas
+                mínimas e base
                 <em>bem</em> plana.
               </p>
 
@@ -3157,65 +3757,86 @@
 
             <div class="detail" id="d-lat2">
 
-
               <h5>Objetivo</h5>
-              <p>Dobrar as faixas com controle de calor e umidade, mantendo <strong>simetria de veios</strong>
-                (bookmatch) e
-                <strong>coincidência com o molde</strong> do instrumento.
-              </p>
+              <p>Dobrar as faixas com controle de calor e umidade, mantendo a <strong>simetria de veios</strong>
+                (bookmatch)
+                e a <strong>coincidência com o molde</strong> do instrumento. O método descrito aqui usa o <strong>tubo
+                  de
+                  dobra</strong> — a técnica mais acessível e difundida em lutheria artesanal.</p>
 
               <h5>Pareamento e corte longitudinal</h5>
               <ul>
-                <li>Posicione as duas faixas em <em>bookmatch</em>, “como um livro”, para que as fibras fiquem
-                  simétricas no
-                  instrumento.</li>
-                <li>Escolha um bordo 100% reto como referência e <strong>retifique</strong> se necessário (régua +
-                  serrote
-                  curvo ou plaina/tupia).</li>
-                <li>Marque <strong>larguras</strong> conforme a plantilla/planta (ex.: violão, ~90–95&nbsp;mm na
-                  região
-                  do
-                  braço e
-                  ~95–100&nbsp;mm na culatra) e
-                  o <strong>comprimento</strong> (≈750&nbsp;mm para violão). Deixe 2–3&nbsp;mm de folga para acertos
-                  pós-dobra.</li>
+                <li>Posicione as duas faixas em <em>bookmatch</em> — "como um livro aberto" — para que as fibras fiquem
+                  simétricas no instrumento acabado.</li>
+                <li>Escolha um bordo 100% reto como referência e <strong>retifique-o</strong> se necessário com régua,
+                  serrote curvo ou plaina/tupia.</li>
+                <li>Marque as <strong>larguras</strong> conforme a plantilla (ex.: violão, ~90–95&nbsp;mm na região do
+                  braço
+                  e ~95–100&nbsp;mm na culatra) e o <strong>comprimento</strong> (≈750&nbsp;mm para violão). Deixe
+                  2–3&nbsp;mm de folga para acertos pós-dobra.</li>
               </ul>
 
               <h5>Aquecimento e umidade</h5>
               <ul>
-                <li>Fixe o tubo de dobra além da borda da bancada para ter espaço livre dos dois lados.</li>
-                <li>Regule a chama (mecha ~10&nbsp;mm) ou resistência para manter a superfície do tubo
-                  ~<strong>120–150&nbsp;°C</strong>.</li>
-                <li>Umedeça a face que encosta no tubo com <strong>esponja + água</strong>. Evite “deixar de molho”
-                  por
-                  1–2&nbsp;dias: enfraquece e deforma.</li>
+                <li>Fixe o tubo de dobra além da borda da bancada, garantindo espaço livre dos dois lados para manobrar
+                  a
+                  faixa.</li>
+                <li>Regule a chama (mecha ~10&nbsp;mm) ou a resistência elétrica para manter a superfície do tubo entre
+                  <strong>120 e 150&nbsp;°C</strong>. Marcas escuras na madeira indicam excesso de calor — recue e
+                  re-hidrate antes de continuar.
+                </li>
+                <li>Umedeça a face que encostará no tubo com <strong>esponja + água</strong>, sem encharcar. Evite
+                  deixar as
+                  faixas de molho por horas: a madeira encharcada perde rigidez e deforma de modo irregular.</li>
               </ul>
 
               <h5>Dobra no tubo</h5>
               <ul>
-                <li>Use o <strong>molde</strong> como guia: marque um ponto de referência (ex.: 30&nbsp;mm do canto) e
-                  <strong>sempre</strong> posicione a faixa partindo desse ponto.
+                <li>Use o <strong>molde</strong> como guia constante: marque uma referência fixa na faixa (ex.:
+                  30&nbsp;mm
+                  do canto) e parta sempre desse ponto para não deslocar a cintura.</li>
+                <li>Posicione a faixa sobre o tubo exatamente na região marcada e <strong>balance levemente</strong>
+                  (E↔D),
+                  aplicando pressão gradual com um taco auxiliar — nunca force de uma vez.</li>
+                <li>Alterne dobrar ⇄ conferir no molde. Se ultrapassar a curvatura desejada,
+                  <strong>desdobre</strong> umedecendo o lado oposto e aquecendo com cuidado.
                 </li>
-                <li>Leve a faixa ao tubo exatamente na região marcada e <strong>balance</strong> levemente (E↔D),
-                  aplicando
-                  pressão gradual com taco auxiliar.</li>
-                <li>Alterne dobrar ⇄ conferir no molde. Se passar do ponto, <strong>desdobre</strong> umedecendo o
-                  lado
-                  oposto.</li>
-                <li>Repita até concluir toda a cintura e bojos. Dobre a segunda faixa espelhando a primeira (confira
-                  no
-                  molde antes de soltar a primeira).</li>
+                <li>Conclua toda a cintura e os bojos de uma faixa antes de iniciar a segunda. Dobre a segunda
+                  espelhando a
+                  primeira — confira as duas no molde antes de soltar qualquer uma.</li>
               </ul>
 
-              <h5>Conferência no molde e “redobra” (estabilização)</h5>
+              <h5>Estabilização no molde</h5>
               <ul>
-                <li>Monte novamente as faixas no molde fêmea, ajuste pequenos desvios com soprador térmico e mantenha
-                  sob
-                  pressão.</li>
-                <li>Deixe <strong>descansar</strong> algumas horas; depois remova e seque mais 2–3 dias em ambiente
-                  estável.
-                </li>
-                <li>Verifique encaixes no <strong>tróculo</strong> e na <strong>culatra</strong> antes de seguir.</li>
+                <li>Monte as faixas no molde fêmea, corrija pequenos desvios com soprador térmico e mantenha sob pressão
+                  até resfriar completamente.</li>
+                <li>Deixe <strong>descansar</strong> algumas horas; em seguida remova e seque por mais 2–3 dias em
+                  ambiente
+                  estável antes de colar.</li>
+                <li>Verifique o encaixe no <strong>tróculo</strong> e na <strong>culatra</strong> antes de avançar para
+                  a
+                  próxima etapa.</li>
+              </ul>
+
+              <h5>Outros métodos de dobra</h5>
+              <p>O tubo de dobra não é o único caminho. Dependendo do equipamento disponível, da espécie de madeira ou
+                do
+                volume de produção, o luthier pode recorrer a outras abordagens:</p>
+              <ul>
+                <li><strong>Ferro elétrico (bending iron):</strong> versão controlada eletronicamente do tubo de dobra.
+                  Sem
+                  chama aberta, com temperatura digital e maior repetibilidade — indicado para quem dobra faixas com
+                  frequência ou trabalha em espaço fechado.</li>
+                <li><strong>Caixa de vapor:</strong> a faixa permanece numa câmara de vapor por 15–40 minutos e é então
+                  pressionada rapidamente no molde com grampos. A umidade penetra de forma uniforme, reduzindo o risco
+                  de
+                  rachas em madeiras densas como Maple flameado e Nogueira.</li>
+                <li><strong>Fox bender (forma aquecida):</strong> sistema semi-automatizado em que a faixa é posicionada
+                  entre uma forma metálica com o contorno do instrumento e uma fita de aço aquecida que aplica pressão
+                  uniforme. Alta repetibilidade; preferido em produção em série.</li>
+                <li><strong>Método frio com cortes de alívio (kerfing):</strong> sem calor — a faixa recebe cortes
+                  transversais parciais na face interna que reduzem a rigidez e permitem curvá-la manualmente no molde.
+                  Usado em madeiras muito finas, compensados ou materiais alternativos como ABS.</li>
               </ul>
 
               <!-- Figura técnica da etapa -->
@@ -3225,45 +3846,42 @@
 
               <!-- Callouts universais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Prática:</strong> treine com espécie barata (ex.: sapê/sapele) no mesmo <em>grosso</em> das
-                faixas
-                “boas”.
+                <strong>Prática:</strong> treine com espécie barata (ex.: sapele) no mesmo grosso das faixas "boas"
+                antes de
+                trabalhar com a madeira definitiva.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Umidade:</strong> umedeça com esponja (sem encharcar). Reaplique água sempre que notar
-                ressecamento.
+                <strong>Umidade:</strong> umedeça com esponja sem encharcar. Reaplique água sempre que notar
+                ressecamento
+                durante a dobra.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Calor:</strong> ~120–150&nbsp;°C no tubo; marcas escuras indicam excesso — alivie e
-                re-hidrate.
+                <strong>Calor:</strong> ~120–150&nbsp;°C no tubo. Marcas escuras indicam excesso — alivie e re-hidrate
+                antes
+                de continuar.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
                 <strong>Guia no molde:</strong> use sempre a mesma <em>marca zero</em> ao conferir o avanço. Evita
-                “deslocar” a cintura.
+                deslocar
+                a cintura entre verificações.
               </p>
 
-              <!-- Callouts por instrumento (deltas) -->
+              <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> espessura alvo das faixas ≈ <em>1,7–2,0&nbsp;mm</em>. Larguras
-                típicas
-                (ajuste à sua plantilla/planta):
-                ~90–95&nbsp;mm (braço) / ~95–100&nbsp;mm (culatra).
+                <strong>Violão clássico:</strong> espessura alvo das faixas ≈ <em>1,7–2,0&nbsp;mm</em>. Larguras típicas
+                (ajuste à sua plantilla): ~90–95&nbsp;mm (braço) / ~95–100&nbsp;mm (culatra).
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola caipira:</strong> valores próximos ao violão do seu modelo; priorize estabilidade
-                (espessuras
-                um pouco acima de 1,8&nbsp;mm ajudam na
-                tensão total das 10 cordas).
+                <strong>Viola caipira:</strong> valores próximos ao violão do seu modelo; espessuras um pouco acima de
+                1,8&nbsp;mm ajudam a suportar a tensão das 10 cordas.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> faixas mais estreitas e curvas mais fechadas na cintura — trabalhe com
-                <em>retiradas mínimas</em> de calor e
-                espessuras perto de <em>1,6–2,0&nbsp;mm</em>.
+                <strong>Cavaquinho:</strong> curvas mais fechadas na cintura — trabalhe com retiradas mínimas de calor e
+                espessuras entre <em>1,6–2,0&nbsp;mm</em>.
               </p>
               <p class="callout" data-instruments="uku">
                 <strong>Ukulele:</strong> calor menor e umidade mais frequente; espessuras leves
-                (≈<em>1,4–1,8&nbsp;mm</em>)
-                favorecem resposta rápida.
+                (≈<em>1,4–1,8&nbsp;mm</em>) favorecem resposta rápida do instrumento.
               </p>
 
               <div class="img-row"></div>
@@ -3285,6 +3903,7 @@
           </div>
         </div>
       </div>
+      
       <div class="section" id="sec-06">
         <header>
           <h3>6) Montagem da Caixa
@@ -5478,9 +6097,9 @@
               <ul>
                 <li><strong>Ação na 12ª casa (medida topo do traste → parte inferior da corda):</strong> referência
                   comum: 1ª corda ≈ 2,5–3,0 mm; 6ª corda ≈ 3,5–4,0 mm.</li>
-                  <button class="btn btn-inline" onclick="openActionModalViaMeasures()">
-                    ↕️ Conferir ação recomendada para cada instrumento
-                  </button>
+                <button class="btn btn-inline" onclick="openActionModalViaMeasures()">
+                  ↕️ Conferir ação recomendada para cada instrumento
+                </button>
                 <li><strong>Relação rastilho → 12ª:</strong> toda correção no <em>rastilho</em> reflete ~metade na
                   12ª
                   casa (2:1). Ex.: baixar 0,5 mm na 12ª ⇒ lixar ~1,0 mm na base do rastilho.</li>
@@ -5658,8 +6277,10 @@
 
             <div class="detail" id="d-reg1">
 
-              <p>As cordas já foram instaladas e o instrumento está na afinação de trabalho. Agora é hora de realizar um ajuste 
-                fino para verificação da ação das cordas e garantir que o instrumento está na condição ideal para o seu uso.</p>
+              <p>As cordas já foram instaladas e o instrumento está na afinação de trabalho. Agora é hora de realizar um
+                ajuste
+                fino para verificação da ação das cordas e garantir que o instrumento está na condição ideal para o seu
+                uso.</p>
 
               <ul>
                 <li>Meça a altura das cordas na 12ª casa (referência comum: 2,8&nbsp;mm na 1ª e 3,8&nbsp;mm na 6ª).
@@ -5669,8 +6290,7 @@
                 </button>
               </ul>
               <p>Se necessário, ajuste a ação das cordas da seguinte forma:</p>
-              <ul
-                <li>Lixe a base do rastilho em etapas muito pequenas (taco plano), conferindo a cada ajuste.</li>
+              <ul <li>Lixe a base do rastilho em etapas muito pequenas (taco plano), conferindo a cada ajuste.</li>
                 <li>Revise a pestana se houver desconforto nas 1–3 primeiras casas (teste da “3ª casa”).</li>
                 <li>Cheque leve <em>relief</em> por volta da 7ª (folga mínima ao pressionar 1ª e última casa).</li>
               </ul>
@@ -6066,7 +6686,7 @@
   <script src="./js/step16-action-modal.js?v=20260421-1"></script>
   <script src="./js/step16-plant-generator.js?v=20260421-1"></script>
 
-  
+
 
   <!-- Plano do projeto (cronograma) -->
   <script src="./js/step19-project-plan.v7.js"></script>
@@ -6076,6 +6696,7 @@
 
   <!-- Sincroniza classe do body com instrumento -->
   <script src="./js/step9-bodyclass-sync.js"></script>
+  <script src="./js/bracing-mini-specs.js"></script>
 
   <!-- Outros consumidores / utilitários -->
   <script src="./js/intro-toggle.js"></script>

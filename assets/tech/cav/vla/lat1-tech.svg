@@ -1,0 +1,78 @@
+<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arrow-lat1">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Pareamento &amp; marcações -->
+ <!-- 2) Larguras (braço/culatra) e comprimento -->
+ <!-- 3) Corte longitudinal manual -->
+ <!-- 4) Calibragem da espessura -->
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_2" d="m17,26c0,-6.52055 5.47945,-12 12,-12l816,0c6.52055,0 12,5.47945 12,12l0,496c0,6.52055 -5.47945,12 -12,12l-816,0c-6.52055,0 -12,-5.47945 -12,-12l0,-496z" opacity="undefined" stroke-width="2" stroke="#c8b596" fill="#f6f1e7"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Costados — corte longitudinal, pareamento e calibragem</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Pareamento (bookmatch) &amp; marcações</text>
+  <g stroke="null" id="svg_5">
+   <rect stroke="#c7ae83" id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" fill="#fff" class="board" height="162.5532" width="328.03631" y="88" x="32"/>
+   <!-- duas faixas sobrepostas -->
+   <rect stroke="#c7ae83" id="svg_7" vector-effect="non-scaling-stroke" fill="#fff" class="wood" height="28.44681" width="255.13935" y="120.51064" x="68.44848"/>
+   <rect stroke="#c7ae83" id="svg_8" vector-effect="non-scaling-stroke" fill="#fff" class="wood" height="28.44681" width="255.13935" y="155.05319" x="68.44848"/>
+   <!-- veios -->
+   <path stroke="#8a623f" id="svg_9" vector-effect="non-scaling-stroke" stroke-width="1.5" fill="none" class="grain" d="m77.5606,124.57447c18.22424,6.09574 36.44848,6.09574 54.67272,0"/>
+   <path stroke="#8a623f" id="svg_10" vector-effect="non-scaling-stroke" stroke-width="1.5" fill="none" class="grain" d="m77.5606,159.11702c18.22424,6.09574 36.44848,6.09574 54.67272,0"/>
+   <path stroke="#8a623f" id="svg_11" vector-effect="non-scaling-stroke" stroke-width="1.5" fill="none" class="grain" d="m159.56968,124.57447c18.22424,6.09574 36.44848,6.09574 54.67272,0"/>
+   <path stroke="#8a623f" id="svg_12" vector-effect="non-scaling-stroke" stroke-width="1.5" fill="none" class="grain" d="m159.56968,159.11702c18.22424,6.09574 36.44848,6.09574 54.67272,0"/>
+   <!-- anotação -->
+   <rect stroke="#ddd" id="svg_13" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20.31915" width="401.0363" y="258.68086" x="32"/>
+   <text transform="matrix(0.886725 0 0 1.01596 3.82647 -1.40426)" stroke="#fff" id="svg_14" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="270" x="38.77482">posicionar em “livro” e alinhar fibras; escolher um bordo 100% reto como referência</text>
+  </g>
+  <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Larguras e comprimento (exemplo violão)</text>
+  <g id="svg_16">
+   <rect id="svg_17" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="360" y="94" x="456"/>
+   <!-- faixa única com marcações -->
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" class="wood" height="60" width="280" y="126" x="496"/>
+   <!-- dimensões -->
+   <line id="svg_19" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="114" x2="566" y1="114" x1="496"/>
+   <text id="svg_20" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="108" x="498">90–95 mm (lado braço)</text>
+   <line id="svg_21" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="114" x2="776" y1="114" x1="716"/>
+   <text id="svg_22" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="108" x="697">95–100 mm (culatra)</text>
+   <line id="svg_23" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="196" x2="776" y1="196" x1="496"/>
+   <text id="svg_24" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="214" x="574">≈ 750 mm (comprimento)</text>
+   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="256" x="455"/>
+   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="270" x="465">marcar início/fim; manter 2–3 mm de folga para acerto pós-dobra</text>
+  </g>
+  <text id="svg_27" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Corte longitudinal (manual)</text>
+  <g stroke="null" id="svg_28">
+   <rect stroke="#c7ae83" id="svg_29" vector-effect="non-scaling-stroke" stroke-width="2" fill="#fff" class="board" height="144" width="299.03727" y="313" x="36"/>
+   <!-- régua/batente -->
+   <rect stroke="#94a9d6" id="svg_30" vector-effect="non-scaling-stroke" fill="#e9eef7" class="rule" height="90" width="9.96791" y="340" x="69.22636"/>
+   <text stroke="#fff" transform="matrix(0.830659 0 0 0.9 5.26561 37.6)" id="svg_31" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="332" x="61">régua/batente</text>
+   <!-- peça a cortar -->
+   <rect stroke="#c7ae83" id="svg_32" vector-effect="non-scaling-stroke" fill="#fff" class="wood" height="90" width="215.97136" y="340" x="85.83954"/>
+   <!-- serrote curvo -->
+   <rect stroke="#c7ae83" id="svg_33" vector-effect="non-scaling-stroke" fill="#f6d8ad" class="saw" height="10.8" width="49.83954" y="401.2" x="218.745"/>
+   <text stroke="#fff" transform="matrix(0.830659 0 0 0.9 5.26561 37.6)" id="svg_34" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="396" x="253">serrote curvo</text>
+   <rect stroke="#ddd" id="svg_35" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="18" width="375.03728" y="466" x="36"/>
+   <text stroke="#fff" transform="matrix(0.756153 0 0 0.989403 8.3493 -6.75326)" id="svg_36" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="490" x="45">prender com batente e passar o serrote quantas vezes for preciso até separar o excedente</text>
+  </g>
+  <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Calibragem da espessura</text>
+  <g stroke="null" id="svg_38">
+   <rect stroke="#c7ae83" id="svg_39" vector-effect="non-scaling-stroke" stroke-width="2" fill="#fff" class="board" height="177.68421" width="374.59589" y="309" x="435.99998"/>
+   <!-- peça com marcações do calibrador -->
+   <rect stroke="#c7ae83" id="svg_40" vector-effect="non-scaling-stroke" fill="#fff" class="wood" height="39.97895" width="291.35236" y="342.31579" x="477.62175"/>
+   <line stroke="#999" id="svg_41" vector-effect="non-scaling-stroke" stroke-dasharray="4" class="dimthin" y2="402.28421" x2="488.02719" y1="382.29474" x1="488.02719"/>
+   <line stroke="#999" id="svg_42" vector-effect="non-scaling-stroke" stroke-dasharray="4" class="dimthin" y2="402.28421" x2="529.64896" y1="382.29474" x1="529.64896"/>
+   <line stroke="#999" id="svg_43" vector-effect="non-scaling-stroke" stroke-dasharray="4" class="dimthin" y2="402.28421" x2="571.27072" y1="382.29474" x1="571.27072"/>
+   <text stroke="#fff" transform="matrix(1.04054 0 0 1.11053 -34.326 -34.1526)" id="svg_44" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="362" x="501">marcas do calibrador</text>
+   <!-- plaina + direção -->
+   <rect stroke="#c7ae83" id="svg_45" vector-effect="non-scaling-stroke" fill="#f6d8ad" class="saw" height="15.54737" width="83.24353" y="417.83158" x="508.83807"/>
+   <text stroke="#fff" transform="matrix(1.04054 0 0 1.11053 -34.326 -34.1526)" id="svg_46" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="401" x="524">plaina/raspilha</text>
+   <line stroke="#666" id="svg_47" vector-effect="non-scaling-stroke" marker-end="url(#arrow-lat1)" stroke-width="2" class="dim" y2="435.6" x2="592.08161" y1="435.6" x1="508.83807"/>
+   <text stroke="#fff" transform="matrix(1.04054 0 0 1.11053 -34.326 -34.1526)" id="svg_48" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="427" x="606">sentido de trabalho (contra o grampo)</text>
+   <rect stroke="#ddd" id="svg_49" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="22.21053" width="374.59589" y="497.78947" x="435.99998"/>
+   <text stroke="#fff" transform="matrix(0.851299 0 0 1.03878 52.7266 1.4155)" id="svg_50" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="493" x="460">ferro baixo e bem afiado; finalizar com lixa em base plana; evitar desengrosso automático</text>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,72 @@
+<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-e4">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- 1) Preparação (malha de lápis) -->
+ <!-- 2) Taco longo paralelo -->
+ <!-- 3) Checagem com régua/feeler -->
+ <!-- 4) Reabrir slots -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Nivelamento da escala — malha de lápis, taco longo, checagem e reabertura dos slots</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Malha de lápis</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="96" x="39"/>
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="24" width="260" y="150" x="89"/>
+   <!-- grid -->
+   <g id="svg_8" stroke="#b78" class="grid">
+    <line id="svg_9" vector-effect="non-scaling-stroke" y2="174" x2="349" y1="150" x1="89"/>
+    <line id="svg_10" vector-effect="non-scaling-stroke" y2="150" x2="349" y1="174" x1="89"/>
+    <line id="svg_11" vector-effect="non-scaling-stroke" y2="174" x2="359" y1="150" x1="99"/>
+    <line id="svg_12" vector-effect="non-scaling-stroke" y2="150" x2="359" y1="174" x1="99"/>
+    <line id="svg_13" vector-effect="non-scaling-stroke" y2="174" x2="369" y1="150" x1="109"/>
+    <line id="svg_14" vector-effect="non-scaling-stroke" y2="150" x2="369" y1="174" x1="109"/>
+   </g>
+   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="133" x="68">marque toda a face com lápis; ela revelará os altos/baixos</text>
+   <rect id="svg_16" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="256" x="39"/>
+   <text id="svg_17" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="270" x="47">refaça a malha a cada troca de grão</text>
+  </g>
+  <text id="svg_18" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Taco longo e passadas paralelas</text>
+  <g id="svg_19">
+   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="95" x="455"/>
+   <!-- escala -->
+   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="20" width="260" y="161" x="505"/>
+   <!-- taco -->
+   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#eee" class="beam" height="14" width="200" y="139" x="525"/>
+   <line id="svg_23" vector-effect="non-scaling-stroke" marker-end="url(#arr-e4)" stroke-width="2" stroke="#666" class="arrow" y2="135" x2="605" y1="135" x1="535"/>
+   <line id="svg_24" vector-effect="non-scaling-stroke" marker-end="url(#arr-e4)" stroke-width="2" stroke="#666" class="arrow" y2="135" x2="755" y1="135" x1="685"/>
+   <text id="svg_25" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="129" x="541">passadas retas e longas</text>
+   <rect id="svg_26" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="255" x="455"/>
+   <text id="svg_27" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="269" x="463">não “rockear” o taco nas quinas; mantenha 90 graus nas bordas</text>
+  </g>
+  <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="319" x="46">3) Checagem</text>
+  <g id="svg_29">
+   <rect id="svg_30" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="40"/>
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="20" width="260" y="406" x="90"/>
+   <!-- régua -->
+   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#eee" class="beam" height="6" width="200" y="398" x="120"/>
+   <line id="svg_33" vector-effect="non-scaling-stroke" marker-end="url(#arr-e4)" stroke-width="2" stroke="#666" class="arrow" y2="384" x2="140" y1="398" x1="140"/>
+   <text id="svg_34" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="378" x="100">régua de precisão; opcional: cálibre de lâminas</text>
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="40"/>
+   <text id="svg_36" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="48">repita após cada etapa de grão</text>
+  </g>
+  <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="319" x="462">4) Reabrir profundidade dos slots</text>
+  <g id="svg_38">
+   <rect id="svg_39" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="460"/>
+   <!-- escala com slots -->
+   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="20" width="260" y="406" x="510"/>
+   <line id="svg_41" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="540" y1="406" x1="540"/>
+   <line id="svg_42" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="580" y1="406" x1="580"/>
+   <line id="svg_43" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="620" y1="406" x1="620"/>
+   <line id="svg_44" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="660" y1="406" x1="660"/>
+   <line id="svg_45" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="700" y1="406" x1="700"/>
+   <rect id="svg_46" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="warn" rx="4" height="20" width="110" y="384" x="680"/>
+   <text id="svg_47" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="398" x="686">deixar 0.5–0.8 mm além da tang</text>
+   <rect id="svg_48" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="460"/>
+   <text id="svg_49" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="468">limpe rebarbas; confirme profundidade após o nivelamento</text>
+  </g>
+ </g>
+</svg>

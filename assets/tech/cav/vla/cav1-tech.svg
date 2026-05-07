@@ -1,0 +1,63 @@
+<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- 1) Blank e marcações -->
+ <!-- 2) Slot do rastilho -->
+ <!-- 3) Furação das cordas -->
+ <!-- 4) Ajuste da base ao raio do tampo -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Cavalete — partes, slot do rastilho, furação e ajuste da base</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Blank e marcações</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="91" x="39"/>
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="blk" height="40" width="220" y="145" x="99"/>
+   <line id="svg_8" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#aa884e" fill="none" class="cut" y2="165" x2="319" y1="165" x1="99"/>
+   <line id="svg_9" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#aa884e" fill="none" class="cut" y2="185" x2="159" y1="145" x1="159"/>
+   <line id="svg_10" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#aa884e" fill="none" class="cut" y2="185" x2="259" y1="145" x1="259"/>
+   <text id="svg_11" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="135" x="101">20 × 10 mm • comprimento conforme o projeto</text>
+   <rect id="svg_12" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="251" x="39"/>
+   <text id="svg_13" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="265" x="47">marcar lomo, valle, meseta e aletas antes de perfilar</text>
+  </g>
+  <text id="svg_14" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Slot do rastilho</text>
+  <g id="svg_15">
+   <rect id="svg_16" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="88" x="457"/>
+   <rect id="svg_17" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="blk" height="26" width="200" y="150" x="537"/>
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke="#888" fill="#ddd" class="slot" height="6" width="140" y="154" x="567"/>
+   <text id="svg_19" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="128" x="567">largura do rastilho (ex.: 2.5)</text>
+   <line id="svg_20" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="arrow" y2="154" x2="637" y1="132" x1="637"/>
+   <text id="svg_21" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="115" x="592">profundidade ~4</text>
+   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="248" x="457"/>
+   <text id="svg_23" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="262" x="465">duas passadas guiadas ou fresa; fundo plano e paralelo</text>
+  </g>
+  <text id="svg_24" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="323" x="42">3) Furação das cordas</text>
+  <g id="svg_25">
+   <rect id="svg_26" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="40"/>
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="blk" height="34" width="220" y="400" x="100"/>
+   <line id="svg_28" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="410" x2="320" y1="410" x1="100"/>
+   <circle id="svg_29" vector-effect="non-scaling-stroke" stroke="#666" fill="#bbb" class="hole" r="3" cy="410" cx="130"/>
+   <circle id="svg_30" vector-effect="non-scaling-stroke" stroke="#666" fill="#bbb" class="hole" r="3" cy="410" cx="141"/>
+   <circle id="svg_31" vector-effect="non-scaling-stroke" stroke="#666" fill="#bbb" class="hole" r="3" cy="410" cx="180"/>
+   <circle id="svg_32" vector-effect="non-scaling-stroke" stroke="#666" fill="#bbb" class="hole" r="3" cy="410" cx="191"/>
+   <circle id="svg_33" vector-effect="non-scaling-stroke" stroke="#666" fill="#bbb" class="hole" r="3" cy="410" cx="230"/>
+   <circle id="svg_34" vector-effect="non-scaling-stroke" stroke="#666" fill="#bbb" class="hole" r="3" cy="410" cx="241"/>
+   <text id="svg_35" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="455" x="83">espaçamento típico clássico ~11 mm centro a centro</text>
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="40"/>
+   <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="48">escarear levemente no verso para proteger as cordas</text>
+  </g>
+  <text id="svg_38" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="324" x="461">4) Ajuste da base ao tampo</text>
+  <g id="svg_39">
+   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="460"/>
+   <rect id="svg_41" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="blk" height="22" width="200" y="406" x="540"/>
+   <path id="svg_42" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m530,444c50,-50 170,-50 220,0"/>
+   <text id="svg_43" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="400" x="542">base com grafite</text>
+   <text id="svg_44" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="400" x="680">taco espelho do raio</text>
+   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="460"/>
+   <text id="svg_46" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="468">lixar até grafite desaparecer por igual (contato total)</text>
+  </g>
+ </g>
+</svg>

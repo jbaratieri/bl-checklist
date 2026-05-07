@@ -1,0 +1,49 @@
+<svg width="880" height="350" xmlns="http://www.w3.org/2000/svg" font-family="system-ui,Segoe UI,Roboto,Arial" font-size="12">
+ <!-- Moldura -->
+
+ <!-- 4) Colagem das laterais no tróculo -->
+ <!-- 5) Colagem da culatra -->
+ <g>
+  <title>Layer 1</title>
+  <rect x="20" y="20" width="840" height="317.99999" rx="12" class="panel" fill="#f6f1e7" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_2" stroke="#c8b596"/>
+  <text x="40" y="48" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_3">Colagem das laterais no tróculo e culatra</text>
+  <text x="40" y="84" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_4">4) Colagem das laterais no tróculo</text>
+  <g id="svg_5">
+   <rect x="44" y="101" width="360" height="140" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_6"/>
+   <!-- Tróculo -->
+   <rect x="94" y="135" width="80" height="80" class="wood" fill="#fff" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_7"/>
+   <rect x="130" y="135" width="8" height="80" class="slot" fill="#fde6e6" stroke="#e59a9a" vector-effect="non-scaling-stroke" id="svg_8"/>
+   <!-- Laterais encaixadas -->
+   <rect x="138" y="147" width="160" height="12" class="wood" fill="#fff" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_9"/>
+   <rect x="138" y="191" width="160" height="12" class="wood" fill="#fff" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_10"/>
+   <!-- Cunhas -->
+   <polygon points="128,147 130,147 130,159 124,159 " fill="#fceacc" stroke="#d4a650" vector-effect="non-scaling-stroke" id="svg_11"/>
+   <polygon points="128,191 130,191 130,203 124,203 " fill="#fceacc" stroke="#d4a650" vector-effect="non-scaling-stroke" id="svg_12"/>
+   <text x="204" y="141" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_13">lateral encaixada</text>
+   <text x="108" y="129" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_14">slot com cola</text>
+   <text x="178" y="178" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_15">cunhas superior/inferior</text>
+   <rect x="44" y="251" width="360" height="20" rx="4" class="labelbox" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_16"/>
+   <text x="52" y="265" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_17">insira lateral ⇄ posicione ⇄ fixe cunhas; repita do outro lado</text>
+  </g>
+  <text x="460" y="84" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_18">5) Colagem da culatra</text>
+  <g id="svg_19">
+   <rect x="452" y="97" width="360" height="140" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_20"/>
+   <!-- Culatra (vista simplificada em corte) -->
+   <rect x="512" y="161" width="40" height="40" rx="6" class="wood" fill="#fff" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_21"/>
+   <text x="516" y="155" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_22">culatra</text>
+   <!-- Laterais se encontrando -->
+   <rect x="552" y="167" width="120" height="12" class="wood" fill="#fff" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_23"/>
+   <rect x="552" y="183" width="120" height="12" class="wood" fill="#fff" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_24"/>
+   <line x1="612" y1="159" x2="612" y2="207" class="ghost" fill="none" stroke="#bbb" stroke-dasharray="6,4" vector-effect="non-scaling-stroke" id="svg_25"/>
+   <text x="618" y="157" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_26">junção central</text>
+   <!-- adorno -->
+   <rect x="610" y="167" width="4" height="28" fill="#f9dede" stroke="#c99" vector-effect="non-scaling-stroke" id="svg_27"/>
+   <text x="622" y="179" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_28">adorno opcional</text>
+   <!-- chanfro -->
+   <line x1="512" y1="161" x2="552" y2="167" stroke="#666" stroke-dasharray="4,2" vector-effect="non-scaling-stroke" id="svg_29"/>
+   <text x="492" y="147" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_30">chanfro leve no bordo</text>
+   <rect x="452" y="247" width="360" height="20" rx="4" class="labelbox" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_31"/>
+   <text x="460" y="261" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_32">cole a culatra com tacos + grampos; adorno central antes, se houver</text>
+  </g>
+ </g>
+</svg>

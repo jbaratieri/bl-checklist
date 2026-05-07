@@ -129,7 +129,8 @@
     return list;
   }
   function techAssetCandidates(inst, assetKey){
-    if (assetKey !== 'tampo7b-tech') return assetsFor(inst, assetKey);
+    // Mesma convenção que step11-tech: fundo anotável usa `tampo6-tech--<bracing>` antes do fallback genérico.
+    if (assetKey !== 'tampo6-tech') return assetsFor(inst, assetKey);
     var bracing = currentBracingValue();
     if (!bracing || bracing === 'custom') return assetsFor(inst, assetKey);
     var bases = basesForAssets();
@@ -137,9 +138,9 @@
     for (var b=0;b<bases.length;b++){
       var base = bases[b];
       if (/assets\/tech\/$/i.test(base)){
-        base = base + inst + '/tampo7b-tech--' + bracing;
+        base = base + inst + '/tampo6-tech--' + bracing;
       } else {
-        base = base + 'tampo7b-tech--' + bracing;
+        base = base + 'tampo6-tech--' + bracing;
       }
       variant.push(base + '.svg');
       variant.push(base + '.svg.svg');

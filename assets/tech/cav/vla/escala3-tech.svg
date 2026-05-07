@@ -1,0 +1,78 @@
+<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-e3">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Preparação & máscara -->
+ <!-- 2) Pinos-guia pelos slots -->
+ <!-- 3) Grampos + taco interno -->
+ <!-- 4) Limpeza & cura -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Colagem da escala — máscara, pinos-guia, grampeamento e limpeza</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Preparação &amp; máscara</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="92" x="39"/>
+   <!-- tampa + faixa lixada -->
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" height="10" width="280" y="170" x="79"/>
+   <!-- máscara lateral na tampa -->
+   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="6" width="280" y="154" x="79"/>
+   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="6" width="280" y="184" x="79"/>
+   <!-- escala sobre a tampa -->
+   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="32" width="200" y="156" x="119"/>
+   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="200" y="156" x="119"/>
+   <rect id="svg_12" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="200" y="185" x="119"/>
+   <text id="svg_13" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="130" x="85">lixar 40 mm de cada lado • fita baixa aderência</text>
+   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="252" x="39"/>
+   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="266" x="47">batentes laterais encostam nas fitas para impedir deslizamento</text>
+  </g>
+  <text style="cursor: move;" id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="477">2) Pinos-guia pelos slots</text>
+  <g id="svg_17">
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="97" x="473"/>
+   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="28" width="240" y="151" x="533"/>
+   <!-- slots (alguns) -->
+   <line id="svg_20" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="553" y1="151" x1="553"/>
+   <line id="svg_21" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="593" y1="151" x1="593"/>
+   <line id="svg_22" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="673" y1="151" x1="673"/>
+   <line id="svg_23" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="733" y1="151" x1="733"/>
+   <!-- pinos em 1 e 12 -->
+   <circle id="svg_24" vector-effect="non-scaling-stroke" stroke="#666" fill="#999" class="pin" r="3" cy="165" cx="553"/>
+   <circle id="svg_25" vector-effect="non-scaling-stroke" stroke="#666" fill="#999" class="pin" r="3" cy="165" cx="673"/>
+   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="135" x="541">fure cerca de 1,5 mm nos slots (1ª e 12ª)</text>
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="257" x="473"/>
+   <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="481">pinos travam a escala na posição durante a colagem</text>
+  </g>
+  <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Grampos &amp; taco interno</text>
+  <g id="svg_30">
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="321" x="26"/>
+   <!-- braço -->
+   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" height="16" width="280" y="391" x="66"/>
+   <!-- escala -->
+   <rect id="svg_33" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="24" width="240" y="387" x="86"/>
+   <!-- cola -->
+   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="glue" height="6" width="240" y="381" x="86"/>
+   <!-- taco interno (pela boca) -->
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#eee" class="caul" height="10" width="100" y="367" x="106"/>
+   <line id="svg_36" vector-effect="non-scaling-stroke" marker-end="url(#arr-e3)" stroke-width="2" stroke="#666" class="arrow" y2="357" x2="156" y1="367" x1="156"/>
+   <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="353" x="116">taco interno mais alto que a barra</text>
+   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="481" x="26"/>
+   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="495" x="34">sequência: boca → tacão → intermediários; limpeza imediata do excesso de cola</text>
+  </g>
+  <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="301" x="476">4) Limpeza &amp; cura</text>
+  <g id="svg_41">
+   <rect id="svg_42" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="322" x="478"/>
+   <!-- fitas sendo retiradas -->
+   <rect id="svg_43" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="24" width="240" y="388" x="538"/>
+   <rect id="svg_44" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="240" y="386" x="538"/>
+   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="240" y="412" x="538"/>
+   <path id="svg_46" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m538,386l30,-10"/>
+   <path id="svg_47" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m778,415l-30,10"/>
+   <text id="svg_48" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="360" x="550">retire fitas devagar; formão fino remove rebarbas</text>
+   <rect id="svg_49" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="482" x="478"/>
+   <text id="svg_50" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="496" x="486">cura 12–24 h; confira marcas de alinhamento após desprensão</text>
+  </g>
+ </g>
+</svg>

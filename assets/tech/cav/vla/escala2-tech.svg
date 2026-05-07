@@ -1,0 +1,80 @@
+<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-esc2">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Planejamento & posições -->
+ <!-- 2) Furação perpendicular -->
+ <!-- 3) Colagem & flush -->
+ <!-- 4) Dots laterais -->
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Marcadores (dots) — planejamento, furação, colagem e laterais</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Planejamento &amp; posições</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="89" x="32"/>
+   <!-- escala topo -->
+   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="4" height="26" width="280" y="121" x="72"/>
+   <!-- linha central e trastes -->
+   <line id="svg_8" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#7aa1d1" class="lineC" y2="147" x2="212" y1="121" x1="212"/>
+   <line id="svg_9" vector-effect="non-scaling-stroke" stroke="#999" class="ticks" y2="147" x2="122" y1="121" x1="122"/>
+   <line id="svg_10" vector-effect="non-scaling-stroke" stroke="#999" class="ticks" y2="147" x2="162" y1="121" x1="162"/>
+   <line id="svg_11" vector-effect="non-scaling-stroke" stroke="#999" class="ticks" y2="147" x2="202" y1="121" x1="202"/>
+   <line id="svg_12" vector-effect="non-scaling-stroke" stroke="#999" class="ticks" y2="147" x2="242" y1="121" x1="242"/>
+   <line id="svg_13" vector-effect="non-scaling-stroke" stroke="#999" class="ticks" y2="147" x2="282" y1="121" x1="282"/>
+   <!-- dots (exemplo 5,7,9,12 duplo) -->
+   <circle id="svg_14" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="3" cy="134" cx="162"/>
+   <circle id="svg_15" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="3" cy="134" cx="202"/>
+   <circle id="svg_16" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="3" cy="134" cx="242"/>
+   <circle id="svg_17" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="3" cy="130" cx="278"/>
+   <circle id="svg_18" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="3" cy="130" cx="286"/>
+   <text id="svg_19" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="171" x="45">padrões comuns: 5, 7, 9/10 e 12 (duplo) — ajuste ao instrumento</text>
+   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="249" x="32"/>
+   <text id="svg_21" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="263" x="40">marque perpendicular ao eixo; confirme espaçamentos antes de furar</text>
+  </g>
+  <text id="svg_22" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Furação perpendicular</text>
+  <g id="svg_23">
+   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="90" x="452"/>
+   <!-- peça -->
+   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="28" width="180" y="126" x="512"/>
+   <!-- broca com fita limitadora -->
+   <rect id="svg_26" vector-effect="non-scaling-stroke" stroke="#7b8796" fill="#d3d7de" class="drill" height="26" width="8" y="100" x="596"/>
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="tape" height="6" width="12" y="120" x="594"/>
+   <line id="svg_28" vector-effect="non-scaling-stroke" marker-end="url(#arr-esc2)" stroke-width="2" stroke="#666" class="arrow" y2="138" x2="600" y1="126" x1="600"/>
+   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="128" x="616">fita = limitador</text>
+   <text id="svg_30" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="180" x="498">fure devagar para evitar lascas; apoie bem a peça</text>
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="250" x="452"/>
+   <text id="svg_32" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="264" x="460">use broca do diâmetro do dot; profundidade ligeiramente maior que o dot</text>
+  </g>
+  <text id="svg_33" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Colagem &amp; nivelamento</text>
+  <g id="svg_34">
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="40"/>
+   <!-- dot colado -->
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="28" width="240" y="380" x="100"/>
+   <circle id="svg_37" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="4" cy="394" cx="160"/>
+   <text id="svg_38" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="398" x="176">CA/epóxi, remover excesso</text>
+   <!-- raspilha -->
+   <rect id="svg_39" vector-effect="non-scaling-stroke" stroke="#7b8796" fill="#d3d7de" class="drill" height="10" width="90" y="364" x="240"/>
+   <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="360" x="246">raspilha/taco rígido</text>
+   <rect id="svg_41" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="40"/>
+   <text id="svg_42" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="48">lixe até ficar flush; finalize em grão 320→600</text>
+  </g>
+  <text id="svg_43" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Marcadores laterais</text>
+  <g id="svg_44">
+   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="460"/>
+   <!-- vista de bordo -->
+   <rect id="svg_46" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" height="16" width="240" y="388" x="520"/>
+   <circle id="svg_47" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="1.8" cy="396" cx="570"/>
+   <circle id="svg_48" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="1.8" cy="396" cx="610"/>
+   <circle id="svg_49" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="1.8" cy="396" cx="650"/>
+   <circle id="svg_50" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="1.8" cy="394" cx="690"/>
+   <circle id="svg_51" vector-effect="non-scaling-stroke" stroke="#222" fill="#444" class="dot" r="1.8" cy="394" cx="698"/>
+   <text id="svg_52" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="430" x="469">geralmente 5, 7, 9/10 e 12 (duplo). Furar após colagem da escala.</text>
+   <rect id="svg_53" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="460"/>
+   <text id="svg_54" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="514" x="468">diâmetros típicos: 1,5–2,5 mm; mantenha alinhamento e repetição</text>
+  </g>
+ </g>
+</svg>

@@ -1,0 +1,53 @@
+<svg width="860" height="420" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
+   <polygon id="svg_1" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Corte em seção -->
+ <!-- 2) French Polish -->
+ <!-- 3) Polimento -->
+ <!-- 4) Ambiente -->
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_2" d="m10,22c0,-6.52055 5.47945,-12 12,-12l816,0c6.52055,0 12,5.47945 12,12l0,376c0,6.52055 -5.47945,12 -12,12l-816,0c-6.52055,0 -12,-5.47945 -12,-12l0,-376z" opacity="undefined" stroke-width="2" stroke="#c8b596" fill="#f6f1e7"/>
+  <text font-weight="bold" id="svg_3" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="43" x="36">Acabamento — camadas, movimentos e polimento</text>
+  <text font-weight="bold" id="svg_4" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="82" x="36">1) Seção das camadas</text>
+  <g stroke="null" id="svg_5">
+   <rect stroke="#b09267" id="svg_6" fill="#e7d6b7" class="wood" height="96.54546" width="283.99999" y="118.45455" x="28"/>
+   <rect stroke="#cdb" id="svg_7" fill="#f3efe6" class="seal" height="6.43636" width="283.99999" y="112.01818" x="28"/>
+   <rect stroke="#9db7e0" id="svg_8" fill="#e9f0fb" class="coats" height="15.01818" width="283.99999" y="97" x="28"/>
+   <text transform="matrix(1.01429 0 0 1.07273 -0.399999 -7.05455)" stroke="#fff" id="svg_9" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="146.84746" x="47.84507">Nitro/PU (6–10 demãos, nivelar e polir)</text>
+   <text transform="matrix(1.01429 0 0 1.07273 -0.399999 -7.05455)" stroke="#fff" id="svg_10" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="186.57627" x="50.8169">Seladora / goma-laca dewaxed (fina)</text>
+   <text transform="matrix(0.949481 0 0 0.911123 10.2747 9.59585)" stroke="#fff" id="svg_11" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="108.77966" x="59.66197">Madeira (tampo/laterais/fundo)</text>
+   <text font-weight="bold" xml:space="preserve" text-anchor="start" stroke-width="0" id="svg_34" y="171.4" x="154.99999" stroke="#b09267" fill="#000000">ou</text>
+  </g>
+  <text font-weight="bold" id="svg_12" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="79" x="435">2) French Polish (boneca)</text>
+  <g stroke="null" id="svg_13">
+   <rect stroke="#b09267" id="svg_14" fill="#e7d6b7" class="wood" height="96.3035" width="280" y="130.6965" x="432"/>
+   <rect stroke="#e0c38a" id="svg_15" fill="#fff6e0" class="fp" height="17.12062" width="280" y="113.57588" x="432"/>
+   <!-- boneca -->
+   <ellipse stroke="#aaa" id="svg_16" fill="#ddd" class="pad" ry="14.98054" rx="26" cy="109.29572" cx="502"/>
+   <path stroke="#9db7e0" id="svg_17" stroke-width="3" fill="none" class="polish" d="m502,109.29572c40,-10.70039 80,-10.70039 120,0"/>
+   <text transform="matrix(1 0 0 1.07004 0 -15.8988)" stroke="#fff" id="svg_18" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="177" x="439">Movimentos em 8 / circulares</text>
+   <text transform="matrix(1 0 0 1.07004 0 -15.8988)" stroke="#fff" id="svg_19" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="216" x="438">Múltiplas sessões finas (15–30)</text>
+   <path stroke="#cc8" id="svg_20" stroke-width="2" fill="none" class="oil" d="m534,94.31517c8,-6.42023 18,-6.42023 26,0"/>
+   <text transform="matrix(1 0 0 1.07004 0 -15.8988)" stroke="#fff" id="svg_21" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="196" x="440">gota de óleo (lubrificar)</text>
+  </g>
+  <text font-weight="bold" id="svg_22" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="261" x="31">3) Nivelamento e polimento</text>
+  <g stroke="null" id="svg_23">
+   <rect stroke="#aaa" id="svg_24" stroke-dasharray="6 4" fill="none" class="dash" height="2" width="585.00003" y="312" x="28"/>
+   <circle stroke="#bbb" id="svg_25" fill="#eee" r="14" cy="282" cx="68.34483"/>
+   <text transform="matrix(1.00862 0 0 1 -0.241381 0)" stroke="#fff" id="svg_26" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="286" x="92">Microlixa 800→2000 (molhada)</text>
+   <line stroke="#666" id="svg_27" marker-end="url(#arr)" stroke-width="2" class="arrow" y2="312" x2="68.34483" y1="298" x1="68.34483"/>
+   <rect stroke="#9db7e0" id="svg_28" fill="#f0f3ff" rx="6" height="30" width="70.60345" y="268" x="290.24139"/>
+   <text transform="matrix(1.00862 0 0 1 -0.241381 0)" stroke="#fff" id="svg_29" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="288" x="368">Polidor/boina macia até brilho</text>
+   <line stroke="#666" id="svg_30" marker-end="url(#arr)" stroke-width="2" class="arrow" y2="312" x2="325.54312" y1="298" x1="325.54312"/>
+  </g>
+  <text style="cursor: move;" font-weight="bold" id="svg_31" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="359" x="32">4) Condições de aplicação</text>
+  <g id="svg_32">
+   <text id="svg_33" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="386" x="38">Temperatura 18–25°C • Umidade 40–60% • Livre de pó • Filme fino e contínuo</text>
+  </g>
+ </g>
+</svg>

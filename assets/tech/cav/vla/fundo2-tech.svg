@@ -1,0 +1,86 @@
+<svg width="880" height="510" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+ <defs>
+  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="a">
+   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  </marker>
+ </defs>
+ <!-- Moldura -->
+ <!-- 1) Montagem a seco e alinhamento -->
+ <!-- 2) Método da cunha (prensa lateral) -->
+ <!-- 3) Método da corda -->
+ <!-- 4) Limpeza e nivelamento -->
+ <g>
+  <title>Layer 1</title>
+  <rect stroke="#c8b596" id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" fill="#f6f1e7" class="panel" rx="12" height="491.99996" width="865" y="6.00003" x="7"/>
+  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Unir e colar o fundo — adorno central, cunhas/corda e limpeza de cola</text>
+  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Montagem a seco e alinhamento</text>
+  <g id="svg_5">
+   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="93" x="38"/>
+   <!-- base com linha central -->
+   <line id="svg_7" vector-effect="non-scaling-stroke" stroke-dasharray="4" stroke="#999" class="dimthin" y2="243" x2="198" y1="103" x1="198"/>
+   <text id="svg_8" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="115" x="204">linha central na base</text>
+   <!-- metades + adorno central -->
+   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="100" width="110" y="123" x="78"/>
+   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="100" width="20" y="123" x="188"/>
+   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="100" width="110" y="123" x="208"/>
+   <!-- esquadro de conferência -->
+   <line id="svg_12" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#7aa1d1" class="square" y2="183" x2="58" y1="123" x1="58"/>
+   <line id="svg_13" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#7aa1d1" class="square" y2="183" x2="98" y1="183" x1="58"/>
+   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="261" x="38"/>
+   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="274" x="46">verifique paralelismo do adorno e simetria (bookmatch) antes da cola</text>
+  </g>
+  <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Método da cunha (prensa)</text>
+  <g id="svg_17">
+   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="90" x="449"/>
+   <!-- base e papel antiaderente -->
+   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#f7f7f7" class="paper" height="10" width="280" y="120" x="469"/>
+   <text id="svg_20" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="116" x="473">papel antiaderente</text>
+   <!-- peça montada -->
+   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="100" y="130" x="509"/>
+   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="80" width="20" y="130" x="609"/>
+   <rect id="svg_23" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="100" y="130" x="629"/>
+   <!-- batente fixo e cunha -->
+   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke="#999" fill="#ccc" height="80" width="8" y="130" x="489"/>
+   <polygon id="svg_25" vector-effect="non-scaling-stroke" stroke="#aaa" fill="#ddd" points="729,170 749,150 749,190 "/>
+   <path id="svg_26" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m725,170l22,0"/>
+   <!-- grampos (fantasma) -->
+   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="112" x="481"/>
+   <rect id="svg_28" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="112" x="717"/>
+   <rect id="svg_29" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="212" x="481"/>
+   <rect id="svg_30" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="14" width="20" y="212" x="717"/>
+   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="258" x="449"/>
+   <text id="svg_32" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="457">pressione do centro para as bordas; mantenha a peça plana</text>
+  </g>
+  <text id="svg_33" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Método da corda</text>
+  <g id="svg_34">
+   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="305" x="37"/>
+   <!-- ripas + conjunto -->
+   <rect id="svg_36" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#f7f7f7" class="paper" height="10" width="260" y="335" x="67"/>
+   <rect id="svg_37" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#f7f7f7" class="paper" height="10" width="260" y="413" x="67"/>
+   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="68" width="90" y="345" x="117"/>
+   <rect id="svg_39" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="68" width="20" y="345" x="207"/>
+   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="68" width="90" y="345" x="227"/>
+   <!-- laçadas da corda (fantasma) -->
+   <path id="svg_41" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m77,349c40,-30 120,90 180,0"/>
+   <path id="svg_42" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m97,369c40,-30 120,90 180,0"/>
+   <path id="svg_43" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m117,389c40,-30 120,90 180,0"/>
+   <text id="svg_44" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="331" x="73">tensão contínua e cruzada</text>
+   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="475" x="37"/>
+   <text id="svg_46" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="488" x="45">use calços/tacos sob a corda para equalizar pressão, se preciso</text>
+  </g>
+  <text id="svg_47" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Limpeza e nivelamento</text>
+  <g id="svg_48">
+   <rect id="svg_49" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="320" y="306" x="442"/>
+   <!-- placa colada -->
+   <rect id="svg_50" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="110" y="336" x="482"/>
+   <rect id="svg_51" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="strip" height="80" width="20" y="336" x="592"/>
+   <rect id="svg_52" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#fff" height="80" width="110" y="336" x="612"/>
+   <!-- raspilha (fantasma) + direção -->
+   <rect id="svg_53" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="18" width="70" y="326" x="652"/>
+   <path id="svg_54" vector-effect="non-scaling-stroke" marker-end="url(#a)" stroke-width="2" stroke="#666" class="arrow" d="m662,324l40,0"/>
+   <text id="svg_55" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="326" x="484">raspar cola “verde” e nivelar em apoio rígido</text>
+   <rect id="svg_56" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="476" x="442"/>
+   <text id="svg_57" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="489" x="450">evite ondulações; mantenha a peça plana durante o acabamento</text>
+  </g>
+ </g>
+</svg>

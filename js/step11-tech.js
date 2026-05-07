@@ -64,12 +64,13 @@
     return (el && el.value ? String(el.value).trim() : '');
   }
   function bracingVariantCandidates(inst, baseKey) {
-    if (baseKey !== 'tampo7b-tech') return [];
+    // Variantes nomeadas como `tampo6-tech--<valor job-bracing-system>` (por pasta de instrumento).
+    if (baseKey !== 'tampo6-tech') return [];
     var bracing = currentBracingValue();
     if (!bracing || bracing === 'custom') return [];
     var out = [];
     basesForAssets().forEach(function (root) {
-      var base = `${root}${inst}/tampo7b-tech--${bracing}`;
+      var base = `${root}${inst}/tampo6-tech--${bracing}`;
       out.push(`${base}.svg`);
       out.push(`${base}.svg.svg`);
       out.push(`${base}.webp`);

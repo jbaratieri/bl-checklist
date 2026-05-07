@@ -40,6 +40,30 @@
       // se o callout tiver lógica JS, dispare um evento para que possa re-renderizar
       try { el.dispatchEvent(new CustomEvent('callout:refresh', { bubbles: true })); } catch(_){}
     });
+    refreshBracingCallouts();
+  }
+
+  function currentBracingForCallouts(){
+    try {
+      var el = document.getElementById('job-bracing-system');
+      return (el && el.value) ? String(el.value).trim() : '';
+    } catch(_){ return ''; }
+  }
+
+  /** Esconde `.callout[data-bracing]` quando o valor não está na lista (tokens separados por espaço). Requer `job-bracing-system` definido. */
+  function refreshBracingCallouts(){
+    document.querySelectorAll('.callout[data-bracing]').forEach(function(el){
+      var raw = (el.getAttribute('data-bracing') || '').trim();
+      if (!raw){
+        el.style.removeProperty('display');
+        return;
+      }
+      var allowed = raw.split(/\s+/).filter(Boolean);
+      var b = currentBracingForCallouts();
+      var show = Boolean(b) && allowed.indexOf(b) !== -1;
+      if (show) el.style.removeProperty('display');
+      else el.style.setProperty('display', 'none', 'important');
+    });
   }
 
   function syncBody(){
@@ -187,6 +211,15 @@
   document.addEventListener('DOMContentLoaded', ()=>{
     syncBody();
     resyncSoon();
+    var selBr = document.getElementById('job-bracing-system');
+    if (selBr && !selBr.__blBracingCalloutBound){
+      selBr.__blBracingCalloutBound = true;
+      selBr.addEventListener('change', function(){ refreshBracingCallouts(); });
+      selBr.addEventListener('input', function(){ refreshBracingCallouts(); });
+    }
+    window.addEventListener('bl:project-change', function(){
+      setTimeout(refreshBracingCallouts, 0);
+    });
   });
 
   // utilitários de debug
