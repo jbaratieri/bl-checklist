@@ -540,6 +540,213 @@
         grid-template-columns: 1fr 1fr;
       }
     }
+
+    /* --- BÔNUS: Painel OS Baratieri --- */
+    .bonus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10b981;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+
+    .bonus-title {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0 0 10px;
+      color: #fff;
+    }
+
+    .bonus-sub {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 0 0 28px;
+      max-width: 560px;
+    }
+
+    .bonus-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .bonus-kanban {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 32px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .bonus-kanban-col {
+      flex: 1;
+      min-width: 100px;
+      background: #0c1228;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 8px;
+    }
+
+    .bonus-kanban-col-title {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-align: center;
+    }
+
+    .bonus-kanban-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 9px;
+      font-size: 11px;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .bonus-kanban-card .k-meta {
+      font-size: 10px;
+      color: var(--muted);
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .k-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    .bonus-features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 640px) {
+      .bonus-features {
+        grid-template-columns: 1fr;
+      }
+
+      .bonus-kanban-col {
+        min-width: 82px;
+      }
+    }
+
+    .bonus-feature-item {
+      background: #0c1228;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .bonus-feature-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(99, 102, 241, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .bonus-feature-info strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+      line-height: 1.3;
+    }
+
+    .bonus-feature-info span {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .bonus-value-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      background: rgba(16, 185, 129, 0.07);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 10px;
+    }
+
+    .bonus-value-bar .bvb-label {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .bonus-value-bar .bvb-price {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .bonus-value-bar .bvb-price s {
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .bonus-value-bar .bvb-desc {
+      flex: 1;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+      min-width: 160px;
+    }
+
+    .bonus-value-bar .bvb-pill {
+      background: #10b981;
+      color: #053a27;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 999px;
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+    }
+
+    .bonus-disclaimer {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
   </style>
 </head>
 
@@ -1059,6 +1266,126 @@
 
 
     <!-- =============================== -->
+    <!-- BÔNUS — Painel OS Baratieri    -->
+    <!-- =============================== -->
+    <section class="card" aria-labelledby="bonus-title">
+
+      <div class="bonus-badge">🎁 Bônus exclusivo</div>
+
+      <h2 class="bonus-title" id="bonus-title">
+        Painel OS Baratieri
+      </h2>
+      <p class="bonus-sub">
+        Gerencie suas ordens de serviço como um profissional —
+        do primeiro instrumento que você receber.
+      </p>
+
+      <p class="bonus-section-label">Fluxo da oficina — ao vivo no app</p>
+      <div class="bonus-kanban" role="img" aria-label="Exemplo do fluxo kanban: Entrada, Orçamento, Em andamento, Pronto, Entregue">
+        <div class="bonus-kanban-col">
+          <div class="bonus-kanban-col-title">Entrada</div>
+          <div class="bonus-kanban-card">
+            Violão nylon — regulagem
+            <div class="k-meta"><span class="k-dot" style="background:#6366f1"></span>João Silva</div>
+          </div>
+        </div>
+        <div class="bonus-kanban-col">
+          <div class="bonus-kanban-col-title">Orçamento</div>
+          <div class="bonus-kanban-card">
+            Violão Yamaha
+            <div class="k-meta"><span class="k-dot" style="background:#f59e0b"></span>R$ 280,00</div>
+          </div>
+        </div>
+        <div class="bonus-kanban-col">
+          <div class="bonus-kanban-col-title">Em andamento</div>
+          <div class="bonus-kanban-card">
+            Cavaquinho
+            <div class="k-meta"><span class="k-dot" style="background:#10b981"></span>Carlos M.</div>
+          </div>
+        </div>
+        <div class="bonus-kanban-col">
+          <div class="bonus-kanban-col-title">Pronto</div>
+          <div class="bonus-kanban-card">
+            Viola Caipira
+            <div class="k-meta"><span class="k-dot" style="background:#10b981"></span>Pago ✓</div>
+          </div>
+        </div>
+        <div class="bonus-kanban-col">
+          <div class="bonus-kanban-col-title">Entregue</div>
+          <div class="bonus-kanban-card">
+            Ukulele
+            <div class="k-meta"><span class="k-dot" style="background:#94a3b8"></span>Concluído</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="bonus-section-label">O que está incluso</p>
+      <div class="bonus-features">
+        <div class="bonus-feature-item">
+          <div class="bonus-feature-icon" aria-hidden="true">🎸</div>
+          <div class="bonus-feature-info">
+            <strong>Entrada de instrumentos</strong>
+            <span>Cadastro com cliente, contato, fotos antes e depois de cada serviço</span>
+          </div>
+        </div>
+        <div class="bonus-feature-item">
+          <div class="bonus-feature-icon" aria-hidden="true">💰</div>
+          <div class="bonus-feature-info">
+            <strong>Orçamento integrado</strong>
+            <span>Tabela de serviços, extras, desconto e total calculado automaticamente</span>
+          </div>
+        </div>
+        <div class="bonus-feature-item">
+          <div class="bonus-feature-icon" aria-hidden="true">📋</div>
+          <div class="bonus-feature-info">
+            <strong>Fluxo kanban completo</strong>
+            <span>Entrada → Orçamento → Em andamento → Pronto → Entregue</span>
+          </div>
+        </div>
+        <div class="bonus-feature-item">
+          <div class="bonus-feature-icon" aria-hidden="true">📷</div>
+          <div class="bonus-feature-info">
+            <strong>Fotos antes e depois</strong>
+            <span>Registre e mostre a evolução de cada serviço ao cliente</span>
+          </div>
+        </div>
+        <div class="bonus-feature-item">
+          <div class="bonus-feature-icon" aria-hidden="true">💳</div>
+          <div class="bonus-feature-info">
+            <strong>Controle de recebimentos</strong>
+            <span>Histórico de pagamentos e status financeiro por OS</span>
+          </div>
+        </div>
+        <div class="bonus-feature-item">
+          <div class="bonus-feature-icon" aria-hidden="true">📱</div>
+          <div class="bonus-feature-info">
+            <strong>Roda no celular, sem mensalidade</strong>
+            <span>Armazenamento local neste aparelho (navegador). Backup em JSON exporta suas OS e a tabela de preços — use com frequência, principalmente antes de trocar de celular ou limpar dados do navegador. Instala como app (PWA). Sem nuvem nem sincronização automática.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bonus-value-bar">
+        <div>
+          <div class="bvb-label">Valor separado</div>
+          <div class="bvb-price"><s>R$ 197</s></div>
+        </div>
+        <div class="bvb-desc">
+          Incluso <strong>gratuitamente</strong> para quem adquire o Método Baratieri
+          enquanto a oferta estiver ativa.
+        </div>
+        <div class="bvb-pill">✓ Incluso no Método</div>
+      </div>
+
+      <p class="bonus-disclaimer">
+        Bônus disponível somente enquanto a oferta estiver ativa
+      </p>
+
+    </section>
+
+
+
+    <!-- =============================== -->
     <!-- PREÇO                           -->
     <!-- =============================== -->
     <section class="card" style="text-align:center">
@@ -1067,6 +1394,9 @@
         <s>R$ 497</s><br>R$ 319,90
       </p>
       <p>Pagamento único • acesso para sempre</p>
+      <p class="muted" style="margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.5">
+        Inclui bônus: <strong>Painel OS Baratieri</strong> — gestão de ordens de serviço, sem mensalidade.
+      </p>
       <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
         Quero acesso vitalício
       </a>
