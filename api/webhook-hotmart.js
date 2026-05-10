@@ -27,10 +27,21 @@ function normSource(v) {
 /**
  * Bônus Painel OS: vitalício, source = bonus_metodo.
  * Não cria se já existir compra_os_direta no mesmo e-mail.
- * Idempotente por last_transaction (tx).
+ * Idempotência: qualquer linha com este last_transaction (tx) na tabela OS → ignora.
+ * Reaproveita linha do mesmo e-mail com source bonus_metodo ou source vazio (não “manual”).
  */
 async function syncOsBonusOnApprove(b, { email, name, tx, now }) {
   if (!AIRTABLE_TABLE_OS) return { skipped: true, reason: "no_os_table" };
+
+  if (tx) {
+    const txEsc = String(tx).replace(/'/g, "\\'");
+    const byTx = await b(AIRTABLE_TABLE_OS)
+      .select({ filterByFormula: `{last_transaction}='${txEsc}'`, maxRecords: 10 })
+      .firstPage();
+    if (byTx.length) {
+      return { skipped: true, reason: "os_tx_global" };
+    }
+  }
 
   const emailNorm = email.toString().toLowerCase();
   const emailEsc = emailNorm.replace(/'/g, "\\'");
@@ -38,17 +49,19 @@ async function syncOsBonusOnApprove(b, { email, name, tx, now }) {
     .select({ filterByFormula: `LOWER({email})='${emailEsc}'`, maxRecords: 25 })
     .firstPage();
 
-  if (tx && osRecs.some(r => (r.get("last_transaction") || "").toString() === tx)) {
-    return { skipped: true, reason: "os_tx_already" };
-  }
-
   if (osRecs.some(r => normSource(r.get("source")) === "compra_os_direta")) {
     return { skipped: true, reason: "already_os_buyer" };
   }
 
-  const bonusRows = osRecs.filter(r => normSource(r.get("source")) === "bonus_metodo");
+  const forBonusUpdate = osRecs.filter(r => {
+    const s = normSource(r.get("source"));
+    if (s === "compra_os_direta") return false;
+    if (s === "manual") return false;
+    return s === "bonus_metodo" || s === "";
+  });
   const target =
-    bonusRows.find(r => !r.get("blocked")) || (bonusRows.length ? bonusRows[0] : null);
+    forBonusUpdate.find(r => !r.get("blocked")) ||
+    (forBonusUpdate.length ? forBonusUpdate[0] : null);
 
   const existingCode = target ? (target.get("code") || "").toString().trim() : "";
   const code = existingCode || genCode("OS");
@@ -113,10 +126,9 @@ const getEmail   = p => p?.data?.buyer?.email || p?.buyer?.email || p?.email || 
 const getName    = p => (p?.data?.buyer?.name || p?.buyer?.name || "").toString();
 const getTx      = p => p?.data?.purchase?.transaction || p?.purchase?.transaction || ""; // idempotência
 
-// 🔎 Mapa de PRODUCT ID → plano
+// 🔎 Product id Hotmart → plano (só vitalício; assinatura mensal descontinuada)
 const PRODUCT_PLAN_MAP = {
-  6436614: "mensal",     // LuthierPro — Assinatura Mensal
-  6449475: "vitalicio",  // LuthierPro — Acesso Vitalício
+  6449475: "vitalicio" // LuthierPro — Acesso Vitalício
 };
 
 /** Hotmart 2.x: `data.product.id` pode vir 0 no sandbox; id útil costuma estar em `data.product.content.products[0].id`. */
@@ -135,12 +147,13 @@ function getProductId(payload) {
   return Number.isFinite(root) ? root : nested;
 }
 
+/** Plano pelo mapa; ids desconhecidos → vitalício (oferta única atual). */
 function resolvePlanType(payload) {
   const productId = getProductId(payload);
-  if (Number.isFinite(productId) && productId > 0 && PRODUCT_PLAN_MAP[productId]) return PRODUCT_PLAN_MAP[productId];
-  const subStatus = (payload?.data?.subscription?.status || "").toString().toUpperCase();
-  if (subStatus === "ACTIVE") return "mensal";
-  return "vitalicio"; // fallback: pagamento único
+  if (Number.isFinite(productId) && productId > 0 && PRODUCT_PLAN_MAP[productId]) {
+    return PRODUCT_PLAN_MAP[productId];
+  }
+  return "vitalicio";
 }
 
 export default async function handler(req, res) {
