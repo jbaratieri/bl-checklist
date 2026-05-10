@@ -119,17 +119,25 @@ const PRODUCT_PLAN_MAP = {
   6449475: "vitalicio",  // LuthierPro — Acesso Vitalício
 };
 
+/** Hotmart 2.x: `data.product.id` pode vir 0 no sandbox; id útil costuma estar em `data.product.content.products[0].id`. */
 function getProductId(payload) {
-  const pid =
-    payload?.data?.product?.id ??
-    payload?.product?.id ??
-    payload?.data?.content?.products?.[0]?.id;
-  return typeof pid === "string" ? parseInt(pid, 10) : pid;
+  const toNum = v => {
+    const n = typeof v === "string" ? parseInt(v, 10) : v;
+    return Number.isFinite(n) ? n : NaN;
+  };
+  const root = toNum(payload?.data?.product?.id ?? payload?.product?.id);
+  if (Number.isFinite(root) && root > 0) return root;
+  const nested = toNum(
+    payload?.data?.product?.content?.products?.[0]?.id ??
+      payload?.data?.content?.products?.[0]?.id
+  );
+  if (Number.isFinite(nested) && nested > 0) return nested;
+  return Number.isFinite(root) ? root : nested;
 }
 
 function resolvePlanType(payload) {
   const productId = getProductId(payload);
-  if (productId && PRODUCT_PLAN_MAP[productId]) return PRODUCT_PLAN_MAP[productId];
+  if (Number.isFinite(productId) && productId > 0 && PRODUCT_PLAN_MAP[productId]) return PRODUCT_PLAN_MAP[productId];
   const subStatus = (payload?.data?.subscription?.status || "").toString().toUpperCase();
   if (subStatus === "ACTIVE") return "mensal";
   return "vitalicio"; // fallback: pagamento único
@@ -138,7 +146,14 @@ function resolvePlanType(payload) {
 export default async function handler(req, res) {
   try {
     if (req.method === "GET" || req.method === "HEAD") {
-      return res.status(200).json({ ok:true, msg:"webhook-hotmart up" });
+      const airtableReady = !!(AIRTABLE_BASE && AIRTABLE_KEY);
+      return res.status(200).json({
+        ok: true,
+        msg: "webhook-hotmart up",
+        airtable_env: airtableReady ? "ok" : "missing_base_or_key",
+        table_metodo: AIRTABLE_TABLE,
+        table_os_bonus: AIRTABLE_TABLE_OS || null
+      });
     }
     if (req.method !== "POST") {
       return res.status(405).json({ ok:false, msg:"Method not allowed" });
