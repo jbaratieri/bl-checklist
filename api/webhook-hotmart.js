@@ -8,6 +8,8 @@ const HOTMART_HOTTOK = process.env.HOTMART_HOTTOK;
 const AIRTABLE_BASE  = process.env.AIRTABLE_BASE  || process.env.AIRTABLE_BASE_ID;
 const AIRTABLE_KEY   = process.env.AIRTABLE_KEY   || process.env.AIRTABLE_API_KEY;
 const AIRTABLE_TABLE = process.env.AIRTABLE_TABLE || "licenses";
+/** Tabela do Painel OS (ex.: licences_os). Vazio = não sincroniza bônus. */
+const AIRTABLE_TABLE_OS = (process.env.AIRTABLE_TABLE_OS || "").trim();
 
 function base() {
   if (!AIRTABLE_BASE || !AIRTABLE_KEY) return null;
@@ -16,6 +18,86 @@ function base() {
 function genCode(prefix = "LP") {
   const s = crypto.randomBytes(6).toString("hex").toUpperCase();
   return `${prefix}-${s.slice(0,4)}-${s.slice(4,8)}-${s.slice(8,12)}`;
+}
+
+function normSource(v) {
+  return String(v || "").trim().toLowerCase();
+}
+
+/**
+ * Bônus Painel OS: vitalício, source = bonus_metodo.
+ * Não cria se já existir compra_os_direta no mesmo e-mail.
+ * Idempotente por last_transaction (tx).
+ */
+async function syncOsBonusOnApprove(b, { email, name, tx, now }) {
+  if (!AIRTABLE_TABLE_OS) return { skipped: true, reason: "no_os_table" };
+
+  const emailNorm = email.toString().toLowerCase();
+  const emailEsc = emailNorm.replace(/'/g, "\\'");
+  const osRecs = await b(AIRTABLE_TABLE_OS)
+    .select({ filterByFormula: `LOWER({email})='${emailEsc}'`, maxRecords: 25 })
+    .firstPage();
+
+  if (tx && osRecs.some(r => (r.get("last_transaction") || "").toString() === tx)) {
+    return { skipped: true, reason: "os_tx_already" };
+  }
+
+  if (osRecs.some(r => normSource(r.get("source")) === "compra_os_direta")) {
+    return { skipped: true, reason: "already_os_buyer" };
+  }
+
+  const bonusRows = osRecs.filter(r => normSource(r.get("source")) === "bonus_metodo");
+  const target =
+    bonusRows.find(r => !r.get("blocked")) || (bonusRows.length ? bonusRows[0] : null);
+
+  const existingCode = target ? (target.get("code") || "").toString().trim() : "";
+  const code = existingCode || genCode("OS");
+
+  const patch = {
+    email,
+    name: name || (target && target.get("name")) || "",
+    code,
+    plan_type: "vitalicio",
+    blocked: false,
+    flagged: false,
+    MaxDevices: 5,
+    expires_at: null,
+    last_transaction: tx || (target && (target.get("last_transaction") || "")) || "",
+    last_event_at: now.toISOString(),
+    source: "bonus_metodo"
+  };
+
+  if (target) {
+    await b(AIRTABLE_TABLE_OS).update(target.id, patch);
+    return { ok: true, action: "os_bonus_updated", code };
+  }
+
+  await b(AIRTABLE_TABLE_OS).create({
+    ...patch,
+    name: name || "",
+    use_count: 0
+  });
+  return { ok: true, action: "os_bonus_created", code };
+}
+
+/** Reembolso/cancelamento Método: bloqueia apenas linhas OS com source bonus_metodo. */
+async function syncOsBonusOnNegative(b, { email, tx, now }) {
+  if (!AIRTABLE_TABLE_OS) return;
+
+  const emailEsc = email.toString().toLowerCase().replace(/'/g, "\\'");
+  const osRecs = await b(AIRTABLE_TABLE_OS)
+    .select({ filterByFormula: `LOWER({email})='${emailEsc}'`, maxRecords: 25 })
+    .firstPage();
+
+  const bonusRows = osRecs.filter(r => normSource(r.get("source")) === "bonus_metodo");
+  for (const r of bonusRows) {
+    await b(AIRTABLE_TABLE_OS).update(r.id, {
+      blocked: true,
+      flagged: true,
+      last_transaction: tx || (r.get("last_transaction") || "") || "",
+      last_event_at: now.toISOString()
+    });
+  }
 }
 function addDays(d, n) { const x = new Date(d); x.setDate(x.getDate()+n); return x; }
 function toDateOnly(d) {
@@ -102,9 +184,15 @@ export default async function handler(req, res) {
       return unblocked || rows[0];
     };
 
-    // 🪙 idempotência: se QUALQUER registro do e-mail já tem este tx, ignore
+    // 🪙 idempotência: licença Método já processada com este tx — reenvio Hotmart
     if (tx && recs.length && recs.some(r => (r.get("last_transaction") || "") === tx)) {
-      return res.status(200).json({ ok:true, action:"noop_already_processed", email, tx });
+      let osSync = null;
+      try {
+        osSync = await syncOsBonusOnApprove(b, { email, name, tx, now });
+      } catch (e) {
+        console.error("syncOsBonusOnApprove (noop):", e);
+      }
+      return res.status(200).json({ ok: true, action: "noop_already_processed", email, tx, os_sync: osSync });
     }
 
     if (approved) {
@@ -142,9 +230,21 @@ export default async function handler(req, res) {
         }
 
         await b(AIRTABLE_TABLE).update(target.id, fieldsToUpdate);
+        let osSync = null;
+        try {
+          osSync = await syncOsBonusOnApprove(b, { email, name, tx, now });
+        } catch (e) {
+          console.error("syncOsBonusOnApprove:", e);
+        }
         return res.status(200).json({
-          ok: true, action: "updated", email, code, plan_type: finalPlan,
-          expires_at: fieldsToUpdate.expires_at || "", tx
+          ok: true,
+          action: "updated",
+          email,
+          code,
+          plan_type: finalPlan,
+          expires_at: fieldsToUpdate.expires_at || "",
+          tx,
+          os_sync: osSync
         });
       } else {
         // criar (não havia trial/registro pra este e-mail)
@@ -168,9 +268,21 @@ export default async function handler(req, res) {
         }
 
         await b(AIRTABLE_TABLE).create(fields);
+        let osSync = null;
+        try {
+          osSync = await syncOsBonusOnApprove(b, { email, name, tx, now });
+        } catch (e) {
+          console.error("syncOsBonusOnApprove:", e);
+        }
         return res.status(200).json({
-          ok: true, action: "created", email, code, plan_type: planTypeComputed,
-          expires_at: fields.expires_at || "", tx
+          ok: true,
+          action: "created",
+          email,
+          code,
+          plan_type: planTypeComputed,
+          expires_at: fields.expires_at || "",
+          tx,
+          os_sync: osSync
         });
       }
     }
@@ -186,7 +298,12 @@ export default async function handler(req, res) {
           last_event_at: now.toISOString()
         });
       }
-      return res.status(200).json({ ok:true, action:"deactivated_blocked", email, event, status, tx });
+      try {
+        await syncOsBonusOnNegative(b, { email, tx, now });
+      } catch (e) {
+        console.error("syncOsBonusOnNegative:", e);
+      }
+      return res.status(200).json({ ok: true, action: "deactivated_blocked", email, event, status, tx });
     }
 
     return res.status(200).json({ ok:true, msg:"event ignored", event, status, tx });
