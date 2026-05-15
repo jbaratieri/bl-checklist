@@ -1,67 +1,99 @@
-<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui, Segoe UI, Roboto, Arial">
- <defs>
-  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
-   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+<svg width="880" height="740" viewBox="0 0 680 740" role="img" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, Segoe UI, Roboto, Arial" font-size="12">
+<title>Alinhamento do braço — método espanhol</title>
+<desc>Três painéis: vista superior com linha de centro e simetria lateral; vista lateral com projeção da escala ao cavalete; microcorreções com cunhas no tróculo.</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </marker>
- </defs>
- <!-- Moldura -->
- <!-- 1) Vista superior: centro e simetria -->
- <!-- 2) Projeção ao cavalete -->
- <!-- 3) Correções com cunhas no tróculo -->
- <g>
-  <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
-  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Alinhamento do braço — centro, projeção ao cavalete e cunhas</text>
-  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Centro e simetria (vista superior)</text>
-  <g id="svg_5">
-   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="126" x="37"/>
-   <!-- contorno simples da caixa -->
-   <path id="svg_7" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#a9805a" fill="none" class="side" d="m67,240c30,-100 270,-100 300,0"/>
-   <path id="svg_8" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m67,240c30,60 270,60 300,0"/>
-   <!-- linha de centro -->
-   <line id="svg_9" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#9c6" class="axis" y2="298" x2="217" y1="134" x1="217"/>
-   <!-- braço/neck simplificado -->
-   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#94a9d6" fill="#e9eef7" class="neck" height="30" width="40" y="110" x="197"/>
-   <text id="svg_11" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="129" x="200">centro</text>
-   <!-- checagem de simetria -->
-   <line id="svg_12" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#666" marker-end="url(#arr)" class="dim" y2="190" x2="257" y1="190" x1="177"/>
-   <line id="svg_13" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#666" marker-end="url(#arr)" class="dim" y2="190" x2="177" y1="190" x1="257"/>
-   <text id="svg_14" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="182" x="182">distâncias iguais</text>
-   <rect stroke="#ddd" id="svg_15" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="20" width="416.00002" y="291" x="37"/>
-   <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="304" x="43">linha de centro contínua (mão → braço → tróculo → culatra) e simetria lateral</text>
-  </g>
-  <text id="svg_17" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Projeção do plano da escala (vista lateral)</text>
-  <g id="svg_18">
-   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="124" x="460"/>
-   <!-- tampo plano simplificado -->
-   <line id="svg_20" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="248" x2="780" y1="248" x1="500"/>
-   <text id="svg_21" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="260" x="502">tampo (referência)</text>
-   <!-- plano da escala -->
-   <line id="svg_22" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#94a9d6" fill="#e9eef7" class="neck" y2="198" x2="760" y1="198" x1="520"/>
-   <text id="svg_23" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="189" x="471">plano da escala (régua)</text>
-   <!-- posição do cavalete -->
-   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#94a9d6" fill="#e9eef7" class="neck" height="12" width="40" y="236" x="740"/>
-   <text id="svg_25" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="246" x="747">ponte</text>
-   <!-- altura alvo (gabarito) -->
-   <line id="svg_26" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#666" marker-end="url(#arr)" class="dim" y2="236" x2="760" y1="198" x1="760"/>
-   <text transform="matrix(0.839291 0 0 0.877091 91.7909 23.9537)" stroke="#fff" id="svg_27" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="186.86559" x="653.32078">alvo: ponte + rastilho (do seu projeto)</text>
-   <rect id="svg_28" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="284" x="460"/>
-   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="298" x="468">a régua deve “acertar” a altura prevista no ponto do rastilho</text>
-  </g>
-  <text id="svg_30" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="340" x="41">3) Microcorreções com cunhas (região do tróculo)</text>
-  <g id="svg_31">
-   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="350" x="37"/>
-   <!-- tróculo/slot e laterais (esquema) -->
-   <rect id="svg_33" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#94a9d6" fill="#e9eef7" class="neck" height="100" width="20" y="374" x="147"/>
-   <path id="svg_34" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#a9805a" fill="none" class="side" d="m167,384l40,0l0,80l-40,0l0,-80z"/>
-   <path id="svg_35" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#a9805a" fill="none" class="side" d="m147,384l-40,0l0,80l40,0l0,-80z"/>
-   <!-- cunhas -->
-   <polygon id="svg_36" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="shim" points="165,402 177,402 165,416 "/>
-   <polygon id="svg_37" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="shim" points="169,432 181,432 169,446 "/>
-   <text id="svg_38" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="416" x="185">cunhas p/ giro fino</text>
-   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="446" x="185">ou micro-raspas no reengrosso</text>
-   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="510" x="37"/>
-   <text id="svg_41" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="524" x="45">após cada ajuste: recalcule centro, simetria e projeção</text>
-  </g>
- </g>
+  <marker id="arrow2" viewBox="0 0 10 10" refX="2" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M8 1L2 5L8 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- Fundo branco -->
+<rect width="680" height="740" fill="#ffffff"/>
+
+<!-- PAINEL 1 — Vista superior -->
+<text x="44" y="30" font-size="13" font-weight="600" fill="#222">1 · Centro e simetria lateral (vista superior)</text>
+
+<ellipse cx="350" cy="195" rx="112" ry="84" fill="none" stroke="#888" stroke-width="1.2" opacity="0.5"/>
+<ellipse cx="350" cy="108" rx="78" ry="58" fill="none" stroke="#888" stroke-width="1.2" opacity="0.5"/>
+<path d="M238 152 Q246 156 270 152" fill="none" stroke="#888" stroke-width="1.2" opacity="0.5"/>
+<path d="M462 152 Q450 156 430 152" fill="none" stroke="#888" stroke-width="1.2" opacity="0.5"/>
+<path d="M270 152 Q246 156 238 152 L238 108 Q238 50 350 50 Q462 50 462 108 L462 152 Q450 156 430 152 Q462 156 462 195 Q462 279 350 279 Q238 279 238 195 Q238 156 270 152 Z" fill="#f5f3ee" stroke="#888" stroke-width="1.2" opacity="0.8"/>
+
+<rect x="332" y="5" width="36" height="52" rx="4" fill="#fff" stroke="#bbb" stroke-width="1"/>
+<text x="350" y="24" text-anchor="middle" font-size="11" fill="#666">braço</text>
+
+<line x1="350" y1="5" x2="350" y2="286" stroke="#1D9E75" stroke-width="1.5" stroke-dasharray="5 3"/>
+
+<circle cx="350" cy="165" r="28" fill="none" stroke="#D85A30" stroke-width="1" opacity="0.8"/>
+<circle cx="350" cy="165" r="2" fill="#D85A30" opacity="0.8"/>
+
+<line x1="238" y1="212" x2="348" y2="212" stroke="#aaa" stroke-width="1" marker-end="url(#arrow)" marker-start="url(#arrow2)"/>
+<line x1="352" y1="212" x2="462" y2="212" stroke="#aaa" stroke-width="1" marker-end="url(#arrow)" marker-start="url(#arrow2)"/>
+<text x="288" y="225" text-anchor="middle" font-size="10" fill="#666">L</text>
+<text x="412" y="225" text-anchor="middle" font-size="10" fill="#666">L</text>
+
+<line x1="272" y1="90" x2="348" y2="90" stroke="#aaa" stroke-width="1" marker-end="url(#arrow)" marker-start="url(#arrow2)"/>
+<line x1="352" y1="90" x2="428" y2="90" stroke="#aaa" stroke-width="1" marker-end="url(#arrow)" marker-start="url(#arrow2)"/>
+<text x="310" y="104" text-anchor="middle" font-size="10" fill="#666">L</text>
+<text x="390" y="104" text-anchor="middle" font-size="10" fill="#666">L</text>
+
+<rect x="44" y="296" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="311" font-size="11" fill="#555">Régua sobre a escala deve apontar para o centro da boca e da culatra · Verificar L igual nos 2–3 pontos ao longo do corpo</text>
+
+<!-- PAINEL 2 — Vista lateral -->
+<text x="44" y="356" font-size="13" font-weight="600" fill="#222">2 · Projeção do plano da escala ao cavalete (vista lateral)</text>
+
+<line x1="80" y1="470" x2="570" y2="470" stroke="#bbb" stroke-width="1" stroke-dasharray="5 3"/>
+<text x="574" y="474" font-size="10" fill="#aaa">tampo</text>
+
+<rect x="176" y="400" width="330" height="72" rx="8" fill="#f5f3ee" stroke="#bbb" stroke-width="1"/>
+
+<rect x="80" y="392" width="104" height="14" rx="3" fill="#fff" stroke="#bbb" stroke-width="1"/>
+<text x="132" y="402" text-anchor="middle" font-size="10" fill="#666">braço / tróculo</text>
+
+<line x1="82" y1="392" x2="508" y2="392" stroke="#378ADD" stroke-width="1.8"/>
+<text x="86" y="385" font-size="10" fill="#378ADD">plano da escala (régua)</text>
+
+<rect x="468" y="430" width="36" height="10" rx="3" fill="#f5f3ee" stroke="#bbb" stroke-width="1"/>
+<text x="486" y="453" text-anchor="middle" font-size="10" fill="#666">ponte</text>
+
+<rect x="470" y="427" width="32" height="4" rx="1" fill="#888" opacity="0.5"/>
+<text x="508" y="429" font-size="10" fill="#888">rastilho</text>
+
+<line x1="508" y1="392" x2="508" y2="427" stroke="#D85A30" stroke-width="1.2" marker-end="url(#arrow)"/>
+<text x="516" y="413" font-size="10" fill="#D85A30">altura-alvo</text>
+
+<rect x="172" y="394" width="18" height="8" rx="2" fill="#d0e8f8" stroke="#bbb" stroke-width="0.5" opacity="0.9"/>
+
+<text x="350" y="384" text-anchor="middle" font-size="10" fill="#1D9E75">plano paralelo ao tampo ✓</text>
+
+<rect x="44" y="496" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="511" font-size="11" fill="#555">A régua deve "acertar" o topo do rastilho · Ângulo ~0° — ação ajustada pela altura do cavalete e espessura da escala</text>
+
+<!-- PAINEL 3 — Cunhas -->
+<text x="44" y="556" font-size="13" font-weight="600" fill="#222">3 · Microcorreções no tróculo (detalhe — vista de topo)</text>
+
+<rect x="210" y="578" width="260" height="110" rx="8" fill="#f5f3ee" stroke="#bbb" stroke-width="1"/>
+<text x="340" y="700" text-anchor="middle" font-size="10" fill="#aaa">caixa (secção transversal)</text>
+
+<rect x="311" y="578" width="58" height="110" fill="#fff" stroke="#bbb" stroke-width="0.8" stroke-dasharray="4 2"/>
+
+<rect x="315" y="582" width="50" height="102" rx="3" fill="#d0e8f8" stroke="#bbb" stroke-width="1" opacity="0.8"/>
+<text x="340" y="636" text-anchor="middle" font-size="10" fill="#185FA5">tróculo</text>
+
+<line x1="340" y1="572" x2="340" y2="698" stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="4 2"/>
+
+<polygon points="311,588 315,588 315,612" fill="#EF9F27" stroke="#BA7517" stroke-width="0.8"/>
+<line x1="313" y1="600" x2="220" y2="620" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="222" y="632" font-size="10" fill="#BA7517">cunha</text>
+
+<polygon points="369,638 365,638 365,614" fill="#EF9F27" stroke="#BA7517" stroke-width="0.8"/>
+<line x1="367" y1="626" x2="476" y2="626" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="478" y="630" font-size="10" fill="#BA7517">cunha / micro-raspa</text>
+
+<rect x="44" y="712" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="727" font-size="11" fill="#555">Cunhas finas ou micro-raspas no topo do tróculo corrigem giro lateral (yaw) · Repetir verificação após cada ajuste</text>
 </svg>

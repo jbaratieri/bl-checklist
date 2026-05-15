@@ -1,66 +1,155 @@
-<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui, Segoe UI, Roboto, Arial">
+<svg width="880" height="860" viewBox="0 0 680 860" role="img" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, Segoe UI, Roboto, Arial" font-size="12">
+<title>Colagem do tampo — ensaio, entalhes e pressão</title>
+<desc>Três painéis: ensaio a seco com marcações nas travessas; detalhe dos entalhes nos linings/blocos; colagem com go-bar deck e distribuição de pressão.</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
 
- <!-- Moldura -->
- <!-- 1) Ensaio a seco e marcações -->
- <!-- 2) Entalhes/assentos -->
- <!-- 3) Colagem e distribuição de pressão -->
- <g>
-  <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
-  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Colagem do tampo — ensaio, entalhes e distribuição de pressão</text>
-  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Ensaio a seco e marcações</text>
-  <g id="svg_5">
-   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="360" y="96" x="40"/>
-   <!-- laterais, linings e blocos simplificados (vista superior) -->
-   <path id="svg_7" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#a9805a" fill="none" class="side" d="m70,220c30,-90 270,-90 300,0"/>
-   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f0e3d3" class="lining" height="6" width="260" y="190" x="100"/>
-   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f0e3d3" class="lining" height="6" width="260" y="154" x="100"/>
-   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="block" height="20" width="40" y="119" x="210"/>
-   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="block" height="20" width="40" y="226" x="210"/>
-   <!-- travessas do tampo (posições) -->
-   <rect id="svg_12" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="brace" height="6" width="220" y="166" x="120"/>
-   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="brace" height="6" width="160" y="178" x="160"/>
-   <text id="svg_14" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="112" x="46">marcar travessas nos linings/blocos e checar assentos</text>
-   <rect id="svg_15" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="256" x="40"/>
-   <text id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="270" x="48">tudo precisa encostar “a seco” sem folgas antes de colar</text>
-  </g>
-  <text id="svg_17" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Entalhes/assentos (linings e blocos)</text>
-  <g id="svg_18">
-   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="160" width="360" y="96" x="455"/>
-   <!-- detalhe lateral/lining/braces -->
-   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="block" height="80" width="40" y="130" x="495"/>
-   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f0e3d3" class="lining" height="12" width="220" y="144" x="535"/>
-   <!-- entalhes nos linings -->
-   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="12" width="6" y="144" x="575"/>
-   <rect id="svg_23" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="12" width="6" y="144" x="635"/>
-   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="12" width="6" y="144" x="695"/>
-   <!-- travessa encaixando -->
-   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="brace" height="20" width="10" y="140" x="573"/>
-   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="124" x="495">entalhe no lining</text>
-   <text id="svg_27" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="174" x="545">assento contínuo sem “degrau”</text>
-   <rect id="svg_28" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="256" x="455"/>
-   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="270" x="463">rebaixos leves e precisos: travessa deve entrar sem forçar</text>
-  </g>
-  <text id="svg_30" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="307" x="42">3) Colagem e distribuição de pressão</text>
-  <g stroke="null" id="svg_31">
-   <rect stroke="#c7ae83" id="svg_32" vector-effect="non-scaling-stroke" stroke-width="2" fill="#fff" class="board" height="238" width="780" y="321" x="40"/>
-   <!-- tampo (plano) -->
-   <rect stroke="#909090" id="svg_33" vector-effect="non-scaling-stroke" fill="#fff" class="top" height="139.41422" width="700" y="369.83264" x="80"/>
-   <text transform="matrix(1 0 0 0.995816 0 2.38077)" stroke="#fff" id="svg_34" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="360.9958" x="359">tampo (face interna)</text>
-   <!-- tacos de pressão -->
-   <rect stroke="#94a9d6" id="svg_35" vector-effect="non-scaling-stroke" stroke-width="2" fill="none" class="press" height="19.91632" width="120" y="399.70712" x="120"/>
-   <rect stroke="#94a9d6" id="svg_36" vector-effect="non-scaling-stroke" stroke-width="2" fill="none" class="press" height="19.91632" width="120" y="399.70712" x="260"/>
-   <rect stroke="#94a9d6" id="svg_37" vector-effect="non-scaling-stroke" stroke-width="2" fill="none" class="press" height="19.91632" width="120" y="399.70712" x="400"/>
-   <rect stroke="#94a9d6" id="svg_38" vector-effect="non-scaling-stroke" stroke-width="2" fill="none" class="press" height="19.91632" width="120" y="399.70712" x="540"/>
-   <rect stroke="#94a9d6" id="svg_39" vector-effect="non-scaling-stroke" stroke-width="2" fill="none" class="press" height="19.91632" width="80" y="399.70712" x="680"/>
-   <text transform="matrix(1 0 0 0.995816 0 2.38077)" stroke="#fff" id="svg_40" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="438.9958" x="120">tacos/ripas distribuídos — do centro para as bordas</text>
-   <!-- go-bar (exemplo) -->
-   <line stroke="#7aa27a" id="svg_41" vector-effect="non-scaling-stroke" stroke-width="3" class="gobar" y2="399.70712" x2="140" y1="349.91632" x1="140"/>
-   <line stroke="#7aa27a" id="svg_42" vector-effect="non-scaling-stroke" stroke-width="3" class="gobar" y2="399.70712" x2="220" y1="349.91632" x1="220"/>
-   <text transform="matrix(1 0 0 0.995816 0 2.38077)" stroke="#fff" id="svg_43" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="345.9958" x="124">go-bar deck (opcional)</text>
-   <!-- observações -->
-   <rect stroke="#ddd" id="svg_44" vector-effect="non-scaling-stroke" fill="#fff" class="labelbox" rx="4" height="19.91632" width="460.99999" y="525.17992" x="65"/>
-   <text transform="matrix(1 0 0 0.995816 0 2.38077)" stroke="#fff" id="svg_45" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="538.9958" x="88">papel antiaderente sob tacos; filme fino de cola; limpar escorridos ainda úmidos</text>
-  </g>
- </g>
+<!-- Fundo branco -->
+<rect width="680" height="860" fill="#ffffff"/>
+
+<!-- ══════════════════════════
+     PAINEL 1 — Ensaio a seco
+     ══════════════════════════ -->
+<text x="44" y="28" font-size="13" font-weight="600" fill="#222">1 · Ensaio a seco — marcação das travessas (vista superior)</text>
+
+<path d="M170 80 Q170 46 310 46 Q450 46 450 80 L450 118 Q450 132 436 138 Q450 144 450 160 Q450 230 310 230 Q170 230 170 160 Q170 144 184 138 Q170 132 170 118 Z"
+  fill="#f5f3ee" stroke="#bbb" stroke-width="1.2"/>
+<path d="M178 80 Q178 54 310 54 Q442 54 442 80 L442 116 Q442 128 430 134 Q442 140 442 160 Q442 222 310 222 Q178 222 178 160 Q178 140 190 134 Q178 128 178 116 Z"
+  fill="none" stroke="#aaa" stroke-width="3" stroke-linecap="round" opacity="0.4"/>
+
+<rect x="286" y="46" width="48" height="22" rx="3" fill="#d0e8f8" stroke="#bbb" stroke-width="0.8" opacity="0.9"/>
+<text x="310" y="61" text-anchor="middle" font-size="10" fill="#185FA5">tróculo</text>
+
+<rect x="286" y="212" width="48" height="18" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="0.8"/>
+<text x="310" y="225" text-anchor="middle" font-size="10" fill="#666">culatra</text>
+
+<rect x="192" y="96" width="236" height="7" rx="2" fill="#EF9F27" opacity="0.85"/>
+<rect x="210" y="114" width="200" height="7" rx="2" fill="#EF9F27" opacity="0.7"/>
+<rect x="224" y="132" width="172" height="6" rx="2" fill="#EF9F27" opacity="0.55"/>
+<rect x="210" y="166" width="200" height="7" rx="2" fill="#EF9F27" opacity="0.7"/>
+<rect x="230" y="184" width="160" height="6" rx="2" fill="#EF9F27" opacity="0.55"/>
+
+<line x1="192" y1="90" x2="192" y2="108" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+<line x1="428" y1="90" x2="428" y2="108" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+<line x1="210" y1="108" x2="210" y2="126" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+<line x1="410" y1="108" x2="410" y2="126" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+
+<line x1="430" y1="100" x2="468" y2="90" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="470" y="93" font-size="10" fill="#BA7517">travessas (posição)</text>
+<line x1="430" y1="120" x2="468" y2="128" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="470" y="132" font-size="10" fill="#666">marcação nos linings</text>
+
+<circle cx="310" cy="148" r="32" fill="none" stroke="#bbb" stroke-width="1" opacity="0.6"/>
+<circle cx="310" cy="148" r="18" fill="none" stroke="#bbb" stroke-width="0.5" opacity="0.5"/>
+
+<rect x="44" y="244" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="259" font-size="11" fill="#555">Posicionar o tampo a seco · Marcar posição de cada travessa nos linings/blocos · Conferir todos os encaixes sem folga</text>
+
+<!-- ══════════════════════════════════════════════
+     PAINEL 2 — Detalhe entalhe (corte transversal)
+     ══════════════════════════════════════════════ -->
+<text x="44" y="296" font-size="13" font-weight="600" fill="#222">2 · Entalhes nos linings e blocos (corte transversal)</text>
+
+<rect x="80" y="318" width="520" height="13" rx="2" fill="#fff" stroke="#bbb" stroke-width="1"/>
+<text x="340" y="312" text-anchor="middle" font-size="10" fill="#666">tampo (face interna)</text>
+
+<rect x="80" y="331" width="14" height="80" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="87" y="422" text-anchor="middle" font-size="9" fill="#aaa">faixa</text>
+
+<rect x="94" y="345" width="40" height="13" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.8"/>
+
+<rect x="112" y="345" width="14" height="13" rx="1" fill="#fff" stroke="#D85A30" stroke-width="1" stroke-dasharray="3 2"/>
+<rect x="112" y="331" width="14" height="14" rx="2" fill="#EF9F27" stroke="#BA7517" stroke-width="0.8"/>
+
+<line x1="114" y1="345" x2="94" y2="390" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="56" y="398" font-size="10" fill="#666">lining</text>
+
+<line x1="119" y1="358" x2="119" y2="390" stroke="#D85A30" stroke-width="0.8" marker-end="url(#arrow)"/>
+<text x="56" y="408" font-size="10" fill="#D85A30">entalhe</text>
+
+<rect x="284" y="318" width="32" height="30" rx="3" fill="#d0e8f8" stroke="#bbb" stroke-width="0.8" opacity="0.7"/>
+<text x="300" y="338" text-anchor="middle" font-size="9" fill="#185FA5">bloco</text>
+
+<rect x="175" y="316" width="150" height="3" rx="1" fill="#aaa" opacity="0.25"/>
+<text x="250" y="312" text-anchor="middle" font-size="9" fill="#aaa">régua L ↔ D</text>
+
+<line x1="119" y1="331" x2="210" y2="308" stroke="#BA7517" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="212" y="306" font-size="10" fill="#BA7517">travessa</text>
+
+<rect x="526" y="331" width="14" height="80" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="533" y="422" text-anchor="middle" font-size="9" fill="#aaa">faixa</text>
+
+<rect x="486" y="345" width="40" height="13" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.8"/>
+<rect x="494" y="345" width="14" height="13" rx="1" fill="#fff" stroke="#D85A30" stroke-width="1" stroke-dasharray="3 2"/>
+<rect x="494" y="331" width="14" height="14" rx="2" fill="#EF9F27" stroke="#BA7517" stroke-width="0.8"/>
+
+<line x1="506" y1="345" x2="530" y2="390" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="532" y="398" font-size="10" fill="#666">lining</text>
+
+<text x="340" y="380" text-anchor="middle" font-size="10" fill="#666">assento contínuo — sem degrau</text>
+<line x1="270" y1="376" x2="134" y2="360" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<line x1="410" y1="376" x2="500" y2="360" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+
+<rect x="44" y="428" width="592" height="32" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="442" font-size="11" fill="#555">Régua une marcações faixa esq. ↔ dir. · Serrinha fina marca profundidade · Tupia de coluna ou formão faz o rebaixo</text>
+<text x="56" y="456" font-size="11" fill="#555">Travessa deve entrar sem forçar — assento contínuo, sem degrau</text>
+
+<!-- ══════════════════════════════════════════════
+     PAINEL 3 — Colagem e go-bar deck
+     ══════════════════════════════════════════════ -->
+<text x="44" y="494" font-size="13" font-weight="600" fill="#222">3 · Colagem e distribuição de pressão — go-bar deck (corte lateral)</text>
+
+<rect x="60" y="514" width="560" height="14" rx="4" fill="#ddd" stroke="#bbb" stroke-width="0.8"/>
+<text x="340" y="524" text-anchor="middle" font-size="10" fill="#666">go-bar deck (teto fixo)</text>
+
+<line x1="140" y1="528" x2="140" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="200" y1="528" x2="200" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="260" y1="528" x2="260" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="310" y1="528" x2="310" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="360" y1="528" x2="360" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="420" y1="528" x2="420" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="480" y1="528" x2="480" y2="688" stroke="#1D9E75" stroke-width="3" stroke-linecap="round"/>
+<line x1="530" y1="590" x2="484" y2="580" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="532" y="594" font-size="10" fill="#0F6E56">varetas flexíveis</text>
+
+<line x1="310" y1="544" x2="310" y2="670" stroke="#D85A30" stroke-width="1" stroke-dasharray="4 3" marker-end="url(#arrow)" opacity="0.5"/>
+<text x="56" y="612" font-size="10" fill="#D85A30">pressão</text>
+<text x="56" y="624" font-size="10" fill="#D85A30">uniforme ↓</text>
+
+<rect x="90" y="662" width="440" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.8" opacity="0.6"/>
+<text x="56" y="670" text-anchor="end" font-size="9" fill="#aaa">fundo</text>
+
+<rect x="104" y="688" width="420" height="8" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.8"/>
+<text x="340" y="684" text-anchor="middle" font-size="10" fill="#666">assoalho de ripinhas</text>
+
+<rect x="90" y="728" width="14" height="72" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<rect x="516" y="728" width="14" height="72" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="75" y="766" text-anchor="end" font-size="9" fill="#aaa">faixa</text>
+
+<rect x="104" y="732" width="26" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.5" opacity="0.8"/>
+<rect x="490" y="732" width="26" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.5" opacity="0.8"/>
+
+<rect x="104" y="728" width="26" height="2" fill="#EF9F27" opacity="0.8"/>
+<rect x="490" y="728" width="26" height="2" fill="#EF9F27" opacity="0.8"/>
+<line x1="518" y1="729" x2="534" y2="720" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="536" y="718" font-size="9" fill="#BA7517">filme de cola</text>
+
+<rect x="90" y="718" width="440" height="12" rx="2" fill="#fff" stroke="#bbb" stroke-width="1"/>
+<text x="310" y="714" text-anchor="middle" font-size="10" fill="#666">tampo (voltado para a solera)</text>
+
+<!-- Preguinhos permanentes no rebaixo do tróculo -->
+<circle cx="300" cy="718" r="3.5" fill="#333" opacity="0.8"/>
+<circle cx="320" cy="718" r="3.5" fill="#333" opacity="0.8"/>
+<line x1="320" y1="714" x2="400" y2="700" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="402" y="698" font-size="10" fill="#333">preguinhos no rebaixo do tróculo</text>
+<text x="402" y="710" font-size="10" fill="#666">(escala colada por cima depois)</text>
+
+<rect x="60" y="800" width="560" height="16" rx="4" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="340" y="826" text-anchor="middle" font-size="10" fill="#aaa">solera (molde fêmea)</text>
+
+<rect x="44" y="838" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="853" font-size="11" fill="#555">Go-bar deck: varetas do centro para as bordas · Ripinhas distribuem pressão · Curar 12–24 h na solera nivelada</text>
 </svg>
