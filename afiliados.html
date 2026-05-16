@@ -4,9 +4,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Afiliados — Método Baratieri</title>
+  <title>Central de Afiliados — Ecossistema Baratieri</title>
   <meta name="description"
-    content="Materiais oficiais para afiliados do Método Baratieri. Banners, textos prontos e orientações de divulgação." />
+    content="Materiais oficiais para afiliados do Método Baratieri e do Painel OS Baratieri. Banners, textos prontos e orientações de divulgação." />
+  <link rel="canonical" href="https://metodo.luthieriabaratieri.com.br/afiliados" />
   <link rel="icon" href="/icon/icon-192.webp" />
 
   <style>
@@ -175,21 +176,105 @@
       font-size: 14px;
       color: var(--ink);
     }
+
+    .product-nav {
+      grid-column: 1 / -1;
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .product-nav a {
+      display: block;
+      padding: 18px 20px;
+      border-radius: var(--radius);
+      border: 2px solid var(--border);
+      background: var(--card);
+      text-decoration: none;
+      color: var(--ink);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+      transition: border-color 0.15s ease;
+    }
+
+    .product-nav a:hover {
+      border-color: var(--accent);
+    }
+
+    .product-nav a.os:hover {
+      border-color: #0d6b52;
+    }
+
+    .product-nav strong {
+      display: block;
+      font-size: 1.1rem;
+      margin-bottom: 6px;
+    }
+
+    .product-nav span {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .section-label {
+      grid-column: 1 / -1;
+      margin: 8px 0 0;
+      padding-top: 8px;
+      border-top: 2px solid var(--border);
+    }
+
+    .section-label h2 {
+      margin: 0;
+      font-size: 1.35rem;
+    }
+
+    .section-label.metodo {
+      border-top-color: var(--accent);
+    }
+
+    .section-label.os {
+      border-top-color: #0d6b52;
+    }
   </style>
 </head>
 
 <body>
 
   <header>
-    <img src="/assets/logos/LOGOTRANSPARENTE.png" alt="logotipo do Método Baratieri" />
+    <img src="/assets/logos/LOGOTRANSPARENTE.png" alt="logotipo Luthieria Baratieri" />
     <h1>Central de Afiliados</h1>
     <p>
-      Materiais oficiais para divulgação do <strong>Método Baratieri</strong>.<br>
-      Utilize sempre seu link de afiliado Hotmart.
+      Ecossistema <strong>Baratieri</strong> — materiais para divulgar o
+      <strong>Método Baratieri</strong> e/ou o <strong>Painel OS Baratieri</strong>.<br>
+      Use sempre o <strong>link de afiliado Hotmart do produto</strong> que você promove.
+    </p>
+    <p style="margin-top:12px">
+      <a class="btn secondary" href="https://metodo.luthieriabaratieri.com.br/parceiros-afiliados-metodo-baratieri">
+        Programa de afiliados (comissões e cadastro)
+      </a>
     </p>
   </header>
 
   <main>
+
+    <nav class="product-nav" aria-label="Escolha o produto">
+      <a href="#kit-metodo">
+        <strong>Método Baratieri</strong>
+        <span>Construção de instrumentos · kit PDF, banners e textos abaixo</span>
+      </a>
+      <a href="#kit-os" class="os">
+        <strong>Painel OS Baratieri</strong>
+        <span>Gestão de ordens de serviço · textos prontos na seção Painel OS</span>
+      </a>
+    </nav>
+
+    <div class="section-label metodo" id="kit-metodo">
+      <h2>Materiais — Método Baratieri</h2>
+      <p class="muted" style="margin:8px 0 0;font-size:14px">
+        Não é curso em vídeo: app guia na bancada. Quem compra o Método recebe o Painel OS como bônus (oferta atual).
+        <a href="https://metodo.luthieriabaratieri.com.br/metodo-baratieri-app-luthieria" target="_blank"
+          rel="noopener noreferrer">Ver página de vendas</a>
+      </p>
+    </div>
 
     <section class="card">
       <h2>📘 Kit Oficial de Afiliados</h2>
@@ -477,7 +562,7 @@ em um único lugar.</textarea>
 
 
     <section class="card">
-      <h2>ℹ️ Informações Importantes</h2>
+      <h2>ℹ️ Informações Importantes — Método</h2>
       <p>
         O cliente compra pela Hotmart e resgata a licença através de um
         link exclusivo antes de fazer login no aplicativo.
@@ -485,6 +570,75 @@ em um único lugar.</textarea>
       <p>
         Caso tenha dúvidas, entre em contato com o suporte.
       </p>
+    </section>
+
+    <div class="section-label os" id="kit-os">
+      <h2>Materiais — Painel OS Baratieri</h2>
+      <p class="muted" style="margin:8px 0 0;font-size:14px">
+        Produto avulso (R$ 247,00) para gestão de ordens de serviço. Dados no aparelho; backup em JSON.
+        <a href="https://painel.luthieriabaratieri.com.br/painel-os-baratieri" target="_blank"
+          rel="noopener noreferrer">Ver página de vendas do Painel OS</a>
+        · Banners dedicados em breve no Drive — use os textos abaixo com seu link Hotmart do Painel OS.
+      </p>
+    </div>
+
+    <section class="card affiliate-tips">
+      <h2>Como divulgar o Painel OS</h2>
+      <ul class="tip-list">
+        <li>
+          <span class="tip-icon">🔧</span>
+          <div>
+            <strong>Público oficina</strong>
+            <p>Conserto, regulagem, manutenção — fale em <em>ordem de serviço</em>, <em>orçamento</em>,
+              <em>antes e depois</em>, <em>kanban da oficina</em>.</p>
+          </div>
+        </li>
+        <li>
+          <span class="tip-icon">⚠️</span>
+          <div>
+            <strong>Transparência</strong>
+            <p>Dados ficam no navegador/aparelho do usuário. Não prometa nuvem automática nem “sync entre celulares”.</p>
+          </div>
+        </li>
+        <li>
+          <span class="tip-icon">🎁</span>
+          <div>
+            <strong>Não confundir com o Método</strong>
+            <p>Quem compra o <em>Método Baratieri</em> já ganha o Painel OS de bônus. Divulgue o OS avulso para quem
+              só quer gestão de serviços.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>✍️ Textos prontos — Painel OS Baratieri</h2>
+      <p class="muted">Substitua <strong>SEU_LINK_DE_AFILIADO</strong> pelo link do produto Painel OS na Hotmart.</p>
+
+      <div class="card" style="margin-top:12px">
+        <h3 class="h3">Post curto (Instagram / WhatsApp)</h3>
+        <textarea readonly class="affiliate-text">Organize sua oficina de lutheria com o Painel OS Baratieri 📋
+
+Entrada do instrumento, orçamento, kanban, fotos antes/depois e controle de pagamentos — no celular, sem mensalidade.
+
+👉 SEU_LINK_DE_AFILIADO</textarea>
+        <button class="btn btn-ghost copy-btn">Copiar texto</button>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3 class="h3">E-mail — modelo oficina</h3>
+        <textarea readonly class="affiliate-text">Assunto: App para ordens de serviço na sua oficina de lutheria
+
+Olá,
+
+Se você atende consertos e manutenção, o Painel OS Baratieri ajuda a organizar cada ordem de serviço: cliente, instrumento, valores, etapas e fotos.
+
+Funciona no celular, pagamento único, sem mensalidade. Os dados ficam no seu aparelho (com opção de backup em JSON).
+
+Conheça:
+SEU_LINK_DE_AFILIADO</textarea>
+        <button class="btn btn-ghost copy-btn">Copiar texto</button>
+      </div>
     </section>
 
   </main>
