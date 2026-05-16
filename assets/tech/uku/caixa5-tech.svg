@@ -1,67 +1,145 @@
-<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, Segoe UI, Roboto, Arial" font-size="12">
- <!-- Moldura -->
+<svg width="880" height="940" viewBox="0 0 680 940" role="img" xmlns="http://www.w3.org/2000/svg" font-family="system-ui, Segoe UI, Roboto, Arial" font-size="12">
+<title>Colagem do fundo — assento do tróculo, ensaio e pressão</title>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
 
- <!-- 1) Ensaio a seco e marcações -->
- <!-- 2) Entalhes e doming -->
- <!-- 3) Colagem e distribuição de pressão -->
- <g>
-  <title>Layer 1</title>
-  <rect x="20" y="20" width="840" height="580" rx="12" class="panel" fill="#f6f1e7" stroke="#c8b596" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_1"/>
-  <text x="40" y="48" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_2">Colagem do fundo — ensaio, entalhes e distribuição de pressão</text>
-  <text x="40" y="84" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_3">1) Ensaio a seco e marcações</text>
-  <g id="svg_4">
-   <rect x="39" y="95" width="360" height="160" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_5"/>
-   <!-- contorno (vista superior simplificada) -->
-   <path d="m69,219c30,-90 270,-90 300,0" class="side" fill="none" stroke="#a9805a" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_6"/>
-   <!-- linings -->
-   <rect x="99" y="189" width="260" height="6" class="lining" fill="#f0e3d3" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_7"/>
-   <rect x="99" y="153" width="260" height="6" class="lining" fill="#f0e3d3" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_8"/>
-   <!-- blocos -->
-   <rect x="211" y="124" width="40" height="20" class="block" fill="#e9eef7" stroke="#94a9d6" vector-effect="non-scaling-stroke" id="svg_9"/>
-   <rect x="209" y="225" width="40" height="20" class="block" fill="#e9eef7" stroke="#94a9d6" vector-effect="non-scaling-stroke" id="svg_10"/>
-   <!-- travessas do fundo (posições) -->
-   <rect x="129" y="165" width="200" height="6" class="brace" fill="#fde9c9" stroke="#e8b36b" vector-effect="non-scaling-stroke" id="svg_11"/>
-   <rect x="159" y="177" width="140" height="6" class="brace" fill="#fde9c9" stroke="#e8b36b" vector-effect="non-scaling-stroke" id="svg_12"/>
-   <!-- legenda -->
-   <text x="45" y="111" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_13">marcar travessas/espelho nos linings/blocos e checar assentos</text>
-   <rect x="37" y="263" width="360" height="20" rx="4" class="labelbox" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_14"/>
-   <text x="44" y="276" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_15">o fundo deve encostar “a seco” sem folgas antes da cola</text>
-  </g>
-  <text x="460" y="84" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_16">2) Entalhes e doming</text>
-  <g id="svg_17">
-   <rect x="454" y="94" width="360" height="160" class="board" fill="#fff" stroke="#c7ae83" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_18"/>
-   <!-- corte lateral mostrando raio -->
-   <path d="m484,208q150,-20 300,0" class="ghost" fill="none" stroke="#bbb" stroke-dasharray="6,4" vector-effect="non-scaling-stroke" id="svg_19"/>
-   <text x="551" y="179" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_20">arqueamento do fundo (doming)</text>
-   <!-- lining com entalhes -->
-   <rect x="494" y="198" width="280" height="10" class="lining" fill="#f0e3d3" stroke="#c7ae83" vector-effect="non-scaling-stroke" id="svg_21"/>
-   <rect x="564" y="198" width="6" height="10" class="ghost" fill="none" stroke="#bbb" stroke-dasharray="6,4" vector-effect="non-scaling-stroke" id="svg_22"/>
-   <rect x="634" y="198" width="6" height="10" class="ghost" fill="none" stroke="#bbb" stroke-dasharray="6,4" vector-effect="non-scaling-stroke" id="svg_23"/>
-   <!-- travessa encaixando -->
-   <rect x="632" y="188" width="10" height="20" class="brace" fill="#fde9c9" stroke="#e8b36b" vector-effect="non-scaling-stroke" id="svg_24"/>
-   <text x="480" y="159" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_25">rebaixos leves nos linings/blocos — travessa entra sem forçar</text>
-   <rect x="454" y="254" width="360" height="20" rx="4" class="labelbox" fill="#fff" stroke="#ddd" vector-effect="non-scaling-stroke" id="svg_26"/>
-   <text x="462" y="268" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_27">apoiar em radius dish/apoio rígido para preservar o arco</text>
-  </g>
-  <text x="41" y="309" class="title" fill="#222" font-weight="700" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_28">3) Colagem e distribuição de pressão</text>
-  <g id="svg_29">
-   <rect stroke="#c7ae83" x="40" y="326" width="780" height="240" class="board" fill="#fff" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_30"/>
-   <!-- fundo (face interna) -->
-   <rect x="80" y="370" width="700" height="140" class="back" fill="#fff" stroke="#909090" vector-effect="non-scaling-stroke" id="svg_31"/>
-   <!-- tacos/ripas -->
-   <rect x="120" y="400" width="120" height="20" class="press" fill="none" stroke="#94a9d6" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_33"/>
-   <rect x="260" y="400" width="120" height="20" class="press" fill="none" stroke="#94a9d6" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_34"/>
-   <rect x="400" y="400" width="120" height="20" class="press" fill="none" stroke="#94a9d6" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_35"/>
-   <rect x="540" y="400" width="120" height="20" class="press" fill="none" stroke="#94a9d6" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_36"/>
-   <rect x="680" y="400" width="80" height="20" class="press" fill="none" stroke="#94a9d6" stroke-width="2" vector-effect="non-scaling-stroke" id="svg_37"/>
-   <text x="120" y="440" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_38">do centro para as bordas • pressão distribuída</text>
-   <!-- go-bar (exemplo) -->
-   <line x1="140" y1="350" x2="140" y2="400" class="gobar" stroke="#7aa27a" stroke-width="3" vector-effect="non-scaling-stroke" id="svg_39"/>
-   <line x1="220" y1="350" x2="220" y2="400" class="gobar" stroke="#7aa27a" stroke-width="3" vector-effect="non-scaling-stroke" id="svg_40"/>
-   <text x="132" y="346" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_41">go-bar deck (opcional)</text>
-   <!-- observações -->
-   <rect stroke="#ddd" x="61" y="528" width="409.00002" height="20" rx="4" class="labelbox" fill="#fff" vector-effect="non-scaling-stroke" id="svg_42"/>
-   <text x="81" y="542" class="note" fill="#333" paint-order="stroke fill" stroke="#fff" stroke-width="2px" id="svg_43">papel antiaderente; filme fino de cola; limpar escorridos ainda úmidos</text>
-  </g>
- </g>
+<rect width="680" height="940" fill="#ffffff"/>
+
+<!-- PAINEL 1 -->
+<text x="44" y="28" font-size="13" font-weight="600" fill="#222">1 · Assento do tróculo — rebaixo inclinado (corte lateral)</text>
+
+<path d="M94 100 Q320 78 526 100" fill="none" stroke="#378ADD" stroke-width="2"/>
+<text x="340" y="70" text-anchor="middle" font-size="10" fill="#378ADD">fundo (arqueado — doming)</text>
+
+<rect x="294" y="88" width="52" height="110" rx="4" fill="#d0e8f8" stroke="#bbb" stroke-width="1" opacity="0.8"/>
+<text x="320" y="148" text-anchor="middle" font-size="10" fill="#185FA5">tróculo</text>
+
+<line x1="294" y1="104" x2="346" y2="104" stroke="#D85A30" stroke-width="1.2" stroke-dasharray="5 3"/>
+<line x1="294" y1="108" x2="346" y2="98" stroke="#1D9E75" stroke-width="2"/>
+
+<line x1="354" y1="98" x2="354" y2="104" stroke="#aaa" stroke-width="0.8" stroke-dasharray="3 2"/>
+<line x1="348" y1="98" x2="360" y2="98" stroke="#aaa" stroke-width="0.8"/>
+<line x1="348" y1="104" x2="360" y2="104" stroke="#aaa" stroke-width="0.8"/>
+<text x="363" y="104" font-size="9" fill="#666">2–4 mm</text>
+
+<!-- Label ERRADO -->
+<line x1="310" y1="104" x2="220" y2="145" stroke="#D85A30" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="155" y="152" text-anchor="middle" font-size="10" fill="#D85A30">✗ horizontal (errado)</text>
+
+<!-- Label CORRETO — deslocado mais à esquerda -->
+<line x1="320" y1="98" x2="390" y2="145" stroke="#1D9E75" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="420" y="152" text-anchor="middle" font-size="10" fill="#1D9E75">✓ inclinado (correto)</text>
+
+<rect x="80" y="100" width="14" height="90" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<rect x="526" y="100" width="14" height="90" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="66" y="148" text-anchor="end" font-size="9" fill="#aaa">faixa</text>
+
+<rect x="94" y="104" width="28" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.5"/>
+<rect x="498" y="104" width="28" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.5"/>
+
+<rect x="80" y="190" width="520" height="12" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="340" y="214" text-anchor="middle" font-size="10" fill="#aaa">tampo (fixo na solera)</text>
+
+<rect x="44" y="222" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="237" font-size="11" fill="#555">Rebaixo não horizontal — acompanha o arqueamento do fundo · Fundo deve assentar sem forçar antes da colagem</text>
+
+<!-- PAINEL 2 -->
+<text x="44" y="270" font-size="13" font-weight="600" fill="#222">2 · Ensaio a seco do fundo — marcações (vista superior)</text>
+
+<path d="M170 322 Q170 288 310 288 Q450 288 450 322 L450 360 Q450 374 436 380 Q450 386 450 402 Q450 472 310 472 Q170 472 170 402 Q170 386 184 380 Q170 374 170 360 Z"
+  fill="#f5f3ee" stroke="#bbb" stroke-width="1.2"/>
+<path d="M178 322 Q178 296 310 296 Q442 296 442 322 L442 358 Q442 370 430 376 Q442 382 442 402 Q442 464 310 464 Q178 464 178 402 Q178 382 190 376 Q178 370 178 358 Z"
+  fill="none" stroke="#aaa" stroke-width="3" opacity="0.35"/>
+
+<rect x="286" y="288" width="48" height="22" rx="3" fill="#d0e8f8" stroke="#bbb" stroke-width="0.8" opacity="0.8"/>
+<text x="310" y="303" text-anchor="middle" font-size="10" fill="#185FA5">tróculo</text>
+
+<rect x="286" y="454" width="48" height="18" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="0.8"/>
+<text x="310" y="467" text-anchor="middle" font-size="10" fill="#666">culatra</text>
+
+<rect x="192" y="334" width="236" height="7" rx="2" fill="#EF9F27" opacity="0.8"/>
+<rect x="208" y="352" width="204" height="7" rx="2" fill="#EF9F27" opacity="0.65"/>
+<rect x="208" y="404" width="204" height="7" rx="2" fill="#EF9F27" opacity="0.65"/>
+<rect x="192" y="422" width="236" height="7" rx="2" fill="#EF9F27" opacity="0.8"/>
+
+<rect x="306" y="310" width="8" height="148" rx="2" fill="#9FE1CB" stroke="#0F6E56" stroke-width="0.8" opacity="0.8"/>
+<text x="468" y="386" font-size="10" fill="#0F6E56">espelho central</text>
+<line x1="464" y1="383" x2="316" y2="384" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="468" y="398" font-size="10" fill="#aaa">(reforço long. do fundo)</text>
+
+<line x1="310" y1="284" x2="310" y2="476" stroke="#1D9E75" stroke-width="1.2" stroke-dasharray="5 3" opacity="0.6"/>
+
+<line x1="192" y1="328" x2="192" y2="346" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+<line x1="428" y1="328" x2="428" y2="346" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+<line x1="208" y1="346" x2="208" y2="364" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+<line x1="412" y1="346" x2="412" y2="364" stroke="#BA7517" stroke-width="1" opacity="0.8"/>
+
+<line x1="430" y1="338" x2="455" y2="326" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="457" y="324" font-size="10" fill="#BA7517">travessas + marcações</text>
+<text x="457" y="336" font-size="10" fill="#aaa">nos linings</text>
+
+<line x1="178" y1="296" x2="442" y2="464" stroke="#aaa" stroke-width="0.6" stroke-dasharray="4 4" opacity="0.4"/>
+<line x1="442" y1="296" x2="178" y2="464" stroke="#aaa" stroke-width="0.6" stroke-dasharray="4 4" opacity="0.4"/>
+<text x="160" y="486" font-size="9" fill="#aaa">diagonais iguais = sem torção</text>
+
+<rect x="44" y="492" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="507" font-size="11" fill="#555">Centro alinhado · Travessas tocando por gravidade · Diagonais iguais (sem torção) · Fundo acomodado no tróculo</text>
+
+<!-- PAINEL 3 -->
+<text x="44" y="542" font-size="13" font-weight="600" fill="#222">3 · Distribuição de pressão — spool clamps (corte lateral)</text>
+<text x="310" y="562" text-anchor="middle" font-size="9" fill="#aaa">① tróculo/culatra  ② cintura  ③ bojo inf.  ④ bojo sup.</text>
+<text x="310" y="582" text-anchor="middle" font-size="10" fill="#666">spool clamps (~60–80 mm)</text>
+
+<line x1="150" y1="592" x2="150" y2="650" stroke="#666" stroke-width="1.5"/>
+<ellipse cx="150" cy="592" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<ellipse cx="150" cy="650" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+
+<line x1="230" y1="588" x2="230" y2="646" stroke="#666" stroke-width="1.5"/>
+<ellipse cx="230" cy="588" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<ellipse cx="230" cy="646" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+
+<line x1="310" y1="586" x2="310" y2="644" stroke="#666" stroke-width="1.5"/>
+<ellipse cx="310" cy="586" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<ellipse cx="310" cy="644" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+
+<line x1="390" y1="588" x2="390" y2="646" stroke="#666" stroke-width="1.5"/>
+<ellipse cx="390" cy="588" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<ellipse cx="390" cy="646" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+
+<line x1="470" y1="592" x2="470" y2="650" stroke="#666" stroke-width="1.5"/>
+<ellipse cx="470" cy="592" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<ellipse cx="470" cy="650" rx="10" ry="5" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+
+<line x1="150" y1="610" x2="150" y2="628" stroke="#D85A30" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrow)" opacity="0.6"/>
+<line x1="310" y1="606" x2="310" y2="624" stroke="#D85A30" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrow)" opacity="0.6"/>
+<line x1="470" y1="610" x2="470" y2="628" stroke="#D85A30" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#arrow)" opacity="0.6"/>
+<text x="56" y="614" font-size="10" fill="#D85A30">pressão ↓</text>
+<text x="56" y="626" font-size="10" fill="#D85A30">centro→bordas</text>
+
+<path d="M90 644 Q310 622 530 644" fill="#fff" stroke="#bbb" stroke-width="1.2"/>
+<text x="310" y="618" text-anchor="middle" font-size="10" fill="#666">fundo (arqueado)</text>
+
+<rect x="90" y="644" width="14" height="74" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<rect x="516" y="644" width="14" height="74" rx="3" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="75" y="682" text-anchor="end" font-size="9" fill="#aaa">faixa</text>
+
+<rect x="104" y="648" width="26" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.5" opacity="0.8"/>
+<rect x="490" y="648" width="26" height="10" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.5" opacity="0.8"/>
+
+<rect x="104" y="644" width="26" height="2" fill="#EF9F27" opacity="0.8"/>
+<rect x="490" y="644" width="26" height="2" fill="#EF9F27" opacity="0.8"/>
+<line x1="518" y1="645" x2="538" y2="636" stroke="#aaa" stroke-width="0.5" stroke-dasharray="3 3"/>
+<text x="540" y="634" font-size="9" fill="#BA7517">filme de cola</text>
+
+<rect x="90" y="718" width="440" height="12" rx="2" fill="#f0ede6" stroke="#bbb" stroke-width="0.8" opacity="0.6"/>
+<text x="56" y="726" text-anchor="end" font-size="9" fill="#aaa">tampo</text>
+
+<rect x="60" y="740" width="560" height="14" rx="4" fill="#f0ede6" stroke="#bbb" stroke-width="1"/>
+<text x="340" y="766" text-anchor="middle" font-size="10" fill="#aaa">solera</text>
+
+<rect x="44" y="778" width="592" height="22" rx="4" fill="#f0ede6" stroke="#ddd" stroke-width="0.5"/>
+<text x="56" y="793" font-size="11" fill="#555">Spool clamps, go-bar deck ou ripas com corda · Não achatar o doming · Curar 12–24 h · Refilar após cura</text>
 </svg>

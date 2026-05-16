@@ -1,6 +1,18 @@
 {
   "images": [
     {
+      "thumb": "thumbs/caixa5-1.webp",
+      "full": "full/caixa5-1.webp"
+    },
+    {
+      "thumb": "thumbs/caixa5-1a.webp",
+      "full": "full/caixa5-1a.webp"
+    },
+    {
+      "thumb": "thumbs/caixa5-1b.webp",
+      "full": "full/caixa5-1b.webp"
+    },
+    {
       "thumb": "thumbs/caixa5-001.webp",
       "full": "full/caixa5-001.webp"
     },
