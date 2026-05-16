@@ -106,6 +106,46 @@
       height: 60px;
     }
 
+    .cta-top {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .cta-bonus-kicker {
+      margin: 0;
+      font-size: 12px;
+      font-weight: 600;
+      color: #a7f3d0;
+      line-height: 1.35;
+      text-align: center;
+      max-width: 22rem;
+    }
+
+    .cta-bonus-kicker s {
+      color: #d1fae5;
+      text-decoration-thickness: 2px;
+      text-decoration-color: rgba(248, 113, 113, 0.55);
+    }
+
+    .nav .cta-bonus-kicker {
+      text-align: right;
+      max-width: 14rem;
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .nav .cta-bonus-kicker s {
+      color: #cbd5e1;
+    }
+
+    .hero .cta-bonus-kicker {
+      margin-top: 8px;
+      text-align: left;
+      max-width: 26rem;
+    }
+
     /* Buttons */
     .btn {
       display: inline-block;
@@ -692,35 +732,57 @@
       line-height: 1.45;
     }
 
+    .card.card--bonus {
+      border-color: rgba(16, 185, 129, 0.38);
+      box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.12),
+        0 8px 28px rgba(16, 185, 129, 0.1),
+        0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
     .bonus-value-bar {
       display: flex;
       align-items: center;
       gap: 20px;
       flex-wrap: wrap;
-      background: rgba(16, 185, 129, 0.07);
-      border: 1px solid rgba(16, 185, 129, 0.25);
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.14), rgba(99, 102, 241, 0.08));
+      border: 1px solid rgba(16, 185, 129, 0.45);
       border-radius: 14px;
-      padding: 18px 22px;
+      padding: 20px 22px;
       margin-bottom: 10px;
     }
 
     .bonus-value-bar .bvb-label {
-      font-size: 12px;
-      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #6ee7b7;
       line-height: 1.35;
     }
 
-    .bonus-value-bar .bvb-price {
-      font-size: 24px;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
+    .bvb-value-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      min-width: 132px;
     }
 
-    .bonus-value-bar .bvb-price s {
-      color: var(--muted);
-      font-size: 16px;
-      font-weight: 400;
+    .bonus-value-bar .bvb-anchor {
+      margin: 0;
+      font-size: clamp(1.5rem, 4.2vw, 2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #f8fafc;
+      line-height: 1.05;
+    }
+
+    .bonus-value-bar .bvb-anchor s {
+      font-size: inherit;
+      font-weight: inherit;
+      color: #ecfdf5;
+      text-decoration-thickness: 2px;
+      text-decoration-color: rgba(248, 113, 113, 0.65);
     }
 
     .bonus-value-bar .bvb-desc {
@@ -732,14 +794,15 @@
     }
 
     .bonus-value-bar .bvb-pill {
-      background: #10b981;
-      color: #053a27;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #052e1f;
       font-size: 12px;
       font-weight: 800;
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 999px;
       white-space: nowrap;
       letter-spacing: 0.03em;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
     }
 
     .bonus-disclaimer {
@@ -762,6 +825,7 @@
         <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
           Quero acesso vitalício
         </a>
+        <p class="cta-bonus-kicker"><strong>Bônus:</strong> Painel OS Baratieri · <s>R$ 247,00</s> incluso</p>
       </div>
     </div>
   </nav>
@@ -789,6 +853,7 @@
           <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
             👉 Quero acesso vitalício
           </a>
+          <p class="cta-bonus-kicker"><strong>Bônus:</strong> Painel OS Baratieri · <s>R$ 247,00</s> incluso</p>
         </div>
 
         <p class="muted" style="margin-top:8px">
@@ -1268,7 +1333,7 @@
     <!-- =============================== -->
     <!-- BÔNUS — Painel OS Baratieri    -->
     <!-- =============================== -->
-    <section class="card" aria-labelledby="bonus-title">
+    <section class="card card--bonus" aria-labelledby="bonus-title">
 
       <div class="bonus-badge">🎁 Bônus exclusivo</div>
 
@@ -1366,9 +1431,9 @@
       </div>
 
       <div class="bonus-value-bar">
-        <div>
+        <div class="bvb-value-col">
           <div class="bvb-label">Valor separado</div>
-          <div class="bvb-price"><s>R$ 197</s></div>
+          <p class="bvb-anchor"><s>R$ 247,00</s></p>
         </div>
         <div class="bvb-desc">
           Incluso <strong>gratuitamente</strong> para quem adquire o Método Baratieri
@@ -1391,15 +1456,17 @@
     <section class="card" style="text-align:center">
       <h2>Acesso vitalício</h2>
       <p style="font-size:26px;font-weight:800">
-        <s>R$ 497</s><br>R$ 319,90
+        <s>R$ 497</s><br>R$ 397,00
       </p>
       <p>Pagamento único • acesso para sempre</p>
       <p class="muted" style="margin-top:10px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.5">
-        Inclui bônus: <strong>Painel OS Baratieri</strong> — gestão de ordens de serviço, sem mensalidade.
+        Inclui bônus <strong>Painel OS Baratieri</strong> — valor de referência <s>R$ 247,00</s> incluso · gestão de
+        ordens de serviço, sem mensalidade.
       </p>
       <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
         Quero acesso vitalício
       </a>
+      <p class="cta-bonus-kicker" style="margin-top:12px"><strong>Bônus:</strong> Painel OS Baratieri · <s>R$ 247,00</s> incluso</p>
     </section>
 
 
@@ -1427,6 +1494,7 @@
       <a class="btn btn-primary" href="https://pay.hotmart.com/T102449346T" target="_blank">
         👉 Garantir acesso agora
       </a>
+      <p class="cta-bonus-kicker" style="margin-top:12px"><strong>Bônus:</strong> Painel OS Baratieri · <s>R$ 247,00</s> incluso</p>
     </section>
 
 
