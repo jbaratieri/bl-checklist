@@ -1,78 +1,135 @@
-<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
- <defs>
-  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-e3">
-   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
-  </marker>
- </defs>
- <!-- Moldura -->
- <!-- 1) Preparação & máscara -->
- <!-- 2) Pinos-guia pelos slots -->
- <!-- 3) Grampos + taco interno -->
- <!-- 4) Limpeza & cura -->
- <g>
-  <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
-  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Colagem da escala — máscara, pinos-guia, grampeamento e limpeza</text>
-  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Preparação &amp; máscara</text>
-  <g id="svg_5">
-   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="92" x="39"/>
-   <!-- tampa + faixa lixada -->
-   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" height="10" width="280" y="170" x="79"/>
-   <!-- máscara lateral na tampa -->
-   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="6" width="280" y="154" x="79"/>
-   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="6" width="280" y="184" x="79"/>
-   <!-- escala sobre a tampa -->
-   <rect id="svg_10" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="32" width="200" y="156" x="119"/>
-   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="200" y="156" x="119"/>
-   <rect id="svg_12" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="200" y="185" x="119"/>
-   <text id="svg_13" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="130" x="85">lixar 40 mm de cada lado • fita baixa aderência</text>
-   <rect id="svg_14" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="252" x="39"/>
-   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="266" x="47">batentes laterais encostam nas fitas para impedir deslizamento</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg-canvas { fill: #f7f4eb; }
+      .bg-panel { fill: #ffffff; stroke: #c8bca6; stroke-width: 1.5; rx: 6; }
+      .text-title { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: bold; fill: #4a3e3d; }
+      .text-step { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: bold; fill: #5c5146; }
+      .text-label { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; fill: #6b5b52; text-anchor: middle; }
+      .text-badge { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; fill: #ffffff; font-weight: bold; }
+      
+      /* Cores da Luthieria */
+      .wood-dark { fill: #3d2b1f; stroke: #261a13; stroke-width: 1; }      /* Escala (Ébano/Jacarandá) */
+      .wood-light { fill: #e5c199; stroke: #c2996e; stroke-width: 1; }     /* Braço / Tampo */
+      .wood-caixa { fill: #d2a374; stroke: #b08255; stroke-width: 1; }     /* Corpo/Tampo Interno */
+      .fita-adesiva { fill: #5c9eff; fill-opacity: 0.6; stroke: #4183e6; stroke-width: 1; } /* Fita Crepe Azul */
+      .metal { fill: #b0b8c0; stroke: #78828c; stroke-width: 1; }          /* Grampos e Brocas */
+      .alerta { fill: #d9534f; }                                            /* Destaques de atenção */
+      
+      /* Linhas Auxiliares */
+      .linha-guia { stroke: #d9534f; stroke-width: 1; stroke-dasharray: 3,3; }
+      .seta { stroke: #5c5146; stroke-width: 1.5; fill: #5c5146; }
+    </style>
+    
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#5c5146"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 10 5 L 0 9 z" fill="#d9534f"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="700" class="bg-canvas" />
+
+  <text x="30" y="40" class="text-title">Colagem da Escala — Passo a Passo Técnico</text>
+  <line x1="30" y1="50" x2="870" y2="50" stroke="#c8bca6" stroke-width="1" />
+
+  <g transform="translate(30, 70)">
+    <rect width="405" height="260" class="bg-panel" />
+    <text x="15" y="25" class="text-step">1) Preparação &amp; Máscara (Vista Superior)</text>
+    
+    <path d="M 280 90 C 330 90, 380 110, 380 150 C 380 190, 330 210, 280 210 Z" class="wood-caixa" />
+    <circle cx="310" cy="150" r="25" fill="#261a13" stroke="#b08255" stroke-width="2" />
+    
+    <rect x="30" y="125" width="250" height="50" class="wood-light" />
+    <polygon points="30,125 15,115 15,185 30,175" class="wood-light" /> <rect x="280" y="110" width="45" height="15" class="fita-adesiva" />
+    <rect x="280" y="175" width="45" height="15" class="fita-adesiva" />
+    
+    <line x1="280" y1="75" x2="325" y2="75" stroke="#d9534f" stroke-width="1.5" marker-start="url(#arrow-red)" marker-end="url(#arrow-red)" />
+    <text x="302" y="70" class="text-label" style="fill: #d9534f; font-weight: bold;">Lixar 40 mm</text>
+    <line x1="280" y1="75" x2="280" y2="110" class="linha-guia" />
+    <line x1="325" y1="75" x2="325" y2="110" class="linha-guia" />
+
+    <rect x="100" y="110" width="120" height="10" fill="#a07850" stroke="#705030" />
+    <rect x="100" y="180" width="120" height="10" fill="#a07850" stroke="#705030" />
+    
+    <text x="160" y="235" class="text-label">Batentes laterais travam o alinhamento</text>
   </g>
-  <text style="cursor: move;" id="svg_16" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="477">2) Pinos-guia pelos slots</text>
-  <g id="svg_17">
-   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="97" x="473"/>
-   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="28" width="240" y="151" x="533"/>
-   <!-- slots (alguns) -->
-   <line id="svg_20" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="553" y1="151" x1="553"/>
-   <line id="svg_21" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="593" y1="151" x1="593"/>
-   <line id="svg_22" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="673" y1="151" x1="673"/>
-   <line id="svg_23" vector-effect="non-scaling-stroke" stroke="#888" class="fret" y2="179" x2="733" y1="151" x1="733"/>
-   <!-- pinos em 1 e 12 -->
-   <circle id="svg_24" vector-effect="non-scaling-stroke" stroke="#666" fill="#999" class="pin" r="3" cy="165" cx="553"/>
-   <circle id="svg_25" vector-effect="non-scaling-stroke" stroke="#666" fill="#999" class="pin" r="3" cy="165" cx="673"/>
-   <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="135" x="541">fure cerca de 1,5 mm nos slots (1ª e 12ª)</text>
-   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="257" x="473"/>
-   <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="481">pinos travam a escala na posição durante a colagem</text>
+
+  <g transform="translate(465, 70)">
+    <rect width="405" height="260" class="bg-panel" />
+    <text x="15" y="25" class="text-step">2) Pinos-guia nos Slots (1ª e 12ª Casa)</text>
+    
+    <rect x="40" y="110" width="320" height="60" class="wood-dark" />
+    
+    <line x1="75" y1="110" x2="75" y2="170" stroke="#78828c" stroke-width="1.5" /> <line x1="115" y1="110" x2="115" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="150" y1="110" x2="150" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="182" y1="110" x2="182" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="211" y1="110" x2="211" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="238" y1="110" x2="238" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="263" y1="110" x2="263" y2="170" stroke="#78828c" stroke-width="1.5" /> <line x1="286" y1="110" x2="286" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="307" y1="110" x2="307" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="326" y1="110" x2="326" y2="170" stroke="#555" stroke-width="1" />
+    <line x1="343" y1="110" x2="343" y2="170" stroke="#555" stroke-width="1" />
+
+    <circle cx="75" cy="140" r="4" class="metal" />
+    <circle cx="75" cy="140" r="8" fill="none" stroke="#d9534f" stroke-width="1.5" />
+    <text x="75" y="95" class="text-label" style="fill:#d9534f; font-weight:bold;">1ª Casa</text>
+    
+    <circle cx="263" cy="140" r="4" class="metal" />
+    <circle cx="263" cy="140" r="8" fill="none" stroke="#d9534f" stroke-width="1.5" />
+    <text x="263" y="95" class="text-label" style="fill:#d9534f; font-weight:bold;">12ª Casa</text>
+
+    <text x="200" y="215" class="text-label">Fure ~1,5mm dentro do sulco do traste</text>
+    <text x="200" y="235" class="text-label">Pinos impedem a escala de dançar com a cola</text>
   </g>
-  <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Grampos &amp; taco interno</text>
-  <g id="svg_30">
-   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="321" x="26"/>
-   <!-- braço -->
-   <rect id="svg_32" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" height="16" width="280" y="391" x="66"/>
-   <!-- escala -->
-   <rect id="svg_33" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="24" width="240" y="387" x="86"/>
-   <!-- cola -->
-   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="glue" height="6" width="240" y="381" x="86"/>
-   <!-- taco interno (pela boca) -->
-   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#eee" class="caul" height="10" width="100" y="367" x="106"/>
-   <line id="svg_36" vector-effect="non-scaling-stroke" marker-end="url(#arr-e3)" stroke-width="2" stroke="#666" class="arrow" y2="357" x2="156" y1="367" x1="156"/>
-   <text id="svg_37" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="353" x="116">taco interno mais alto que a barra</text>
-   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="481" x="26"/>
-   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="495" x="34">sequência: boca → tacão → intermediários; limpeza imediata do excesso de cola</text>
+
+  <g transform="translate(30, 360)">
+    <rect width="405" height="260" class="bg-panel" />
+    <text x="15" y="25" class="text-step">3) Proteção Interna &amp; Prensagem (Perfil)</text>
+
+    <rect x="220" y="150" width="160" height="8" class="wood-caixa" />
+    
+    <rect x="270" y="158" width="15" height="20" fill="#c2996e" stroke="#9e764f" />
+    <text x="278" y="193" class="text-label" style="font-size: 10px;">Barra</text>
+
+    <rect x="235" y="158" width="30" height="35" fill="#e0dacb" stroke="#a69f8e" rx="2" />
+    <line x1="240" y1="180" x2="265" y2="180" stroke="#d9534f" stroke-width="1" marker-end="url(#arrow-red)"/>
+    
+    <rect x="40" y="130" width="180" height="20" class="wood-light" />
+    <path d="M 180 150 L 220 150 L 220 185 C 200 185, 180 170, 180 150 Z" class="wood-light" />
+
+    <rect x="50" y="122" width="200" height="8" class="wood-dark" />
+    
+    <line x1="50" y1="130" x2="220" y2="130" stroke="#f0ad4e" stroke-width="1.5" />
+
+    <g transform="translate(240, 75)">
+      <line x1="10" y1="0" x2="10" y2="35" class="seta" marker-end="url(#arrow)" />
+      <line x1="10" y1="85" x2="10" y2="50" class="seta" marker-end="url(#arrow)" />
+      <text x="10" y="-5" class="text-label" style="font-weight:bold; fill:#d9534f;">Grampo</text>
+    </g>
+    
+    <text x="135" y="225" class="text-label" style="text-anchor: start; font-weight: bold; fill: #b85c00;">Taco interno apoia a prensa</text>
+    <text x="135" y="242" class="text-label" style="text-anchor: start;">sem esmagar a barra transversal.</text>
   </g>
-  <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="301" x="476">4) Limpeza &amp; cura</text>
-  <g id="svg_41">
-   <rect id="svg_42" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="322" x="478"/>
-   <!-- fitas sendo retiradas -->
-   <rect id="svg_43" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f7efe2" class="wood" rx="3" height="24" width="240" y="388" x="538"/>
-   <rect id="svg_44" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="240" y="386" x="538"/>
-   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e6f0ff" class="mask" height="3" width="240" y="412" x="538"/>
-   <path id="svg_46" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m538,386l30,-10"/>
-   <path id="svg_47" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m778,415l-30,10"/>
-   <text id="svg_48" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="360" x="550">retire fitas devagar; formão fino remove rebarbas</text>
-   <rect id="svg_49" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="482" x="478"/>
-   <text id="svg_50" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="496" x="486">cura 12–24 h; confira marcas de alinhamento após desprensão</text>
+
+  <g transform="translate(465, 360)">
+    <rect width="405" height="260" class="bg-panel" />
+    <text x="15" y="25" class="text-step">4) Limpeza, Remoção da Fita &amp; Cura</text>
+
+    <rect x="60" y="130" width="260" height="35" class="wood-light" />
+    <rect x="60" y="118" width="260" height="12" class="wood-dark" />
+
+    <path d="M 320 130 L 350 130 C 360 130, 375 115, 370 95" fill="none" stroke="#4183e6" stroke-width="4" stroke-linecap="round" />
+    <line x1="355" y1="125" x2="340" y2="110" class="seta" marker-end="url(#arrow)" />
+
+    <circle cx="80" cy="130" r="12" fill="#e0f0ff" stroke="#a0c0e0" opacity="0.8" />
+    <path d="M 72 133 Q 80 120 88 133" fill="none" stroke="#4183e6" stroke-width="1.5" />
+    <text x="115" y="148" class="text-label" style="font-size:11px; fill:#2060a0;">Limpar squeeze-out</text>
+
+    <rect x="140" y="180" width="130" height="30" fill="#5cb85c" rx="4" />
+    <text x="205" y="200" class="text-badge" text-anchor="middle">CURA: 12 a 24 HORAS</text>
+
+    <text x="200" y="240" class="text-label">Puxe a fita devagar. Use formão se houver rebarba.</text>
   </g>
- </g>
 </svg>

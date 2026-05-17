@@ -1,47 +1,94 @@
-<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="3.5" refX="5.2" markerHeight="7" markerWidth="7" id="arr">
-   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 7,3.5 0,7"/>
+  <marker orient="auto-start-reverse" markerHeight="5" markerWidth="5" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-pressure">
+   <path id="svg_1" fill="#d9534f" d="m0,0l10,5l-10,5l0,-10z"/>
+  </marker>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-action">
+   <path id="svg_2" fill="#5c5146" d="m0,1l10,4l-10,4l0,-8z"/>
   </marker>
  </defs>
- <!-- Tampo, linha central e boca -->
- <!-- Tacos, barra e forças -->
- <!-- notas -->
  <g>
   <title>Layer 1</title>
-  <rect stroke="#c8b596" id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" fill="#f6f1e7" class="panel" rx="12" height="567" width="840" y="33" x="20"/>
-  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="68" x="59">Colagem do cavalete — máscara, alinhamento e prensagem</text>
-  <g id="svg_4">
-   <rect id="svg_5" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="top" rx="18" height="320" width="800" y="88" x="47"/>
-   <line id="svg_6" vector-effect="non-scaling-stroke" fill="none" stroke-dasharray="6,4" stroke="#888" class="center" y2="404" x2="447" y1="84" x1="447"/>
-   <text id="svg_7" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="102" x="455">linha central</text>
-   <circle id="svg_8" vector-effect="non-scaling-stroke" stroke="#aaa" fill="#eee" r="45" cy="269" cx="550"/>
-   <!-- máscara da área de cola -->
-   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#8da4d8" fill="#eaf1ff" class="mask" height="36" width="80" y="297" x="407"/>
-   <!-- cavalete e selleta -->
-   <rect id="svg_11" vector-effect="non-scaling-stroke" stroke="#111" fill="#2b2b2b" rx="3" class="bridge" height="24" width="72" y="301" x="411"/>
-   <rect id="svg_12" vector-effect="non-scaling-stroke" stroke="#777" fill="#ddd" class="saddle" height="4" width="60" y="313" x="417"/>
-   <!-- linha da selleta (com compensação) -->
+  <rect id="svg_3" fill="#fdfaf3" class="bg-canvas" height="700" width="900"/>
+  <text id="svg_4" fill="#4a3e3d" font-weight="bold" font-size="20px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-main-title" y="40" x="30">Colagem do Cavalete — Montagem do Sanduíche de Prensagem</text>
+  <rect id="svg_5" rx="4" stroke="#f0ad4e" fill="#fff7eb" height="28" width="840" y="52" x="30"/>
+  <text transform="matrix(0.833917 0 0 1 7.47372 0)" stroke="null" id="svg_6" font-weight="bold" fill="#a06000" font-style="italic" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-model-note" y="70" x="45">⚠️ Nota técnica: Gráficos baseados nas proporções de um Violão Clássico. Para Cavaquinho, Viola ou Ukulele, consulte a rigidez do bracing interno descrita nos callouts.</text>
+  <g id="svg_7">
+   <rect id="svg_8" x="30" y="95" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_9" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="50">1) Preparação Física das Superfícies</text>
+   <rect id="svg_10" stroke="#261a13" fill="#3d2b1f" class="wood-dark" height="40" width="250" y="205" x="105"/>
+   <path id="svg_11" opacity="0.4" stroke-width="0.8" stroke="#ffffff" d="m115,210l20,30m0,-30l-20,30m40,-30l20,30m0,-30l-20,30m40,-30l20,30m0,-30l-20,30m40,-30l20,30m0,-30l-20,30m40,-30l20,30m0,-30l-20,30m40,-30l20,30m0,-30l-20,30"/>
+   <text id="svg_12" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="187" x="230">Micro-hachuras (X) com estilete/formão</text>
+   <g id="svg_13">
+    <line id="svg_14" stroke-width="3" stroke="#78828c" y2="285" x2="226" y1="245" x1="226"/>
+    <path id="svg_15" fill="#555" d="m222,285l8,0l-4,6l-4,-6z"/>
+    <text id="svg_16" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" fill="#6b5b52" font-size="12px" class="text-label" y="270" x="291">Limpeza manual furos</text>
+   </g>
+   <text id="svg_17" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="314" x="370">
+    <tspan id="svg_18" dy="0" x="213">Limpe os resíduos dos furos e remova a máscara antiga.</tspan>
+    <tspan id="svg_19" dy="16" x="213">Crie ranhuras cruzadas para maximizar a ancoragem da cola.</tspan>
+   </text>
   </g>
-  <g id="svg_15">
-   <!-- taco superior (sobre o cavalete) -->
-   <rect id="svg_16" vector-effect="non-scaling-stroke" stroke="#b8a98f" fill="#f2efe9" class="caul" rx="4" height="40" width="76" y="249" x="411"/>
-   <text id="svg_17" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="273" x="415">taco superior</text>
-   <!-- barra longa até o braço -->
-   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke="#b19f7a" fill="#e9e3d8" class="bar" height="18" width="220" y="161" x="389"/>
-   <!-- apoio interno sob a boca (taco interno) -->
-   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke-dasharray="5,4" stroke="#ccbfa6" fill="#f9f7f3" class="inside" rx="6" height="50" width="120" y="242" x="538"/>
-   <text id="svg_21" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="271" x="557">apoio interno</text>
-   <!-- setas de pressão dos três grampos -->
-   <line id="svg_22" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#d06" class="push" y2="243" x2="449" y1="151" x1="449"/>
-   <line id="svg_23" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#d06" class="push" y2="249" x2="429" y1="151" x1="421"/>
-   <line id="svg_24" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" stroke="#d06" class="push" y2="249" x2="469" y1="151" x1="477"/>
-   <text id="svg_25" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="141" x="404">pressão gradual</text>
+  <g id="svg_20">
+   <rect id="svg_21" x="465" y="95" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_22" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="485">2) Alinhamento e Moldura Antideslize</text>
+   <line id="svg_23" stroke-dasharray="6,4" stroke-width="1.2" stroke="#d9534f" class="linha-eixo" y2="290" x2="667" y1="140" x1="667"/>
+   <rect id="svg_24" stroke-width="1.2" stroke="#ded49d" fill="#fcf4cf" opacity="0.4" class="tape-mask" height="70" width="205" y="190" x="565"/>
+   <rect id="svg_25" stroke-dasharray="2,2" stroke="#d9534f" fill="#ffffff" height="30" width="180" y="210" x="577"/>
+   <text id="svg_26" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="180" x="667">Fita Crepe (Controle de Squeeze-out)</text>
+   <g id="svg_27">
+    <rect stroke="#f0ad4e" id="svg_28" x="588" y="214" opacity="0.9" stroke-width="0.8" fill="#f0ad4e" rx="2" class="glue-layer" height="15" width="159"/>
+    <text transform="matrix(0.91087 0 0 0.926845 59.045 15.7938)" stroke="null" id="svg_29" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="227" x="668">Filme contínuo e fino de cola</text>
+   </g>
+   <text id="svg_30" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="316" x="809">
+    <tspan id="svg_31" dy="0" x="652">Proteja o entorno com fita rente à área de colagem.</tspan>
+    <tspan id="svg_32" dy="16" x="652">A fita serve de barreira física contra o deslize do cavalete.</tspan>
+   </text>
   </g>
-  <g id="svg_26">
-   <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" height="150" width="800" y="430" x="40"/>
-   <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="454" x="52">1) alinhar ao eixo e à linha da selleta; 2) filme fino de cola; 3) prensar: centro → aletas; 4) vigiar squeeze-out;</text>
-   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="474" x="52">5) cura 12–24 h; 6) retirar fita levando a cola seca junto; 7) limpar com formão plano e lixa fina.</text>
+  <g id="svg_33">
+   <rect id="svg_34" x="30" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_35" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="50">3) Sequência Manual de Prensagem</text>
+   <path id="svg_36" stroke="#261a13" fill="#3d2b1f" class="wood-dark" d="m90,535l50,0l0,-25l180,0l0,25l50,0l0,-8l-50,-7l0,-10m-180,0l0,10l-50,7l50,-17z"/>
+   <line id="svg_37" stroke-linecap="round" fill="#d9534f" stroke-width="2.5" stroke="#d9534f" marker-end="url(#arrow-pressure)" class="seta-força" y2="495" x2="230" y1="435" x1="230"/>
+   <circle id="svg_38" fill="#d9534f" r="10" cy="435" cx="230"/>
+   <text id="svg_39" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="11px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-badge" y="439" x="230">1</text>
+   <text id="svg_40" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="505" x="230">CENTRO</text>
+   <line id="svg_41" stroke-linecap="round" fill="#d9534f" stroke-width="2.5" marker-end="url(#arrow-pressure)" stroke="#d9534f" class="seta-força" y2="515" x2="120" y1="450" x1="120"/>
+   <circle id="svg_42" fill="#5c5146" r="10" cy="450" cx="120"/>
+   <text id="svg_43" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="11px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-badge" y="454" x="120">2</text>
+   <line id="svg_44" stroke-linecap="round" fill="#d9534f" stroke-width="2.5" marker-end="url(#arrow-pressure)" stroke="#d9534f" class="seta-força" y2="515" x2="340" y1="450" x1="340"/>
+   <circle id="svg_45" fill="#5c5146" r="10" cy="450" cx="340"/>
+   <text id="svg_46" text-anchor="middle" font-weight="bold" fill="#ffffff" font-size="11px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-badge" y="454" x="340">3</text>
+   <text id="svg_47" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" font-style="italic" font-size="12px" class="text-label" y="557" x="230">Aperte do centro para as extremidades (aletas)</text>
+   <text id="svg_48" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="597" x="376">
+    <tspan id="svg_49" dy="0" x="219">Fixe primeiro o grampo central estabilizador.</tspan>
+    <tspan id="svg_50" dy="16" x="219">Feche as laterais controlando o refluxo da cola (squeeze-out).</tspan>
+   </text>
+  </g>
+  <g id="svg_51">
+   <rect id="svg_52" x="465" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_53" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="485">4) Vista de Corte Interno (Boca do Instrumento)</text>
+   <rect id="svg_54" stroke-width="1.2" stroke="#c2996e" fill="#e5c199" class="wood-light" height="6" width="130" y="510" x="505"/>
+   <rect id="svg_55" opacity="0.3" fill="#fdfaf3" height="6" width="65" y="510" x="635"/>
+   <rect id="svg_56" stroke-width="1.2" stroke="#c2996e" fill="#e5c199" class="wood-light" height="6" width="130" y="510" x="700"/>
+   <text id="svg_57" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" class="text-label" y="533" x="541">Interior da Caixa</text>
+   <text id="svg_58" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="530" x="665">Boca</text>
+   <rect id="svg_59" stroke="#261a13" fill="#3d2b1f" class="wood-dark" height="14" width="95" y="496" x="715"/>
+   <circle id="svg_60" opacity="0.9" stroke-width="0.8" stroke="#f0ad4e" fill="#f0ad4e" class="glue-layer" r="2" cy="510" cx="714"/>
+   <circle id="svg_61" opacity="0.9" stroke-width="0.8" stroke="#f0ad4e" fill="#f0ad4e" class="glue-layer" r="2" cy="510" cx="811"/>
+   <rect id="svg_62" stroke-width="1.2" stroke="#a98467" fill="#d4a373" class="wood-tool" height="16" width="105" y="475" x="710"/>
+   <text id="svg_63" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="487" x="762">Taco Superior</text>
+   <rect id="svg_64" stroke-width="1.2" stroke="#a98467" fill="#d4a373" class="wood-tool" height="14" width="220" y="521" x="595"/>
+   <text id="svg_65" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="532" x="762">Taco Interno</text>
+   <path id="svg_66" marker-end="url(#arrow-action)" stroke-width="1.2" stroke="#5c5146" fill="none" d="m610,540l30,0"/>
+   <text id="svg_67" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="bold" font-size="12px" class="text-label" y="553" x="605">Inserção do apoio interno</text>
+   <line id="svg_68" stroke-linecap="round" fill="#d9534f" stroke-width="2.5" stroke="#d9534f" marker-end="url(#arrow-pressure)" class="seta-força" y2="467" x2="762" y1="443" x1="762"/>
+   <line id="svg_69" stroke-linecap="round" fill="#d9534f" stroke-width="2.5" stroke="#d9534f" marker-end="url(#arrow-pressure)" class="seta-força" y2="543" x2="762" y1="567" x1="762"/>
+   <text id="svg_70" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="605" x="825">
+    <tspan id="svg_71" dy="0" x="668">O taco interno protege contra a flexão do tampo.</tspan>
+    <tspan id="svg_72" dy="16" x="668">
+     <tspan id="svg_73" font-weight="bold" fill="#d9534f" class="text-highlight">Cuidado:</tspan>Pressão excessiva pode trincar a estrutura.</tspan>
+   </text>
   </g>
  </g>
 </svg>

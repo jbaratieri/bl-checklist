@@ -1,82 +1,118 @@
-<svg width="880" height="520" xmlns="http://www.w3.org/2000/svg" aria-label="Lixamento progressivo: sequência de grãos, mapa a lápis, direção da fibra e bordas" role="img">
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="4" refX="7" markerHeight="8" markerWidth="8" id="arr">
-   <polygon id="svg_1" fill="#444" points="0,0 8,4 0,8"/>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-action">
+   <path id="svg_1" fill="#5c5146" d="m0,1l10,4l-10,4l0,-8z"/>
+  </marker>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-alert">
+   <path id="svg_2" fill="#d9534f" d="m0,1l10,4l-10,4l0,-8z"/>
   </marker>
  </defs>
- <!-- 1) Mapa a lápis + direção da fibra -->
- <!-- 2) Sequência de grãos -->
- <!-- 3) Bordas & filetes -->
- <!-- 4) Cola na roseta / limpeza -->
- <!-- 5) Levantar fibra -->
  <g>
   <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#d1c3a0" fill="#faf7f1" class="panel" rx="12" height="480" width="840" y="20" x="20"/>
-  <text style="cursor: move;" font-weight="bold" id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="40" x="38">Lixamento progressivo — mapa, grãos e cuidados de bordas</text>
-  <text transform="matrix(0.82423 0 0 0.894654 6.82844 3.26453)" stroke="#fff" font-weight="bold" id="svg_4" stroke-width="2px" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="79" x="38">1) Mapa a lápis &amp; direção da fibra</text>
-  <g stroke="null" id="svg_5">
-   <rect stroke="#c9b28a" id="svg_6" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="145.65531" width="351.00002" y="81" x="34"/>
-   <!-- fibras -->
-   <path stroke="#865f3c" id="svg_7" vector-effect="non-scaling-stroke" opacity="0.7" fill="none" class="grain" d="m41.8,133.01975c50.7,-10.40395 128.70001,12.48474 206.70001,-6.24237c78,-16.64632 117.00001,12.48474 128.70001,4.16158"/>
-   <!-- mapa a lápis -->
-   <g stroke="null" id="svg_8" opacity="0.9">
-    <path stroke="#777" id="svg_9" vector-effect="non-scaling-stroke" stroke-width="1.2" fill="none" class="pencil" d="m45.7,95.56553l327.60002,0m-327.60002,12.48474l327.60002,0m-327.60002,12.48474l327.60002,0m-327.60002,12.48474l327.60002,0m-327.60002,12.48474l327.60002,0m-327.60002,12.48474l327.60002,0m-327.60002,12.48474l327.60002,0"/>
+  <rect id="svg_3" fill="#fdfaf3" class="bg-canvas" height="700" width="900"/>
+  <text id="svg_4" fill="#4a3e3d" font-weight="bold" font-size="20px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-main-title" y="40" x="30">Lixamento Progressivo — Nivelamento, Direção de Fibra e Bordas</text>
+  <rect id="svg_5" rx="4" stroke="#f0ad4e" fill="#fff7eb" height="28" width="840" y="52" x="30"/>
+  <text transform="matrix(0.902554 0 0 1.07769 4.38506 -4.62565)" stroke="null" id="svg_6" font-weight="bold" fill="#a06000" font-style="italic" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-model-note" y="70" x="45">⚠️ Nota de segurança: Sempre lixe a favor das fibras. Use máscara PFF2/P2 para pó fino e verifique o limite do grão ideal para cada instrumento nos callouts.</text>
+  <g id="svg_7">
+   <rect id="svg_8" x="30" y="95" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_9" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="50">1) Mapa a Lápis e Sentido das Fibras</text>
+   <g id="svg_10">
+    <rect id="svg_11" x="80" y="155" stroke-width="1.2" stroke="#c2996e" fill="#f2d1a9" rx="2" class="wood-light" height="90" width="300"/>
+    <line id="svg_12" opacity="0.6" stroke="#b09e8f" class="linha-fibra" y2="170" x2="380" y1="170" x1="80"/>
+    <line id="svg_13" opacity="0.6" stroke="#b09e8f" class="linha-fibra" y2="185" x2="380" y1="185" x1="80"/>
+    <line id="svg_14" opacity="0.6" stroke="#b09e8f" class="linha-fibra" y2="200" x2="380" y1="200" x1="80"/>
+    <line id="svg_15" opacity="0.6" stroke="#b09e8f" class="linha-fibra" y2="215" x2="380" y1="215" x1="80"/>
+    <line id="svg_16" opacity="0.6" stroke="#b09e8f" class="linha-fibra" y2="230" x2="380" y1="230" x1="80"/>
+    <path id="svg_17" opacity="0.8" stroke-dasharray="2,3" stroke-width="1.2" stroke="#78828c" d="m95,165l30,70m20,-70l30,70m30,-70l30,70m30,-70l30,70m30,-70l30,70"/>
+    <text id="svg_18" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="205" x="230">Grafite (Revela depressões)</text>
    </g>
-   <!-- setas sentido -->
-   <line stroke="#444" id="svg_10" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" y2="216.25136" x2="190.00001" y1="216.25136" x1="73"/>
-   <line stroke="#444" id="svg_11" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" y2="216.25136" x2="346.00002" y1="216.25136" x1="229.00001"/>
-   <text stroke="#fff" transform="matrix(0.975 0 0 1.0404 0.9289 13.2626)" id="svg_12" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="211.10739" x="75.91908">lixar com a fibra (passadas longas)</text>
+   <line id="svg_19" marker-end="url(#arrow-action)" class="seta-action" y2="270" x2="320" y1="270" x1="140"/>
+   <text id="svg_20" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" font-size="12px" class="text-label" y="288" x="230">Passadas longas e retas com a fibra</text>
+   <text id="svg_21" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="314" x="396">
+    <tspan id="svg_22" dy="0" x="234">Sombreie de leve com lápis macio antes de lixar.</tspan>
+    <tspan id="svg_23" dy="16" x="234">Troque de grão somente quando todo o grafite sumir por igual.</tspan>
+   </text>
   </g>
-  <text transform="matrix(0.837197 0 0 0.777483 78.3708 11.8953)" stroke="#fff" font-weight="bold" id="svg_13" stroke-width="2px" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="75.01279" x="410.75628">2) Sequência de grãos</text>
-  <g id="svg_14">
-   <rect stroke="#c9b28a" id="svg_15" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="140" width="419.00002" y="81" x="416"/>
-   <g id="svg_16">
-    <rect id="svg_17" vector-effect="non-scaling-stroke" stroke="#c9b28a" fill="#ece8df" class="chip" height="48" width="50" y="97" x="432"/>
-    <text id="svg_18" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="127" x="457">120</text>
-    <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#c9b28a" fill="#ece8df" class="chip" height="48" width="50" y="97" x="492"/>
-    <text id="svg_20" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="127" x="517">180</text>
-    <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#c9b28a" fill="#ece8df" class="chip" height="48" width="50" y="97" x="552"/>
-    <text id="svg_22" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="127" x="577">220</text>
-    <rect id="svg_23" vector-effect="non-scaling-stroke" stroke="#c9b28a" fill="#ece8df" class="chip" height="48" width="50" y="97" x="612"/>
-    <text id="svg_24" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="127" x="637">320</text>
-    <rect id="svg_25" vector-effect="non-scaling-stroke" stroke="#c9b28a" fill="#ece8df" class="chip" height="48" width="50" y="97" x="672"/>
-    <text id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="127" x="697">400</text>
-    <rect id="svg_27" vector-effect="non-scaling-stroke" stroke="#c9b28a" fill="#ece8df" class="chip" height="48" width="50" y="97" x="732"/>
-    <text id="svg_28" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="127" x="757">600</text>
+  <g id="svg_24">
+   <rect id="svg_25" x="465" y="95" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_26" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="485">2) Escala e Gradação de Grãos (Abrasivos)</text>
+   <g id="svg_27">
+    <rect id="svg_28" x="500" y="170" rx="4" stroke="#a98467" fill="#c2996e" height="45" width="65"/>
+    <text id="svg_29" text-anchor="middle" font-weight="bold" fill="#ffffff" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11px" class="text-badge" y="196" x="532">120</text>
+    <text id="svg_30" text-anchor="middle" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff" font-size="11px" class="text-badge" y="210" x="532">Desbaste</text>
    </g>
-   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="183" x="436">Troque de grão somente quando os riscos do anterior sumirem.</text>
+   <path id="svg_31" marker-end="url(#arrow-action)" stroke-width="1.5" stroke="#5c5146" fill="none" d="m573,192l10,0"/>
+   <g id="svg_32">
+    <rect id="svg_33" x="595" y="170" rx="4" stroke="#c2996e" fill="#dfb17b" height="45" width="65"/>
+    <text id="svg_34" text-anchor="middle" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff" font-size="11px" class="text-badge" y="191" x="627">180</text>
+    <line id="svg_35" stroke-width="0.5" stroke="#3d2b1f" y2="195" x2="650" y1="195" x1="605"/>
+    <text id="svg_36" text-anchor="middle" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff" font-size="11px" class="text-badge" y="207" x="627">220</text>
+   </g>
+   <path id="svg_37" marker-end="url(#arrow-action)" stroke-width="1.5" stroke="#5c5146" fill="none" d="m668,192l10,0"/>
+   <g id="svg_38">
+    <rect id="svg_39" x="690" y="170" rx="4" stroke="#dcb771" fill="#f4dca2" height="45" width="65"/>
+    <text id="svg_40" text-anchor="middle" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff" font-size="11px" class="text-badge" y="196" x="722">320</text>
+    <text transform="matrix(0.866228 0 0 1 101.128 0)" stroke="null" id="svg_41" text-anchor="middle" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff" font-size="11px" class="text-badge" y="210" x="722">Pré-seladora</text>
+   </g>
+   <path id="svg_42" marker-end="url(#arrow-action)" stroke-width="1.5" stroke="#5c5146" fill="none" d="m763,192l10,0"/>
+   <g id="svg_43">
+    <rect id="svg_44" x="785" y="170" rx="4" stroke="#b5ad9e" fill="#fcfaf2" height="45" width="55"/>
+    <text id="svg_45" text-anchor="middle" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#ffffff" font-size="11px" class="text-badge" y="196" x="812">400+</text>
+    <text id="svg_46" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#ffffff" font-size="11px" class="text-badge" y="210" x="812">Refino</text>
+   </g>
+   <rect stroke="#d9534f" id="svg_47" rx="4" fill="#fff5f5" height="25" width="371.00001" y="240" x="484.99999"/>
+   <text id="svg_48" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="257" x="670">⚠️ ATENÇÃO: Pular grãos gera riscos profundos sob o verniz!</text>
+   <text id="svg_49" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="318" x="816">
+    <tspan id="svg_50" dy="0" x="659">Remova por completo as marcas deixadas pelo grão anterior.</tspan>
+    <tspan id="svg_51" dy="16" x="659">Em Cavaquinhos e Ukuleles, o grão 320 costuma ser o limite.</tspan>
+   </text>
   </g>
-  <text style="cursor: move;" font-weight="bold" id="svg_30" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="276" x="39">3) Bordas &amp; filetes (não arredondar)</text>
-  <g stroke="null" id="svg_31">
-   <rect stroke="#c9b28a" id="svg_32" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="162.99999" width="384.99999" y="292" x="36"/>
-   <!-- seção simplificada -->
-   <rect stroke="#c9b28a" id="svg_33" vector-effect="non-scaling-stroke" fill="#f2e9da" height="23.28571" width="342.22221" y="396.78571" x="57.38889"/>
-   <rect stroke="#94a9d6" id="svg_34" vector-effect="non-scaling-stroke" fill="#e7f0fb" height="23.28571" width="342.22221" y="373.5" x="57.38889"/>
-   <rect stroke="#000" id="svg_35" vector-effect="non-scaling-stroke" fill="#262626" height="9.31429" width="342.22221" y="364.18571" x="57.38889"/>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_36" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="344.06135" x="58.12987">filete</text>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_37" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="371.06135" x="64.12987">tampo/fundo</text>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_38" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="391.06135" x="64.12987">faixa</text>
-   <!-- bom/ruim -->
-   <rect stroke="#9ed3ab" id="svg_39" vector-effect="non-scaling-stroke" fill="#e6f7ec" class="good" rx="4" height="20.95714" width="64.16667" y="330.42143" x="197.48611"/>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_40" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="335.06135" x="217.12987">OK</text>
-   <rect stroke="#e79a9a" id="svg_41" vector-effect="non-scaling-stroke" fill="#fde8e8" class="bad" rx="4" height="20.95714" width="64.16667" y="333.91428" x="309.77777"/>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_42" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="336.06135" x="323.12987">NÃO</text>
-   <path stroke="#444" id="svg_43" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" d="m229.56944,330.42143l0,-18.62857"/>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_44" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="303.06135" x="181.12987">apoio largo</text>
-   <path stroke="#444" id="svg_45" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" d="m341.8611,333.91428l0,-18.62857"/>
-   <text transform="matrix(1.06944 0 0 1.16429 -2.63889 -42.2214)" stroke="#fff" id="svg_46" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="303.06135" x="269.12987">arredonda a aresta</text>
+  <g id="svg_52">
+   <rect id="svg_53" x="36" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_54" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="56">3) Nivelamento de Junções (Preservar Bordas)</text>
+   <g id="svg_55">
+    <rect id="svg_56" stroke-width="1.2" stroke="#3d2b1f" fill="#5c4033" class="wood-dark" height="40" width="100" y="495" x="76"/>
+    <rect id="svg_57" stroke-width="1.2" stroke="#c2996e" fill="#f2d1a9" class="wood-light" height="20" width="90" y="475" x="116"/>
+    <rect id="svg_58" stroke="#000000" fill="#ffffff" class="purfling" height="20" width="40" y="475" x="76"/>
+    <rect id="svg_59" stroke-width="1.5" stroke="#8c7e72" fill="#d1c7bd" class="sanding-block" height="12" width="130" y="455" x="66"/>
+    <text id="svg_60" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="464" x="131">Taco Rígido e Largo</text>
+    <text id="svg_61" font-weight="bold" fill="#2b7042" font-size="11px" class="text-ok" y="552" x="92">✔️ CORRETO</text>
+   </g>
+   <g id="svg_62">
+    <rect id="svg_63" stroke-width="1.2" stroke="#3d2b1f" fill="#5c4033" class="wood-dark" height="40" width="100" y="495" x="266"/>
+    <rect id="svg_64" stroke-width="1.2" stroke="#c2996e" fill="#f2d1a9" class="wood-light" height="20" width="90" y="475" x="306"/>
+    <rect id="svg_65" stroke="#000000" fill="#ffffff" class="purfling" height="20" width="40" y="475" x="266"/>
+    <rect transform="rotate(-12 306 475)" id="svg_66" stroke-width="1.5" stroke="#8c7e72" fill="#d1c7bd" class="sanding-block" height="12" width="115" y="458" x="251"/>
+    <line id="svg_67" stroke-linecap="round" fill="#d9534f" stroke-width="1.8" stroke="#d9534f" marker-end="url(#arrow-alert)" class="seta-alerta" y2="467" x2="276" y1="453" x1="286"/>
+    <text id="svg_68" font-weight="bold" fill="#d9534f" font-size="11px" class="text-highlight" y="551" x="278">❌ INCORRETO</text>
+   </g>
+   <text id="svg_69" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="608" x="397">
+    <tspan id="svg_70" dy="0" x="235">Mantenha o taco plano apoiado sobre as duas superfícies.</tspan>
+    <tspan id="svg_71" dy="16" x="235">Tacos moles ou inclinados arredondam e destroem os filetes.</tspan>
+   </text>
   </g>
-  <text font-weight="bold" id="svg_47" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="275" x="441">4) Cola residual (roseta/filetes)</text>
-  <g stroke="null" id="svg_48">
-   <rect stroke="#c9b28a" id="svg_49" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="173" width="404.00002" y="290" x="436.99998"/>
-   <circle stroke="#c9b28a" id="svg_50" fill="#fff" r="44.65287" cy="376.5" cx="537.99999"/>
-   <circle stroke="#9c7a4e" id="svg_51" stroke-width="6" fill="none" r="27.90804" cy="376.5" cx="537.99999"/>
-   <path stroke="#bdbdbd" id="svg_52" vector-effect="non-scaling-stroke" stroke-dasharray="6 4" fill="none" class="ghost" d="m616.55555,341.9l62.84445,0"/>
-   <path stroke="#bdbdbd" id="svg_53" vector-effect="non-scaling-stroke" stroke-dasharray="6 4" fill="none" class="ghost" d="m616.55555,376.5l62.84445,0"/>
-   <path stroke="#bdbdbd" id="svg_54" vector-effect="non-scaling-stroke" stroke-dasharray="6 4" fill="none" class="ghost" d="m616.55555,411.1l62.84445,0"/>
-   <rect stroke="#e2c14c" id="svg_55" vector-effect="non-scaling-stroke" fill="#fff2cc" class="warn" rx="4" height="29.65714" width="157.11111" y="299.88571" x="655.83333"/>
-   <text stroke="#fff" transform="matrix(1.03369 0 0 1.23571 7.08752 -79.4786)" id="svg_56" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="325" x="635.20357">raspilha/cinzel deitado</text>
-   <text stroke="#fff" transform="matrix(0.847798 0 0 1.50516 50.8431 -194.349)" id="svg_57" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="429.59188" x="466.21265">Remova cola antes da seladora; use luz rasante para achar brilhos de cola.</text>
+  <g id="svg_72">
+   <rect id="svg_73" x="465" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_74" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="485">4) Remoção de Cola Residual e Inspeção</text>
+   <g id="svg_75">
+    <circle id="svg_76" stroke-width="8" stroke="#a98467" fill="none" r="45" cy="505" cx="585"/>
+    <circle id="svg_77" stroke-width="2" stroke="#3d2b1f" fill="#fdfaf3" r="35" cy="505" cx="585"/>
+    <path id="svg_78" opacity="0.8" stroke="#d98e2b" fill="#f0ad4e" class="glue-residual" d="m600,472q10,2 17,13l2,-5l-19,-8z"/>
+    <path id="svg_79" opacity="0.8" stroke="#d98e2b" fill="#f0ad4e" class="glue-residual" d="m547,525q-4,10 6,17l4,-7l-10,-10z"/>
+    <path id="svg_80" marker-end="url(#arrow-action)" stroke-width="2" stroke="#f0ad4e" fill="none" d="m500,505l30,0"/>
+    <text id="svg_81" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="497" x="500">Luz Rasante</text>
+   </g>
+   <g id="svg_82">
+    <rect id="svg_83" stroke-width="1.2" stroke="#c2996e" fill="#f2d1a9" class="wood-light" height="10" width="110" y="500" x="715"/>
+    <rect id="svg_84" opacity="0.8" stroke="#d98e2b" fill="#f0ad4e" class="glue-residual" height="4" width="15" y="496" x="740"/>
+    <path id="svg_85" stroke="#6c757d" fill="#b0b8c0" d="m745,496l45,-10l0,6l-40,4l-5,0z"/>
+    <line id="svg_86" marker-end="url(#arrow-action)" class="seta-action" y2="493" x2="760" y1="480" x1="785"/>
+    <text id="svg_87" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" font-weight="bold" font-size="12px" class="text-label" y="476" x="790">Formão plano</text>
+   </g>
+   <text id="svg_88" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="614" x="831">
+    <tspan id="svg_89" dy="0" x="674">Use uma lâmpada lateral rasante para localizar brilhos de cola.</tspan>
+    <tspan id="svg_90" dy="16" x="674">Remova com raspilha ou formão plano antes de selar a madeira.</tspan>
+   </text>
   </g>
  </g>
 </svg>

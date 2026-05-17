@@ -1,59 +1,109 @@
-<svg width="880" height="520" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="750" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
-   <polygon id="svg_1" fill="#666" points="0,0 6,3 0,6"/>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-start">
+   <path id="svg_1" fill="#d9534f" d="m10,1l-10,4l10,4l0,-8z"/>
+  </marker>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-end">
+   <path id="svg_2" fill="#d9534f" d="m0,1l10,4l-10,4l0,-8z"/>
+  </marker>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="blue-arrow">
+   <path id="svg_3" fill="#4a90e2" d="m0,1l10,4l-10,4l0,-8z"/>
   </marker>
  </defs>
- <!-- 1) Alinhamento geral -->
- <!-- 2) Ação na 12ª -->
- <!-- 3) Relief na 7ª -->
- <!-- 4) Cavalete e rastilho -->
- <!-- 5) Colagens e acabamento -->
  <g>
   <title>Layer 1</title>
-  <rect id="svg_2" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="500" width="860" y="10" x="10"/>
-  <text font-weight="bold" id="svg_3" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="36" x="26">Inspeção final — alinhamento, ação/relief e colagens</text>
-  <text font-weight="bold" id="svg_4" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="66" x="26">1) Alinhamento geral</text>
-  <g id="svg_5">
-   <rect id="svg_6" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="78" x="26"/>
-   <rect id="svg_7" stroke="#b69b7a" fill="#e9e2d9" class="neck" height="24" width="340" y="138" x="46"/>
-   <line id="svg_8" stroke-dasharray="6 4" stroke="#bbb" fill="none" class="ghost" y2="198" x2="216" y1="118" x1="216"/>
-   <text id="svg_9" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="108" x="52">Eixo central → roseta, escala, cavalete</text>
+  <rect id="svg_4" fill="#fdfaf3" class="bg-canvas" height="750" width="900"/>
+  <text id="svg_5" fill="#4a3e3d" font-weight="bold" font-size="20px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-main-title" y="45" x="30">Inspeção Final Crítica — Controle de Qualidade e Geometria Estática</text>
+  <line id="svg_6" stroke-width="1.2" stroke="#c8bca6" y2="58" x2="870" y1="58" x1="30"/>
+  <g id="svg_7">
+   <rect id="svg_8" x="30" y="90" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_9" fill="#5c5146" font-weight="bold" font-size="14px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="109" x="48">1) Co-linearidade Axial (Eixo Central)</text>
+   <g id="svg_10">
+    <path id="svg_11" stroke="#c2996e" fill="#f4e8d1" opacity="0.5" class="wood-light" d="m174,305c-20,0 -30,-30 0,-50c20,-10 20,-30 35,-30l30,0c15,0 15,20 35,30c30,20 20,50 0,50l-100,0z"/>
+    <circle id="svg_12" stroke-width="2" stroke="#8b5a2b" fill="none" r="18" cy="225" cx="224"/>
+    <circle id="svg_13" stroke="#6b421a" fill="#fdfaf3" r="15" cy="225" cx="224"/>
+    <rect id="svg_14" stroke="#111111" fill="#3d2b1f" class="wood-dark" height="100" width="22" y="125" x="213"/>
+    <rect id="svg_15" stroke="#111111" fill="#3d2b1f" class="wood-dark" rx="2" height="14" width="70" y="265" x="189"/>
+    <rect id="svg_16" fill="#ffffff" height="3" width="50" y="269" x="199"/>
+    <line id="svg_17" fill="none" stroke-dasharray="6,4" stroke-width="1.2" stroke="#4a90e2" class="axis-line" y2="325" x2="224" y1="110" x1="224"/>
+    <path id="svg_18" marker-end="url(#blue-arrow)" stroke-width="1.2" stroke="#4a90e2" d="m184,145l20,0"/>
+    <path id="svg_19" marker-end="url(#blue-arrow)" stroke-width="1.2" stroke="#4a90e2" d="m264,145l-20,0"/>
+    <path id="svg_20" marker-end="url(#blue-arrow)" stroke-width="1.2" stroke="#4a90e2" d="m169,265l13,0"/>
+   </g>
+   <text id="svg_21" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="325" x="232">O braço deve estar perfeitamente
+    <tspan id="svg_22" font-weight="bold" fill="#2b7042" class="text-ok">co-linear</tspan>ao eixo simétrico do corpo,
+    <tspan id="svg_23" dy="16" x="232">alinhando a roseta, a escala, a pestana e o centro do cavalete.</tspan></text>
   </g>
-  <text font-weight="bold" id="svg_10" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="66" x="456">2) Ação na 12ª</text>
-  <g id="svg_11">
-   <rect id="svg_12" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="78" x="456"/>
-   <rect id="svg_13" stroke="#b69b7a" fill="#e9e2d9" class="neck" height="28" width="340" y="168" x="476"/>
-   <line id="svg_14" stroke-width="2" stroke="#888" class="fret" y2="204" x2="696" y1="160" x1="696"/>
-   <text id="svg_15" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="156" x="688">12ª</text>
-   <line id="svg_16" stroke-width="2" stroke="#777" class="string" y2="174" x2="816" y1="174" x1="476"/>
-   <line id="svg_17" stroke-width="2.8" stroke="#666" class="stringL" y2="188" x2="816" y1="188" x1="476"/>
-   <line id="svg_18" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="164" x2="696" y1="174" x1="696"/>
-   <line id="svg_19" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="204" x2="696" y1="188" x1="696"/>
-   <text id="svg_20" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="180" x="704">1ª</text>
-   <text id="svg_21" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="200" x="704">6ª</text>
+  <g id="svg_24">
+   <rect id="svg_25" x="465" y="90" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_26" fill="#5c5146" font-weight="bold" font-size="14px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="120" x="485">2) Verificação Conclusiva de Ação e Relief</text>
+   <path id="svg_27" stroke="#111111" fill="#3d2b1f" class="wood-dark" d="m505,235l320,0l0,15l-320,0l0,-15z"/>
+   <line id="svg_28" stroke="#787d82" fill="#b0b5bc" stroke-width="1.2" class="fret-wire" y2="227" x2="545" y1="235" x1="545"/>
+   <line id="svg_29" stroke="#787d82" fill="#b0b5bc" stroke-width="1.2" class="fret-wire" y2="227" x2="645" y1="235" x1="645"/>
+   <line id="svg_30" stroke="#787d82" fill="#b0b5bc" stroke-width="1.2" class="fret-wire" y2="227" x2="745" y1="235" x1="745"/>
+   <line id="svg_31" stroke-linecap="round" stroke="#222222" fill="none" stroke-width="2" class="string-line" y2="227" x2="745" y1="227" x1="545"/>
+   <line id="svg_32" fill="none" stroke-dasharray="4,4" stroke="#a39b8c" class="guide-line" y2="205" x2="645" y1="227" x1="645"/>
+   <line id="svg_33" fill="none" stroke-width="1.2" stroke="#d9534f" marker-start="url(#arrow-start)" class="dimension-line" y2="226" x2="645" y1="220" x1="645"/>
+   <text id="svg_34" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="200" x="645">Folga na 7ª (Relief Ok)</text>
+   <g id="svg_35">
+    <line id="svg_36" stroke-linecap="round" stroke-width="2" stroke="#222222" fill="none" class="string-line" y2="209" x2="845" y1="209" x1="625"/>
+    <line id="svg_37" fill="none" stroke-width="1.2" stroke="#d9534f" marker-end="url(#arrow-end)" marker-start="url(#arrow-start)" class="dimension-line" y2="210" x2="745" y1="224" x1="745"/>
+    <text id="svg_38" fill="#d9534f" font-weight="bold" font-size="11px" class="text-highlight" y="226" x="788">Ação na 12ª</text>
+   </g>
+   <text id="svg_39" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="325" x="667">Valide as alturas finais sob o ambiente de umidade controlada
+    <tspan id="svg_40" dy="16" x="667">(45–55% UR) antes de prosseguir para a vedação da ficha.</tspan></text>
   </g>
-  <text font-weight="bold" id="svg_22" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="258" x="26">3) Relief na 7ª</text>
-  <g id="svg_23">
-   <rect id="svg_24" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="270" x="26"/>
-   <rect id="svg_25" stroke="#b69b7a" fill="#e9e2d9" class="neck" height="24" width="340" y="330" x="46"/>
-   <line id="svg_26" stroke-width="2" stroke="#888" class="fret" y2="354" x2="186" y1="330" x1="186"/>
-   <text id="svg_27" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="322" x="178">7ª</text>
-   <line id="svg_28" stroke-dasharray="6 4" stroke="#bbb" fill="none" class="ghost" y2="342" x2="386" y1="334" x1="46"/>
-   <line id="svg_29" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="344" x2="186" y1="336" x1="186"/>
-   <text id="svg_30" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="320" x="196">folga mínima</text>
+  <g id="svg_41">
+   <rect id="svg_42" x="30" y="380" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="240" width="405"/>
+   <text id="svg_43" fill="#5c5146" font-weight="bold" font-size="14px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="410" x="50">3) Assentamento do Rastilho e Ângulo de Quebra</text>
+   <path id="svg_44" stroke="#111111" fill="#3d2b1f" class="wood-dark" d="m70,540l140,0l40,-40l140,0l0,60l-320,0l0,-20z"/>
+   <rect id="svg_45" stroke="#c2996e" fill="#f4e8d1" class="wood-light" height="70" width="16" y="470" x="170"/>
+   <line id="svg_46" stroke-width="2.5" stroke="#2b7042" y2="540" x2="186" y1="540" x1="170"/>
+   <text id="svg_47" font-weight="bold" fill="#2b7042" font-size="10px" class="text-ok" y="553" x="130">Contato 100% Plano</text>
+   <circle id="svg_48" fill="#111111" r="5" cy="520" cx="310"/>
+   <path id="svg_49" stroke-linecap="round" stroke="#222222" stroke-width="2" class="string-line" fill="none" d="m310,520l-40,0l-84,-45l-116,0"/>
+   <path id="svg_50" stroke-dasharray="3,3" stroke-width="1.2" stroke="#d9534f" fill="none" d="m240,520c0,-15 -25,-30 -45,-40"/>
+   <text id="svg_51" fill="#d9534f" font-weight="bold" font-size="11px" class="text-highlight" y="495" x="255">12° a 15° de Quebra</text>
+   <text id="svg_52" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="595" x="232">A base do rastilho deve assentar de forma uniforme no fundo do
+    <tspan id="svg_53" font-weight="bold">slot</tspan>,
+    <tspan id="svg_54" dy="16" x="232">garantindo transferência mecânica integral e o correto vetor de força.</tspan></text>
   </g>
-  <text font-weight="bold" id="svg_31" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="258" x="455">4) Cavalete/rastilho — pressão e contato</text>
-  <g id="svg_32">
-   <rect id="svg_33" stroke="#c7ae83" fill="#fff" class="box" height="150" width="380" y="270" x="456"/>
-   <rect id="svg_34" stroke="#2a1c14" fill="#3b2a20" class="bridge" height="30" width="240" y="350" x="516"/>
-   <rect id="svg_35" stroke="#b3b3b3" fill="#f0efe9" class="saddle" height="20" width="20" y="340" x="626"/>
-   <text id="svg_36" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="400" x="476">Base do rastilho plana, sem folgas; ângulo de quebra ok</text>
+  <g id="svg_55">
+   <rect id="svg_56" x="465" y="380" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="240" width="405"/>
+   <text id="svg_57" fill="#5c5146" font-weight="bold" font-size="14px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="410" x="485">4) Inspeção Estrutural Interna (Boca)</text>
+   <rect id="svg_58" stroke="#c2996e" fill="#f4e8d1" class="wood-light" height="16" width="310" y="510" x="515"/>
+   <rect id="svg_59" stroke="#c8bca6" fill="#fdfaf3" height="16" width="110" y="510" x="615"/>
+   <path id="svg_60" stroke-width="2" stroke="#787d82" d="m595,565l50,-40"/>
+   <circle id="svg_61" stroke-width="1.5" stroke="#4a90e2" fill="#ffffff" r="10" cy="521" cx="650"/>
+   <path id="svg_62" marker-end="url(#blue-arrow)" stroke-dasharray="3,3" stroke="#4a90e2" d="m650,521l35,39"/>
+   <rect id="svg_63" stroke="#b59469" fill="#d2b48c" height="20" width="25" y="526" x="545"/>
+   <text id="svg_64" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" class="text-label" y="560" x="557">Barras Firmes</text>
+   <text id="svg_65" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="595" x="667">Utilize luz interna e espelho articulado para rastrear restos de cola,
+    <tspan id="svg_66" dy="16" x="667">trincas ou barras harmônicas desconectadas após o estresse de tração.</tspan></text>
   </g>
-  <text font-weight="bold" id="svg_37" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="ttl" y="437" x="27">5) Colagens internas e acabamento</text>
-  <g id="svg_38">
-   <rect id="svg_39" stroke="#c7ae83" fill="#fff" class="box" height="50" width="810" y="442" x="26"/>
-   <text id="svg_40" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="lbl" y="471" x="37">Tap test sem ruídos • travessas firmes • sem cola aparente em roseta/filetes • luz rasante sem defeitos</text>
+  <g stroke="null" id="svg_67">
+   <rect stroke="#bcae97" id="svg_68" x="30" y="640" rx="6" stroke-width="1.2" fill="#f8f5ee" class="bg-dark-panel" height="84" width="842.64434"/>
+   <g stroke="null" id="svg_69">
+    <circle stroke="null" id="svg_70" fill="#2b7042" r="9.44815" cy="682.49412" cx="86.68888"/>
+    <path stroke="#ffffff" id="svg_71" stroke-width="2" fill="none" d="m82.90962,682.49412l2.83444,2.96471l4.72407,-5.92941"/>
+    <text transform="matrix(0.944815 0 0 0.988235 1.65556 7.52941)" stroke="null" id="svg_72" fill="#5c5146" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14px" class="text-step-title" y="687" x="110">Geometria Geral Ok</text>
+   </g>
+   <g stroke="null" id="svg_73">
+    <circle stroke="null" id="svg_74" fill="#2b7042" r="9.44815" cy="682.49412" cx="275.65182"/>
+    <path stroke="#ffffff" id="svg_75" stroke-width="2" fill="none" d="m271.87256,682.49412l2.83444,2.96471l4.72407,-5.92941"/>
+    <text transform="matrix(0.944815 0 0 0.988235 1.65556 7.52941)" stroke="null" id="svg_76" fill="#5c5146" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14px" class="text-step-title" y="687" x="310">Tap Test &amp; Acústica</text>
+   </g>
+   <g stroke="null" id="svg_77">
+    <circle stroke="null" id="svg_78" fill="#2b7042" r="9.44815" cy="682.49412" cx="474.0629"/>
+    <path stroke="#ffffff" id="svg_79" stroke-width="2" fill="none" d="m470.28364,682.49412l2.83444,2.96471l4.72407,-5.92941"/>
+    <text transform="matrix(0.944815 0 0 0.988235 1.65556 7.52941)" stroke="null" id="svg_80" fill="#5c5146" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14px" class="text-step-title" y="687" x="520">Luz Rasante (Acabamento)</text>
+   </g>
+   <g stroke="null" id="svg_81">
+    <circle stroke="null" id="svg_82" fill="#2b7042" r="9.44815" cy="682.49412" cx="691.37028"/>
+    <path stroke="#ffffff" id="svg_83" stroke-width="2" fill="none" d="m687.59102,682.49412l2.83444,2.96471l4.72407,-5.92941"/>
+    <text transform="matrix(0.944815 0 0 0.988235 1.65556 7.52941)" stroke="null" id="svg_84" fill="#5c5146" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="14px" class="text-step-title" y="687" x="750">Ficha Técnica Coberta</text>
+   </g>
+   <text transform="matrix(0.944815 0 0 0.988235 1.65556 7.52941)" stroke="null" id="svg_85" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style=" italic" fill="#6b5b52" font-size="12px" class="text-label" y="710" x="450">Para transportes de longa distância ou despacho aéreo, alivie aproximadamente ½ volta de tensão nas tarraxas para proteger a estrutura.</text>
   </g>
  </g>
 </svg>

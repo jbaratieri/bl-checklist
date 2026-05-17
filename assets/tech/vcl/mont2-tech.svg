@@ -1,61 +1,90 @@
-<svg width="880" height="500" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
-   <polygon id="svg_1" fill="#666" points="0,0 6,3 0,6"/>
+  <marker id="arrow-end" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+   <path d="m0,1l10,4l-10,4l0,-8z" fill="#d9534f" id="svg_2"/>
+  </marker>
+  <marker id="arrow-vector" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto">
+   <path d="m0,1l10,4l-10,4l0,-8z" fill="#2b7042" id="svg_3"/>
   </marker>
  </defs>
- <!-- Moldura -->
- <!-- A) Nós no cavalete (tie-block 6 e 12 furos) -->
- <!-- B) Enrolamento na tarraxa -->
- <!-- C) Sequência de assentamento -->
  <g>
   <title>Layer 1</title>
-  <rect id="svg_2" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="480" width="860" y="10" x="9"/>
-  <text id="svg_3" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="38" x="28">Encordoamento — nós, enrolamento e assentamento</text>
-  <text font-weight="bold" id="svg_4" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="66" x="28">1) Cavalete (tie-block)</text>
-  <g id="svg_5">
-   <!-- tie block -->
-   <rect id="svg_6" stroke="#2a1c14" fill="#3b2a20" class="bridge" height="70" width="340" y="79" x="28"/>
-   <rect id="svg_7" stroke="#bbb" fill="#eee" class="block" height="18" width="320" y="97" x="39"/>
-   <!-- furos 6 -->
-   <circle id="svg_8" fill="#111" class="hole" r="3" cy="106" cx="96"/>
-   <circle id="svg_9" fill="#111" class="hole" r="3" cy="106" cx="136"/>
-   <circle id="svg_10" fill="#111" class="hole" r="3" cy="106" cx="176"/>
-   <circle id="svg_11" fill="#111" class="hole" r="3" cy="106" cx="216"/>
-   <circle id="svg_12" fill="#111" class="hole" r="3" cy="106" cx="256"/>
-   <circle stroke="null" id="svg_13" fill="#111" class="hole" r="3" cy="106.5" cx="296"/>
-   <!-- cordas e laçada dupla (exemplo à esquerda) -->
-   <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="166" x="63">Laçada dupla nas primas (evita escorregar)</text>
-   <!-- bloco 12 furos simplificado -->
-   <!-- pares de furos -->
-   <!-- path simples mostrando ida/volta -->
-  </g>
-  <text font-weight="bold" id="svg_33" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="188" x="28">2) Tarraxas (enrolamento e lock-wrap)</text>
-  <g id="svg_34">
-   <!-- poste -->
-   <rect id="svg_35" stroke="#9a9a9a" fill="#c9c9c9" class="post" height="90" width="16" y="200" x="48"/>
-   <circle id="svg_36" fill="#111" class="hole" r="3" cy="230" cx="56"/>
-   <!-- corda passando e voltas -->
-   <path id="svg_37" stroke-width="2" stroke="#777" class="string" d="m28,230l28,0l22,-8"/>
-   <path id="svg_38" stroke-width="2" stroke="#777" class="string" d="m56,230c-4,10 -4,20 0,30"/>
-   <path id="svg_39" stroke-width="2" stroke="#777" class="string" d="m56,230c4,10 4,20 0,30"/>
-   <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="308" x="28">Nylon/fluoro: 2–4 voltas, descendo no poste</text>
-   <!-- lock wrap aço -->
-   <g id="svg_41">
-    <rect id="svg_42" stroke="#9a9a9a" fill="#c9c9c9" class="post" height="90" width="16" y="199" x="398"/>
-    <circle id="svg_43" fill="#111" class="hole" r="3" cy="229" cx="406"/>
-    <path id="svg_44" stroke-width="2.5" stroke="#777" class="stringL" d="m378,229l28,0l18,-6"/>
-    <!-- travamento: volta cruzada e retorno -->
-    <path id="svg_45" stroke-width="2.5" stroke="#777" class="stringL" d="m406,229l-8,12l16,8l-8,10"/>
-    <text id="svg_46" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="307" x="378">Aço: lock-wrap (travamento) com 1–2 voltas</text>
+  <rect width="900" height="700" class="bg-canvas" fill="#fdfaf3" id="svg_4"/>
+  <text x="30" y="42" class="text-main-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20px" font-weight="bold" fill="#4a3e3d" id="svg_5">Ancoragem Mecânica — Técnicas de Encordoamento e Vetores de Tração</text>
+  <rect x="30" y="55" width="840" height="28" fill="#fff7eb" stroke="#f0ad4e" rx="4" id="svg_6"/>
+  <text x="45" y="73" class="text-note" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-style="italic" fill="#a06000" font-weight="bold" id="svg_7">⚠️ Atenção Luthier: O enrolamento descendente (down-wind) é mandatório para garantir a pressão estática sobre os rastilhos.</text>
+  <g id="svg_8">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="100" x="30" id="svg_9"/>
+   <text x="50" y="130" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15px" font-weight="bold" fill="#5c5146" id="svg_10">1) Laçada Segura em Tie-Block (Nylon/Corda Solta)</text>
+   <g id="svg_11">
+    <rect x="75" y="195" width="310" height="60" class="wood-bridge" rx="2" fill="#4a3b32" stroke="#2b221e" stroke-width="1.2" id="svg_12"/>
+    <rect x="75" y="210" width="310" height="25" class="bone-tie-block" fill="#fcfbf7" stroke="#a39b8c" id="svg_13"/>
+    <circle cx="125" cy="222" r="3" fill="#111" id="svg_14"/>
+    <circle cx="225" cy="222" r="3" fill="#111" id="svg_15"/>
+    <circle cx="325" cy="222" r="3" fill="#111" id="svg_16"/>
+    <path d="m325,275l0,-53c0,-17 30,-17 30,0c0,18 -15,18 -15,5c0,-12 30,-12 30,3l0,45" class="string-nylon" stroke="#eaeaea" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" id="svg_17"/>
+    <path d="m325,275l0,-53c0,-17 30,-17 30,0c0,18 -15,18 -15,5c0,-12 30,-12 30,3l0,45" class="string-nylon-edge" fill="none" stroke="#888888" id="svg_18"/>
+    <text x="300" y="170" class="text-highlight" font-size="11px" text-anchor=" start" fill="#d9534f" font-weight="bold" id="svg_19">Laçada Dupla Extra (Primas)</text>
+    <path d="m295,173l35,37" fill="none" stroke="#d9534f" marker-end="url(#arrow-end)" id="svg_20"/>
    </g>
+   <text x="419" y="319" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_21">
+    <tspan x="237" dy="0" id="svg_22">Certifique-se de prender a ponta final ("perninha") atrás</tspan>
+    <tspan x="237" dy="16" id="svg_23">do bloco para evitar que o chicote ricocheteie e fure o tampo.</tspan>
+   </text>
   </g>
-  <text font-weight="bold" id="svg_47" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="348" x="30">3) Afinar em estágios e assentar</text>
-  <g id="svg_48">
-   <rect id="svg_49" stroke="#bbb" fill="#eee" class="block" height="110" width="820" y="362" x="24"/>
-   <line id="svg_50" marker-end="url(#arr)" stroke-width="2" stroke="#666" class="dim" y2="382" x2="804" y1="442" x1="44"/>
-   <text id="svg_51" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="458" x="48">suba em estágios (6→1) puxando levemente cada corda entre ciclos</text>
-   <text id="svg_52" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="386" x="48">estabilização em 24–72 h (nylon); aço estabiliza mais rápido</text>
+  <g id="svg_24">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="100" x="465" id="svg_25"/>
+   <text x="485" y="130" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15px" font-weight="bold" fill="#5c5146" id="svg_26">2) Ancoragem de Alta Performance (12 Furos)</text>
+   <g id="svg_27">
+    <rect x="545" y="185" width="140" height="70" class="wood-bridge" rx="3" fill="#4a3b32" stroke="#2b221e" stroke-width="1.2" id="svg_28"/>
+    <rect x="685" y="200" width="110" height="40" class="bone-tie-block" fill="#fcfbf7" stroke="#a39b8c" id="svg_29"/>
+    <line x1="665" y1="210" x2="805" y2="210" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_30"/>
+    <line x1="665" y1="228" x2="805" y2="228" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_31"/>
+    <path d="m625,210l90,0c20,0 20,18 0,18l100,0" class="string-nylon" stroke="#eaeaea" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" id="svg_32"/>
+    <path d="m625,210l90,0c20,0 20,18 0,18l100,0" class="string-nylon-edge" fill="none" stroke="#888888" id="svg_33"/>
+    <path d="m625,210l-60,-35" class="string-nylon" stroke="#eaeaea" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" id="svg_34"/>
+    <path d="m625,210l-60,-35" class="string-nylon-edge" fill="none" stroke="#888888" id="svg_35"/>
+    <rect x="615" y="170" width="15" height="50" fill="#fcfbf7" stroke="#787d82" id="svg_36"/>
+    <path d="m610,260l75,-40" fill="none" stroke-width="1.2" marker-end="url(#arrow-vector)" id="svg_37" stroke="#2b7042"/>
+    <text x="556" y="272" class="text-ok" font-size="11px" text-anchor="start" fill="#2b7042" font-weight="bold" id="svg_38">Ângulo agudo otimizado</text>
+   </g>
+   <text x="851" y="314" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_39">
+    <tspan x="669" dy="0" id="svg_40">O sistema de furos duplos elimina os nós espessos e</tspan>
+    <tspan x="669" dy="16" id="svg_41">aumenta a quebra estática da corda sobre o rastilho.</tspan>
+   </text>
+  </g>
+  <g id="svg_42">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="390" x="27" id="svg_43"/>
+   <text transform="matrix(0.920504 0 0 1 3.73632 0)" stroke="null" x="47" y="420" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15px" font-weight="bold" fill="#5c5146" id="svg_44">3) Travamento Mecânico em Poste de Aço (Lock-Wrap)</text>
+   <g id="svg_45">
+    <rect x="207" y="450" width="30" height="110" class="tuner-post" rx="4" fill="#b0b5bc" stroke="#787d82" stroke-width="1.5" id="svg_46"/>
+    <circle cx="222" cy="495" r="5" fill="#222" id="svg_47"/>
+    <path d="m107,495l115,0c20,0 25,-20 0,-20c-25,0 -30,20 0,40l65,30" class="string-steel" fill="none" stroke="#9da3ab" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="svg_48"/>
+    <path d="m107,495l115,0c20,0 25,-20 0,-20c-25,0 -30,20 0,40l65,30" class="string-steel-core" fill="none" stroke="#555555" stroke-width="0.6" id="svg_49"/>
+    <text x="247" y="465" class="text-highlight" font-size="11px" text-anchor="start" fill="#d9534f" font-weight="bold" id="svg_50">Laço Auto-Bloqueante</text>
+   </g>
+   <text x="415" y="608" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_51">
+    <tspan x="233" dy="0" id="svg_52">Indicado para Viola e Cavaquinho. A própria tração da</tspan>
+    <tspan x="233" dy="16" id="svg_53">corda prensa a extremidade livre, extinguindo escorregamentos.</tspan>
+   </text>
+  </g>
+  <g id="svg_54">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="390" x="465" id="svg_55"/>
+   <text x="485" y="420" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="15px" font-weight="bold" fill="#5c5146" id="svg_56">4) Vetor de Pressão e Escoamento Descente</text>
+   <g id="svg_57">
+    <path d="m525,540l240,-30l0,30l-240,20l0,-20z" class="wood-neck" fill="#ba8b5d" id="svg_58"/>
+    <rect x="665" y="460" width="32" height="70" class="tuner-post" rx="2" fill="#b0b5bc" stroke="#787d82" stroke-width="1.5" id="svg_59"/>
+    <rect x="545" y="490" width="15" height="50" class="bone-nut" id="svg_60"/>
+    <path d="m765,485l-68,0" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_61"/>
+    <path d="m525,495l20,0l120,-20a16,16 0 0 1 16,16a16,16 0 0 1 -16,16l2,13" class="string-nylon" stroke="#eaeaea" fill="none" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" id="svg_62"/>
+    <path d="m525,495l20,0l120,-20a16,16 0 0 1 16,16a16,16 0 0 1 -16,16l2,13" class="string-nylon-edge" fill="none" stroke="#888888" id="svg_63"/>
+    <path d="m710,470l0,35" class="vector-arrow" marker-end="url(#arrow-vector)" stroke="#2b7042" stroke-width="1.5" fill="none" id="svg_64"/>
+    <text x="720" y="490" class="text-ok" font-size="11px" text-anchor="start" fill="#2b7042" font-weight="bold" id="svg_65">Direção Correta</text>
+   </g>
+   <text x="864" y="607" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_66">
+    <tspan x="677" dy="0" id="svg_67">Organize as espiras forçando-as para baixo. Isto maximiza</tspan>
+    <tspan x="677" dy="16" id="svg_68">o ângulo de ataque sem exigir rebaixadores mecânicos de metal.</tspan>
+   </text>
   </g>
  </g>
 </svg>

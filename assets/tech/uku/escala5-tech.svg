@@ -1,65 +1,93 @@
-<svg width="880" height="620" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr-f">
-   <polygon id="svg_1" vector-effect="non-scaling-stroke" fill="#666" points="0,0 6,3 0,6"/>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-action">
+   <path id="svg_1" fill="#5c5146" d="m0,1l10,4l-10,4l0,-8z"/>
   </marker>
  </defs>
- <!-- 1) Preparar slots -->
- <!-- 2) Cortar e ajustar fio -->
- <!-- 3) Assentar (martelo/prensa) -->
- <!-- 4) Chanfro, nivelar, coroar, polir -->
  <g>
   <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="580" width="840" y="20" x="20"/>
-  <text id="svg_3" stroke="#fff" stroke-width="2px" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Instalação dos trastes — preparo do slot, assentamento e acabamento</text>
-  <text id="svg_4" stroke="#fff" stroke-width="2px" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Preparar slots</text>
-  <g id="svg_5">
-   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="96" x="42"/>
-   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="fb" rx="3" height="20" width="260" y="162" x="92"/>
-   <line id="svg_8" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="182" x2="122" y1="162" x1="122"/>
-   <line id="svg_9" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="182" x2="162" y1="162" x1="162"/>
-   <line id="svg_10" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="182" x2="202" y1="162" x1="202"/>
-   <rect stroke="#e8b36b" id="svg_11" vector-effect="non-scaling-stroke" fill="#fde9c9" class="warn" rx="4" height="22" width="172" y="134" x="210"/>
-   <text id="svg_12" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="148" x="218">profundidade ok após nivelar?</text>
-   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="256" x="42"/>
-   <text id="svg_14" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="270" x="50">limpar rebarbas e testar folga com pedaço de tang</text>
+  <rect id="svg_3" fill="#fdfaf3" class="bg-canvas" height="700" width="900"/>
+  <text id="svg_4" fill="#4a3e3d" font-weight="bold" font-size="20px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-main-title" y="45" x="30">Instalação dos Trastes — Precisão e Assentamento</text>
+  <line id="svg_5" stroke-width="1.2" stroke="#c8bca6" y2="58" x2="870" y1="58" x1="30"/>
+  <g id="svg_6">
+   <rect id="svg_7" x="30" y="80" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_8" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="110" x="50">1) Preparar &amp; Validar Slots (Perfil)</text>
+   <rect id="svg_9" stroke="#261a13" fill="#3d2b1f" class="escala-dark" height="40" width="320" y="220" x="70"/>
+   <rect id="svg_10" stroke="#150500" fill="#201005" class="fret-slot" height="25" width="6" y="220" x="150"/>
+   <g id="svg_11">
+    <path id="svg_12" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m145,198q8,-15 16,0l-16,0z"/>
+    <rect id="svg_13" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" height="18" width="6" y="198" x="150"/>
+    <line id="svg_14" stroke="#8a95a0" y2="204" x2="159" y1="202" x1="156"/>
+    <line id="svg_15" stroke="#8a95a0" y2="210" x2="159" y1="208" x1="156"/>
+    <text id="svg_16" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" class="text-label" y="148" x="153">Pedaço de teste</text>
+   </g>
+   <line id="svg_17" stroke-linecap="round" fill="#5c5146" stroke-width="1.8" stroke="#5c5146" marker-end="url(#arrow-action)" class="seta-ação" y2="182" x2="153" y1="157" x1="153"/>
+   <text id="svg_18" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="297" x="365">
+    <tspan id="svg_19" dy="0" x="223">Limpe resíduos e rebarbas internas.</tspan>
+    <tspan id="svg_20" dy="16" x="223">Teste a folga do
+     <tspan id="svg_21" font-weight="bold" fill="#d9534f" class="text-highlight">kerf</tspan>antes da instalação final.</tspan>
+   </text>
   </g>
-  <text id="svg_15" stroke="#fff" stroke-width="2px" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Cortar e ajustar fio</text>
-  <g id="svg_16">
-   <rect id="svg_17" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="96" x="459"/>
-   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke="#8e8e8e" fill="#d6d6d6" class="wire" height="12" width="160" y="156" x="519"/>
-   <rect stroke="#bbb" id="svg_19" vector-effect="non-scaling-stroke" fill="#eee" class="beam" rx="4" height="24" width="92" y="150" x="689"/>
-   <text id="svg_20" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="165" x="693">desbarbar base</text>
-   <line id="svg_21" vector-effect="non-scaling-stroke" marker-end="url(#arr-f)" stroke-width="2" stroke="#666" class="arrow" y2="136" x2="599" y1="136" x1="539"/>
-   <line id="svg_22" vector-effect="non-scaling-stroke" marker-end="url(#arr-f)" stroke-width="2" stroke="#666" class="arrow" y2="136" x2="759" y1="136" x1="669"/>
-   <text id="svg_23" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="130" x="547">cortar com sobra ~2 mm</text>
-   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="256" x="459"/>
-   <text id="svg_25" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="270" x="467">pré-curvar se houver raio; valide largura da tang x kerf</text>
+  <g id="svg_22">
+   <rect id="svg_23" x="465" y="80" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_24" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="110" x="485">2) Cortar Fio &amp; Recuo da Tang</text>
+   <rect id="svg_25" stroke="#261a13" fill="#3d2b1f" class="escala-dark" height="55" width="280" y="190" x="525"/>
+   <line id="svg_26" stroke="#150500" fill="#201005" class="fret-slot" y2="245" x2="665" y1="190" x1="665"/>
+   <rect id="svg_27" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" rx="2" height="10" width="310" y="212" x="510"/>
+   <line id="svg_28" stroke-dasharray="4,4" stroke="#d9534f" class="guia-dotted" y2="230" x2="525" y1="230" x1="510"/>
+   <line id="svg_29" stroke-dasharray="4,4" stroke="#d9534f" class="guia-dotted" y2="230" x2="820" y1="230" x1="805"/>
+   <text id="svg_30" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-size="12px" class="text-label" y="234" x="497">+2mm</text>
+   <text id="svg_31" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-size="12px" class="text-label" y="234" x="833">+2mm</text>
+   <g stroke="null" id="svg_32">
+    <rect stroke="#f0ad4e" id="svg_33" rx="3" fill="#fff7eb" height="22" width="172.97612" y="155" x="576.52611"/>
+    <text transform="matrix(1.02834 0 0 1 -20.9054 0)" stroke="null" id="svg_34" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="170" x="667">Desbarbar / Recuar Tang</text>
+   </g>
+   <text id="svg_35" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="293" x="807">
+    <tspan id="svg_36" dy="0" x="675">Meça e corte com folga de segurança.</tspan>
+    <tspan id="svg_37" dy="16" x="675">Se houver
+     <tspan id="svg_38" font-weight="bold" fill="#d9534f" class="text-highlight">binding</tspan>, morda a tang nas pontas.</tspan>
+   </text>
   </g>
-  <text id="svg_26" stroke="#fff" stroke-width="2px" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="311" x="45">3) Assentar</text>
-  <g id="svg_27">
-   <rect id="svg_28" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="40"/>
-   <rect id="svg_29" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="fb" rx="3" height="20" width="260" y="406" x="90"/>
-   <rect id="svg_30" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#eee" class="beam" height="14" width="120" y="374" x="160"/>
-   <rect id="svg_31" vector-effect="non-scaling-stroke" stroke="#8e8e8e" fill="#d6d6d6" class="wire" height="10" width="60" y="398" x="200"/>
-   <circle id="svg_32" vector-effect="non-scaling-stroke" stroke="#e8b36b" fill="#fde9c9" class="warn" r="4" cy="404" cx="260"/>
-   <text id="svg_33" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="408" x="270">gota de CA nas pontas</text>
-   <text id="svg_34" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="363" x="98">martelo ou prensa com caul</text>
-   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="40"/>
-   <text id="svg_36" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="514" x="48">assentar do centro para as extremidades</text>
+  <g id="svg_39">
+   <rect id="svg_40" x="30" y="370" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_41" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="400" x="50">3) Assentamento Uniforme (Prensa/Caul)</text>
+   <path id="svg_42" stroke="#c2996e" fill="#e5c199" class="wood-light" d="m110,540c0,0 40,25 120,25c80,0 120,-25 120,-25l0,-25l-240,0l0,25z"/>
+   <path id="svg_43" stroke="#261a13" fill="#3d2b1f" class="escala-dark" d="m110,515c0,0 40,-10 120,-10c80,0 120,10 120,10l-240,0z"/>
+   <path id="svg_44" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m112,513c0,0 38,-10 118,-10c80,0 118,10 118,10l0,-5c0,0 -38,-10 -118,-10c-80,0 -118,10 -118,10l0,5z"/>
+   <path id="svg_45" stroke-width="1.2" stroke="#78828c" fill="#b0b8c0" class="metal-tool" d="m140,493c0,0 30,-8 90,-8c60,0 90,8 90,8l0,-33l-180,0l0,33z"/>
+   <text id="svg_46" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-weight="bold" class="text-label" y="478" x="230">Caul de Latão</text>
+   <line id="svg_47" stroke-linecap="round" fill="#5c5146" stroke="#5c5146" marker-end="url(#arrow-action)" stroke-width="1.8" class="seta-ação" y2="450" x2="230" y1="425" x1="230"/>
+   <circle id="svg_48" stroke="#46b8da" fill-opacity="0.8" fill="#5bc0de" class="glue-dot" r="5" cy="513" cx="118"/>
+   <circle id="svg_49" stroke="#46b8da" fill-opacity="0.8" fill="#5bc0de" class="glue-dot" r="5" cy="513" cx="342"/>
+   <text id="svg_50" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="502" x="75">Gota CA</text>
+   <text id="svg_51" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="502" x="380">Gota CA</text>
+   <text id="svg_52" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="600" x="232">Assente do centro para as pontas. Fixe extremidades com CA.</text>
   </g>
-  <text id="svg_37" stroke="#fff" stroke-width="2px" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="312" x="462">4) Acabamento</text>
-  <g id="svg_38">
-   <rect id="svg_39" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="340" x="460"/>
-   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#f2ece6" class="fb" rx="3" height="20" width="260" y="406" x="510"/>
-   <line id="svg_41" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="510" y1="406" x1="510"/>
-   <line id="svg_42" vector-effect="non-scaling-stroke" stroke-width="1.5" stroke="#666" class="slot" y2="426" x2="770" y1="406" x1="770"/>
-   <path id="svg_43" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" d="m512,406l8,8"/>
-   <text id="svg_44" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="418" x="522">35–45°</text>
-   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#bbb" fill="#eee" class="beam" rx="4" height="22" width="140" y="378" x="660"/>
-   <text id="svg_46" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="393" x="666">nivelar → coroar → polir</text>
-   <rect id="svg_47" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="360" y="500" x="460"/>
-   <text id="svg_48" stroke="#fff" stroke-width="2px" paint-order="stroke fill" fill="#333" class="note" y="514" x="468">pontas lisas ao toque e alinhadas à largura</text>
+  <g id="svg_53">
+   <rect id="svg_54" x="465" y="370" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_55" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="400" x="485">4) Chanfrar as Pontas (35° a 45°)</text>
+   <rect id="svg_56" stroke="#c2996e" fill="#e5c199" class="wood-light" height="30" width="280" y="510" x="525"/>
+   <rect id="svg_57" stroke="#261a13" fill="#3d2b1f" class="escala-dark" height="20" width="280" y="490" x="525"/>
+   <path id="svg_58" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m565,490l4,-8l4,8l-8,0z"/>
+   <path id="svg_59" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m615,490l4,-8l4,8l-8,0z"/>
+   <path id="svg_60" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m665,490l4,-8l4,8l-8,0z"/>
+   <path id="svg_61" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m715,490l4,-8l4,8l-8,0z"/>
+   <path id="svg_62" stroke="#8a95a0" fill="#e8ebee" class="fret-wire" d="m765,490l4,-8l4,8l-8,0z"/>
+   <g transform="rotate(-35 667 461)" id="svg_63">
+    <rect id="svg_64" stroke="#555" fill="#999" height="12" width="110" y="461" x="657"/>
+    <line id="svg_65" stroke-width="0.8" stroke="#666" y2="473" x2="672" y1="461" x1="677"/>
+    <line id="svg_66" stroke-width="0.8" stroke="#666" y2="473" x2="687" y1="461" x1="692"/>
+    <line id="svg_67" stroke-width="0.8" stroke="#666" y2="473" x2="702" y1="461" x1="707"/>
+    <line id="svg_68" stroke-width="0.8" stroke="#666" y2="473" x2="717" y1="461" x1="722"/>
+    <line id="svg_69" stroke-width="0.8" stroke="#666" y2="473" x2="732" y1="461" x1="737"/>
+   </g>
+   <path id="svg_70" stroke-dasharray="3,2" stroke-width="1.2" stroke="#d9534f" fill="none" d="m735,490a30,30 0 0 0 -25,-25"/>
+   <text id="svg_71" text-anchor="middle" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" class="text-label" y="470" x="743">35°–45°</text>
+   <text id="svg_72" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="591" x="797">
+    <tspan id="svg_73" dy="0" x="665">Passe a lima angular até facear as pontas.</tspan>
+    <tspan id="svg_74" dy="16" x="665">Siga para o processo de
+     <tspan id="svg_75" fill="#5cb85c" font-weight="bold">Nivelar → Coroar → Polir</tspan></tspan>
+   </text>
   </g>
  </g>
 </svg>

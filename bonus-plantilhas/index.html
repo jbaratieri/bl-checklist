@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Bônus — Plantilhas A4 | Método Baratieri</title>
+  <style>
+    :root {
+      --bg: #f4f0ea;
+      --card: #fff;
+      --ink: #2e2a26;
+      --muted: #6f675f;
+      --brand: #5c3b1e;
+      --btn: #5c3b1e;
+      --ok: #0d6b52;
+      --err: #b42318;
+      --border: #e4ded6;
+      --radius: 14px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 28px 20px 48px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 1.55rem;
+      color: var(--brand);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .credits {
+      background: #faf8f4;
+      border-left: 4px solid var(--brand);
+      padding: 12px 14px;
+      font-size: 0.9rem;
+      margin: 14px 0;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+    }
+
+    .row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    button,
+    .btn {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 0;
+      background: var(--btn);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--brand);
+    }
+
+    .msg {
+      min-height: 1.2em;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .msg.ok {
+      color: var(--ok);
+    }
+
+    .msg.err {
+      color: var(--err);
+    }
+
+    #downloads {
+      display: none;
+    }
+
+    #downloads.is-open {
+      display: block;
+    }
+
+    .file-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0 0;
+      max-height: 420px;
+      overflow: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .file-list li {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+
+    .file-list li:last-child {
+      border-bottom: 0;
+    }
+
+    .file-list button {
+      padding: 8px 12px;
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .top-links {
+      margin-top: 14px;
+      font-size: 0.9rem;
+    }
+
+    .top-links a {
+      color: var(--brand);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Bônus — Plantilhas A4</h1>
+      <p class="muted">
+        Pacote de plantillas para impressão (violão clássico / flamenca), exclusivo para quem possui licença ativa do
+        <strong>Método Baratieri</strong>.
+      </p>
+
+      <div class="credits">
+        <strong>Fonte:</strong> material de <strong>José María Gil Chueca</strong> —
+        <em>Manual para el lutier novel — Tecnología de la lutería</em>, Tomos 1 e 2.
+        Uso autorizado para compradores do Método Baratieri. Indique a fonte ao publicar imagens derivadas.
+      </div>
+
+      <p class="muted">
+        Imprima em A4 e confira medidas e etapas no app. Estas plantillas complementam o método; não substituem o guia
+        interativo.
+      </p>
+
+      <label for="license">Código de licença (mesmo do login do app)</label>
+      <div class="row">
+        <input id="license" type="text" placeholder="Cole seu código" autocomplete="off" />
+        <button type="button" id="btnUnlock">Liberar downloads</button>
+      </div>
+      <div id="msg" class="msg"></div>
+
+      <p class="top-links">
+        <a href="https://metodo.luthieriabaratieri.com.br/resgatar">Não tem o código?</a> ·
+        <a href="https://metodo.luthieriabaratieri.com.br/">Abrir o app</a>
+      </p>
+    </div>
+
+    <section class="card" id="downloads">
+      <h2 style="margin:0 0 8px;font-size:1.15rem">Downloads</h2>
+      <p class="muted" style="margin:0 0 8px">Clique em cada arquivo para baixar o PDF.</p>
+      <ul class="file-list" id="fileList"></ul>
+      <p class="muted" style="margin-top:12px;font-size:0.85rem">
+        Não redistribua os arquivos. Uso pessoal conforme sua licença do Método Baratieri.
+      </p>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      var FILES = [
+        "Plantilla 1. Radios a usar 1..pdf",
+        "Plantilla 2. Radios a usar 2..pdf",
+        "Plantilla 3. Tapa de flamenca 1..pdf",
+        "Plantilla 4. Tapa de flamenca 2..pdf",
+        "Plantilla 5. Tapa de flamenca 3..pdf",
+        "Plantilla 6. Tapa de flamenca 4..pdf",
+        "Plantilla 9. Mástil, diapasón y trastes flamenca 1..pdf",
+        "Plantilla 10. Mástil, diapasón y trastes 2..pdf",
+        "Plantilla 11. Diferentes piezas para flamenca y clásica 1. Inclinación de la pala..pdf",
+        "Plantilla 12. Diferentes piezas para flamenca y clásica 2. Inclinación de la pala..pdf",
+        "Plantilla 13. Curvas del mástil clásica..pdf",
+        "Plantilla 14. Diapasón clásica 1..pdf",
+        "Plantilla 15. Diapasón clásica 2..pdf",
+        "Plantilla 16 y 17. Mastil clásica..pdf",
+        "Plantilla 18. Tacón guitarra clásica..pdf",
+        "Plantilla 19, 20, 21 y 22 de clásica para imprimir en A-4.pdf",
+        "Plantilla solera 1.pdf",
+        "Plantilla solera 2.pdf",
+        "Plantilla solera 3.pdf",
+        "Plantilla solera 4.pdf",
+        "Plantilla solera 5.pdf",
+        "Plantilla solera 6.pdf",
+        "Plantilla solera 7.pdf",
+        "Plantilla solera 8.pdf"
+      ];
+
+      var STORAGE_KEY = "bl_bonus_plantilhas_license";
+      var input = document.getElementById("license");
+      var btn = document.getElementById("btnUnlock");
+      var msg = document.getElementById("msg");
+      var downloads = document.getElementById("downloads");
+      var fileList = document.getElementById("fileList");
+
+      function showMsg(text, ok) {
+        msg.textContent = text;
+        msg.className = "msg " + (ok ? "ok" : "err");
+      }
+
+      function renderList(licenseKey) {
+        fileList.innerHTML = "";
+        FILES.forEach(function (name) {
+          var li = document.createElement("li");
+          var span = document.createElement("span");
+          span.textContent = name;
+          var b = document.createElement("button");
+          b.type = "button";
+          b.textContent = "Baixar";
+          b.addEventListener("click", function () { downloadFile(licenseKey, name, b); });
+          li.appendChild(span);
+          li.appendChild(b);
+          fileList.appendChild(li);
+        });
+        downloads.classList.add("is-open");
+      }
+
+      async function validateLicense(key) {
+        var r = await fetch("/api/check-license", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ license_key: key })
+        });
+        return r.json();
+      }
+
+      async function downloadFile(licenseKey, file, button) {
+        var prev = button.textContent;
+        button.disabled = true;
+        button.textContent = "…";
+        try {
+          var r = await fetch("/api/bonus-plantilhas-file", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ license_key: licenseKey, file: file })
+          });
+          if (!r.ok) {
+            var err = await r.json().catch(function () { return {}; });
+            showMsg(err.msg === "license_invalid_or_expired"
+              ? "Licença inválida ou expirada. Verifique o código."
+              : "Não foi possível baixar. Tente de novo.", false);
+            return;
+          }
+          var blob = await r.blob();
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement("a");
+          a.href = url;
+          a.download = file;
+          a.click();
+          URL.revokeObjectURL(url);
+        } catch (e) {
+          showMsg("Erro de conexão ao baixar.", false);
+        } finally {
+          button.disabled = false;
+          button.textContent = prev;
+        }
+      }
+
+      async function unlock() {
+        var key = (input.value || "").trim();
+        if (!key) {
+          showMsg("Informe o código de licença.", false);
+          return;
+        }
+        btn.disabled = true;
+        showMsg("Validando…", true);
+        try {
+          var data = await validateLicense(key);
+          if (!data.ok) {
+            var map = {
+              license_not_found: "Código não encontrado.",
+              expired: "Licença expirada.",
+              blocked: "Licença bloqueada. Fale com o suporte."
+            };
+            showMsg(map[data.msg] || "Não foi possível liberar o acesso.", false);
+            downloads.classList.remove("is-open");
+            return;
+          }
+          localStorage.setItem(STORAGE_KEY, key);
+          showMsg("Acesso liberado. Baixe os PDFs abaixo.", true);
+          renderList(key);
+        } catch (e) {
+          showMsg("Erro de conexão. Tente novamente.", false);
+        } finally {
+          btn.disabled = false;
+        }
+      }
+
+      btn.addEventListener("click", unlock);
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") unlock();
+      });
+
+      var saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("lp_license_key");
+      if (saved) {
+        input.value = saved;
+        validateLicense(saved).then(function (data) {
+          if (data.ok) {
+            showMsg("Acesso liberado (código salvo neste aparelho).", true);
+            renderList(saved);
+          }
+        }).catch(function () { });
+      }
+    })();
+  </script>
+</body>
+
+</html>

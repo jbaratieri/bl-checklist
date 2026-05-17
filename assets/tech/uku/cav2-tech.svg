@@ -1,59 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 620" width="880" height="620"
-     font-family="system-ui,Segoe UI,Roboto,Arial" font-size="12">
-  <defs>
-    <style>
-      .panel{fill:#f6f1e7;stroke:#c8b596;stroke-width:2}
-      .title{fill:#222;font-weight:700}
-      .note{fill:#333}
-      .top{fill:#fff;stroke:#c7ae83;stroke-width:2}
-      .center{stroke:#888;stroke-dasharray:6,4;fill:none}
-      .bridge{fill:#2b2b2b;stroke:#111}
-      .saddle{fill:#ddd;stroke:#777}
-      .mask{fill:#f3f6ff;stroke:#8da4d8}
-      .dim{stroke:#666;stroke-width:2;marker-end:url(#arr)}
-      .labelbox{fill:#fff;stroke:#ddd}
-      text{paint-order:stroke fill;stroke:#fff;stroke-width:2px}
-      line, path, rect, circle, polygon{vector-effect:non-scaling-stroke}
-    </style>
-    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-      <polygon points="0,0 6,3 0,6" fill="#666"/>
-    </marker>
-  </defs>
-
-  <rect x="20" y="20" width="840" height="580" rx="12" class="panel"/>
-  <text x="40" y="48" class="title">Marcação do cavalete — eixo, compensação e máscara</text>
-
-  <!-- Tampo simplificado -->
-  <g transform="translate(40,80)">
-    <rect x="0" y="0" width="800" height="320" rx="18" class="top"/>
-    <!-- linha central -->
-    <line x1="400" y1="0" x2="400" y2="320" class="center"/>
-    <text x="408" y="16" class="note">linha central</text>
-
-    <!-- boca -->
-    <circle cx="300" cy="120" r="45" fill="#eee" stroke="#aaa"/>
-
-    <!-- posição teórica da selleta (escala) -->
-    <line x1="620" y1="40" x2="620" y2="280" class="center"/>
-    <text x="592" y="32" class="note">escala nominal</text>
-
-    <!-- linha da selleta com compensação (levemente angulada) -->
-    <line x1="624" y1="60" x2="636" y2="260" class="dim"/>
-    <text x="640" y="64" class="note">selleta com compensação</text>
-
-    <!-- máscara de área de cola -->
-    <rect x="600" y="120" width="80" height="36" class="mask"/>
-    <text x="606" y="114" class="note">máscara da cola</text>
-
-    <!-- cavalete -->
-    <rect x="604" y="126" width="72" height="24" class="bridge" rx="3"/>
-    <rect x="610" y="136" width="60" height="4" class="saddle"/>
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-action">
+   <path id="svg_1" fill="#5c5146" d="m0,1l10,4l-10,4l0,-8z"/>
+  </marker>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-alert">
+   <path id="svg_2" fill="#d9534f" d="m0,1l10,4l-10,4l0,-8z"/>
+  </marker>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_3" fill="#fdfaf3" class="bg-canvas" height="700" width="900"/>
+  <text id="svg_4" fill="#4a3e3d" font-weight="bold" font-size="20px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-main-title" y="40" x="30">Marcação do Cavalete — Eixo, Compensação &amp; Máscara</text>
+  <rect id="svg_5" rx="4" stroke="#f0ad4e" fill="#fff7eb" height="28" width="840" y="52" x="30"/>
+  <text transform="matrix(0.825287 0 0 1.30294 7.86209 -18.1754)" stroke="null" id="svg_6" font-weight="bold" fill="#a06000" font-style="italic" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-model-note" y="71" x="45">⚠️ Nota técnica: Gráficos baseados nas proporções de um Violão Clássico. Para Cavaquinho, Viola ou Ukulele, consulte as variações de offset nos blocos de textos abaixo.</text>
+  <g id="svg_7">
+   <rect id="svg_8" x="30" y="95" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_9" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="50">1) Alinhamento ao Eixo Central</text>
+   <path id="svg_10" stroke-width="1.2" stroke="#c2996e" fill="#e5c199" opacity="0.6" class="wood-light" d="m70,305l325,0l-45,-130l-235,0l-45,130z"/>
+   <circle stroke="#8c6845" id="svg_11" opacity="0.5" stroke-width="3" fill="none" class="roseta-ring" r="35" cy="162.5" cx="231"/>
+   <circle id="svg_12" stroke="#8c6845" fill="#fdfaf3" r="32" cy="163" cx="230"/>
+   <rect id="svg_13" stroke="#261a13" fill="#3d2b1f" class="wood-dark" height="28" width="180" y="235" x="142"/>
+   <line id="svg_14" stroke-dasharray="6,4" stroke-width="1.2" stroke="#d9534f" class="linha-eixo" y2="290" x2="232" y1="145" x1="232"/>
+   <text id="svg_15" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-weight="bold" fill="#6b5b52" class="text-label" y="161" x="269">Linha Central</text>
+   <line id="svg_16" stroke-linecap="round" fill="#5c5146" stroke-width="1.8" stroke="#5c5146" marker-start="url(#arrow-action)" class="seta-ação" y2="249" x2="172" y1="249" x1="142"/>
+   <line id="svg_17" stroke-linecap="round" fill="#5c5146" stroke-width="1.8" stroke="#5c5146" marker-start="url(#arrow-action)" class="seta-ação" y2="249" x2="292" y1="249" x1="322"/>
+   <text id="svg_18" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="325" x="393">
+    <tspan id="svg_19" dy="0" x="231">Trace a linha de centro com base na roseta.</tspan>
+    <tspan id="svg_20" dy="16" x="231">Divida a largura do cavalete e alinhe as marcas.</tspan>
+   </text>
   </g>
-
-  <!-- notas -->
-  <g transform="translate(40,430)">
-    <rect x="0" y="0" width="800" height="150" class="labelbox"/>
-    <text x="12" y="24" class="note">1) alinhar centro do cavalete à linha central; 2) marcar escala + compensação e traçar a linha da selleta;</text>
-    <text x="12" y="44" class="note">3) simular cordas com barbante; 4) contornar e mascarar a área exata de cola; 5) escarificar levemente a madeira na área protegida.</text>
+  <g id="svg_21">
+   <rect id="svg_22" x="444" y="92" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_23" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="485">2) Linha da Selleta &amp; Compensação</text>
+   <rect id="svg_24" stroke="#261a13" fill="#3d2b1f" class="wood-dark" height="30" width="60" y="140" x="637"/>
+   <line id="svg_25" stroke-dasharray="4,4" stroke="#555555" class="linha-escala" y2="290" x2="667" y1="170" x1="667"/>
+   <text id="svg_26" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style="italic" font-size="12px" class="text-label" y="210" x="610">Escala Nominal</text>
+   <line transform="rotate(-6.88816 665 260)" id="svg_27" stroke-width="2" stroke="#d9534f" y2="265" x2="755" y1="255" x1="575"/>
+   <text id="svg_28" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-weight="bold" fill="#6b5b52" class="text-label" y="247" x="715">Linha da Selleta</text>
+   <line id="svg_29" stroke-width="0.8" stroke="#555" y2="265" x2="667" y1="260" x1="667"/>
+   <line id="svg_30" stroke-width="0.8" stroke="#555" y2="265" x2="745" y1="260" x1="745"/>
+   <line transform="rotate(-5.22943 625 270)" id="svg_31" fill="#d9534f" stroke-width="1.5" stroke="#d9534f" marker-end="url(#arrow-alert)" marker-start="url(#arrow-alert)" class="seta-alerta" y2="270" x2="586" y1="270" x1="664"/>
+   <text transform="rotate(-5.92155 629 280.6)" id="svg_32" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="285" x="629">+ Graves</text>
+   <text id="svg_33" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="323" x="808">
+    <tspan id="svg_34" dy="0" x="651">Adicione o recuo milimétrico (offset) no rastilho.</tspan>
+    <tspan id="svg_35" dy="16" x="651">A inclinação compensa a tensão extra das cordas graves.</tspan>
+   </text>
   </g>
+  <g id="svg_36">
+   <rect id="svg_37" x="30" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_38" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="50">3) Simulação de Linha das Cordas</text>
+   <path id="svg_39" opacity="0.4" stroke="#c8bca6" fill="#fff7eb" d="m190,430l84,0l16,95l-118,0l18,-95z"/>
+   <rect id="svg_40" stroke="#261a13" fill="#3d2b1f" class="wood-dark" height="28" width="180" y="525" x="142"/>
+   <line id="svg_41" stroke-width="1.8" stroke="#5bc0de" y2="525" x2="165" y1="430" x1="200"/>
+   <line id="svg_42" stroke-width="1.8" stroke="#5bc0de" y2="525" x2="299" y1="430" x1="264"/>
+   <text id="svg_43" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-weight="bold" fill="#6b5b52" class="text-label" y="480" x="232">Barbante Guia</text>
+   <text id="svg_44" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="609" x="382">
+    <tspan id="svg_45" dy="0" x="225">Estique linhas externas das extremidades (1ª e 6ª).</tspan>
+    <tspan id="svg_46" dy="16" x="225">Verifique se as distâncias até as bordas da escala estão simétricas.</tspan>
+   </text>
+  </g>
+  <g id="svg_47">
+   <rect id="svg_48" x="465" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_49" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="485">4) Contorno &amp; Máscara de Proteção</text>
+   <rect id="svg_50" stroke-dasharray="2,2" stroke="#b58d63" fill="#cca67c" class="area-crua" height="35" width="180" y="500" x="577"/>
+   <text id="svg_51" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="521" x="667">Madeira Crua (Sem Verniz)</text>
+   <rect id="svg_52" fill-opacity="0.8" stroke-width="1.5" stroke="#ded49d" fill="#fcf4cf" class="tape-mask" height="25" width="240" y="475" x="547"/>
+   <rect id="svg_53" fill-opacity="0.8" stroke-width="1.5" stroke="#ded49d" fill="#fcf4cf" class="tape-mask" height="35" width="30" y="500" x="547"/>
+   <rect id="svg_54" fill-opacity="0.8" stroke-width="1.5" stroke="#ded49d" fill="#fcf4cf" class="tape-mask" height="35" width="30" y="500" x="757"/>
+   <rect id="svg_55" fill-opacity="0.8" stroke-width="1.5" stroke="#ded49d" fill="#fcf4cf" class="tape-mask" height="25" width="240" y="535" x="547"/>
+   <text id="svg_56" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-weight="bold" fill="#6b5b52" class="text-label" y="467" x="777">Fita Crepe</text>
+   <g id="svg_57">
+    <path id="svg_58" opacity="0.15" fill="#d9534f" d="m522,500l10,25l-15,0l5,-25z"/>
+    <text id="svg_59" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="495" x="532">Micro-escarificação</text>
+   </g>
+   <text id="svg_60" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="608" x="815">
+    <tspan id="svg_61" dy="0" x="658">Cole a fita
+     <tspan id="svg_62" font-weight="bold" fill="#d9534f" class="text-highlight">exatamente</tspan>rente à borda externa riscada.</tspan>
+    <tspan id="svg_63" dy="16" x="658">Remova o brilho interno; preserve a região sem acabamento.</tspan>
+   </text>
+  </g>
+ </g>
 </svg>

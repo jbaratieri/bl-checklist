@@ -1,66 +1,104 @@
-<svg width="880" height="420" xmlns="http://www.w3.org/2000/svg">
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="3" refX="5" markerHeight="6" markerWidth="6" id="arr">
-   <polygon id="svg_1" fill="#666" points="0,0 6,3 0,6"/>
+  <marker id="arrow-start" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+   <path d="m10,1l-10,4l10,4l0,-8z" fill="#d9534f" id="svg_1"/>
+  </marker>
+  <marker id="arrow-end" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+   <path d="m0,1l10,4l-10,4l0,-8z" fill="#d9534f" id="svg_2"/>
   </marker>
  </defs>
- <!-- Moldura -->
- <!-- A) Vista superior: espaçamento e margens -->
- <!-- B) Vista lateral: altura e ângulo de quebra -->
- <!-- C) Detalhe do canal -->
  <g>
   <title>Layer 1</title>
-  <rect id="svg_2" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="400" width="860" y="10" x="11"/>
-  <text id="svg_3" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="38" x="28">Pestana — alturas, espaçamento e canais</text>
-  <text font-weight="bold" id="svg_4" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="66" x="28">1) Vista superior (topo)</text>
-  <g id="svg_5">
-   <!-- escala -->
-   <rect id="svg_6" stroke="#111" fill="#2f2f2f" class="fb" height="64" width="320" y="118" x="28"/>
-   <!-- pestana -->
-   <rect id="svg_7" stroke="#bbb" fill="#eee" class="nut" height="64" width="8" y="118" x="28"/>
-   <!-- bordas de segurança -->
-   <line id="svg_8" stroke-dasharray="6 4" stroke="#bbb" fill="none" class="ghost" y2="178" x2="40" y1="122" x1="40"/>
-   <line id="svg_9" stroke-dasharray="6 4" stroke="#bbb" fill="none" class="ghost" y2="178" x2="336" y1="122" x1="336"/>
-   <text transform="matrix(0.900536 0 0 1 4.08042 0)" stroke="#fff" id="svg_10" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="111" x="38">margem 3.0–3.5 mm</text>
-   <!-- cordas (exemplo 6) -->
-   <line id="svg_11" stroke-width="2" stroke="#777" class="string" y2="126" x2="328" y1="126" x1="36"/>
-   <line id="svg_12" stroke-width="2" stroke="#777" class="string" y2="138" x2="328" y1="138" x1="36"/>
-   <line id="svg_13" stroke-width="2" stroke="#777" class="string" y2="150" x2="328" y1="150" x1="36"/>
-   <line id="svg_14" stroke-width="2" stroke="#777" class="string" y2="162" x2="328" y1="162" x1="36"/>
-   <line id="svg_15" stroke-width="2" stroke="#777" class="string" y2="174" x2="328" y1="174" x1="36"/>
-   <line id="svg_16" stroke-width="2" stroke="#777" class="string" y2="186" x2="328" y1="186" x1="36"/>
-   <!-- cota E–E -->
-   <line id="svg_17" marker-end="url(#arr)" stroke-width="1.5" stroke="#666" class="dim" y2="190" x2="328" y1="190" x1="36"/>
-   <text transform="matrix(0.904905 0 0 1 6.68087 0)" stroke="#fff" id="svg_18" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="205" x="73">E–E tipicamente 43–45 mm (clássico)</text>
-   <text transform="matrix(0.827602 0 0 1 6.37874 0)" stroke="#fff" id="svg_19" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="92" x="37">distribuição por lacunas iguais ou centros iguais</text>
+  <rect width="900" height="700" class="bg-canvas" fill="#fdfaf3" id="svg_4"/>
+  <text x="30" y="40" class="text-main-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="20px" font-weight="bold" fill="#4a3e3d" id="svg_5">Ajuste de Pestana (Nut) — Geometria, Espaçamento e Vetores de Escoamento</text>
+  <rect x="30" y="52" width="840" height="28" fill="#fff7eb" stroke="#f0ad4e" rx="4" id="svg_6"/>
+  <text x="45" y="70" class="text-note" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-style="italic" fill="#a06000" font-weight="bold" id="svg_7">⚠️ Regra de Ouro: O ponto de apoio da corda deve terminar no limite exato da escala, evitando erros de afinação nas casas iniciais.</text>
+  <g id="svg_8">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="95" x="30" id="svg_9"/>
+   <text x="50" y="125" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16px" font-weight="bold" fill="#5c5146" id="svg_10">1) Espaçamento Proporcional (Mão Esquerda)</text>
+   <g id="svg_11">
+    <rect x="75" y="185" width="310" height="40" class="bone-nut" rx="2" fill="#fcfbf7" stroke="#a39b8c" stroke-width="1.5" id="svg_12"/>
+    <line x1="100" y1="175" x2="100" y2="235" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_13"/>
+    <line x1="385" y1="175" x2="385" y2="235" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_14"/>
+    <line x1="360" y1="175" x2="360" y2="235" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_15"/>
+    <path d="m75,170l25,0" class="dimension-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)" stroke="#d9534f" stroke-width="1.2" fill="none" id="svg_16"/>
+    <text x="87.5" y="165" class="text-label" font-size="12px" font-weight="bold" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" id="svg_17">3.0 – 3.5 mm</text>
+    <circle cx="100" cy="205" r="4.5" fill="#9da3ab" id="svg_18"/>
+    <circle cx="152" cy="205" r="3.8" fill="#9da3ab" id="svg_19"/>
+    <circle cx="204" cy="205" r="3.2" fill="#9da3ab" id="svg_20"/>
+    <circle cx="256" cy="205" r="2.6" fill="#111111" id="svg_21"/>
+    <circle cx="308" cy="205" r="2" fill="#111111" id="svg_22"/>
+    <circle cx="360" cy="205" r="1.5" fill="#111111" id="svg_23"/>
+    <path d="m100,240l260,0" class="dimension-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)" stroke="#d9534f" stroke-width="1.2" fill="none" id="svg_24"/>
+    <text x="230" y="255" class="text-label" font-size="12px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" text-anchor="middle" id="svg_25">E–E Clássico: 43 – 45 mm</text>
+    <text fill="#6b5b52" stroke="null" x="117.99999" y="268.39998" id="svg_82" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="start" xml:space="preserve">Outros instrumentos, de acorco com o projeto</text>
+   </g>
+   <text x="390" y="313" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_26">
+    <tspan x="218" dy="0" id="svg_27">A distribuição por folgas/gaps iguais compensa as</tspan>
+    <tspan x="218" dy="16" id="svg_28">espessuras diferentes dos bordões e garante o equilíbrio tátil.</tspan>
+   </text>
   </g>
-  <text font-weight="bold" id="svg_20" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="66" x="460">2) Vista lateral (altura e quebra)</text>
-  <g stroke="null" id="svg_21">
-   <!-- escala e 1º traste -->
-   <rect stroke="#111" id="svg_22" fill="#2f2f2f" class="fb" height="39.92987" width="340" y="175.07013" x="460"/>
-   <rect stroke="#9a9a9a" id="svg_23" fill="#c0c0c0" class="fret" height="4.43665" width="28" y="210.56335" x="488"/>
-   <!-- pestana -->
-   <rect stroke="#bbb" id="svg_24" fill="#eee" class="nut" height="48.80317" width="12" y="166.19683" x="460"/>
-   <!-- corda -->
-   <path stroke="#777" id="svg_25" stroke-width="2" class="string" d="m470,172.85181c30,-17.74661 110,-22.18326 190,-13.30996"/>
-   <!-- altura alvo 1ª e 6ª (indicativo) -->
-   <line stroke="#666" id="svg_26" marker-end="url(#arr)" stroke-width="1.5" class="dim" y2="177.28846" x2="496" y1="188.38009" x1="496"/>
-   <text transform="matrix(1 0 0 1.10916 0 -9.05091)" stroke="#fff" id="svg_27" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="188.42529" x="530">~0.5 mm (1ª)</text>
-   <line stroke="#666" id="svg_28" marker-end="url(#arr)" stroke-width="1.5" class="dim" y2="177.28846" x2="512" y1="195.03507" x1="512"/>
-   <text transform="matrix(1 0 0 1.10916 0 -9.05091)" stroke="#fff" id="svg_29" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="189.91739" x="637">~0.8 mm (6ª)</text>
-   <!-- ângulo de quebra -->
-   <line stroke="#bbb" id="svg_30" stroke-dasharray="6 4" fill="none" class="ghost" y2="210.56335" x2="470" y1="172.85181" x1="470"/>
-   <line stroke="#bbb" id="svg_31" stroke-dasharray="6 4" fill="none" class="ghost" y2="172.85181" x2="500" y1="172.85181" x1="470"/>
-   <path stroke="#94a9d6" id="svg_32" stroke-width="2" fill="none" class="guide" d="m470,172.85181l24,-8.8733"/>
-   <text transform="matrix(1 0 0 1.10916 0 -9.05091)" stroke="#fff" id="svg_33" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="137.46048" x="476">quebra 12–18 graus</text>
-   <text transform="matrix(1 0 0 1.10916 0 -9.05091)" stroke="#fff" id="svg_34" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="98" x="460">meça sobre o 1º traste; ajuste baixando aos poucos</text>
+  <g id="svg_29">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="96" x="465" id="svg_30"/>
+   <text x="485" y="126" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16px" font-weight="bold" fill="#5c5146" id="svg_31">2) Ângulo de Quebra e Ponto Zero de Apoio</text>
+   <g id="svg_32">
+    <path d="m625,236l200,0l0,40l-200,0l0,-40z" class="wood-neck" fill="#d4a373" stroke="#a67c52" stroke-width="1.2" id="svg_33"/>
+    <path d="m625,236l-120,-45l0,40l120,45l0,-40z" class="wood-neck" fill="#d4a373" stroke="#a67c52" stroke-width="1.2" id="svg_34"/>
+    <rect x="625" y="226" width="200" height="10" class="wood-fretboard" fill="#4a3b32" stroke="#2b221e" id="svg_35"/>
+    <path d="m615,206l10,0l0,30l-10,0l0,-30z" class="bone-nut" fill="#fcfbf7" stroke="#a39b8c" stroke-width="1.5" id="svg_36"/>
+    <path d="m505,176l115,32l205,0" class="string-line" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round" id="svg_37"/>
+    <path d="m565,208a60,60 0 0 1 55,0" fill="none" stroke="#2b7042" stroke-dasharray="2,2" id="svg_38"/>
+    <path d="m505,176l60,17" fill="none" stroke="#2b7042" stroke-width="1.5" id="svg_39"/>
+    <path d="m575,190l-5,7" fill="none" stroke="#d9534f" marker-end="url(#arrow-end)" id="svg_40"/>
+    <text x="560" y="184" class="text-highlight" font-size="11px" fill="#d9534f" font-weight="bold" id="svg_41">12° – 18°</text>
+   </g>
+   <text x="843" y="314" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_42">
+    <tspan x="671" dy="0" id="svg_43">O canal deve descer inclinado em direção às tarraxas.</tspan>
+    <tspan x="671" dy="16" id="svg_44">Canais paralelos à escala criam o ruído indesejado de "sitar".</tspan>
+   </text>
   </g>
-  <text font-weight="bold" id="svg_35" fill="#222" font="700 16px system-ui,Segoe UI,Roboto,Arial" class="title" y="238" x="28">3) Detalhe do canal</text>
-  <g id="svg_36">
-   <rect id="svg_37" stroke="#bbb" fill="#eee" class="nut" height="60" width="120" y="270" x="28"/>
-   <path id="svg_38" stroke-width="2" stroke="#777" class="string" d="m28,300c30,-6 60,-6 120,0"/>
-   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="294" x="168">largura do canal = diâmetro da corda + 0.02 a 0.05 mm</text>
-   <text id="svg_40" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="label textbg" y="314" x="168">deixe ~50% do diâmetro da corda acima do canal</text>
+  <g id="svg_45">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="386" x="30" id="svg_46"/>
+   <text x="50" y="416" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16px" font-weight="bold" fill="#5c5146" id="svg_47">3) Calibragem e Profundidade do Canal</text>
+   <g id="svg_48">
+    <path d="m130,536l0,-50c40,0 60,15 100,15l100,0c40,0 60,-15 100,-15l0,50l-300,0z" class="bone-nut" fill="#fcfbf7" stroke="#a39b8c" stroke-width="1.5" id="svg_49"/>
+    <path d="m212,501a18,18 0 0 0 36,0" fill="#fdfaf3" stroke="#a39b8c" stroke-width="1.5" id="svg_50"/>
+    <circle cx="230" cy="501" r="17.5" class="string-core" stroke-width="1.5" fill="none" stroke="#9da3ab" id="svg_51"/>
+    <line x1="205" y1="501" x2="255" y2="501" class="guide-line" stroke="#a39b8c" stroke-dasharray="3,3" fill="none" id="svg_52"/>
+    <path d="m255,483l0,18" class="dimension-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)" stroke="#d9534f" stroke-width="1.2" fill="none" id="svg_53"/>
+    <text x="290" y="494" class="text-label" font-size="12px" font-weight="bold" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" id="svg_54">~50% Livre</text>
+    <path d="m210,514l18,0" class="dimension-line" marker-end="url(#arrow-end)" stroke="#d9534f" stroke-width="1.2" fill="none" id="svg_55"/>
+    <text x="195" y="528" class="text-label" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" text-anchor="middle" id="svg_56">+ 0.03 mm</text>
+   </g>
+   <text x="411" y="591" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_57">
+    <tspan x="239" dy="0" id="svg_58">Canais profundos demais aprisionam e travam a corda,</tspan>
+    <tspan x="239" dy="16" id="svg_59">gerando estalos mecânicos agudos durante a afinação.</tspan>
+   </text>
+  </g>
+  <g id="svg_60">
+   <rect width="405" height="260" class="bg-panel" fill="#ffffff" stroke="#c8bca6" stroke-width="1.5" rx="8" y="385" x="465" id="svg_61"/>
+   <text x="485" y="415" class="text-step-title" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="16px" font-weight="bold" fill="#5c5146" id="svg_62">4) Alvos Metrológicos Sobre o 1º Traste</text>
+   <g id="svg_63">
+    <rect x="505" y="515" width="320" height="15" class="wood-fretboard" fill="#4a3b32" stroke="#2b221e" id="svg_64"/>
+    <path d="m665,515c0,-20 20,-20 20,0l-20,0z" class="fret-wire" fill="#b0b5bc" stroke="#787d82" id="svg_65"/>
+    <text x="675" y="527" class="text-label" font-size="12px" fill="#cccccc" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" id="svg_66">1º Traste</text>
+    <line x1="505" y1="485" x2="825" y2="485" class="string-line" fill="none" stroke="#111111" stroke-width="2.5" stroke-linecap="round" id="svg_67"/>
+    <path d="m675,487l0,16" class="dimension-line" marker-start="url(#arrow-start)" marker-end="url(#arrow-end)" stroke="#d9534f" stroke-width="1.2" fill="none" id="svg_68"/>
+    <g id="svg_69">
+     <rect width="130" height="42" fill="#f4f9f5" stroke="#2b7042" rx="4" y="431" x="516" id="svg_70"/>
+     <text x="547" y="446" class="text-ok" font-size="11px" font-weight="bold" fill="#2b7042" id="svg_71">Nylon Clássico</text>
+     <text x="581" y="463" class="text-label" font-size="12px" font-weight="bold" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" id="svg_72">E1: 0.45 / E6: 0.70mm</text>
+    </g>
+    <g id="svg_73">
+     <rect width="130" height="42" fill="#f4f9f5" stroke="#2b7042" rx="4" y="429" x="681" id="svg_74"/>
+     <text x="712" y="447" class="text-ok" font-size="11px" font-weight="bold" fill="#2b7042" id="svg_75">Aço / Cavaco</text>
+     <text x="746" y="461" class="text-label" font-size="12px" font-weight="bold" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" id="svg_76">0.35 – 0.50 mm</text>
+    </g>
+   </g>
+   <text x="844" y="601" class="text-label" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" fill="#6b5b52" id="svg_77">
+    <tspan x="677" dy="0" id="svg_78">Pressione a corda na 3ª casa e verifique visualmente</tspan>
+    <tspan x="677" dy="16" id="svg_79">se resta uma folga mínima (luz) sobre o topo do 1º traste.</tspan>
+   </text>
   </g>
  </g>
 </svg>

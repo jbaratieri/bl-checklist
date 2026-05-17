@@ -1,85 +1,90 @@
-<svg width="880" height="540" xmlns="http://www.w3.org/2000/svg" aria-label="Seladora e pore fill: poro aberto x fechado, métodos e compatibilidade" role="img">
+<svg width="900" height="700" xmlns="http://www.w3.org/2000/svg">
  <defs>
-  <marker orient="auto" refY="4" refX="7" markerHeight="8" markerWidth="8" id="arr">
-   <polygon id="svg_1" fill="#444" points="0,0 8,4 0,8"/>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow-action">
+   <path id="svg_1" fill="#5c5146" d="m0,1l10,4l-10,4l0,-8z"/>
   </marker>
  </defs>
- <!-- 1) Poro fechado (tampo) vs aberto (fundo/laterais) -->
- <!-- 2) Métodos de pore fill -->
- <!-- 3) Fluxo e compatibilidade -->
- <!-- 4) Erros comuns -->
- <!-- 5) Dicas -->
  <g>
   <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#d1c3a0" fill="#faf7f1" class="panel" rx="12" height="500" width="840" y="20" x="20"/>
-  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="48" x="40">Seladora e pore fill — poro aberto x fechado, métodos e compatibilidade</text>
-  <text font-weight="bold" id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="79" x="40">1) Onde aplicar</text>
-  <g stroke="null" id="svg_5">
-   <rect stroke="#c9b28a" id="svg_6" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="162" width="359.00001" y="87" x="37"/>
-   <text transform="matrix(0.997222 0 0 1 0.102777 0)" stroke="#fff" id="svg_7" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="109" x="53">Tampo (abeto/cedro) — poro fechado</text>
-   <rect stroke="#c9b28a" id="svg_8" vector-effect="non-scaling-stroke" fill="#f2e9da" height="36" width="327.0889" y="123" x="52.95556"/>
-   <path stroke="#8a623f" id="svg_9" vector-effect="non-scaling-stroke" opacity="0.6" fill="none" class="grain" d="m56.94444,141c39.88889,-6 79.77778,-6 119.66667,0c39.88889,6 79.77778,6 119.66667,0"/>
-   <rect stroke="#9ed3ab" id="svg_10" vector-effect="non-scaling-stroke" fill="#e6f7ec" class="ok" rx="4" height="22" width="83.76667" y="97" x="296.27778"/>
-   <text transform="matrix(0.997222 0 0 1 0.102777 0)" stroke="#fff" id="svg_11" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="112" x="339">Selar leve</text>
-   <text transform="matrix(0.814091 0 0 1.12309 11.1163 -24.7558)" stroke="#fff" id="svg_12" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="196.77295" x="47.07657">Fundo/laterais (jacarandá/mogno) — poro aberto</text>
-   <rect stroke="#c9b28a" id="svg_13" vector-effect="non-scaling-stroke" fill="#f2e9da" height="24" width="327.0889" y="209" x="48.95556"/>
-   <!-- poros verticais -->
-   <g stroke="#8a623f" id="svg_14" stroke-width="2" class="pore">
-    <line stroke="null" id="svg_15" vector-effect="non-scaling-stroke" y2="230" x2="69.88889" y1="210" x1="69.88889"/>
-    <line stroke="null" id="svg_16" vector-effect="non-scaling-stroke" y2="230" x2="87.83889" y1="210" x1="87.83889"/>
-    <line stroke="null" id="svg_17" vector-effect="non-scaling-stroke" y2="230" x2="107.78334" y1="210" x1="107.78334"/>
-    <line stroke="null" id="svg_18" vector-effect="non-scaling-stroke" y2="230" x2="131.71667" y1="210" x1="131.71667"/>
-    <line stroke="null" id="svg_19" vector-effect="non-scaling-stroke" y2="230" x2="169.61111" y1="210" x1="169.61111"/>
-    <line stroke="null" id="svg_20" vector-effect="non-scaling-stroke" y2="230" x2="205.51112" y1="210" x1="205.51112"/>
-    <line stroke="null" id="svg_21" vector-effect="non-scaling-stroke" y2="230" x2="249.38889" y1="210" x1="249.38889"/>
-    <line stroke="null" id="svg_22" vector-effect="non-scaling-stroke" y2="230" x2="297.25556" y1="210" x1="297.25556"/>
-    <line stroke="null" id="svg_23" vector-effect="non-scaling-stroke" y2="230" x2="339.1389" y1="210" x1="339.1389"/>
+  <rect id="svg_3" fill="#fdfaf3" class="bg-canvas" height="700" width="900"/>
+  <text id="svg_4" fill="#4a3e3d" font-weight="bold" font-size="20px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-main-title" y="40" x="30">Seladora e Pore Fill — Estrutura de Poros, Métodos e Selagem Intermediária</text>
+  <rect id="svg_5" rx="4" stroke="#f0ad4e" fill="#fff7eb" height="28" width="840" y="52" x="30"/>
+  <text id="svg_6" font-weight="bold" fill="#a06000" font-style="italic" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-model-note" y="70" x="45">⚠️ Nota acústica: Tampos (Abeto/Cedro) pedem selagem mínima. Pore fill agressivo é restrito às madeiras de poro aberto (Jacarandá/Mogno).</text>
+  <g id="svg_7" stroke="null">
+   <rect id="svg_8" x="31.53503" y="96" rx="8" stroke-width="1.5" fill="#ffffff" class="bg-panel" height="260" width="403.46497" stroke="#c8bca6"/>
+   <text id="svg_9" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="126" x="50" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">1) Anatomia da Madeira e Alvos de Aplicação</text>
+   <g id="svg_10" stroke="null">
+    <rect id="svg_11" x="65.40616" y="157" fill="#f9ebd2" class="abeto-tampo" height="45" width="139.46937" stroke="#dfb17b"/>
+    <line id="svg_12" stroke-width="0.8" y2="169" x2="204.87554" y1="169" x1="65.40616" stroke="#dfb17b"/>
+    <line id="svg_13" stroke-width="0.8" y2="181" x2="204.87554" y1="181" x1="65.40616" stroke="#dfb17b"/>
+    <line id="svg_14" stroke-width="0.8" y2="193" x2="204.87554" y1="193" x1="65.40616" stroke="#dfb17b"/>
+    <text id="svg_15" text-anchor="middle" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="12px" font-weight="bold" class="text-label" y="219" x="134" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">Tampo (Abeto/Cedro)</text>
+    <text id="svg_16" font-weight="bold" fill="#2b7042" font-size="10px" class="text-ok" y="232" x="81" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">Apenas Seladora Leve</text>
    </g>
-   <rect stroke="#e0c562" id="svg_24" vector-effect="non-scaling-stroke" fill="#fff7d6" class="warn" rx="4" height="22" width="83.76667" y="182" x="306.27778"/>
-   <text transform="matrix(0.997222 0 0 1 0.102777 0)" stroke="#fff" id="svg_25" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="198" x="346.0195">Pore fill</text>
+   <g id="svg_17" stroke="null">
+    <rect id="svg_18" x="255.68224" y="156" fill="#4a3225" class="jacaranda-fundo" height="45" width="139.46937" stroke="#2d1e16"/>
+    <path id="svg_19" opacity="0.3" fill="#2d1e16" class="pore-open" d="m270.62538,156q4.98105,20 9.9621,0l-9.9621,0zm39.84839,0q4.98105,22 9.9621,0l-9.9621,0zm39.84839,0q4.98105,20 9.9621,0l-9.9621,0zm24.90525,0q4.98105,18 9.9621,0l-9.9621,0z" stroke="null"/>
+    <text id="svg_20" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-size="12px" font-weight="bold" class="text-label" y="218" x="325" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">Fundo (Jacarandá/Mogno)</text>
+    <text id="svg_21" font-weight="bold" fill="#d9534f" font-size="10px" class="text-highlight" y="232" x="264" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">Exige Pore Fill Obligatório</text>
+   </g>
+   <rect id="svg_22" rx="4" fill="#fcfaf2" height="26" width="323.76819" y="256" x="71.38342" stroke="#c8bca6"/>
+   <text id="svg_23" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="273" x="232" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">Guitarra Flamenca (Cipreste): Poro fino, fill dispensável.</text>
+   <text id="svg_24" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="311" x="394.61632" stroke="null" transform="matrix(0.99621 0 0 1 1.64874 0)">
+    <tspan id="svg_25" dy="0" x="232.61632" stroke="null">Não sature o tampo harmônico com massas pesadas.</tspan>
+    <tspan id="svg_26" dy="16" x="232.61632" stroke="null">O excesso de resina amortece a vibração acústica do tampo.</tspan>
+   </text>
   </g>
-  <text font-weight="bold" id="svg_26" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="75" x="427">2) Métodos</text>
-  <g stroke="null" id="svg_27">
-   <rect stroke="#c9b28a" id="svg_28" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="164" width="400.00002" y="86" x="420.99998"/>
-   <g stroke="null" id="svg_29">
-    <rect stroke="#c9b28a" id="svg_30" vector-effect="non-scaling-stroke" fill="#ece8df" class="chip" rx="6" height="112.45714" width="117.77778" y="102.4" x="434.33331"/>
-    <text transform="matrix(1.11111 0 0 1.17143 -91.1112 -42.8571)" stroke="#fff" id="svg_31" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="142" x="525.9">Goma-laca +</text>
-    <text transform="matrix(1.11111 0 0 1.17143 -91.1112 -42.8571)" stroke="#fff" id="svg_32" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="158" x="525.9">pedra-pomes</text>
-    <path stroke="#444" id="svg_33" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" d="m447.66665,184.4l91.11112,0"/>
-    <text transform="matrix(0.881334 0 0 1.12983 20.6063 -33.7869)" stroke="#fff" id="svg_34" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="212" x="488.9">muñequilla em 8</text>
+  <g id="svg_27">
+   <rect id="svg_28" x="465" y="95" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_29" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="125" x="485">2) Dinâmica de Aplicação do Filler</text>
+   <g id="svg_30">
+    <rect id="svg_31" x="525" y="155" stroke="#2d1e16" fill="#4a3225" class="jacaranda-fundo" height="80" width="280"/>
+    <line id="svg_32" stroke-dasharray="8,4" stroke="#2d1e16" y2="175" x2="805" y1="175" x1="525"/>
+    <line id="svg_33" stroke-dasharray="8,4" stroke="#2d1e16" y2="195" x2="805" y1="195" x1="525"/>
+    <line id="svg_34" stroke-dasharray="8,4" stroke="#2d1e16" y2="215" x2="805" y1="215" x1="525"/>
+    <path id="svg_35" stroke-width="1.2" stroke="#6c757d" fill="#b0b8c0" opacity="0.9" class="tool-blade" d="m645,150l60,-10l30,50l-60,10l-30,-50z"/>
+    <path id="svg_36" fill="#d98e2b" d="m675,200l60,-10l2,3l-60,10l-2,-3z"/>
+    <line id="svg_37" stroke-linecap="round" fill="#5c5146" stroke-width="1.8" stroke="#5c5146" marker-end="url(#arrow-action)" class="seta-ação" y2="200" x2="670" y1="170" x1="625"/>
+    <text id="svg_38" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="149" x="577">Movimento Cruzado</text>
    </g>
-   <g stroke="null" id="svg_35">
-    <rect stroke="#c9b28a" id="svg_36" vector-effect="non-scaling-stroke" fill="#ece8df" class="chip" rx="6" height="112.45714" width="117.77778" y="102.4" x="560.99999"/>
-    <text transform="matrix(1.11111 0 0 1.17143 -91.1112 -42.8571)" stroke="#fff" id="svg_37" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="142" x="639.9">Filler</text>
-    <text transform="matrix(1.11111 0 0 1.17143 -91.1112 -42.8571)" stroke="#fff" id="svg_38" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="158" x="639.9">base água</text>
-    <path stroke="#444" id="svg_39" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" d="m574.33332,184.4l91.11112,0"/>
-    <text transform="matrix(0.891057 0 0 1.04664 40.9653 -15.6463)" stroke="#fff" id="svg_40" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="212" x="602.9">espátula cruzada</text>
-   </g>
-   <g stroke="null" id="svg_41">
-    <rect stroke="#c9b28a" id="svg_42" vector-effect="non-scaling-stroke" fill="#ece8df" class="chip" rx="6" height="112.45714" width="117.77778" y="102.4" x="687.66666"/>
-    <text transform="matrix(1.11111 0 0 1.17143 -91.1112 -42.8571)" stroke="#fff" id="svg_43" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="142" x="753.9">Epóxi fino</text>
-    <path stroke="#444" id="svg_44" vector-effect="non-scaling-stroke" marker-end="url(#arr)" stroke-width="2" class="dim" d="m700.99999,184.4l91.11112,0"/>
-    <text transform="matrix(1.11111 0 0 1.17143 -91.1112 -42.8571)" stroke="#fff" id="svg_45" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="212" x="716.9">rodo/raspila</text>
-   </g>
+   <text id="svg_39" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="314" x="826">
+    <tspan id="svg_40" dy="0" x="669">Force o filler / epóxi para dentro dos canais da fibra.</tspan>
+    <tspan id="svg_41" dy="16" x="669">Trabalhar paralelo ao veio remove o material de dentro dos poros.</tspan>
+   </text>
   </g>
-  <text font-weight="bold" id="svg_46" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="318" x="42">3) Fluxo recomendado</text>
-  <g stroke="null" id="svg_47">
-   <rect stroke="#c9b28a" id="svg_48" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="152.00001" width="447.99997" y="328.99999" x="36"/>
-   <text stroke="#fff" transform="matrix(0.831313 0 0 1.27123 0.138926 -109.875)" id="svg_49" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="367" x="60.79847">Lixamento fino → Seladora leve (dewaxed) → Pore fill → Selagem leve → Topcoat</text>
-   <rect stroke="#9ed3ab" id="svg_50" vector-effect="non-scaling-stroke" fill="#e6f7ec" class="ok" rx="4" height="39.08572" width="430.62856" y="370.25714" x="44.22857"/>
-   <text stroke="#fff" transform="matrix(1.03832 0 0 1.08571 -4.31843 -41.2286)" id="svg_51" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" text-anchor="middle" y="401" x="185">funciona com goma-laca, nitro, PU, água</text>
-   <rect stroke="#e0c562" id="svg_52" vector-effect="non-scaling-stroke" fill="#fff7d6" class="warn" rx="4" height="33.65714" width="425.14285" y="418.02857" x="44.22857"/>
-   <text stroke="#fff" transform="matrix(0.987867 0 0 1.26164 -1.03484 -119.79)" id="svg_53" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="443" x="56">epóxi → selar com goma-laca descerada antes de nitro/PU</text>
+  <g id="svg_42">
+   <rect id="svg_43" x="30" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_44" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="50">3) Barreira de Isolação (Goma-Laca Descerada)</text>
+   <g id="svg_45">
+    <rect id="svg_46" stroke="#2d1e16" fill="#4a3225" class="jacaranda-fundo" height="40" width="300" y="495" x="80"/>
+    <path id="svg_47" stroke-width="0.8" stroke="#a06000" fill="#bc8f65" class="pore-filled" d="m120,495q5,18 10,0l-10,0zm80,0q5,20 10,0l-10,0zm100,0q5,18 10,0l-10,0z"/>
+    <text id="svg_48" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-size="12px" class="text-label" y="520" x="330">Poro Nivelado</text>
+    <rect id="svg_49" stroke-width="1.2" stroke="#f0ad4e" fill-opacity="0.4" fill="#f0ad4e" class="layer-shellac" height="15" width="300" y="479" x="80"/>
+    <text id="svg_50" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="490" x="230">GOMA-LACA DESCERADA (Dewaxed)</text>
+    <rect id="svg_51" stroke-width="1.2" stroke="#46b8da" fill-opacity="0.3" fill="#5bc0de" class="layer-topcoat" height="23" width="300" y="455" x="80"/>
+    <text id="svg_52" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight="bold" font-size="12px" class="text-label" y="470" x="230">Verniz Final (Verniz de topo: Nitro / PU)</text>
+   </g>
+   <text id="svg_53" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="603" x="390">
+    <tspan id="svg_54" dy="0" x="228">A goma-laca descerada funciona como ponte química universal.</tspan>
+    <tspan id="svg_55" dy="16" x="228">Impede rejeição de aderência ou incompatibilidade mecânica.</tspan>
+   </text>
   </g>
-  <text transform="matrix(0.887226 0 0 0.894496 61.7999 31.0825)" stroke="#fff" font-weight="bold" id="svg_54" stroke-width="2px" paint-order="stroke fill" fill="#222" font="700 14px system-ui,Segoe UI,Roboto,Arial" class="h" y="313.35895" x="501.78857">4) Erros comuns</text>
-  <g stroke="null" id="svg_55">
-   <rect stroke="#c9b28a" id="svg_56" vector-effect="non-scaling-stroke" fill="#fff" class="box" rx="6" height="149" width="342" y="323" x="497.00001"/>
-   <rect stroke="#e79a9a" id="svg_57" vector-effect="non-scaling-stroke" fill="#fde8e8" class="bad" rx="4" height="25.54286" width="309.32758" y="340.02858" x="512.20001"/>
-   <text stroke="#fff" transform="matrix(0.95 0 0 1.06429 55.5656 -55.8857)" id="svg_58" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="388" x="505">entupir poros do tampo (perde resposta)</text>
-   <rect stroke="#e79a9a" id="svg_59" vector-effect="non-scaling-stroke" fill="#fde8e8" class="bad" rx="4" height="25.54286" width="311.6" y="385.13645" x="513.33622"/>
-   <text stroke="#fff" transform="matrix(0.95 0 0 1.06429 70.3364 -47.8558)" id="svg_60" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="422" x="505">filler espesso não lixado a plano (ondas)</text>
-   <rect stroke="#e79a9a" id="svg_61" vector-effect="non-scaling-stroke" fill="#fde8e8" class="bad" rx="4" height="25.54286" width="311.6" y="430.24431" x="512.20001"/>
-   <text stroke="#fff" transform="matrix(0.95 0 0 1.06429 39.6587 -55.8857)" id="svg_62" stroke-width="2px" paint-order="stroke fill" fill="#333" font="12px system-ui,Segoe UI,Roboto,Arial" class="t" y="472.76647" x="519.35216">incompatibilidade sem selagem intermediária</text>
+  <g id="svg_56">
+   <rect id="svg_57" x="465" y="385" rx="8" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="260" width="405"/>
+   <text id="svg_58" fill="#5c5146" font-weight="bold" font-size="16px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-step-title" y="415" x="485">4) Patologias de Oficina (Erros Comuns)</text>
+   <g id="svg_59">
+    <path id="svg_60" stroke-width="1.5" stroke="#d9534f" fill="#e6b8b8" d="m505,485q40,-25 80,0q40,25 80,0q40,-25 80,0q40,25 80,0l0,30l-320,0l0,-30z"/>
+    <line id="svg_61" stroke-dasharray="4,3" stroke="#78828c" class="linha-guia" y2="485" x2="825" y1="485" x1="505"/>
+    <circle id="svg_62" fill="#d9534f" r="3" cy="478" cx="565"/>
+    <circle id="svg_63" fill="#d9534f" r="4" cy="495" cx="645"/>
+    <circle id="svg_64" fill="#d9534f" r="3" cy="475" cx="725"/>
+    <text id="svg_65" fill="#d9534f" text-anchor="middle" font-weight="bold" font-size="11px" class="text-highlight" y="505" x="665">Película Irregular &amp; Incompatibilidade Química</text>
+   </g>
+   <text id="svg_66" text-anchor="middle" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-weight="bold" fill="#6b5b52" font-size="12px" class="text-label" y="540" x="667">Massa grossa mal nivelada gera efeito ondulado ("ondas").</text>
+   <text id="svg_67" fill="#6b5b52" font-size="12px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" text-anchor="middle" class="text-label" y="602" x="819">
+    <tspan id="svg_68" dy="0" x="662">Lixe o filler até que reste material apenas nos poros.</tspan>
+    <tspan id="svg_69" dy="16" x="662">Toda a superfície externa da madeira deve ser limpa antes de selar.</tspan>
+   </text>
   </g>
  </g>
 </svg>

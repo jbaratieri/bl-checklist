@@ -1,47 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 320" width="820" height="320">
-  <defs>
-    <style>
-      .ttl{font:700 16px system-ui,Segoe UI,Roboto,Arial;fill:#222}
-      .lbl{font:12px system-ui,Segoe UI,Roboto,Arial;fill:#333}
-      .box{fill:#fff;stroke:#c7ae83}
-      .neck{fill:#eee3d5;stroke:#b69b7a}
-      .fret{stroke:#888;stroke-width:2}
-      .string{stroke:#666;stroke-width:2}
-      .bridge{fill:#3b2a20;stroke:#2a1c14}
-      .saddle{fill:#f0efe9;stroke:#b3b3b3}
-      .dim{stroke:#666;stroke-width:2;marker-end:url(#arr)}
-      .ghost{fill:none;stroke:#bbb;stroke-dasharray:6 4}
-    </style>
-    <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-      <polygon points="0,0 6,3 0,6" fill="#666"/>
-    </marker>
-  </defs>
-
-  <text x="20" y="26" class="ttl">Ação na 12ª e ajuste pelo rastilho</text>
-
-  <!-- régua/escala -->
-  <g transform="translate(20,40)">
-    <rect x="0" y="0" width="780" height="110" class="box"/>
-    <rect x="20" y="40" width="740" height="24" class="neck"/>
-    <line x1="400" y1="30" x2="400" y2="75" class="fret"/>
-    <text x="392" y="24" class="lbl">12ª</text>
-    <line x1="20" y1="46" x2="760" y2="46" class="string"/>
-    <line x1="20" y1="60" x2="760" y2="60" class="string"/>
-    <!-- cotas -->
-    <line x1="400" y1="46" x2="400" y2="32" class="dim"/>
-    <text x="408" y="40" class="lbl">1ª</text>
-    <line x1="400" y1="60" x2="400" y2="78" class="dim"/>
-    <text x="408" y="72" class="lbl">6ª</text>
-    <text x="20" y="98" class="lbl">Meça a ação na 12ª (ex.: 2,8 mm / 3,8 mm)</text>
+<svg width="900" height="360" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker orient="auto-start-reverse" markerHeight="6" markerWidth="6" refY="5" refX="5" viewBox="0 0 10 10" id="arrow">
+   <path id="svg_1" fill="#d9534f" d="m0,1l10,4l-10,4l0,-8z"/>
+  </marker>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <rect id="svg_2" fill="#fdfaf3" class="bg-canvas" height="360" width="900"/>
+  <g id="svg_3">
+   <rect id="svg_4" x="25" y="25" rx="6" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="310" width="415"/>
+   <text id="svg_5" fill="#4a3e3d" font-weight="bold" font-size="14px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-panel-title" y="55" x="45">1) Medição Estática na 12ª Casa</text>
+   <g id="svg_6">
+    <path id="svg_7" stroke="#1a120b" fill="#3d2b1f" class="wood-dark" d="m55,245l350,0l0,15l-350,0l0,-15z"/>
+    <line id="svg_8" stroke-width="1.5" stroke="#787d82" fill="#b0b5bc" class="fret-wire" y2="235" x2="135" y1="245" x1="135"/>
+    <line id="svg_9" stroke-width="1.5" stroke="#787d82" fill="#b0b5bc" class="fret-wire" y2="235" x2="245" y1="245" x1="245"/>
+    <line id="svg_10" stroke-width="1.5" stroke="#787d82" fill="#b0b5bc" class="fret-wire" y2="235" x2="355" y1="245" x1="355"/>
+    <text id="svg_11" font-size="11px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-weight=" bold" text-anchor=" middle" class="text-label" y="277" x="245">12ª Casa (Vértice de Controle)</text>
+    <line id="svg_12" stroke-linecap="round" stroke-width="2" stroke="#444444" fill="none" class="string-line" y2="200" x2="415" y1="190" x1="45"/>
+    <rect id="svg_13" opacity="0.95" stroke="#95a5a6" fill="#e6e8ea" class="metal-rule" height="130" width="24" y="105" x="233"/>
+    <line id="svg_14" stroke-width="0.8" stroke="#222222" y2="197" x2="241" y1="197" x1="233"/>
+    <line id="svg_15" stroke="#d9534f" y2="187" x2="244" y1="187" x1="233"/>
+    <line id="svg_16" stroke-width="0.8" stroke="#222222" y2="177" x2="241" y1="177" x1="233"/>
+    <line id="svg_17" stroke-width="0.8" stroke="#222222" y2="167" x2="241" y1="167" x1="233"/>
+    <line id="svg_18" stroke="#222222" y2="157" x2="244" y1="157" x1="233"/>
+    <path id="svg_19" fill="none" stroke-width="1.2" stroke="#d9534f" marker-end="url(#arrow)" marker-start="url(#arrow)" class="dimension-line" d="m270,198l0,37"/>
+    <g id="svg_20">
+     <text id="svg_21" font-weight="bold" fill="#d9534f" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11px" class="text-label text-highlight" y="212" x="280">Ação Alvo</text>
+     <text id="svg_22" fill="#222222" font-weight="bold" font-size="12px" font-family="'Courier New', Courier, monospace" class="text-num" y="226" x="280">1ª: ~2.8 mm</text>
+     <text id="svg_23" fill="#222222" font-weight="bold" font-size="12px" font-family="'Courier New', Courier, monospace" class="text-num" y="238" x="280">6ª: ~3.8 mm</text>
+    </g>
+   </g>
+   <text transform="matrix(1.19228 0 0 1 -8.65238 0)" stroke="null" id="svg_24" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11px" class="text-label" y="310" x="45">Posicione a régua
+    <tspan stroke="null" id="svg_25" font-weight="bold">perpendicularmente</tspan>sobre o topo do 12º traste.</text>
+   <text xml:space="preserve" text-anchor="start" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11px" id="svg_47" y="71.4" x="61.99999" stroke-width="0" stroke="#c8bca6" fill="#7f0000">Verifique qual a Ação Alvo na prancheta do seu projeto</text>
   </g>
-
-  <!-- rastilho -->
-  <g transform="translate(20,170)">
-    <rect x="0" y="0" width="780" height="130" class="box"/>
-    <rect x="540" y="70" width="160" height="28" class="bridge"/>
-    <rect x="602" y="60" width="36" height="18" class="saddle"/>
-    <line x1="20" y1="66" x2="760" y2="66" class="ghost"/>
-    <text x="22" y="24" class="lbl">Ajuste: lixar base do rastilho (taco plano) → pequenas etapas</text>
-    <text x="540" y="114" class="lbl">Base plana • sem folgas • coroa limpa</text>
+  <g id="svg_26">
+   <rect id="svg_27" x="460" y="25" rx="6" stroke-width="1.5" stroke="#c8bca6" fill="#ffffff" class="bg-panel" height="310" width="415"/>
+   <text id="svg_28" fill="#4a3e3d" font-weight="bold" font-size="14px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" class="text-panel-title" y="55" x="480">2) Correção de Altura Proporcional (Rastilho)</text>
+   <g id="svg_29">
+    <line id="svg_30" stroke-width="2" stroke="#787d82" y2="275" x2="820" y1="275" x1="520"/>
+    <rect id="svg_31" opacity="0.5" fill="#e6e8ea" height="8" width="300" y="276" x="520"/>
+    <text id="svg_32" fill="#6b5b52" font-size="11px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-style=" italic" text-anchor=" middle" class="text-label" y="297" x="670">Superfície de Referência Perfeitamente Plana (Mármore/Vidro)</text>
+    <rect id="svg_33" stroke-dasharray="4,2" stroke-width="1.2" stroke="#bcae97" fill="#eae6df" class="sanding-block" height="80" width="170" y="145" x="580"/>
+    <text id="svg_34" font-size="11px" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" text-anchor=" middle" class="text-label" y="190" x="665">Taco Guia de 90°</text>
+    <rect id="svg_35" rx="2" stroke-width="1.5" stroke="#5c5146" fill="#fcfcf9" height="50" width="100" y="225" x="615"/>
+    <rect id="svg_36" opacity="0.3" fill="#d9534f" height="6" width="100" y="269" x="615"/>
+    <line id="svg_37" stroke-dasharray="2,2" stroke="#d9534f" y2="269" x2="717" y1="269" x1="613"/>
+    <path id="svg_38" fill="none" stroke-width="1.2" stroke="#d9534f" marker-end="url(#arrow)" class="dimension-line" d="m555,240l40,0"/>
+    <path id="svg_39" fill="none" stroke-width="1.2" stroke="#d9534f" marker-end="url(#arrow)" class="dimension-line" d="m775,240l-40,0"/>
+    <g id="svg_40">
+     <path id="svg_41" stroke-width="1.2" stroke="#2b7042" fill="none" d="m754,152l15,0l0,65l-15,0"/>
+     <text id="svg_42" font-weight="bold" fill="#2b7042" font-size=" 12px" class="text-ok" y="177" x="779">Remova 2X</text>
+     <text id="svg_43" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-size="11px" class="text-label" y="190" x="779">na base para</text>
+     <text id="svg_44" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" fill="#6b5b52" font-size="11px" class="text-label" y="202" x="779">reduzir X na 12ª</text>
+    </g>
+   </g>
+   <text id="svg_45" fill="#6b5b52" font-family="'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="11px" class="text-label" y="315" x="467">Mantenha a base
+    <tspan id="svg_46" font-weight="bold" fill="#2b7042" class="text-ok">100% perpendicular e plana</tspan>para evitar perda de ganho acústico.</text>
   </g>
+ </g>
 </svg>

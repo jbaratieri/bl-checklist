@@ -550,6 +550,7 @@
 
     const btn = document.getElementById('btnPlantGenerator');
     if (btn) btn.addEventListener('click', open);
+    window.openPlantGenerator = open;
   }
 
   if (document.readyState === 'loading') {

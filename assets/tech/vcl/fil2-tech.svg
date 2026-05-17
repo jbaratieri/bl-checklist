@@ -1,78 +1,136 @@
-<svg width="880" height="560" xmlns="http://www.w3.org/2000/svg" font-size="12" font-family="system-ui,Segoe UI,Roboto,Arial">
-
- <!-- Moldura -->
- <!-- 1) Ordem + mitras na culatra -->
- <!-- 2) Fita e borracha (pressão) -->
- <!-- 3) Região do tróculo -->
- <!-- 4) Raspagem/Nivelamento -->
- <g>
+<?xml version="1.0"?>
+<svg width="720" height="900" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <title>Instalação dos filetes — ordem, pressão e acabamento</title>
+ <defs>
+  <marker id="arr" markerHeight="5" markerWidth="5" orient="auto-start-reverse" refX="8" refY="5" viewBox="0 0 10 10">
+   <path d="m2,1l6,4l-6,4" fill="none" id="svg_1" stroke="context-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"/>
+  </marker>
+ </defs>
+ <!-- PAINEL 1 — Ordem + mitras na culatra -->
+ <!-- Detalhe mitra -->
+ <!-- PAINEL 2 — Pressão: fita e borracha -->
+ <!-- Fitas normais -->
+ <!-- Cintura -->
+ <!-- Borracha -->
+ <!-- Fitas após cintura -->
+ <!-- PAINEL 3 — Tróculo + raspagem -->
+ <!-- Tróculo -->
+ <!-- Raspagem -->
+ <!-- PAINEL 4 — Método CA a seco -->
+ <!-- Fitas a seco -->
+ <!-- Frasco CA -->
+ <!-- Seta capilar -->
+ <!-- Sequência -->
+ <g class="layer">
   <title>Layer 1</title>
-  <rect id="svg_2" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c8b596" fill="#f6f1e7" class="panel" rx="12" height="520" width="840" y="20" x="20"/>
-  <text id="svg_3" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="48" x="40">Instalação dos filetes/purfling — ordem, pressão e acabamento</text>
-  <text id="svg_4" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="40">1) Ordem e mitras na culatra</text>
-  <g id="svg_5">
-   <rect id="svg_6" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="100" x="39"/>
-   <!-- "corpo" simplificado com culatra -->
-   <rect id="svg_7" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="body" rx="14" height="80" width="220" y="124" x="75"/>
-   <!-- canal na borda -->
-   <rect id="svg_8" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#ffe7e7" class="purf" height="80" width="4" y="124" x="75"/>
-   <rect id="svg_9" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="bind" height="80" width="6" y="124" x="79"/>
-   <!-- mitra na culatra -->
-   <polygon id="svg_10" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#ffe7e7" class="purf" points="289,163 297,159 297,167 "/>
-   <polygon id="svg_11" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="bind" points="295,163 305,158 305,168 "/>
-   <text id="svg_12" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="216" x="79">1) purfling (mitra) → 2) binding</text>
-   <rect id="svg_13" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="256" x="47"/>
-   <text id="svg_14" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="270" x="55">Ajuste a seco até o “V” fechar sem fresta. Depois cole.</text>
-  </g>
-  <text id="svg_15" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="84" x="460">2) Pressão: fita e borracha</text>
-  <g id="svg_16">
-   <rect id="svg_17" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="100" x="457"/>
-   <!-- corpo com binding já no lugar -->
-   <rect id="svg_18" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="body" rx="22" height="96" width="240" y="118" x="487"/>
-   <!-- fitas (largas e densas na cintura) -->
-   <rect id="svg_19" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="8" y="118" x="521"/>
-   <rect id="svg_20" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="8" y="118" x="553"/>
-   <rect id="svg_21" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="8" y="118" x="585"/>
-   <rect id="svg_22" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="6" y="118" x="617"/>
-   <rect id="svg_23" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="6" y="118" x="633"/>
-   <rect id="svg_24" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="6" y="118" x="649"/>
-   <rect id="svg_25" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="8" y="118" x="665"/>
-   <rect id="svg_26" vector-effect="non-scaling-stroke" stroke="#e3cc7a" fill="#fbeec2" class="tape" height="96" width="8" y="118" x="697"/>
-   <!-- borracha contínua -->
-   <path id="svg_27" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke-width="2" stroke="#a77" fill="none" class="rub" d="m487,136c60,-34 180,-34 240,0"/>
-   <path id="svg_28" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke-width="2" stroke="#a77" fill="none" class="rub" d="m487,196c60,34 180,34 240,0"/>
-   <text id="svg_29" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="239" x="491">fita 20–30 mm; na cintura, 10–15 mm + borracha contínua</text>
-   <rect id="svg_30" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="256" x="465"/>
-   <text id="svg_31" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="270" x="473">Limpe excesso de cola antes da cura. Proteja o tampo se usar CA.</text>
-  </g>
-  <text id="svg_32" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="40">3) Região do tróculo (encaixe limpo)</text>
-  <g id="svg_33">
-   <rect id="svg_34" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="334" x="40"/>
-   <!-- topo/“braço” simplificado -->
-   <rect id="svg_35" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" height="10" width="220" y="366" x="76"/>
-   <text id="svg_36" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="360" x="76">tróculo / encontro com o braço</text>
-   <!-- canal + peças até a quina -->
-   <rect id="svg_37" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#ffe7e7" class="purf" height="44" width="4" y="376" x="76"/>
-   <rect id="svg_38" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="bind" height="44" width="6" y="376" x="80"/>
-   <text id="svg_39" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="398" x="92">preserve a quina</text>
-   <rect id="svg_40" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="490" x="48"/>
-   <text id="svg_41" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="504" x="56">Ajuste final com bisturi/formão; sem lascar a quina do canal.</text>
-  </g>
-  <text id="svg_42" stroke-width="2px" stroke="#fff" paint-order="stroke fill" font-weight="700" fill="#222" class="title" y="300" x="460">4) Pós-cura: raspagem e nivelamento</text>
-  <g id="svg_43">
-   <rect id="svg_44" vector-effect="non-scaling-stroke" stroke-width="2" stroke="#c7ae83" fill="#fff" class="board" height="150" width="360" y="334" x="460"/>
-   <!-- seção lateral + tampo -->
-   <rect id="svg_45" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="body" height="86" width="12" y="368" x="532"/>
-   <rect id="svg_46" vector-effect="non-scaling-stroke" stroke="#c7ae83" fill="#ead9bc" class="body" height="8" width="190" y="368" x="532"/>
-   <!-- binding/purfling ligeiramente “orgulhosos” -->
-   <rect id="svg_47" vector-effect="non-scaling-stroke" stroke="#7aa1d1" fill="#deedff" class="bind" height="16" width="6" y="384" x="532"/>
-   <rect id="svg_48" vector-effect="non-scaling-stroke" stroke="#e59a9a" fill="#ffe7e7" class="purf" height="12" width="4" y="384" x="538"/>
-   <!-- raspilha -->
-   <rect id="svg_49" vector-effect="non-scaling-stroke" stroke="#94a9d6" fill="#e9eef7" class="scraper" rx="3" height="10" width="80" y="374" x="570"/>
-   <line id="svg_50" vector-effect="non-scaling-stroke" stroke-dasharray="6,4" stroke="#bbb" fill="none" class="ghost" y2="368" x2="650" y1="384" x1="570"/>
-   <text id="svg_51" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="404" x="568">raspar até “zerar” ao plano</text>
-   <rect id="svg_52" vector-effect="non-scaling-stroke" stroke="#ddd" fill="#fff" class="labelbox" rx="4" height="20" width="344" y="490" x="468"/>
-   <text id="svg_53" stroke-width="2px" stroke="#fff" paint-order="stroke fill" fill="#333" class="note" y="504" x="476">Deixe as peças ~0,1–0,2 mm acima e nivele com raspilha afiada.</text>
-  </g>
+  <rect fill="#ffffff" height="900" id="svg_2" width="720" x="4" y="1"/>
+  <text fill="#222" font-size="13" font-weight="600" id="svg_3" x="44" y="28">1 · Ordem de instalação e mitras na culatra (vista de topo)</text>
+  <path d="m140,55q0,-15 90,-15q90,0 90,15l0,23q0,10 -8,14q8,4 8,16q0,52 -90,52q-90,0 -90,-52q0,-12 8,-16q-8,-4 -8,-14l0,-23z" fill="#f5f3ee" id="svg_4" opacity="0.8" stroke="#bbb" stroke-width="1.2"/>
+  <path d="m146,55q0,-9 84,-9q84,0 84,9l0,23q0,8 -6,12q6,4 6,18q0,46 -84,46q-84,0 -84,-46q0,-14 6,-18q-6,-4 -6,-12l0,-23z" fill="none" id="svg_5" stroke="#378ADD" stroke-dasharray="5 3" stroke-width="2"/>
+  <rect fill="#f0ede6" height="14" id="svg_6" rx="3" stroke="#bbb" stroke-width="0.8" width="40" x="210" y="148"/>
+  <text fill="#666" font-size="9" id="svg_7" text-anchor="middle" x="230" y="159">culatra</text>
+  <rect fill="#d0e8f8" height="16" id="svg_8" opacity="0.8" rx="3" stroke="#bbb" stroke-width="0.8" width="40" x="210" y="40"/>
+  <text fill="#185FA5" font-size="9" id="svg_9" text-anchor="middle" x="230" y="52">tróculo</text>
+  <text fill="#222" font-size="11" font-weight="500" id="svg_10" transform="matrix(1 0 0 1 0 0)" x="410" y="52">Detalhe: mitra na culatra</text>
+  <polygon fill="#9FE1CB" id="svg_11" points="440,100 450,88 450,100" stroke="#0F6E56"/>
+  <polygon fill="#9FE1CB" id="svg_12" points="520,100 510,88 510,100" stroke="#0F6E56"/>
+  <polygon fill="#d0e8f8" id="svg_13" points="439,99 451,83 451,99 " stroke="#378ADD" transform="matrix(1 0 0 1 0 0)"/>
+  <polygon fill="#d0e8f8" id="svg_14" points="524,100 512,84 512,100" stroke="#378ADD"/>
+  <polygon fill="#f0ede6" id="svg_15" points="450,88 510,88 480,60" stroke="#bbb"/>
+  <text fill="#3f3f3f" font-size="9" id="svg_16" text-anchor="middle" transform="matrix(1 0 0 1 0 0)" x="480" y="82">cunha</text>
+  <line id="svg_17" stroke="#aaa" stroke-dasharray="3 2" stroke-width="0.5" x1="450" x2="480" y1="88" y2="60"/>
+  <line id="svg_18" stroke="#aaa" stroke-dasharray="3 2" stroke-width="0.5" x1="510" x2="480" y1="88" y2="60"/>
+  <text fill="#0F6E56" font-size="9" id="svg_19" transform="matrix(1 0 0 1 0 0)" x="428" y="113">① purfling</text>
+  <text fill="#378ADD" font-size="9" id="svg_20" transform="matrix(1 0 0 1 0 0)" x="492" y="113">② binding</text>
+  <text fill="#666" font-size="9" id="svg_21" text-anchor="middle" transform="matrix(1 0 0 1 0 0)" x="481" y="135">&quot;V&quot; deve fechar sem fresta</text>
+  <path d="m230,46q85,0 85,34" fill="none" id="svg_22" marker-end="url(#arr)" stroke="#1D9E75" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <path d="m230,154q-85,0 -85,-64" fill="none" id="svg_23" marker-end="url(#arr)" stroke="#1D9E75" stroke-dasharray="4 3" stroke-width="1.5"/>
+  <text fill="#1D9E75" font-size="9" id="svg_24" x="44" y="100">anti-horário →</text>
+  <rect fill="#f0ede6" height="22" id="svg_25" rx="4" stroke="#ddd" stroke-width="0.5" transform="matrix(1 0 0 1 0 0)" width="642" x="39" y="174"/>
+  <text fill="#555" font-size="11" id="svg_26" transform="matrix(1 0 0 1 0 0) matrix(0.966387 0 0 1.08951 -10.1456 -17.1288)" x="56" y="189">Começa na culatra · purfling (①) antes do binding (②) · Ensaio a seco até &quot;V&quot; fechar sem fresta · Avança anti-horário</text>
+  <text fill="#222" font-size="13" font-weight="600" id="svg_27" x="44" y="224">2 · Fixação e pressão — fita crepe e borracha contínua (corte lateral)</text>
+  <rect fill="#f0ede6" height="14" id="svg_28" rx="2" stroke="#bbb" width="560" x="80" y="250"/>
+  <text fill="#7f7f7f" font-size="10" id="svg_29" transform="matrix(1 0 0 1 0 0)" x="648" y="261">tampo</text>
+  <rect fill="#f0ede6" height="70" id="svg_30" rx="2" stroke="#bbb" width="14" x="80" y="264"/>
+  <text fill="#7f7f7f" font-size="10" id="svg_31" text-anchor="end" transform="matrix(1 0 0 1 0 0)" x="65" y="302">faixa</text>
+  <rect fill="#d0e8f8" height="14" id="svg_32" rx="1" stroke="#378ADD" width="14" x="80" y="250"/>
+  <rect fill="#9FE1CB" height="10" id="svg_33" rx="1" stroke="#0F6E56" stroke-width="0.8" width="6" x="80" y="250"/>
+  <rect fill="#fbeec2" height="84" id="svg_34" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="140" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_35" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="180" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_36" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="220" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_37" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="260" y="245"/>
+  <line id="svg_38" marker-end="url(#arr)" marker-start="url(#arr)" stroke="#BA7517" stroke-width="0.8" x1="140" x2="180" y1="238" y2="238"/>
+  <text fill="#BA7517" font-size="9" id="svg_39" text-anchor="middle" x="160" y="234">~30 mm</text>
+  <rect fill="#fbeec2" height="84" id="svg_41" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" transform="matrix(1 0 0 1 0 0)" width="7" x="300" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_42" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="7" x="313" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_43" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="7" x="326" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_44" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="7" x="339" y="245"/>
+  <line id="svg_45" marker-end="url(#arr)" marker-start="url(#arr)" stroke="#BA7517" stroke-width="0.8" x1="300" x2="313" y1="238" y2="238"/>
+  <text fill="#BA7517" font-size="9" id="svg_46" text-anchor="middle" x="306" y="234">~10 mm</text>
+  <path d="m300,248q30,-13 60,0" fill="none" id="svg_47" stroke="#D85A30" stroke-dasharray="6 3" stroke-width="2"/>
+  <path d="m300,332q30,13 60,0" fill="none" id="svg_48" stroke="#D85A30" stroke-dasharray="6 3" stroke-width="2"/>
+  <text fill="#ff7f00" font-size="9" id="svg_49" transform="matrix(1 0 0 1 0 0) matrix(1.02451 0 0 1.55695 -9.05893 -173.157)" x="288" y="309">borracha contínua</text>
+  <text fill="#ff7f00" font-size="9" id="svg_50" transform="matrix(1 0 0 1 0 0) matrix(1.07327 0 0 1.17464 -26.4673 -54.261)" x="293" y="320">(câmara de ar)</text>
+  <rect fill="#fbeec2" height="84" id="svg_51" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="380" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_52" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="420" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_53" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="460" y="245"/>
+  <rect fill="#fbeec2" height="84" id="svg_54" opacity="0.85" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="10" x="500" y="245"/>
+  <line id="svg_55" marker-end="url(#arr)" opacity="0.7" stroke="#aaa" x1="180" x2="180" y1="345" y2="360"/>
+  <text fill="#aaa" font-size="9" id="svg_56" x="130" y="372">remover fita ⊥ ao veio</text>
+  <rect fill="#f0ede6" height="22" id="svg_57" rx="4" stroke="#ddd" stroke-width="0.5" width="632" x="44" y="346"/>
+  <text fill="#555" font-size="11" id="svg_58" x="56" y="361">Fita 20–30 mm no geral · 10 mm + borracha na cintura · Remover fita em ângulo reto ao veio após cura (8–12 h)</text>
+  <text fill="#222" font-size="13" font-weight="600" id="svg_59" x="44" y="396">3 · Tróculo (método espanhol) e nivelamento pós-cura (corte transversal)</text>
+  <text fill="#222" font-size="11" font-weight="500" id="svg_60" text-anchor="middle" x="120" y="420">Tróculo — quina viva</text>
+  <rect fill="#d0e8f8" height="80" id="svg_61" opacity="0.8" rx="4" stroke="#bbb" width="60" x="60" y="430"/>
+  <text fill="#185FA5" font-size="9" id="svg_62" text-anchor="middle" x="90" y="474">tróculo</text>
+  <rect fill="#f0ede6" height="14" id="svg_63" rx="2" stroke="#bbb" width="80" x="120" y="448"/>
+  <rect fill="#d0e8f8" height="18" id="svg_64" rx="1" stroke="#378ADD" width="10" x="120" y="430"/>
+  <rect fill="#9FE1CB" height="14" id="svg_65" rx="1" stroke="#0F6E56" stroke-width="0.8" width="5" x="120" y="430"/>
+  <rect fill="#f0ede6" height="12" id="svg_66" opacity="0.6" rx="2" stroke="#bbb" stroke-width="0.8" width="180" x="60" y="430"/>
+  <circle cx="120" cy="430" fill="none" id="svg_67" r="6" stroke="#D85A30" stroke-width="1.5"/>
+  <text fill="#D85A30" font-size="10" id="svg_68" transform="matrix(1 0 0 1 0 0)" x="249" y="430">quina viva</text>
+  <text fill="#D85A30" font-size="10" id="svg_69" transform="matrix(1 0 0 1 0 0)" x="246" y="443">(corte reto, bisturi)</text>
+  <text fill="#3f3f3f" font-size="10" id="svg_70" transform="matrix(1 0 0 1 0 0)" x="247" y="457">sem talão cobrindo</text>
+  <line id="svg_71" stroke="#D85A30" stroke-dasharray="3 3" stroke-width="0.5" x1="208" x2="128" y1="432" y2="432"/>
+  <text fill="#222" font-size="11" font-weight="500" id="svg_72" text-anchor="middle" transform="matrix(1 0 0 1 0 0)" x="528" y="426">Nivelamento pós-cura</text>
+  <rect fill="#f0ede6" height="14" id="svg_73" rx="2" stroke="#bbb" width="280" x="380" y="460"/>
+  <text fill="#3f3f3f" font-size="10" id="svg_74" transform="matrix(1 0 0 1 0 0)" x="581" y="489">tampo (plano)</text>
+  <rect fill="#f0ede6" height="60" id="svg_75" rx="2" stroke="#bbb" width="14" x="380" y="474"/>
+  <rect fill="#d0e8f8" height="22" id="svg_76" rx="1" stroke="#378ADD" width="14" x="380" y="453"/>
+  <rect fill="#9FE1CB" height="16" id="svg_77" rx="1" stroke="#0F6E56" stroke-width="0.8" width="6" x="380" y="453"/>
+  <line id="svg_78" marker-end="url(#arr)" marker-start="url(#arr)" stroke="#D85A30" stroke-width="0.8" x1="396" x2="396" y1="453" y2="460"/>
+  <text fill="#D85A30" font-size="9" id="svg_79" transform="matrix(1 0 0 1 0 0)" x="464" y="485">~0,1–0,2 mm</text>
+  <rect fill="#d0e8f8" height="10" id="svg_80" opacity="0.9" rx="3" stroke="#bbb" transform="matrix(1 0 0 1 0 0)" width="100" x="451" y="452"/>
+  <text fill="#185FA5" font-size="10" id="svg_81" text-anchor="middle" transform="matrix(1 0 0 1 0 0)" x="503" y="449">raspilha</text>
+  <line id="svg_82" marker-end="url(#arr)" stroke="#1D9E75" stroke-width="1.2" x1="530" x2="510" y1="457" y2="457"/>
+  <line id="svg_83" marker-end="url(#arr)" stroke="#1D9E75" stroke-width="1.2" transform="matrix(1 0 0 1 0 0)" x1="464" x2="488" y1="457" y2="457"/>
+  <line id="svg_84" stroke="#1D9E75" stroke-dasharray="6 3" x1="380" x2="660" y1="460" y2="460"/>
+  <text fill="#1D9E75" font-size="9" id="svg_85" x="565" y="458">plano &quot;zero&quot; →</text>
+  <rect fill="#f0ede6" height="43" id="svg_86" rx="4" stroke="#ddd" stroke-width="0.5" transform="matrix(1 0 0 1 0 0)" width="632" x="44" y="550"/>
+  <text fill="#555" font-size="11" id="svg_87" x="56" y="564">Tróculo: corte reto e preciso com bisturi — sem talão cobrindo no método espanhol · Quina viva, sem lascar</text>
+  <text fill="#555" font-size="11" id="svg_88" transform="matrix(1 0 0 1 0 0)" x="54" y="586">Raspagem: peças ~0,1–0,2 mm acima do plano · Raspar até &quot;zerar&quot; sem degrau · Raspilha afiada, passes leves</text>
+  <text fill="#222" font-size="13" font-weight="600" id="svg_89" x="44" y="628">4 · Método alternativo — CA a seco (capilares)</text>
+  <rect fill="#f0ede6" height="14" id="svg_90" rx="2" stroke="#bbb" width="400" x="80" y="650"/>
+  <text fill="#3f3f3f" font-size="10" id="svg_91" transform="matrix(1 0 0 1 0 0)" x="488" y="661">tampo</text>
+  <rect fill="#f0ede6" height="60" id="svg_92" rx="2" stroke="#bbb" width="14" x="80" y="664"/>
+  <text fill="#3f3f3f" font-size="10" id="svg_93" text-anchor="end" transform="matrix(1 0 0 1 0 0)" x="65" y="697">faixa</text>
+  <rect fill="#d0e8f8" height="14" id="svg_94" rx="1" stroke="#378ADD" width="14" x="80" y="650"/>
+  <rect fill="#fbeec2" height="84" id="svg_95" opacity="0.9" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="8" x="120" y="644"/>
+  <rect fill="#fbeec2" height="84" id="svg_96" opacity="0.9" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="8" x="160" y="644"/>
+  <rect fill="#fbeec2" height="84" id="svg_97" opacity="0.9" rx="2" stroke="#e3cc7a" stroke-width="0.8" width="8" x="200" y="644"/>
+  <rect fill="#f0ede6" height="40" id="svg_98" rx="4" stroke="#bbb" width="30" x="300" y="636"/>
+  <text fill="#666" font-size="9" id="svg_99" text-anchor="middle" x="315" y="654">CA</text>
+  <text fill="#666" font-size="9" id="svg_100" text-anchor="middle" x="315" y="664">líq.</text>
+  <line id="svg_101" marker-end="url(#arr)" stroke="#D85A30" stroke-dasharray="4 3" stroke-width="1.2" x1="300" x2="96" y1="656" y2="656"/>
+  <text fill="#D85A30" font-size="9" id="svg_102" text-anchor="middle" x="200" y="644">capilar puxa CA para dentro do canal</text>
+  <text fill="#222" font-size="10" id="svg_103" transform="matrix(1 0 0 1 0 0)" x="381" y="680">① montar a seco + fita</text>
+  <text fill="#222" font-size="10" id="svg_104" transform="matrix(1 0 0 1 0 0)" x="381" y="695">② aplicar CA líquido pelas bordas</text>
+  <text fill="#222" font-size="10" id="svg_105" transform="matrix(1 0 0 1 0 0)" x="380" y="710">③ capilar distribui o adesivo</text>
+  <text fill="#222" font-size="10" id="svg_106" transform="matrix(1 0 0 1 0 0)" x="380" y="725">④ curar sem pressa</text>
+  <rect fill="#f0ede6" height="22" id="svg_107" rx="4" stroke="#ddd" stroke-width="0.5" transform="matrix(1 0 0 1 0 0)" width="632" x="48" y="749"/>
+  <text fill="#555" font-size="11" id="svg_108" transform="matrix(1 0 0 1 0 0)" x="49" y="765">Método CA a seco: tempo ilimitado para ajuste · Selar tampo com goma-laca antes para evitar névoa e manchas</text>
+  <rect fill="#f0ede6" height="22" id="svg_109" rx="4" stroke="#ddd" stroke-width="0.5" width="632" x="44" y="772"/>
+  <text fill="#555" font-size="11" id="svg_110" transform="matrix(1 0 0 1 0 0)" x="50" y="786">Ordem global: ensaio a seco → culatra (mitra) → purfling → binding → fixação → cura 8–12 h → raspagem &quot;zero&quot;</text>
+  <text fill="#222" font-size="10" font-weight="500" id="svg_40" text-anchor="middle" transform="matrix(1 0 0 1 0 0) matrix(1.3303 0 0 1.31932 -108.676 -101.2)" x="322.99" y="298.31">cintura</text>
  </g>
 </svg>
