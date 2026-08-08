@@ -23,6 +23,9 @@
   const PROJECT_FIELDS = {
     instrument: 'selInstrument',
     scale: 'job-scale-mm',
+    neckJoin: 'job-neck-join',
+    model: 'job-model',
+    acousticType: 'job-acoustic-type',
     stringType: 'job-string-type',
     stringCount: 'job-string-count',
     bracingSystem: 'job-bracing-system',
@@ -322,13 +325,26 @@
       : (document.getElementById(PROJECT_FIELDS.instrument)?.value || localStorage.getItem('bl:instrument') || 'vcl');
     const scaleRaw = (document.getElementById(PROJECT_FIELDS.scale)?.value || '').toString().trim().replace(',', '.');
     const scale = Number(scaleRaw);
+    const modelEl = document.getElementById(PROJECT_FIELDS.model);
+    const acousticEl = document.getElementById(PROJECT_FIELDS.acousticType);
+    const model = (modelEl && modelEl.options && modelEl.selectedIndex >= 0)
+      ? (modelEl.options[modelEl.selectedIndex].textContent || modelEl.value || '').toString().trim()
+      : '';
+    const acousticType = (acousticEl && acousticEl.options && acousticEl.selectedIndex >= 0)
+      ? (acousticEl.options[acousticEl.selectedIndex].textContent || acousticEl.value || '').toString().trim()
+      : '';
     const stringType = (document.getElementById(PROJECT_FIELDS.stringType)?.value || '').toString().trim();
     const stringCount = (document.getElementById(PROJECT_FIELDS.stringCount)?.value || '').toString().trim();
     const bracing = (document.getElementById(PROJECT_FIELDS.bracingSystem)?.value || '').toString().trim();
     const bracingCustom = (document.getElementById(PROJECT_FIELDS.bracingCustom)?.value || '').toString().trim();
+    const neckJoinRaw = (document.getElementById(PROJECT_FIELDS.neckJoin)?.value || '').toString().trim();
+    const neckJoin = (neckJoinRaw === '14' || neckJoinRaw === '12') ? neckJoinRaw : '';
     return {
       inst: INSTR_CONFIG[inst] ? inst : 'vcl',
       scale: Number.isFinite(scale) && scale > 0 ? scale : null,
+      neckJoin,
+      model,
+      acousticType,
       stringType,
       stringCount,
       bracing,
@@ -344,10 +360,21 @@
     const normalized = normalizeBracingValue(raw);
     return BRACING_LABELS[normalized] || normalized || '—';
   }
+  function syncNeckJoinToProject(value) {
+    const projectEl = document.getElementById(PROJECT_FIELDS.neckJoin);
+    if (!projectEl) return;
+    const next = (value === '14' || value === '12') ? value : '12';
+    if (String(projectEl.value || '') === next) return;
+    projectEl.value = next;
+    try { projectEl.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+    try { projectEl.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
+  }
+
   function applyProjectContextToPlant() {
     const ctx = getProjectContext();
     const instEl = document.getElementById('plantInstrument');
     const scaleEl = document.getElementById('plantScale');
+    const neckJoinEl = document.getElementById('plantNeckJoin');
     const compEl = document.getElementById('plantComp');
     const metaEl = document.getElementById('plantProjectMeta');
     if (!instEl || !scaleEl || !compEl) return;
@@ -356,12 +383,20 @@
     const cfg = INSTR_CONFIG[ctx.inst] || INSTR_CONFIG.vcl;
     scaleEl.value = String(ctx.scale || cfg.scale);
     compEl.value = String(cfg.compensation);
+    if (neckJoinEl) {
+      neckJoinEl.value = ctx.neckJoin || '12';
+    }
 
     if (metaEl) {
       const bracingText = ctx.bracing === 'custom'
         ? ('Custom' + (ctx.bracingCustom ? ` — ${ctx.bracingCustom}` : ''))
         : getBracingDisplayLabel(ctx.bracing);
-      metaEl.textContent = `Projeto atual: ${INSTR_NAMES[ctx.inst]} | Cordas: ${ctx.stringCount || '—'} | Tipo: ${ctx.stringType || '—'} | Leque: ${bracingText}`;
+      metaEl.textContent =
+        `Projeto atual: ${INSTR_NAMES[ctx.inst]}` +
+        ` | Modelo: ${ctx.model || '—'}` +
+        ` | ${ctx.acousticType || '—'}` +
+        ` | Cordas: ${ctx.stringCount || '—'} | Tipo: ${ctx.stringType || '—'} | Leque: ${bracingText}` +
+        ` | Junção: ${(ctx.neckJoin || '12')}º`;
     }
   }
   function savePlantScaleToProject() {
@@ -491,7 +526,10 @@
       scaleEl.addEventListener('input', render);
     }
     if (neckJoinEl) {
-      neckJoinEl.addEventListener('change', render);
+      neckJoinEl.addEventListener('change', () => {
+        syncNeckJoinToProject(neckJoinEl.value);
+        render();
+      });
     }
     if (compEl) {
       compEl.addEventListener('input', render);

@@ -1,0 +1,132 @@
+/* step24-print-project.css — ficha impressa do projeto (#print-project-sheet) */
+#print-project-sheet {
+  display: none;
+}
+
+@media print {
+  body.print-project > *:not(#print-project-sheet) {
+    display: none !important;
+  }
+
+  body.print-project #print-project-sheet {
+    display: block !important;
+    padding: 20px 24px;
+    font: 13px/1.45 Georgia, "Times New Roman", Times, serif;
+    color: #1a1a1a;
+  }
+
+  body.print-project #app-print-header,
+  body.print-project #app-print-footer,
+  body.print-project #app-print-spacer,
+  body.print-project #app-print-spacer-bottom {
+    display: none !important;
+  }
+
+  body.print-project .pps-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    border-bottom: 1.5px solid #8a623f;
+  }
+
+  body.print-project .pps-header img {
+    height: 40px;
+    width: auto;
+    display: block;
+  }
+
+  body.print-project .pps-title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  body.print-project .pps-subtitle {
+    font-size: 12px;
+    color: #555;
+    margin-top: 2px;
+  }
+
+  body.print-project .pps-section {
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+  }
+
+  body.print-project .pps-section h2 {
+    font-size: 14px;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #5c4030;
+    border-bottom: 1px solid #d8cfc4;
+    padding-bottom: 4px;
+  }
+
+  body.print-project .pps-section h3 {
+    font-size: 13px;
+    margin: 10px 0 6px;
+    color: #333;
+  }
+
+  body.print-project .pps-grid {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 4px 12px;
+    margin: 0;
+  }
+
+  body.print-project .pps-grid dt {
+    margin: 0;
+    font-weight: 700;
+    color: #444;
+  }
+
+  body.print-project .pps-grid dd {
+    margin: 0;
+  }
+
+  body.print-project .pps-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 8px;
+  }
+
+  body.print-project .pps-table th,
+  body.print-project .pps-table td {
+    border: 1px solid #bbb;
+    padding: 5px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  body.print-project .pps-table th {
+    background: #f3efe9;
+    font-size: 12px;
+  }
+
+  body.print-project .pps-empty {
+    margin: 0;
+    color: #777;
+    font-size: 12px;
+  }
+
+  body.print-project .pps-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 8px;
+    border-top: 1px solid #bbb;
+    font-size: 11px;
+    color: #555;
+  }
+
+  body.print-project .pps-page::after {
+    content: "Página " counter(page) " de " counter(pages);
+  }
+
+  body.print-project .pps-measure-block {
+    page-break-inside: avoid;
+  }
+}

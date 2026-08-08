@@ -166,6 +166,10 @@
     }
 
     if (e.target.closest('#btnPrint')) {
+      // Impressão da ficha do projeto é tratada por step24-print-project.js
+      if (window.BL_PRINT_PROJECT && typeof window.BL_PRINT_PROJECT.print === 'function') {
+        return;
+      }
       window.print();
       return;
     }

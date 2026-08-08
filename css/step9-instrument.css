@@ -32,22 +32,22 @@
    ========================= */
 /* Print header/footer for full checklist (not measures) */
 @media print {
-  body:not(.print-measures) #app-print-header {
+  body:not(.print-measures):not(.print-project) #app-print-header {
     display: flex !important; position: fixed; top:0; left:0; right:0;
     padding: 10px 16px; border-bottom:1px solid #bbb; background:#fff;
     justify-content: space-between; align-items: center;
     font: 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   }
-  body:not(.print-measures) #app-print-footer {
+  body:not(.print-measures):not(.print-project) #app-print-footer {
     display: flex !important; position: fixed; bottom:0; left:0; right:0;
     padding: 6px 16px; border-top:1px solid #bbb; background:#fff;
     font: 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     justify-content: space-between; align-items: center;
   }
   /* push content to avoid overlap */
-  body:not(.print-measures) #app-print-spacer { display:block !important; height: 70px; }
-  body:not(.print-measures) #app-print-spacer-bottom { display:block !important; height: 40px; }
-  body:not(.print-measures) .page-count::after { content: "Página " counter(page) " de " counter(pages); }
+  body:not(.print-measures):not(.print-project) #app-print-spacer { display:block !important; height: 70px; }
+  body:not(.print-measures):not(.print-project) #app-print-spacer-bottom { display:block !important; height: 40px; }
+  body:not(.print-measures):not(.print-project) .page-count::after { content: "Página " counter(page) " de " counter(pages); }
 }
 #app-print-header, #app-print-footer, #app-print-spacer, #app-print-spacer-bottom { display:none; }
 

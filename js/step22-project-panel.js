@@ -79,6 +79,42 @@
     'leque5': 'leque_5_barras',
     'leque7': 'leque_7_barras'
   };
+  const MODEL_BY_INST = {
+    vcl: [
+      { value: 'violao_classico', label: 'Violão Clássico' },
+      { value: 'violao_folk', label: 'Violão Folk' },
+      { value: 'violao_om', label: 'Violão OM' },
+      { value: 'violao_jumbo', label: 'Violão Jumbo' },
+      { value: 'violao_flat', label: 'Violão Flat' },
+      { value: 'personalizado', label: 'Personalizado' }
+    ],
+    vla: [
+      { value: 'viola_caipira', label: 'Viola Caipira' },
+      { value: 'viola_cinturada', label: 'Viola Cinturada' },
+      { value: 'viola_610', label: 'Viola 610mm' },
+      { value: 'personalizado', label: 'Personalizado' }
+    ],
+    cav: [
+      { value: 'cavaquinho_tradicional', label: 'Cavaquinho Tradicional' },
+      { value: 'personalizado', label: 'Personalizado' }
+    ],
+    uku: [
+      { value: 'ukulele_soprano', label: 'Ukulele Soprano' },
+      { value: 'ukulele_concert', label: 'Ukulele Concert' },
+      { value: 'ukulele_tenor', label: 'Ukulele Tenor' },
+      { value: 'ukulele_baritono', label: 'Ukulele Barítono' },
+      { value: 'personalizado', label: 'Personalizado' }
+    ]
+  };
+  const MODEL_VALUE_ALIASES = {
+    folk: 'violao_folk',
+    om: 'violao_om',
+    classico: 'violao_classico',
+    jumbo: 'violao_jumbo',
+    flat: 'violao_flat',
+    baritono: 'ukulele_baritono',
+    viola_610mm: 'viola_610'
+  };
   const SCALE_HINT_BY_INST = {
     vcl: {
       placeholder: 'Ex.: 650',
@@ -113,20 +149,29 @@
     if (!key) return '';
     return BRACING_VALUE_ALIASES[key] || key;
   }
+  function normalizeModelValue(raw) {
+    var key = String(raw || '').trim();
+    if (!key) return '';
+    return MODEL_VALUE_ALIASES[key] || key;
+  }
   function applyProjectSpecByInstrument(inst) {
     const selType = getEl('job-string-type');
     const selCount = getEl('job-string-count');
     const selBracing = getEl('job-bracing-system');
+    const selModel = getEl('job-model');
     if (!selType || !selCount || !selBracing) return;
 
     const typeOptions = STRING_TYPE_BY_INST[inst] || ['aco', 'nylon'];
     const countOptions = STRING_COUNT_BY_INST[inst] || ['6'];
     const bracingOptions = BRACING_BY_INST[inst] || [{ value: 'custom', label: 'Custom' }];
+    const modelOptions = MODEL_BY_INST[inst] || [{ value: 'personalizado', label: 'Personalizado' }];
 
     populateSelectOptions(selType, typeOptions, 'Selecione');
     populateSelectOptions(selCount, countOptions, 'Selecione');
     populateSelectOptions(selBracing, bracingOptions, 'Selecione');
+    if (selModel) populateSelectOptions(selModel, modelOptions, 'Selecione');
     selBracing.value = normalizeBracingValue(selBracing.value);
+    if (selModel) selModel.value = normalizeModelValue(selModel.value);
 
     if (!typeOptions.includes(selType.value)) {
       selType.value = typeOptions[0] || '';
@@ -136,6 +181,9 @@
     }
     if (!bracingOptions.some(function (o) { return (o.value || o) === selBracing.value; })) {
       selBracing.value = (bracingOptions[0] && bracingOptions[0].value) || '';
+    }
+    if (selModel && !modelOptions.some(function (o) { return (o.value || o) === selModel.value; })) {
+      selModel.value = '';
     }
 
     const singleType = typeOptions.length === 1;
@@ -203,6 +251,8 @@
     if (!summary) return;
     var instMap = { vcl: 'Violao', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
     var inst = labelByMap(instMap, (getEl('selInstrument') && getEl('selInstrument').value) || currInst());
+    var model = selectedLabel('job-model') || 'nao definido';
+    var acoustic = selectedLabel('job-acoustic-type') || 'nao definido';
     var strType = selectedLabel('job-string-type') || 'nao definido';
     var strCount = selectedLabel('job-string-count') || 'nao definido';
     var bracing = selectedLabel('job-bracing-system') || 'nao definido';
@@ -213,6 +263,8 @@
       : bracing;
     summary.textContent =
       'Instrumento: ' + inst +
+      ' | Modelo: ' + model +
+      ' | Tipo: ' + acoustic +
       ' | Cordas: ' + strType + ', ' + strCount +
       ' | Leque: ' + bracingText +
       ' | Comprimento: ' + scale + ' mm';
@@ -221,6 +273,8 @@
     var ids = [
       'selInstrument',
       'selProject',
+      'job-model',
+      'job-acoustic-type',
       'job-string-type',
       'job-string-count',
       'job-bracing-system',
@@ -287,6 +341,8 @@
     var map = {
       project: getEl('summary-project-name'),
       instrument: getEl('summary-instrument'),
+      model: getEl('summary-model'),
+      acousticType: getEl('summary-acoustic-type'),
       client: getEl('summary-client'),
       strings: getEl('summary-strings'),
       bracing: getEl('summary-bracing'),
@@ -306,6 +362,8 @@
     var stats = checklistProgressStats();
     map.project.textContent = selectedProjectName();
     map.instrument.textContent = selectedLabel('selInstrument') || labelByMap({ vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' }, currInst());
+    if (map.model) map.model.textContent = safeText(selectedLabel('job-model'), '—');
+    if (map.acousticType) map.acousticType.textContent = safeText(selectedLabel('job-acoustic-type'), '—');
     map.client.textContent = safeText(getEl('job-client') && getEl('job-client').value, '—');
     map.strings.textContent = safeText(selectedLabel('job-string-type'), '—') + ' | ' + safeText(selectedLabel('job-string-count'), '—');
     map.bracing.textContent = safeText(selectedLabel('job-bracing-system'), '—');
@@ -632,6 +690,8 @@
         return el && 'value' in el ? String(el.value || '').trim() : '';
       }
       if (!val('job-client')) return true;
+      if (!val('job-model')) return true;
+      if (!val('job-acoustic-type')) return true;
       if (!val('job-string-type')) return true;
       if (!val('job-string-count')) return true;
       var br = val('job-bracing-system');

@@ -150,21 +150,12 @@
       exportBtn.addEventListener('click', exportMeasures, {capture:true});
     }
 
-    // Opcional: garantir que o botão "Imprimir checklist" use a impressão normal (sem medidas)
+    // #btnPrint imprime a ficha do projeto (step24-print-project.js).
+    // Aqui só evitamos conflito com o modo de medidas.
     const printBtn = document.getElementById('btnPrint') || document.querySelector('[data-action="pdf"]');
     if (printBtn){
-      // Não fazemos nada especial: impressão normal
-      printBtn.addEventListener('click', (e)=>{
-        // não impedir handlers antigos, apenas garantir que não estamos em modo medidas
+      printBtn.addEventListener('click', ()=>{
         document.body.classList.remove('print-measures');
-        // se o HTML já tem onclick/handler antigo, ele roda; senão, garante print simples
-        // Evite duplicar prints: só chama window.print() se não houver atributo data-has-print
-        if (!printBtn.hasAttribute('data-has-print')){
-          e.preventDefault();
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-          window.print();
-        }
       }, {capture:false});
       printBtn.setAttribute('data-has-print','1');
     }

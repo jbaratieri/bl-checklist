@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="./css/step2-toc.css" />
   <link rel="stylesheet" href="./css/step3-measures.css" />
   <link rel="stylesheet" href="./css/step6-export.css" />
+  <link rel="stylesheet" href="./css/step24-print-project.css?v=20260808-1" />
   <link rel="stylesheet" href="./css/step9-instrument.css" />
   <link rel="stylesheet" href="./css/step11-tech.css" />
   <link rel="stylesheet" href="./css/step12-draw.css" />
@@ -90,7 +91,7 @@
 
     <!-- Toolbar -->
     <div class="toolbar">
-      <button class="btn" id="btnPrint" data-has-print="1" title="Gerar PDF / Imprimir">
+      <button class="btn" id="btnPrint" data-has-print="1" title="Imprimir ficha do projeto (PDF)">
         🖨️ <span class="label">Imprimir</span>
       </button>
 
@@ -171,6 +172,32 @@
             <label>Cliente
               <input class="persist" id="job-client" type="text" placeholder="Nome do cliente">
             </label>
+            <label>Modelo
+              <select class="persist" id="job-model">
+                <option value="">Selecione</option>
+                <option value="violao_classico">Violão Clássico</option>
+                <option value="violao_folk">Violão Folk</option>
+                <option value="violao_om">Violão OM</option>
+                <option value="violao_jumbo">Violão Jumbo</option>
+                <option value="violao_flat">Violão Flat</option>
+                <option value="viola_caipira">Viola Caipira</option>
+                <option value="viola_cinturada">Viola Cinturada</option>
+                <option value="viola_610">Viola 610mm</option>
+                <option value="cavaquinho_tradicional">Cavaquinho Tradicional</option>
+                <option value="ukulele_soprano">Ukulele Soprano</option>
+                <option value="ukulele_concert">Ukulele Concert</option>
+                <option value="ukulele_tenor">Ukulele Tenor</option>
+                <option value="ukulele_baritono">Ukulele Barítono</option>
+                <option value="personalizado">Personalizado</option>
+              </select>
+            </label>
+            <label>Tipo
+              <select class="persist" id="job-acoustic-type">
+                <option value="">Selecione</option>
+                <option value="acustico">Acústico</option>
+                <option value="eletroacustico">Eletroacústico</option>
+              </select>
+            </label>
             <label>Tipo de corda
               <select class="persist" id="job-string-type">
                 <option value="">Selecione</option>
@@ -191,6 +218,13 @@
             <label>Escala (mm)
               <input class="persist" id="job-scale-mm" type="text" inputmode="decimal" placeholder="Ex.: 650">
               <small id="job-scale-hint" style="opacity:.75">Referência por instrumento.</small>
+            </label>
+            <label>Junção braço-corpo
+              <select class="persist" id="job-neck-join">
+                <option value="">Selecione</option>
+                <option value="12">12º traste</option>
+                <option value="14">14º traste</option>
+              </select>
             </label>
             <label id="job-bracing-custom-name-wrap" hidden>Leque customizado (descrição)
               <input class="persist" id="job-bracing-custom-name" type="text"
@@ -6792,6 +6826,8 @@
           <h3>Visão geral</h3>
           <p><strong>Projeto:</strong> <span id="summary-project-name">—</span></p>
           <p><strong>Instrumento:</strong> <span id="summary-instrument">—</span></p>
+          <p><strong>Modelo:</strong> <span id="summary-model">—</span></p>
+          <p><strong>Tipo:</strong> <span id="summary-acoustic-type">—</span></p>
           <p><strong>Cliente:</strong> <span id="summary-client">—</span></p>
           <p><strong>Cordas:</strong> <span id="summary-strings">—</span></p>
           <p><strong>Leque:</strong> <span id="summary-bracing">—</span></p>
@@ -6905,7 +6941,7 @@
   <script src="./js/step17-measures-instrumentos.js"></script>
   <script src="./js/step16-tuning-modal.js?v=20260421-1"></script>
   <script src="./js/step16-action-modal.js?v=20260421-1"></script>
-  <script src="./js/step16-plant-generator.js?v=20260421-1"></script>
+  <script src="./js/step16-plant-generator.js?v=20260808-2"></script>
 
 
 
@@ -6940,7 +6976,9 @@
   <script src="./js/backup-restore.v1.js"></script>
 
   <!-- Painel (usa BackupRestore) -->
-  <script src="./js/step22-project-panel.js?v=20260427-2"></script>
+  <script src="./js/step22-project-panel.js?v=20260808-1"></script>
+  <!-- Impressão da ficha do projeto (#btnPrint) -->
+  <script src="./js/step24-print-project.js?v=20260808-2"></script>
 
   <!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
   <script src="./js/step9-instrument.js"></script>
