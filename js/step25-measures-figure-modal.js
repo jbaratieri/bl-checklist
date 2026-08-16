@@ -179,12 +179,15 @@
       var current = readField(hs.bind);
       var ref = (preset && preset.values && preset.values[hs.bind]) || '';
       return '<tr data-mm-row="' + hs.id + '">' +
-        '<td>' + escapeHtml(hs.label) +
+        '<td class="mm-td-name" data-label="Medida">' + escapeHtml(hs.label) +
           (hs.hasPreset ? '' : ' <span class="mm-pill mm-pill--warn">extra</span>') +
         '</td>' +
-        '<td>' + escapeHtml(ref || '—') + '</td>' +
-        '<td><input type="text" inputmode="decimal" class="mm-table-input" data-mm-bind="' +
-          escapeHtml(hs.bind) + '" value="' + escapeHtml(current) + '"></td>' +
+        '<td class="mm-td-ref" data-label="Ref. modelo">' + escapeHtml(ref || '—') + '</td>' +
+        '<td class="mm-td-value" data-label="Valor do projeto">' +
+          '<input type="text" inputmode="decimal" class="mm-table-input" data-mm-bind="' +
+          escapeHtml(hs.bind) + '" value="' + escapeHtml(current) + '" aria-label="Valor: ' +
+          escapeHtml(hs.label) + '">' +
+        '</td>' +
       '</tr>';
     }).join('');
 
@@ -206,7 +209,7 @@
     if (title) title.textContent = 'Medidas — ' + instrName();
 
     body.innerHTML =
-      '<div class="mm-root">' +
+      '<div class="mm-root mm-root--' + (state.mode === 'tabela' ? 'tabela' : 'mapa') + '">' +
         buildToolbar(preset) +
         '<div class="mm-content" id="mmContent">' +
           (state.mode === 'tabela' ? buildTablePanel(preset) : buildMapPanel(preset)) +

@@ -207,6 +207,12 @@
 .mm-table-wrap {
   overflow: auto;
   max-height: min(60vh, 560px);
+  -webkit-overflow-scrolling: touch;
+}
+
+.mm-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
 .mm-table th,
@@ -233,5 +239,219 @@
   .measures-dlg.measures-dlg--figure {
     width: min(96vw, 1100px);
     max-height: calc(100vh - 4vh);
+  }
+
+  /* Mapa no mobile: imagem com proporção natural, sem esmagar */
+  .mm-root--mapa .mm-map-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .mm-root--mapa .mm-map-stage {
+    width: 100%;
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+
+  .mm-root--mapa .mm-map-img {
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    object-position: top center;
+  }
+
+  .mm-root--mapa .mm-editor {
+    flex: 0 0 auto;
+  }
+
+  .mm-root--mapa .mm-editor-card {
+    padding: 12px;
+  }
+}
+
+/* Retrato smartphone: tabela em cards legíveis */
+@media (max-width: 600px) {
+  .mm-root--tabela .mm-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .mm-root--tabela .mm-toolbar-meta {
+    gap: 6px 8px;
+    font-size: 0.86rem;
+  }
+
+  .mm-root--tabela .mm-toolbar-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .mm-root--tabela .mm-mode-toggle {
+    width: 100%;
+  }
+
+  .mm-root--tabela .mm-mode-btn {
+    flex: 1;
+    text-align: center;
+  }
+
+  .mm-root--tabela .mm-toolbar-actions > .btn,
+  .mm-root--tabela .mm-toolbar-actions > .btn.primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Mapa: toolbar mais compacta, sem empilhar agressivamente */
+  .mm-root--mapa .mm-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .mm-root--mapa .mm-toolbar-actions {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .mm-root--mapa .mm-mode-toggle {
+    flex: 1 1 auto;
+  }
+
+  .mm-root--mapa .mm-toolbar-actions > .btn.primary {
+    flex: 1 1 auto;
+  }
+
+  .mm-table-wrap {
+    overflow: visible;
+    max-height: none;
+    padding-bottom: 8px;
+  }
+
+  /* Sobrescreve o cardify genérico de .measures-table */
+  .mm-table-wrap .mm-table,
+  .mm-table-wrap .mm-table thead,
+  .mm-table-wrap .mm-table tbody,
+  .mm-table-wrap .mm-table tr,
+  .mm-table-wrap .mm-table th,
+  .mm-table-wrap .mm-table td {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  .mm-table-wrap .mm-table thead {
+    display: none !important;
+  }
+
+  .mm-table-wrap .mm-table tr {
+    margin: 0 0 12px;
+    padding: 12px;
+    border: 1px solid #e9d7bf;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(58, 45, 28, 0.06);
+  }
+
+  .mm-table-wrap .mm-table td {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0 !important;
+    border: 0 !important;
+    border-bottom: 1px solid #f0e6d8 !important;
+    margin: 0 !important;
+    font-style: normal !important;
+    white-space: normal;
+  }
+
+  .mm-table-wrap .mm-table td:last-child {
+    border-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .mm-table-wrap .mm-table td::before {
+    content: attr(data-label);
+    flex: 0 0 38%;
+    max-width: 42%;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6b543d;
+    line-height: 1.25;
+  }
+
+  .mm-table-wrap .mm-table td.mm-td-name {
+    display: block !important;
+    font-size: 0.98rem;
+    font-weight: 700;
+    color: #3a2d1c;
+    padding-top: 0 !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 2px;
+    border-bottom: 1px solid #e9d7bf !important;
+  }
+
+  .mm-table-wrap .mm-table td.mm-td-name::before {
+    display: none;
+  }
+
+  .mm-table-wrap .mm-table td.mm-td-ref,
+  .mm-table-wrap .mm-table td.mm-td-value {
+    font-size: 0.95rem;
+    color: #3a2d1c;
+  }
+
+  .mm-table-wrap .mm-table .mm-table-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    font-size: 16px; /* evita zoom no iOS */
+    padding: 10px 12px;
+  }
+
+  .mm-table-wrap .mm-note {
+    font-size: 0.84rem;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 600px) and (orientation: portrait) {
+  /* Full-bleed só na tabela; no mapa mantém respiro e proporção */
+  .measures-dlg.measures-dlg--figure:has(.mm-root--tabela) {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .measures-dlg.measures-dlg--figure:has(.mm-root--mapa) {
+    width: min(96vw, 1100px);
+    max-width: 96vw;
+    max-height: calc(100vh - 4vh);
+    border-radius: 12px;
+  }
+
+  .mm-root--tabela {
+    gap: 10px;
+  }
+
+  .mm-root--tabela .mm-table-wrap .mm-table tr {
+    padding: 14px 12px;
+  }
+
+  .mm-root--mapa .mm-content {
+    overflow: visible;
+  }
+
+  .mm-root--mapa .mm-map-stage {
+    min-height: auto;
   }
 }
