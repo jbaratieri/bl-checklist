@@ -283,18 +283,18 @@
 
   // Pontos da figura (posições em % — calibrados na arte mapa-medidas.png).
   var HOTSPOTS = [
-    { id: 'inclinacao', label: 'Inclinação do headstock', unit: '°', bind: 'braco.inclinacao_headstock', x: 68.5, y: 10.5, hasPreset: true },
-    { id: 'largura_nut', label: 'Largura no nut', unit: 'mm', bind: 'braco.largura_nut', x: 34.3, y: 17.8, hasPreset: true },
     { id: 'escala', label: 'Comprimento de escala', unit: 'mm', bind: 'job-scale-mm', x: 10.2, y: 47.0, hasPreset: true },
+    { id: 'inclinacao', label: 'Inclinação do headstock', unit: '°', bind: 'braco.inclinacao_headstock', x: 68.5, y: 10.5, hasPreset: true },
+    { id: 'largura_nut', label: 'Largura do braço no nut', unit: 'mm', bind: 'braco.largura_nut', x: 34.3, y: 17.8, hasPreset: true },
     { id: 'esp_nut', label: 'Espessura do braço (nut)', unit: 'mm', bind: 'braco.espessura_nut', x: 69.9, y: 19.1, hasPreset: true },
-    { id: 'largura_casa12', label: 'Largura na junção (casa 12)', unit: 'mm', bind: 'braco.largura_casa12', x: 34.5, y: 48.5, hasPreset: true },
+    { id: 'largura_casa12', label: 'Largura braço (casa 12)', unit: 'mm', bind: 'braco.largura_casa12', x: 34.5, y: 48.5, hasPreset: true },
     { id: 'esp_casa12', label: 'Espessura do braço (casa 12)', unit: 'mm', bind: 'braco.espessura_casa10', x: 69.8, y: 43.3, hasPreset: true },
-    { id: 'ombro', label: 'Largura do ombro (bojo superior)', unit: 'mm', bind: 'tampo.largura_ombro', x: 34.8, y: 57.4, hasPreset: true },
-    { id: 'prof_troculo', label: 'Profundidade no tróculo', unit: 'mm', bind: 'laterais.largura_troculo', x: 74.2, y: 54.4, hasPreset: true },
-    { id: 'cintura', label: 'Largura da cintura', unit: 'mm', bind: 'tampo.largura_cintura', x: 34.8, y: 68.4, hasPreset: true },
     { id: 'comprimento', label: 'Comprimento do tampo/fundo', unit: 'mm', bind: 'tampo.comprimento', x: 34.4, y: 94.0, hasPreset: true },
-    { id: 'bojo', label: 'Largura do bojo', unit: 'mm', bind: 'tampo.largura_bojo', x: 34.6, y: 85.2, hasPreset: true },
-    { id: 'prof_culatra', label: 'Profundidade na culatra', unit: 'mm', bind: 'laterais.largura_culatra', x: 74.5, y: 95.5, hasPreset: true }
+    { id: 'ombro', label: 'Largura tampo/fundo - bojo superior', unit: 'mm', bind: 'tampo.largura_ombro', x: 34.8, y: 57.4, hasPreset: true },
+    { id: 'cintura', label: 'Largura tampo/fundo - cintura', unit: 'mm', bind: 'tampo.largura_cintura', x: 34.8, y: 68.4, hasPreset: true },
+    { id: 'bojo', label: 'Largura tampo/fundo - bojo', unit: 'mm', bind: 'tampo.largura_bojo', x: 34.6, y: 85.2, hasPreset: true },
+    { id: 'prof_culatra', label: 'Profundidade da caixa na culatra', unit: 'mm', bind: 'laterais.largura_culatra', x: 74.5, y: 95.5, hasPreset: true },
+    { id: 'prof_troculo', label: 'Profundidade da caixa no tróculo', unit: 'mm', bind: 'laterais.largura_troculo', x: 74.2, y: 54.4, hasPreset: true }
   ];
 
   window.BL_MODEL_MEASURE_PRESETS = PRESETS;
