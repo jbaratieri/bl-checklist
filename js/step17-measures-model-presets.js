@@ -39,7 +39,7 @@
         'tampo.comprimento': '510',
         'tampo.largura_bojo': '397',
         'tampo.largura_cintura': '270',
-        'tampo.largura_ombro': '2295',
+        'tampo.largura_ombro': '295',
         'laterais.largura_culatra': '120',
         'laterais.largura_troculo': '110',
         'job-scale-mm': '645',
