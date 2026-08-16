@@ -30,8 +30,8 @@
     laterais: {
       madeira: "ex.: Jacarandá / Pau-ferro",
       comprimento: "ex.: 800",
-      largura_culatra: "ex.: 95",
-      largura_troculo: "ex.: 85"
+      largura_culatra: "ex.: 100",
+      largura_troculo: "ex.: 90"
     },
     escala: {
       madeira: "ex.: Ébano",
