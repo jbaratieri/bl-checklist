@@ -28,35 +28,74 @@
     return MATH || window.BL_SCALE_WIDTH_MATH || null;
   }
 
-  function resolveField(bind) {
-    if (window.BL_MEASURE_PRESET_API && typeof BL_MEASURE_PRESET_API.resolveField === 'function') {
-      return BL_MEASURE_PRESET_API.resolveField(bind);
+  function resolveFields(bind) {
+    if (window.BL_MEASURE_PRESET_API && typeof BL_MEASURE_PRESET_API.resolveFields === 'function') {
+      return BL_MEASURE_PRESET_API.resolveFields(bind);
     }
-    if (!bind) return null;
-    if (bind.indexOf('.') === -1) return document.getElementById(bind);
-    return document.querySelector('[data-measure="' + bind + '"]');
+    if (!bind) return [];
+    if (bind.indexOf('.') === -1) {
+      var el = document.getElementById(bind);
+      return el ? [el] : [];
+    }
+    return Array.prototype.slice.call(document.querySelectorAll('[data-measure="' + bind + '"]'));
+  }
+
+  function resolveField(bind) {
+    var all = resolveFields(bind);
+    return all[0] || null;
   }
 
   function readField(bind) {
-    var el = resolveField(bind);
-    return el && 'value' in el ? String(el.value || '').trim() : '';
+    var els = resolveFields(bind);
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var v = el && 'value' in el ? String(el.value || '').trim() : '';
+      if (v) return v;
+    }
+    return '';
   }
 
   function writeField(bind, value, opts) {
     opts = opts || {};
-    var el = resolveField(bind);
-    if (!el || !('value' in el)) return false;
+    var els = resolveFields(bind);
+    if (!els.length) return false;
     var next = value == null ? '' : String(value);
-    if (String(el.value || '') === next) return true;
-    el.value = next;
-    if (!opts.silent) {
-      try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
-      try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
-    } else {
-      // Still persist calculated/writable .persist fields without recursive recalc storms.
-      try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+    var any = false;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (!el || !('value' in el)) continue;
+      any = true;
+      if (String(el.value || '') === next) continue;
+      el.value = next;
+      if (!opts.silent) {
+        try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+        try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
+      } else {
+        try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+      }
     }
-    return true;
+    return any;
+  }
+
+  function mirrorBoundFields(source) {
+    if (!source || !source.getAttribute) return;
+    var bind = source.getAttribute('data-measure');
+    if (!bind) return;
+    var els = resolveFields(bind);
+    if (els.length < 2) return;
+    var next = source.value == null ? '' : String(source.value);
+    APPLYING = true;
+    try {
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el === source || !el || !('value' in el)) continue;
+        if (String(el.value || '') === next) continue;
+        el.value = next;
+        try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+      }
+    } finally {
+      APPLYING = false;
+    }
   }
 
   function currentModelId() {
@@ -162,6 +201,8 @@
       var spacingMode = currentSpacingMode();
       updateAdjacentFieldHint(spacingMode);
 
+      if (bridgeRaw) writeField(BINDS.bridgeSpacing, bridgeRaw, { silent: true });
+
       // Prefer braço nut as official source; keep escala nut mirrored when braço has a value.
       if (readField(BINDS.nutWidth)) {
         writeField(BINDS.nutWidthEscala, m.formatMm(m.toNumber(readField(BINDS.nutWidth)), 1), { silent: true });
@@ -254,9 +295,14 @@
       t.id === 'braco-largura-nut-sec02' ||
       t.id === 'escala-largura-nut-sec08' ||
       t.id === 'escala-margem-corda' ||
-      t.id === 'escala-dist-furos-cavalete';
+      t.id === 'escala-dist-furos-cavalete' ||
+      t.id === 'cavalete-dist-furos-sec09';
 
     if (!watched) return;
+
+    if (bind === BINDS.bridgeSpacing || t.id === 'escala-dist-furos-cavalete' || t.id === 'cavalete-dist-furos-sec09') {
+      mirrorBoundFields(t);
+    }
 
     if (t.id === 'job-model' || bind === BINDS.model) {
       ensureDefaults({ onlyEmpty: true });
@@ -294,34 +340,40 @@
       {
         label: 'Largura do braço no nut',
         value: readField(BINDS.nutWidth) || readField(BINDS.nutWidthEscala) || '—',
-        origin: 'Entrada'
+        origin: 'Entrada',
+        unit: 'mm'
       },
       {
         label: 'Número de cordas',
         value: stringCountRaw || '—',
-        origin: 'Entrada / Projeto'
+        origin: 'Entrada / Projeto',
+        unit: 'cordas'
       },
       {
         label: 'Margem da corda à borda',
         value: readField(BINDS.margin) || String(m.DEFAULT_MARGIN_MM),
-        origin: 'Entrada / Default'
+        origin: 'Entrada / Default',
+        unit: 'mm'
       },
       {
         label: 'Distanciamento das cordas no nut (1ª↔última)',
         value: geo && Number.isFinite(geo.nutStringSpacing) ? m.formatMm(geo.nutStringSpacing, 2) : '—',
-        origin: 'Calculado'
+        origin: 'Calculado',
+        unit: 'mm'
       },
       {
         label: adjLabel,
         value: geo && Number.isFinite(geo.adjacentStringSpacingNut)
           ? m.formatMm(geo.adjacentStringSpacingNut, 2)
           : '—',
-        origin: adjOrigin
+        origin: adjOrigin,
+        unit: 'mm'
       },
       {
         label: 'Distanciamento dos furos do cavalete',
         value: readField(BINDS.bridgeSpacing) || '—',
-        origin: 'Entrada / Default'
+        origin: 'Entrada / Default',
+        unit: 'mm'
       }
     ];
     if (geo && geo.ok) {
@@ -330,7 +382,8 @@
         rows.push({
           label: 'Largura da escala na casa ' + fret,
           value: item ? m.formatMm(item.scaleWidth, 2) : '—',
-          origin: 'Calculado'
+          origin: 'Calculado',
+          unit: 'mm'
         });
       });
     }

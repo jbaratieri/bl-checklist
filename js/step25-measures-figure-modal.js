@@ -41,27 +41,48 @@
     return api.getByModel(currentModelId());
   }
 
-  function resolveField(bind) {
-    if (window.BL_MEASURE_PRESET_API && typeof BL_MEASURE_PRESET_API.resolveField === 'function') {
-      return BL_MEASURE_PRESET_API.resolveField(bind);
+  function resolveFields(bind) {
+    if (window.BL_MEASURE_PRESET_API && typeof BL_MEASURE_PRESET_API.resolveFields === 'function') {
+      return BL_MEASURE_PRESET_API.resolveFields(bind);
     }
-    if (!bind) return null;
-    if (bind.indexOf('.') === -1) return document.getElementById(bind);
-    return document.querySelector('[data-measure="' + bind + '"]');
+    if (!bind) return [];
+    if (bind.indexOf('.') === -1) {
+      var el = document.getElementById(bind);
+      return el ? [el] : [];
+    }
+    return Array.prototype.slice.call(document.querySelectorAll('[data-measure="' + bind + '"]'));
+  }
+
+  function resolveField(bind) {
+    var all = resolveFields(bind);
+    return all[0] || null;
   }
 
   function readField(bind) {
-    var el = resolveField(bind);
-    return el && 'value' in el ? String(el.value || '').trim() : '';
+    var els = resolveFields(bind);
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      var v = el && 'value' in el ? String(el.value || '').trim() : '';
+      if (v) return v;
+    }
+    return '';
   }
 
   function writeField(bind, value) {
-    var el = resolveField(bind);
-    if (!el || !('value' in el)) return false;
-    el.value = value == null ? '' : String(value);
-    try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
-    try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
-    return true;
+    var els = resolveFields(bind);
+    if (!els.length) return false;
+    var next = value == null ? '' : String(value);
+    var any = false;
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (!el || !('value' in el)) continue;
+      any = true;
+      if (String(el.value || '') === next) continue;
+      el.value = next;
+      try { el.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+      try { el.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
+    }
+    return any;
   }
 
   function hotspots() {
@@ -193,10 +214,14 @@
     var refBridge = (preset && preset.values && preset.values['escala.distanciamento_furos_cavalete']) || '—';
     var rows = window.BL_SCALE_WIDTH.summaryRows() || [];
     var derived = rows.map(function (r) {
+      var raw = r && r.value != null ? String(r.value) : '';
+      var display = (!raw || raw === '—')
+        ? '—'
+        : escapeHtml(raw) + ' ' + escapeHtml(r.unit || 'mm');
       return '<tr>' +
         '<td class="mm-td-name" data-label="Medida">' + escapeHtml(r.label) + '</td>' +
         '<td class="mm-td-ref" data-label="Origem">' + escapeHtml(r.origin) + '</td>' +
-        '<td class="mm-td-value" data-label="Valor">' + escapeHtml(r.value) + ' mm</td>' +
+        '<td class="mm-td-value" data-label="Valor">' + display + '</td>' +
       '</tr>';
     }).join('');
 

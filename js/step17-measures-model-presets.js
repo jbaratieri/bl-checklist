@@ -307,10 +307,17 @@
     listHotspots: function () {
       return HOTSPOTS.slice();
     },
+    resolveFields: function (bind) {
+      if (!bind) return [];
+      if (bind.indexOf('.') === -1) {
+        var el = document.getElementById(bind);
+        return el ? [el] : [];
+      }
+      return Array.prototype.slice.call(document.querySelectorAll('[data-measure="' + bind + '"]'));
+    },
     resolveField: function (bind) {
-      if (!bind) return null;
-      if (bind.indexOf('.') === -1) return document.getElementById(bind);
-      return document.querySelector('[data-measure="' + bind + '"]');
+      var all = this.resolveFields(bind);
+      return all[0] || null;
     }
   };
 })();

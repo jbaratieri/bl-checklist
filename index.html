@@ -207,8 +207,8 @@
               </select>
             </label>
             <label>Número de cordas
-              <input class="persist" id="job-string-count" type="number" inputmode="numeric"
-                min="2" max="18" step="1" required placeholder="Ex.: 6">
+              <input class="persist" id="job-string-count" type="number" inputmode="numeric" min="2" max="18" step="1"
+                required placeholder="Ex.: 6">
               <small id="job-string-count-hint" style="opacity:.75">Obrigatório.</small>
             </label>
             <label>Sistema de leque harmônico
@@ -281,8 +281,6 @@
         </div>
       </div>
       <div id="planTable" aria-live="polite"></div>
-    </section>
-
     </section>
 
     <nav class="toc">
@@ -424,9 +422,6 @@
                 <button class="btn add-image" type="button" data-subetapa="prep1">Minhas Imagens</button>
                 <button class="btn wood-catalog-trigger" data-wood-catalog="prep1">
                   Lista de Madeiras para Luthieria
-                </button>
-
-
                 </button>
                 <button class="btn load-assets" data-manifest="./assets/extras/albuns/prep1/prep1.json"
                   data-target="#assets-prep1" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
@@ -1453,7 +1448,7 @@
               </ul>
 
               <!-- Figura técnica da etapa -->
-              <figure class="tech-figure" data-key="sol8b-tech"
+              <figure class="tech-figure" data-key="sol8a1-tech"
                 data-cap="Planejar e riscar o braço — linha central, traste 12 e tróculo">
               </figure>
 
@@ -1512,6 +1507,513 @@
             </div>
           </div>
 
+          <!-- sol8b -->
+          <div class="step" data-step="sol8b">
+            <input class="chk persist" id="sol8b" type="checkbox" />
+            <label class="label" for="sol8b">Preparar canal tensor</label>
+
+            <button class="btn toggle" data-target="d-sol8b" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-sol8b">
+
+              <p>
+                <strong>Objetivo:</strong> preparar e abrir no braço o canal que receberá o
+                tensor bidirecional (truss rod), utilizando a <strong>linha central definida
+                  na sol8a</strong> como referência para o alinhamento de todo o canal.
+              </p>
+
+              <!-- =========================================================
+         ETAPA CONDICIONAL
+    ========================================================== -->
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Atenção — etapa condicional:</strong> nem todo projeto utiliza
+                tensor bidirecional. Abra o canal <strong>somente se o projeto prevê
+                  truss rod</strong>. Se o instrumento utilizar tensor natural, reforço fixo
+                ou não possuir tensor, <strong>marque esta etapa como concluída e siga
+                  para a próxima</strong>.
+              </p>
+
+              <!-- =========================================================
+         1. CONFERIR O TENSOR
+    ========================================================== -->
+
+              <h5>1. Conferir o tensor antes de abrir o canal</h5>
+
+              <p>
+                Antes de fazer qualquer corte, tenha o <strong>tensor que será realmente
+                  instalado</strong> em mãos. As dimensões do canal devem ser determinadas
+                a partir da peça real e das especificações do fabricante.
+              </p>
+
+              <ul>
+                <li>
+                  Meça a <strong>largura real</strong> do tensor.
+                </li>
+                <li>
+                  Meça a <strong>altura/profundidade real</strong> do tensor.
+                </li>
+                <li>
+                  Confira o <strong>comprimento total</strong>.
+                </li>
+                <li>
+                  Identifique a <strong>posição e o acesso da porca de ajuste</strong>.
+                </li>
+                <li>
+                  Confira se o tensor necessita de <strong>folga, curvatura ou espaço
+                    adicional</strong> para funcionar corretamente.
+                </li>
+                <li>
+                  Não utilize uma medida nominal como única referência quando a peça
+                  real estiver disponível.
+                </li>
+              </ul>
+
+              <p class="callout">
+                <strong>Regra:</strong> primeiro confira o tensor; depois defina o canal.
+                Não faça o canal com base apenas em uma medida genérica.
+              </p>
+
+              <!-- =========================================================
+         2. DEFINIR O CANAL
+    ========================================================== -->
+
+              <h5>2. Definir largura, profundidade e comprimento</h5>
+
+              <ul>
+                <li>
+                  Utilize a <strong>linha central já riscada na estapa anterior</strong> como
+                  referência principal.
+                </li>
+                <li>
+                  Não redesenhe o centro do braço nesta etapa.
+                </li>
+                <li>
+                  Defina a <strong>largura do canal</strong> conforme o tensor escolhido
+                  e o método de instalação.
+                </li>
+                <li>
+                  Defina a <strong>profundidade do canal</strong> de acordo com a altura
+                  do tensor e a posição prevista dentro do braço.
+                </li>
+                <li>
+                  Defina o <strong>comprimento do canal</strong> conforme o modelo do
+                  tensor e o projeto do braço.
+                </li>
+                <li>
+                  Confirme o ponto de acesso à porca de ajuste antes de cortar.
+                </li>
+                <li>
+                  Preserve a quantidade de madeira prevista pelo projeto nas regiões
+                  superior, inferior e nas extremidades do canal.
+                </li>
+              </ul>
+
+              <p class="callout">
+                <strong>Importante:</strong> não use uma distância fixa como regra geral
+                para o início ou término do canal. O comprimento e a posição dependem do
+                tensor utilizado e do desenho do braço.
+              </p>
+
+
+              <!-- =========================================================
+         3. PREPARAR A TUPIA
+    ========================================================== -->
+
+              <h5>3. Preparar a tupia e o gabarito</h5>
+
+              <p>
+                O objetivo desta preparação é garantir que a fresa permaneça
+                <strong>centralizada, paralela e controlada</strong> durante todo o corte.
+              </p>
+
+              <ul>
+                <li>
+                  Fixe o braço firmemente na bancada, evitando qualquer movimento durante
+                  o corte.
+                </li>
+                <li>
+                  Instale uma <strong>guia reta ou gabarito de tupia</strong> adequado ao
+                  canal.
+                </li>
+                <li>
+                  Posicione a guia utilizando a <strong>linha central da sol8a</strong>
+                  como referência.
+                </li>
+                <li>
+                  Confira o alinhamento da guia em toda a extensão do canal.
+                </li>
+                <li>
+                  Verifique a posição da guia nas duas extremidades do braço.
+                </li>
+                <li>
+                  Instale uma <strong>fresa reta adequada à largura prevista</strong>.
+                </li>
+                <li>
+                  Confira se a fresa está corretamente presa na pinça da tupia.
+                </li>
+                <li>
+                  Regule inicialmente uma <strong>profundidade pequena</strong>.
+                </li>
+                <li>
+                  Faça uma verificação manual do percurso antes de ligar a máquina.
+                </li>
+              </ul>
+
+              <!-- =========================================================
+         4. CHECKLIST ANTES DA TUPIA
+    ========================================================== -->
+
+              <h5>Antes de ligar a tupia</h5>
+
+              <ul class="checklist">
+                <li>☐ Braço firmemente fixado.</li>
+                <li>☐ Guia/gabarito firmemente preso.</li>
+                <li>☐ Guia alinhada com a linha central.</li>
+                <li>☐ Comprimento do canal conferido.</li>
+                <li>☐ Fresa corretamente instalada.</li>
+                <li>☐ Profundidade inicial regulada.</li>
+                <li>☐ Área de saída da ferramenta livre.</li>
+                <li>☐ Cabo elétrico afastado da trajetória da ferramenta.</li>
+                <li>☐ Óculos de proteção e proteção auditiva utilizados.</li>
+              </ul>
+
+              <p class="callout">
+                <strong>Pare aqui se houver qualquer dúvida de alinhamento.</strong>
+                Corrigir o gabarito antes do corte é muito mais simples do que corrigir
+                um canal deslocado depois de aberto.
+              </p>
+
+              <!-- =========================================================
+         5. ABERTURA COM TUPIA
+    ========================================================== -->
+
+              <h5>4. Abrir o canal com a tupia</h5>
+
+              <p>
+                O canal deve ser aberto em <strong>passadas rasas e sucessivas</strong>.
+                Evite tentar alcançar a profundidade final em uma única operação.
+              </p>
+
+              <ol>
+                <li>
+                  Posicione a tupia sobre o início do canal, mantendo a base apoiada
+                  corretamente sobre o gabarito.
+                </li>
+
+                <li>
+                  Confira novamente o alinhamento da fresa antes de iniciar o corte.
+                </li>
+
+                <li>
+                  Ligue a tupia antes de iniciar o avanço e mantenha a ferramenta
+                  firmemente apoiada.
+                </li>
+
+                <li>
+                  Faça a <strong>primeira passada rasa</strong>, removendo apenas uma
+                  pequena quantidade de material.
+                </li>
+
+                <li>
+                  Avance de maneira <strong>contínua e controlada</strong>, sem forçar
+                  a ferramenta.
+                </li>
+
+                <li>
+                  Ao terminar a passada, desligue a tupia e aguarde a parada completa
+                  da fresa antes de retirar a ferramenta da posição de trabalho.
+                </li>
+
+                <li>
+                  Remova o pó e confira a largura, o alinhamento e a profundidade do
+                  canal.
+                </li>
+
+                <li>
+                  Aumente a profundidade da tupia apenas o necessário para a próxima
+                  passada.
+                </li>
+
+                <li>
+                  Repita o processo até atingir a profundidade final especificada.
+                </li>
+
+                <li>
+                  Na última passada, faça uma conferência especialmente cuidadosa do
+                  <strong>fundo do canal e das paredes laterais</strong>.
+                </li>
+              </ol>
+
+              <p class="callout">
+                <strong>Regra de segurança:</strong> nunca force a tupia para remover
+                grande quantidade de material de uma só vez. Passadas menores oferecem
+                maior controle e reduzem o risco de desvio, lascamento e sobrecarga da
+                ferramenta.
+              </p>
+
+              <p class="callout">
+                <strong>Sentido de avanço:</strong> o sentido de deslocamento deve ser
+                escolhido de modo que a rotação da fresa não tente puxar a tupia para
+                fora da guia. Se o gabarito permitir diferentes sentidos de trabalho,
+                planeje o percurso antes de iniciar o corte.
+              </p>
+
+              <!-- =========================================================
+         6. CONFERÊNCIA ENTRE PASSADAS
+    ========================================================== -->
+
+              <h5>Conferência entre as passadas</h5>
+
+              <ul>
+                <li>
+                  Confira se o canal continua exatamente sobre a
+                  <strong>linha central</strong>.
+                </li>
+                <li>
+                  Verifique se as paredes permanecem paralelas.
+                </li>
+                <li>
+                  Meça a profundidade com paquímetro, profundímetro ou gabarito adequado.
+                </li>
+                <li>
+                  Confira se não houve lascamento nas bordas.
+                </li>
+                <li>
+                  Remova o pó antes de cada nova medição.
+                </li>
+                <li>
+                  Não aumente a profundidade para compensar um problema de alinhamento.
+                  Primeiro corrija a causa do problema.
+                </li>
+              </ul>
+
+              <!-- =========================================================
+         7. PARE E CORRIJA
+    ========================================================== -->
+
+              <h5>Pare e corrija se...</h5>
+
+              <ul>
+                <li>a guia deixar de ficar paralela à linha central;</li>
+                <li>a fresa começar a cortar fora da largura prevista;</li>
+                <li>a profundidade ultrapassar a medida especificada;</li>
+                <li>o braço se movimentar durante o corte;</li>
+                <li>o canal apresentar desvio perceptível;</li>
+                <li>ocorrer lascamento importante nas bordas;</li>
+                <li>o acesso à porca de ajuste deixar de coincidir com o projeto;</li>
+                <li>o tensor não puder ser acomodado corretamente no canal.</li>
+              </ul>
+
+              <p class="callout">
+                <strong>Não tente corrigir um erro de alinhamento simplesmente
+                  alargando o canal.</strong> Se o canal sair do centro, interrompa o
+                trabalho e determine a causa antes de continuar.
+              </p>
+
+              <!-- =========================================================
+         8. TESTE DE ENCAIXE
+    ========================================================== -->
+
+              <h5>5. Teste de encaixe do tensor</h5>
+
+              <p>
+                Antes de qualquer fixação ou fechamento do canal, faça um
+                <strong>encaixe a seco</strong> do tensor.
+              </p>
+
+              <ul>
+                <li>
+                  Coloque o tensor em toda a extensão do canal.
+                </li>
+                <li>
+                  Verifique se ele assenta sem necessidade de força excessiva.
+                </li>
+                <li>
+                  Confira se não existe folga lateral excessiva.
+                </li>
+                <li>
+                  Confira a profundidade em toda a extensão.
+                </li>
+                <li>
+                  Verifique novamente o alinhamento com a linha central.
+                </li>
+                <li>
+                  Confirme o acesso completo à porca de ajuste.
+                </li>
+                <li>
+                  Confirme se o mecanismo do tensor possui o espaço necessário para
+                  funcionar conforme especificação do fabricante.
+                </li>
+              </ul>
+
+              <p class="callout">
+                <strong>Encaixe a seco obrigatório:</strong> não fixe nem feche o canal
+                enquanto qualquer uma dessas verificações ainda estiver pendente.
+              </p>
+
+              <!-- =========================================================
+         9. INSTALAÇÃO E FECHAMENTO
+    ========================================================== -->
+
+              <h5>6. Instalar e fechar o canal</h5>
+
+              <ul>
+                <li>
+                  Somente após validar o encaixe, instale o tensor conforme o método
+                  recomendado pelo fabricante.
+                </li>
+                <li>
+                  Confirme novamente a posição da porca de ajuste.
+                </li>
+                <li>
+                  Feche o canal com a tampa, filete ou solução prevista no projeto.
+                </li>
+                <li>
+                  Garanta que o fechamento não interfira no funcionamento do tensor.
+                </li>
+                <li>
+                  Faça uma última conferência do alinhamento antes de seguir para a
+                  próxima etapa.
+                </li>
+              </ul>
+
+              <!-- =========================================================
+         PONTO DE CONTROLE FINAL
+    ========================================================== -->
+
+              <h5>Ponto de controle da etapa</h5>
+
+              <p class="callout">
+                <strong>Marque esta etapa como concluída somente quando:</strong>
+              </p>
+
+              <ul class="checklist">
+                <li>☐ Canal alinhado com a linha central.</li>
+                <li>☐ Largura conferida.</li>
+                <li>☐ Profundidade conferida.</li>
+                <li>☐ Comprimento conferido.</li>
+                <li>☐ Tensor testado a seco.</li>
+                <li>☐ Tensor assenta corretamente.</li>
+                <li>☐ Porca de ajuste acessível.</li>
+                <li>☐ Espaço de funcionamento do tensor confirmado.</li>
+                <li>☐ Canal pronto para instalação/fechamento.</li>
+              </ul>
+
+              <!-- =========================================================
+         FIGURAS TÉCNICAS
+    ========================================================== -->
+
+              <figure class="tech-figure" data-key="sol8b-tech"
+                data-cap="Preparar canal tensor — alinhamento, largura, profundidade e comprimento">
+              </figure>
+
+              <figure class="tech-figure" data-key="sol8b-router"
+                data-cap="Abertura do canal com tupia — guia, fresa, profundidade e sentido de avanço">
+              </figure>
+
+              <figure class="tech-figure" data-key="sol8b-router-section"
+                data-cap="Vista transversal — fresa, profundidade do canal, tensor e margem de madeira">
+              </figure>
+
+              <!-- =========================================================
+         CALLOUTS POR INSTRUMENTO
+    ========================================================== -->
+
+              <p class="callout" data-instruments="vcl">
+                <strong>Violão clássico:</strong> se o projeto utiliza tensor natural,
+                reforço fixo ou nenhum tensor bidirecional, esta etapa não se aplica.
+                Marque como concluída e siga adiante.
+              </p>
+
+              <p class="callout" data-instruments="vla">
+                <strong>Viola caipira:</strong> quando o projeto utilizar tensor
+                bidirecional, confira cuidadosamente a seção do tensor, o comprimento
+                do canal e a quantidade de madeira restante no braço.
+              </p>
+
+              <p class="callout" data-instruments="cav">
+                <strong>Cavaquinho:</strong> normalmente não utiliza tensor. Marque esta
+                etapa como concluída, salvo quando o projeto específico prever truss rod.
+              </p>
+
+              <p class="callout" data-instruments="uku">
+                <strong>Ukulele:</strong> normalmente não utiliza tensor. Marque esta
+                etapa como concluída, salvo quando o projeto específico prever truss rod.
+              </p>
+
+              <!-- =========================================================
+         CALLOUTS GERAIS
+    ========================================================== -->
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Referência de centro:</strong> utilize a linha central definida
+                na sol8a. O canal deve permanecer rigorosamente alinhado a ela durante
+                toda a operação.
+              </p>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Tupia:</strong> trabalhe com passadas rasas e sucessivas.
+                Evite remover grande quantidade de material em uma única passada.
+              </p>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Tensor real:</strong> as dimensões do canal devem ser verificadas
+                a partir do tensor que será instalado, e não apenas de medidas genéricas.
+              </p>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Encaixe a seco:</strong> sempre teste o tensor antes de fixar ou
+                fechar o canal. Correção de canal aberto é muito mais simples do que
+                correção de um braço já fechado.
+              </p>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Controle final:</strong> não avance para o entalhe do braço
+                enquanto o alinhamento, a profundidade e o encaixe do tensor não estiverem
+                confirmados.
+              </p>
+
+              <!-- =========================================================
+         IMAGENS E FERRAMENTAS
+    ========================================================== -->
+
+              <div class="img-row"></div>
+
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="sol8b">
+                  Minhas Imagens
+                </button>
+
+                <button class="btn open-draw" data-subetapa="sol8b-tech">
+                  Ilustração Técnica Anotável
+                </button>
+
+
+                <!--
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/sol8b/sol8b.json"
+                  data-target="#assets-sol8b" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da etapa
+                </button>
+-->
+              </div>
+
+              <div class="assets-row" id="assets-sol8b"></div>
+
+              <!-- =========================================================
+         NOTAS
+    ========================================================== -->
+
+              <label>
+                Notas
+                <textarea class="persist auto-grow" id="n-sol8b" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+
+            </div>
+          </div>
+
           <!-- sol9 -->
           <div class="step" data-step="sol9">
             <input class="chk persist" id="sol9" type="checkbox" />
@@ -1522,7 +2024,8 @@
 
             <div class="detail" id="d-sol9">
 
-              <p>Após colagens e esquadrejamento, é hora de utilizar <strong>moldes</strong> conforme o instrumento e o
+              <p>Após colagens e esquadrejamento, é hora de utilizar <strong>moldes</strong> conforme o instrumento e
+                o
                 modelo em construção.</p>
 
               <h5>Antes de mais nada</h5>
@@ -1535,7 +2038,8 @@
                 <span data-instruments="vcl"> <strong>Violão:</strong> Headstock Vazado (Slotted Headstock): Possui
                   fendas (slots) onde as cordas passam, com as tarraxas posicionadas lateralmente. É o padrão
                   tradicional dos violões de nylon (clássicos) e também aparece em alguns modelos de aço inspirados em
-                  designs antigos.vazado 3+3 (slots) ou <strong>Headstock Maciço (Solid Headstock):</strong> As tarraxas
+                  designs antigos.vazado 3+3 (slots) ou <strong>Headstock Maciço (Solid Headstock):</strong> As
+                  tarraxas
                   são inseridas
                   por trás ou fixadas na face da mão. É o modelo mais comum em violões de aço modernos</span>
                 <span data-instruments="vla"> headstock vazado 5+5 (slots). Porém, algumas violas caipiras possuem
@@ -1550,16 +2054,19 @@
 
               <h5>Modelagem da mão (headstock)</h5>
               <ul>
-                <li>Alinhe o molde (papel, acrílico etc.) com a linha central e com a posição da pestana (<em>nut</em>).
+                <li>Alinhe o molde (papel, acrílico etc.) com a linha central e com a posição da pestana
+                  (<em>nut</em>).
                 </li>
                 <li>Risque o contorno da mão e de seus <em>slots</em> (se houver).</li>
-                <li>Recorte a silhueta com serrinha tico-tico, serrote ou formão. Preferencialmente, finalize com tupia
+                <li>Recorte a silhueta com serrinha tico-tico, serrote ou formão. Preferencialmente, finalize com
+                  tupia
                   usando fresa com <strong>rolamento superior</strong> (seguindo o molde).</li>
               </ul>
 
               <h5>Uso da tupia</h5>
               <ul>
-                <li>Fresa com comprimento ao menos igual à espessura do headstock e <strong>rolamento superior</strong>.
+                <li>Fresa com comprimento ao menos igual à espessura do headstock e <strong>rolamento
+                    superior</strong>.
                 </li>
                 <li>Molde com espessura mínima de <strong>3 mm</strong> (acrílico/MDF); fixação por fita dupla-face
                   forte ou grampos
@@ -1626,12 +2133,14 @@
             <div class="detail" id="d-sol10">
 
               <h5>Antes de começar os cortes</h5>
-              <p>Revise ou refaça os riscos conforme o modelo da mão do instrumento. Use molde (papel, papelão, acrílico
+              <p>Revise ou refaça os riscos conforme o modelo da mão do instrumento. Use molde (papel, papelão,
+                acrílico
                 ou outro material rígido) como guia para a silhueta e, se for o caso, os <em>slots</em>.</p>
 
               <h5>Recortar e furar a mão (headstock) vazado para as tarrachas</h5>
               <ul>
-                <li><strong>Posicionamento:</strong> alinhe o conjunto de tarrachas à <strong>linha central</strong> e à
+                <li><strong>Posicionamento:</strong> alinhe o conjunto de tarrachas à <strong>linha central</strong> e
+                  à
                   referência do <em>nut</em>.</li>
 
                 <!-- deltas por instrumento (inline) -->
@@ -1642,7 +2151,8 @@
                     do fabricante).</span>
                 </li>
 
-                <li><strong>Linhas-guia:</strong> mantenha a linha central visível e trace uma linha paralela à borda da
+                <li><strong>Linhas-guia:</strong> mantenha a linha central visível e trace uma linha paralela à borda
+                  da
                   soleta para orientar furos/slots.</li>
 
                 <li><strong>Marcação:</strong>
@@ -1727,8 +2237,10 @@
 
               <p>Após riscar o braço com precisão, prepare o <strong>tróculo</strong> para uni-lo à caixa. No método
                 espanhol, tróculo externo e interno formam uma única peça integrada ao corpo.</p>
-              <p>No método americano, a construção difere do espanhol porque a parte interna não é integrada ao tróculo
-                externo. Em vez disso, ela é confeccionada separadamente e depois unida por encaixes de precisão, como o
+              <p>No método americano, a construção difere do espanhol porque a parte interna não é integrada ao
+                tróculo
+                externo. Em vez disso, ela é confeccionada separadamente e depois unida por encaixes de precisão, como
+                o
                 rabo de andorinha ou outros sistemas de união tradicionais. </p>
 
               <h5>Abordagem no Método Baratieri</h5>
@@ -1748,7 +2260,8 @@
                   limite do pescoço do tróculo. Ou, usar a serra circular, ajustando a altura para alcançar a
                   profundidade até o limite do pescoço.</li>
 
-                <li><strong>Profundidade (até o “pescoço” do tróculo):</strong> ~6 mm a partir da linha central em cada
+                <li><strong>Profundidade (até o “pescoço” do tróculo):</strong> ~6 mm a partir da linha central em
+                  cada
                   lado (ou seja, a largura total do pescoço será de aproximadamene ≈ 12 mm). </li>
 
                 <!-- Inline por instrumento: espessura do slot -->
@@ -1766,13 +2279,15 @@
               <ul>
                 <li>Ao abrir os slots laterais no tróculo em espessurar maior que a faixa, estamos criando um espaço
                   extra
-                  para a faixa se encaixar e a sobra será preenchida com cunhas de madeira e cola, permitindo um encaixe
+                  para a faixa se encaixar e a sobra será preenchida com cunhas de madeira e cola, permitindo um
+                  encaixe
                   mais firme e seguro.</li>
               </ul>
               <h5>Método alternativo (serra circular)</h5>
               <ul>
                 <li>Ajuste a altura para alcançar a profundidade até o limite do pescoço.</li>
-                <li>Com o braço esquadrejado, use guia paralela/ gabarito e corte exatamente sobre a linha do 12º.</li>
+                <li>Com o braço esquadrejado, use guia paralela/ gabarito e corte exatamente sobre a linha do 12º.
+                </li>
                 <li>Se o <em>kerf</em> (largura de corte) da serra for menor que o slot necessário, faça duas passadas
                   controladas.</li>
               </ul>
@@ -1803,7 +2318,8 @@
                 facilitam assentamento e cola.
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola caipira:</strong> tensão total maior: priorize paredes de slot bem paralelas e apoio pleno
+                <strong>Viola caipira:</strong> tensão total maior: priorize paredes de slot bem paralelas e apoio
+                pleno
                 no pescoço.
               </p>
               <p class="callout" data-instruments="cav">
@@ -1934,12 +2450,15 @@
                   do desenho
                   das fibras.</li>
 
-                <li><strong>Preparação inicial:</strong> fixe as duas peças lado a lado, unidas provisoriamente por uma
+                <li><strong>Preparação inicial:</strong> fixe as duas peças lado a lado, unidas provisoriamente por
+                  uma
                   régua de alumínio (“regle”) ou barra reta, com sargentos. Isso mantém o conjunto
                   estável durante a retífica.</li>
 
-                <li><strong>Plaina ou lixa longa:</strong> use plaina bem afiada sobre <em>shooting board</em> a 90°; em
-                  alternativa, utilize uma prancha longa com lixa de grão 60–80, garantindo passadas por toda a extensão
+                <li><strong>Plaina ou lixa longa:</strong> use plaina bem afiada sobre <em>shooting board</em> a 90°;
+                  em
+                  alternativa, utilize uma prancha longa com lixa de grão 60–80, garantindo passadas por toda a
+                  extensão
                   sem “cavar”
                   nas extremidades. Mantenha a ferramenta paralela, sem inclinar.</li>
 
@@ -1961,7 +2480,8 @@
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> corpo menor; controle ainda mais rigoroso da planicidade — pequenas folgas
+                <strong>Cavaquinho:</strong> corpo menor; controle ainda mais rigoroso da planicidade — pequenas
+                folgas
                 impactam mais.
               </p>
               <p class="callout" data-instruments="uku">
@@ -2002,16 +2522,20 @@
             <div class="detail" id="d-tampo2">
 
               <h5>Objetivo</h5>
-              <p>Unir as duas metades do tampo com pressão firme e homogênea, obtendo uma junta sólida, simétrica e sem
+              <p>Unir as duas metades do tampo com pressão firme e homogênea, obtendo uma junta sólida, simétrica e
+                sem
                 frestas.</p>
 
               <h5>Método da prensa de cunha</h5>
               <ul>
                 <li>Monte uma base firme e plana, fixando uma régua de madeira a 90° em uma das extremidades.</li>
                 <li>Posicione as metades do tampo com a emenda ajustada, encostando na régua fixa.</li>
-                <li>No lado oposto, utilize uma cunha móvel para pressionar o conjunto até que a união fique firme.</li>
-                <li>Proteja a base com papel manteiga ou kraft encerado para evitar que a cola grude na superfície.</li>
-                <li>Após a cura (mínimo 12 horas), use raspilha ou plaina fina para limpar a superfície da emenda.</li>
+                <li>No lado oposto, utilize uma cunha móvel para pressionar o conjunto até que a união fique firme.
+                </li>
+                <li>Proteja a base com papel manteiga ou kraft encerado para evitar que a cola grude na superfície.
+                </li>
+                <li>Após a cura (mínimo 12 horas), use raspilha ou plaina fina para limpar a superfície da emenda.
+                </li>
               </ul>
 
               <figure class="tech-figure" data-key="tampo21-tech" data-cap="Colagem do tampo — prensa de cunha">
@@ -2026,12 +2550,14 @@
                 <li>Com uma corda de 4 m aprox., faça um nó duplo em uma das extremidades e prenda em uma das ripas.
                   Passe
                   para a outra extremidade, tensionando bem, e vá enrolando de forma contínua.</li>
-                <li>Mantenha a tensão da corda em cada volta; se necessário, use calços/tacos sob a corda para aumentar
+                <li>Mantenha a tensão da corda em cada volta; se necessário, use calços/tacos sob a corda para
+                  aumentar
                   a pressão.</li>
                 <li>Deixe secar 24 horas antes de retirar a amarração.</li>
                 <li><strong>Dica para peças não retangulares:</strong> una as duas ripas com travessas curtas para
                   evitar deslocamentos.
-                  Alterne a passagem da corda de uma ripa para a outra, cruzando as voltas para estabilizar o conjunto.
+                  Alterne a passagem da corda de uma ripa para a outra, cruzando as voltas para estabilizar o
+                  conjunto.
                 </li>
               </ul>
 
@@ -2044,7 +2570,8 @@
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="cav uku">
-                <strong>Pressão moderada:</strong> use ripas mais estreitas no método da corda e evite excesso de tensão
+                <strong>Pressão moderada:</strong> use ripas mais estreitas no método da corda e evite excesso de
+                tensão
                 — tampo fino pode deformar.
               </p>
               <p class="callout" data-instruments="vcl vla">
@@ -2060,7 +2587,8 @@
                 <strong>Proteção antiaderente:</strong> papel manteiga/kraft encerado sob o tampo e sob cunhas/ripas.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Raspagem:</strong> após a cura, raspilha na linha da emenda até ficar imperceptível ao tato e à
+                <strong>Raspagem:</strong> após a cura, raspilha na linha da emenda até ficar imperceptível ao tato e
+                à
                 contraluz.
               </p>
 
@@ -2105,10 +2633,12 @@
                   Use peso leve ou grampos macios para mantê-la imóvel.</li>
 
                 <li><strong>Traçado aumentado:</strong> marque a silhueta com lápis afiado deixando um espaço extra
-                  (2–6 mm) ao redor para prevenção de danos durante o corte e eventual desbaste posterior. Uma arandela
+                  (2–6 mm) ao redor para prevenção de danos durante o corte e eventual desbaste posterior. Uma
+                  arandela
                   pequena pode ser usada como espaçador para obter largura uniforme do traçado aumentado.</li>
 
-                <li><strong>Recorte manual (fino):</strong> para contornos complexos use serra de marqueteria com lâmina
+                <li><strong>Recorte manual (fino):</strong> para contornos complexos use serra de marqueteria com
+                  lâmina
                   apropriada (spiral/espiral é ideal para trabalhar em qualquer orientação). Faça cortes em trechos,
                   “quebrando”
                   o contorno para facilitar a adaptação à curva.</li>
@@ -2117,14 +2647,17 @@
                   pequeno (coping saw), pois permite cortes suaves e controlados
                   em trechos curvos pronunciados.</li>
 
-                <li><strong>Sequência prática:</strong> inicie pelo topo do tampo, avance em direção ao centro, volte a
+                <li><strong>Sequência prática:</strong> inicie pelo topo do tampo, avance em direção ao centro, volte
+                  a
                   pontos
-                  anteriores conforme necessário e termine a parte traseira; repita o processo do outro lado para manter
+                  anteriores conforme necessário e termine a parte traseira; repita o processo do outro lado para
+                  manter
                   simetria.</li>
 
                 <li><strong>Ajuste e acabamento:</strong> após o recorte deixe o tampo um pouco maior do que o
                   definitivo.
-                  As operações de aplainamento/raspagem/lixamento serão usadas mais tarde para chegar ao contorno final.
+                  As operações de aplainamento/raspagem/lixamento serão usadas mais tarde para chegar ao contorno
+                  final.
                 </li>
               </ol>
 
@@ -2143,10 +2676,12 @@
               <h5>Sequência sugerida</h5>
               <ol>
                 <li>Traçar com margem extra.</li>
-                <li>Recortar preferencialmente em mentalidade "fragmentada" (pequenos trechos), deixando contorno final
+                <li>Recortar preferencialmente em mentalidade "fragmentada" (pequenos trechos), deixando contorno
+                  final
                   para lixa/raspagem.</li>
                 <li>Conferir simetria: sobrepor as duas metades (se for bookmatch) e checar alinhamento.</li>
-                <li>Finalizar contorno com lixa manual, taco rígido e, se desejar, lixa redonda caseira para o interior
+                <li>Finalizar contorno com lixa manual, taco rígido e, se desejar, lixa redonda caseira para o
+                  interior
                   do soundhole.</li>
               </ol>
 
@@ -2174,7 +2709,8 @@
                 operações de raspagem e aplainamento.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Proteção contra lascamento:</strong> aplique fita adesiva sobre o lado visível antes do corte e
+                <strong>Proteção contra lascamento:</strong> aplique fita adesiva sobre o lado visível antes do corte
+                e
                 remova quando finalizar o acabamento.
               </p>
 
@@ -2209,13 +2745,15 @@
             <div class="detail" id="d-tampo3">
               <h5>Objetivo</h5>
               <p>A incrustação da roseta exige precisão absoluta, pois além de ser um dos elementos estéticos mais
-                marcantes do instrumento, desempenha a função estrutural de blindar e reforçar as fibras periféricas da
+                marcantes do instrumento, desempenha a função estrutural de blindar e reforçar as fibras periféricas
+                da
                 boca contra rachaduras.</p>
 
               <h5>Etapas</h5>
               <ul>
                 <li><strong>Eixo e Centralização:</strong> Determine a linha de centro do tampo e marque o ponto exato
-                  da boca. Faça um furo-guia de 4&nbsp;mm para ancorar o compasso de corte ou a base giratória da tupia.
+                  da boca. Faça um furo-guia de 4&nbsp;mm para ancorar o compasso de corte ou a base giratória da
+                  tupia.
                 </li>
                 <li><strong>Delimitação do Canal:</strong> Com um compasso de lâmina ou fresa circular, marque os
                   limites interno e externo. No método puramente manual, trace com grafite fino e faça o corte
@@ -2249,7 +2787,8 @@
               </p>
               <p class="callout" data-instruments="cav uku">
                 <strong>Escala Reduzida:</strong> Em canais estreitos de cavaquinho ou ukulele, aplique a cola com um
-                pincel fino para evitar excessos que possam inflar as fibras do tampo ou manchar madeiras claras como o
+                pincel fino para evitar excessos que possam inflar as fibras do tampo ou manchar madeiras claras como
+                o
                 abeto.
               </p>
 
@@ -2299,11 +2838,13 @@
 
               <h5>Procedimento recomendado</h5>
               <ul>
-                <li><strong>Nivelamento da roseta:</strong> mesmo que esteja alinhada, repasse a região com plaina fina,
+                <li><strong>Nivelamento da roseta:</strong> mesmo que esteja alinhada, repasse a região com plaina
+                  fina,
                   raspilha ou bloco de lixa longa para evitar ressaltos.</li>
                 <li><strong>Desbaste progressivo:</strong>
                   <ul>
-                    <li><em>Mecânico:</em> desengrossadeira, lixadeira de tambor ou de banda (grão P40–P60); mantenha a
+                    <li><em>Mecânico:</em> desengrossadeira, lixadeira de tambor ou de banda (grão P40–P60); mantenha
+                      a
                       superfície plana.</li>
                     <li><em>Manual:</em> plaina bem afiada com regulagem mínima, passadas longas; finalize com
                       raspilha/galga/vidro.</li>
@@ -2311,10 +2852,12 @@
                     </li>
                   </ul>
                 </li>
-                <li><strong>Controle de espessura:</strong> meça com paquímetro/calibrador em vários pontos. Trabalhe em
+                <li><strong>Controle de espessura:</strong> meça com paquímetro/calibrador em vários pontos. Trabalhe
+                  em
                   2,2–2,3 mm prevendo lixamento final que leva a ~2,0 mm.</li>
                 <li><strong>Ajustes sonoros:</strong> alguns reduzem levemente (≈1,8 mm) em áreas específicas (ex.:
-                  perto das barras ou sob cordas graves); outros mantêm 2,0 mm uniforme. Busque equilíbrio entre rigidez
+                  perto das barras ou sob cordas graves); outros mantêm 2,0 mm uniforme. Busque equilíbrio entre
+                  rigidez
                   e projeção.</li>
               </ul>
 
@@ -2333,7 +2876,8 @@
                 controlado.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Ukulele:</strong> 1,6–2,0 mm — ataque rápido; cuidado para não perder rigidez perto do cavalete.
+                <strong>Ukulele:</strong> 1,6–2,0 mm — ataque rápido; cuidado para não perder rigidez perto do
+                cavalete.
               </p>
 
               <!-- Callouts gerais -->
@@ -2381,9 +2925,11 @@
 
               <h5>Procedimento recomendado</h5>
               <ul>
-                <li><strong>Marcação:</strong> trace com compasso a circunferência interna da boca, centrada na roseta.
+                <li><strong>Marcação:</strong> trace com compasso a circunferência interna da boca, centrada na
+                  roseta.
                 </li>
-                <li><strong>Abertura manual:</strong> faça um furo inicial e utilize serra de arco ou marqueteria (serra
+                <li><strong>Abertura manual:</strong> faça um furo inicial e utilize serra de arco ou marqueteria
+                  (serra
                   de pelo) com calma para manter a circularidade.</li>
                 <li><strong>Abertura semimanual:</strong> use tupia com compasso de corte ou serra elétrica de arco,
                   ajustando ao diâmetro correto.</li>
@@ -2401,11 +2947,13 @@
                 um compasso de corte. Proporciona alta precisão e circularidade perfeita.</p>
 
               <ul>
-                <li><strong>Definição do centro:</strong> localize com exatidão o centro da boca (geralmente já definido
+                <li><strong>Definição do centro:</strong> localize com exatidão o centro da boca (geralmente já
+                  definido
                   pela roseta) e faça um furo fino e perpendicular ao tampo.</li>
 
                 <li><strong>Instalação do pivô:</strong> insira um pino metálico ou parafuso justo no furo, garantindo
-                  que fique firme e sem folga. Esse pino será o centro de giro do braço de corte e pode ser fixado numa
+                  que fique firme e sem folga. Esse pino será o centro de giro do braço de corte e pode ser fixado
+                  numa
                   base de madeira ou metal, de tamanho adequado para acomodar o tampo do instrumento.</li>
 
                 <li><strong>Preparação do braço de corte:</strong> utilize uma régua ou haste
@@ -2416,10 +2964,12 @@
                 <li><strong>Corte progressivo:</strong> gire o braço ao redor do pivô, realizando cortes leves e
                   sucessivos. Evite forçar — aprofunde gradualmente até atravessar o tampo.</li>
 
-                <li><strong>Controle de profundidade:</strong> mantenha o estilete perpendicular à superfície e aumente
+                <li><strong>Controle de profundidade:</strong> mantenha o estilete perpendicular à superfície e
+                  aumente
                   a profundidade aos poucos para evitar lascas, especialmente na saída do corte.</li>
 
-                <li><strong>Acabamento:</strong> finalize a borda interna com lixa ou raspilha para uniformizar qualquer
+                <li><strong>Acabamento:</strong> finalize a borda interna com lixa ou raspilha para uniformizar
+                  qualquer
                   irregularidade mínima.</li>
               </ul>
 
@@ -2459,7 +3009,8 @@
                 uniforme.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Proteção:</strong> fita crepe sobre a roseta evita riscos; corte em passadas leves e simétricas.
+                <strong>Proteção:</strong> fita crepe sobre a roseta evita riscos; corte em passadas leves e
+                simétricas.
               </p>
 
               <!-- Galeria padrão da etapa -->
@@ -2492,7 +3043,8 @@
             <div class="detail" id="d-tampo6">
 
               <h5>Objetivo</h5>
-              <p>Fixar o <strong>sistema de leque harmônico</strong> deste instrumento como referência antes de preparar
+              <p>Fixar o <strong>sistema de leque harmônico</strong> deste instrumento como referência antes de
+                preparar
                 barras e colar no tampo. A figura técnica e as notas abaixo acompanham o valor escolhido em
                 <strong>Dados do projeto → Sistema de leque harmônico</strong> (e a escala do projeto, quando
                 relevante).
@@ -2541,7 +3093,8 @@
                 </p>
 
                 <p><strong>Função acústica:</strong><br>
-                  Distribuir vibração mantendo flexibilidade longitudinal e controle lateral — o tampo vibra livremente,
+                  Distribuir vibração mantendo flexibilidade longitudinal e controle lateral — o tampo vibra
+                  livremente,
                   sem perder estabilidade.
                 </p>
 
@@ -2561,7 +3114,8 @@
               <div class="callout" data-instruments="vcl" data-bracing="hauser">
                 <h4>Hauser</h4>
 
-                <p><strong>Objetivo acústico:</strong> Som mais focado, com melhor separação de notas e projeção limpa.
+                <p><strong>Objetivo acústico:</strong> Som mais focado, com melhor separação de notas e projeção
+                  limpa.
                 </p>
 
                 <p><strong>Visualização:</strong><br>
@@ -2592,7 +3146,8 @@
               <div class="callout" data-instruments="vcl" data-bracing="ramirez">
                 <h4>Ramirez / derivados</h4>
 
-                <p><strong>Objetivo acústico:</strong> Mais volume e corpo, com graves presentes e projeção robusta.</p>
+                <p><strong>Objetivo acústico:</strong> Mais volume e corpo, com graves presentes e projeção robusta.
+                </p>
 
                 <p><strong>Visualização:</strong><br>
                   🔹 Variações do leque clássico, geralmente com reforços adicionais.<br>
@@ -2749,7 +3304,8 @@
               <div class="callout" data-instruments="cav" data-bracing="leque_5_barras">
                 <h4>Leque 5 barras (cavaquinho)</h4>
 
-                <p><strong>Objetivo acústico:</strong> Mais controle estrutural e equilíbrio entre corpo e sustain.</p>
+                <p><strong>Objetivo acústico:</strong> Mais controle estrutural e equilíbrio entre corpo e sustain.
+                </p>
 
                 <p><strong>Visualização:</strong><br>
                   🔹 5 varetas em leque, proporcionando maior estabilidade.<br>
@@ -2776,7 +3332,8 @@
 
               <p class="callout" data-instruments="cav" data-bracing="custom">
                 <strong>Custom (cavaquinho):</strong> indique se é ladder, mini-fan, misto ou cópia de referência
-                (marca/modelo). Documente espessura-alvo do tampo e tensão das cordas; em instrumentos pequenos, poucos
+                (marca/modelo). Documente espessura-alvo do tampo e tensão das cordas; em instrumentos pequenos,
+                poucos
                 milímetros de massa ou posição mudam a resposta — mantenha desenho e notas visíveis até o voicing.
               </p>
 
@@ -2784,7 +3341,8 @@
               <div class="callout" data-instruments="uku" data-bracing="leque_3_barras">
                 <h4>Leque 3 barras (ukulele)</h4>
 
-                <p><strong>Objetivo acústico:</strong> Padrão leve para tampo fino — resposta rápida e volume imediato.
+                <p><strong>Objetivo acústico:</strong> Padrão leve para tampo fino — resposta rápida e volume
+                  imediato.
                 </p>
 
                 <p><strong>Visualização:</strong><br>
@@ -2814,7 +3372,8 @@
               <div class="callout" data-instruments="uku" data-bracing="custom">
                 <h4>Custom (ukulele)</h4>
 
-                <p><strong>Objetivo acústico:</strong> Ajustar o padrão de barras conforme tamanho e estilo do ukulele.
+                <p><strong>Objetivo acústico:</strong> Ajustar o padrão de barras conforme tamanho e estilo do
+                  ukulele.
                 </p>
 
                 <p><strong>Visualização:</strong><br>
@@ -2836,7 +3395,8 @@
                 </p>
 
                 <p><strong>Como ouvir o resultado:</strong><br>
-                  Compare acordes abertos e notas isoladas; o som deve refletir o objetivo definido (mais volume ou mais
+                  Compare acordes abertos e notas isoladas; o som deve refletir o objetivo definido (mais volume ou
+                  mais
                   sustain).
                 </p>
               </div>
@@ -2912,9 +3472,11 @@
 
             <div class="detail" id="d-tampo7a">
 
-              <p>Esta etapa é dedicada exclusivamente à <strong>preparação das travessas e barras harmônicas</strong> —
+              <p>Esta etapa é dedicada exclusivamente à <strong>preparação das travessas e barras harmônicas</strong>
+                —
                 ainda não ocorre a colagem.
-                O objetivo é selecionar a madeira, cortar e moldar as peças conforme o abaluamento do tampo e o desenho
+                O objetivo é selecionar a madeira, cortar e moldar as peças conforme o abaluamento do tampo e o
+                desenho
                 do
                 leque harmônico do projeto.</p>
 
@@ -2923,9 +3485,12 @@
                 <li><strong>Escolha da madeira:</strong> Cedro, abeto ou pinho bem seco, com veios radiais (“em pé”)
                   para
                   máxima resistência e transmissão acústica.</li>
-                <li><strong>Corte inicial:</strong> Tiras com dimensões brutas de <em>6–8 mm de altura</em> × <em>5–6 mm
-                    de largura</em>.</li>
-                <li><strong>Curvatura da base:</strong> Prepare a face convexa das barras de acordo com o raio da solera
+                <li><strong>Corte inicial:</strong> Tiras com dimensões brutas de <em>6–8 mm de altura</em> ×
+                  <em>5–6 mm
+                    de largura</em>.
+                </li>
+                <li><strong>Curvatura da base:</strong> Prepare a face convexa das barras de acordo com o raio da
+                  solera
                   ou molde da soleta — esse ajuste define o abaluamento do tampo.</li>
                 <li><strong>Marcação:</strong> Posicione as barras sobre o molde e marque o comprimento conforme o
                   desenho
@@ -2951,11 +3516,13 @@
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="vcl vla">
-                <strong>Alturas típicas (centro):</strong> 6.0–7.5 mm; pontas aliviadas para ~1.5–2.5 mm. Ajuste ao seu
+                <strong>Alturas típicas (centro):</strong> 6.0–7.5 mm; pontas aliviadas para ~1.5–2.5 mm. Ajuste ao
+                seu
                 leque.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> barras mais baixas (5.0–6.5 mm no centro); pontas ~1.5–2.0 mm para resposta
+                <strong>Cavaquinho:</strong> barras mais baixas (5.0–6.5 mm no centro); pontas ~1.5–2.0 mm para
+                resposta
                 rápida.
               </p>
               <p class="callout" data-instruments="uku">
@@ -2969,9 +3536,11 @@
                 <h4>🔧 Dicas práticas de oficina</h4>
 
                 <p><strong>Sequência alternativa:</strong><br>
-                  Muitos luthiers preferem colar as barras primeiro (já com o raio ajustado) e, após a cura, entalhar e
+                  Muitos luthiers preferem colar as barras primeiro (já com o raio ajustado) e, após a cura, entalhar
+                  e
                   perfilar.
-                  Esse método garante maior estabilidade durante o entalhe e permite ajustes finos diretamente no tampo.
+                  Esse método garante maior estabilidade durante o entalhe e permite ajustes finos diretamente no
+                  tampo.
                 </p>
 
                 <p><strong>Direção das fibras:</strong><br>
@@ -3029,7 +3598,8 @@
                   tampo, usando planta, molde ou projeto como guia.
                   Numere cada vareta para manter a ordem de montagem.</li>
 
-                <li><strong>2. Reforço da boca:</strong> cole primeiro as tiras horizontais junto à boca ou o face-graft
+                <li><strong>2. Reforço da boca:</strong> cole primeiro as tiras horizontais junto à boca ou o
+                  face-graft
                   fino.
                   A grã deve ficar <em>cruzada</em> ao tampo, para resistir melhor às fissuras longitudinais.</li>
 
@@ -3072,7 +3642,8 @@
               </div>
 
               <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> leque em abanico (6–7 varetas) ou X bracing. Reforço de boca ~2.0–2.5 mm.
+                <strong>Violão/Viola:</strong> leque em abanico (6–7 varetas) ou X bracing. Reforço de boca
+                ~2.0–2.5 mm.
                 Travessa superior mais robusta (região do braço).
               </p>
               <p class="callout" data-instruments="cav">
@@ -3134,8 +3705,10 @@
 
               <h5>Sequência recomendada</h5>
               <ol>
-                <li><strong>Travessas:</strong> mantenha altura nas zonas que exigem rigidez; afine progressivamente em
-                  direção às extremidades, começando ~5 cm antes das faixas. Evite retirar material junto ao cavalete e
+                <li><strong>Travessas:</strong> mantenha altura nas zonas que exigem rigidez; afine progressivamente
+                  em
+                  direção às extremidades, começando ~5 cm antes das faixas. Evite retirar material junto ao cavalete
+                  e
                   nos encontros com laterais/travessas.</li>
                 <li><strong>Leque harmônico:</strong> reduza gradualmente a altura, deixando o centro mais alto e
                   afinando em direção às extremidades. Perfis usuais:
@@ -3155,7 +3728,8 @@
                   resposta (grave/aguda, sustentação, clareza).</li>
                 <li><strong>Tátil:</strong> pressione o tampo em diferentes áreas para sentir rigidez e flexibilidade.
                 </li>
-                <li><strong>Iterativo:</strong> altere uma zona por vez e teste; evite mexer em tudo de uma só vez.</li>
+                <li><strong>Iterativo:</strong> altere uma zona por vez e teste; evite mexer em tudo de uma só vez.
+                </li>
               </ul>
 
               <h5>Ferramentas</h5>
@@ -3166,7 +3740,8 @@
               </ul>
 
               <h5>Espessuras típicas</h5>
-              <p>Extremidades: ~2.5–4.5 mm; cume até ~6 mm (varia conforme projeto). Não ultrapassar cerca de 30–40% de
+              <p>Extremidades: ~2.5–4.5 mm; cume até ~6 mm (varia conforme projeto). Não ultrapassar cerca de 30–40%
+                de
                 redução da altura original.</p>
 
               <h5>Documentação</h5>
@@ -3276,12 +3851,15 @@
                   durante o ajuste. As duas metades devem ser abertas como “um livro” (bookmatch), garantindo simetria
                   do desenho das fibras.</li>
 
-                <li><strong>Preparação inicial:</strong> fixe as duas peças lado a lado, unidas provisoriamente por uma
+                <li><strong>Preparação inicial:</strong> fixe as duas peças lado a lado, unidas provisoriamente por
+                  uma
                   régua de alumínio (“regle”) ou barra reta, com sargentos. Isso mantém o conjunto
                   estável durante a retífica.</li>
 
-                <li><strong>Plaina ou lixa longa:</strong> use plaina bem afiada sobre <em>shooting board</em> a 90°; em
-                  alternativa, utilize uma prancha longa com lixa de grão 60–80, garantindo passadas por toda a extensão
+                <li><strong>Plaina ou lixa longa:</strong> use plaina bem afiada sobre <em>shooting board</em> a 90°;
+                  em
+                  alternativa, utilize uma prancha longa com lixa de grão 60–80, garantindo passadas por toda a
+                  extensão
                   sem “cavar”
                   nas extremidades. Mantenha a ferramenta paralela, sem inclinar.</li>
 
@@ -3311,13 +3889,15 @@
                 facas/plaina em ponto de barbear para evitar lascas.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Placas menores:</strong> controle firme de planicidade; pequenas folgas pesam mais no resultado
+                <strong>Placas menores:</strong> controle firme de planicidade; pequenas folgas pesam mais no
+                resultado
                 final.
               </p>
 
               <!-- Callouts gerais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Marcação:</strong> identifique claro topo/cauda nas duas metades; mantenha a figuração contínua
+                <strong>Marcação:</strong> identifique claro topo/cauda nas duas metades; mantenha a figuração
+                contínua
                 no centro.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
@@ -3362,18 +3942,22 @@
                 combinações de madeiras claras e escuras que criem um padrão visual harmônico com o restante do
                 instrumento. A colagem das lâminas deve ser feita sob pressão uniforme em superfície plana; após cura
                 completa, o adorno é cortado em tiras com largura controlada e espessura ajustada para encaixar com
-                precisão na junta do fundo. Além da função estética, o adorno reforça a linha de cola e reduz o risco de
+                precisão na junta do fundo. Além da função estética, o adorno reforça a linha de cola e reduz o risco
+                de
                 fissuras superficiais ao longo do tempo.</p>
 
               <h5>Procedimento recomendado</h5>
               <ul>
-                <li><strong>Seleção:</strong> chapas finas (lâminas/folhas) de madeiras claras e escuras (ex.: sicômoro,
+                <li><strong>Seleção:</strong> chapas finas (lâminas/folhas) de madeiras claras e escuras (ex.:
+                  sicômoro,
                   nogueira, pau-ferro), retas e estáveis.</li>
                 <li><strong>Laminação:</strong> cole em padrão claro–escuro–claro (ou variações), mantendo fibras no
                   sentido longitudinal.</li>
-                <li><strong>Prensagem:</strong> prense entre duas tábuas planas com pressão uniforme; cura típica 24–48
+                <li><strong>Prensagem:</strong> prense entre duas tábuas planas com pressão uniforme; cura típica
+                  24–48
                   h.</li>
-                <li><strong>Dimensionamento:</strong> após a cura, recorte tiras ~3 mm de espessura, retas e paralelas,
+                <li><strong>Dimensionamento:</strong> após a cura, recorte tiras ~3 mm de espessura, retas e
+                  paralelas,
                   na largura-alvo do adorno.</li>
                 <li><strong>Reserva:</strong> guarde o conjunto pronto para inserir entre as duas metades do fundo
                   durante a colagem.</li>
@@ -3386,7 +3970,8 @@
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="vcl vla">
-                <strong>Largura típica:</strong> 6–10 mm. Em madeiras escuras (pau-ferro/palosanto), compense contraste
+                <strong>Largura típica:</strong> 6–10 mm. Em madeiras escuras (pau-ferro/palosanto), compense
+                contraste
                 com lâminas claras.
               </p>
               <p class="callout" data-instruments="cav uku">
@@ -3395,7 +3980,8 @@
 
               <!-- Callouts gerais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Fibras:</strong> mantenha o adorno com grã longitudinal; plane firme e lixe em apoio rígido para
+                <strong>Fibras:</strong> mantenha o adorno com grã longitudinal; plane firme e lixe em apoio rígido
+                para
                 não “ondular”.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
@@ -3433,19 +4019,23 @@
 
             <div class="detail" id="d-fundo2">
 
-              <p>Com o adorno preparado, as metades são coladas formando o painel único. A montagem a seco é obrigatória
-                antes de abrir a cola: posicionar todas as peças, verificar alinhamento do desenho das fibras, testar o
+              <p>Com o adorno preparado, as metades são coladas formando o painel único. A montagem a seco é
+                obrigatória
+                antes de abrir a cola: posicionar todas as peças, verificar alinhamento do desenho das fibras, testar
+                o
                 sistema de pressão. A pressão deve ser uniforme ao longo de toda a junta, com a base absolutamente
                 plana. O excesso de cola é removido ainda úmido. Após cura mínima de 12 a 24 horas, o painel é
                 inspecionado e a junta raspada até ficar imperceptível ao tato.</p>
 
               <h5>Procedimento recomendado</h5>
               <ul>
-                <li><strong>Montagem a seco:</strong> posicione as metades e encaixe o adorno central; confira simetria
+                <li><strong>Montagem a seco:</strong> posicione as metades e encaixe o adorno central; confira
+                  simetria
                   e paralelismo.</li>
                 <li><strong>Centralização:</strong> marque a linha central na base e use batentes/guia para não
                   “escorregar”.</li>
-                <li><strong>Prensagem:</strong> distribua pressão uniforme (cunhas, grampos ou sistema de cordas) sobre
+                <li><strong>Prensagem:</strong> distribua pressão uniforme (cunhas, grampos ou sistema de cordas)
+                  sobre
                   base nivelada com papel antiaderente.</li>
                 <li><strong>Cura:</strong> 12–24 h. Raspe excesso de cola ainda “verde” e finalize a face com
                   raspilha/lixa em apoio rígido.</li>
@@ -3458,17 +4048,20 @@
 
               <!-- Callouts por instrumento (deltas) -->
               <p class="callout" data-instruments="vcl vla">
-                <strong>Placas longas:</strong> use base longa e mais pontos de pressão para evitar arqueamento durante
+                <strong>Placas longas:</strong> use base longa e mais pontos de pressão para evitar arqueamento
+                durante
                 a cura.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Placas menores:</strong> ripas/caibros mais estreitos no método da corda ajudam a manter a peça
+                <strong>Placas menores:</strong> ripas/caibros mais estreitos no método da corda ajudam a manter a
+                peça
                 plana.
               </p>
 
               <!-- Callouts gerais -->
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Adorno central:</strong> mantenha alinhado ao centro em toda a extensão; limpe cola “espremida”
+                <strong>Adorno central:</strong> mantenha alinhado ao centro em toda a extensão; limpe cola
+                “espremida”
                 antes de curar totalmente.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
@@ -3512,10 +4105,13 @@
                 flexibilidade e resposta sonora.</p>
               <p>O fundo colado raramente está uniforme em espessura — o bloco bruto tem variações que precisam ser
                 corrigidas progressivamente. Raspilha para controle fino nas regiões próximas à junta e ao adorno,
-                lixamento progressivo com taco rígido nas demais áreas, e medição constante com paquímetro em múltiplos
-                pontos. Como no tampo, é útil construir um mapa de espessura — registrar as medições em diferentes zonas
+                lixamento progressivo com taco rígido nas demais áreas, e medição constante com paquímetro em
+                múltiplos
+                pontos. Como no tampo, é útil construir um mapa de espessura — registrar as medições em diferentes
+                zonas
                 do painel para identificar onde ainda há material a remover e onde a espessura já está no limite. O
-                objetivo é um painel uniforme que equilibre rigidez estrutural e resposta acústica adequada para aquela
+                objetivo é um painel uniforme que equilibre rigidez estrutural e resposta acústica adequada para
+                aquela
                 madeira específica.</p>
 
               <h5>Procedimento recomendado</h5>
@@ -3524,7 +4120,8 @@
                   fibra.</li>
                 <li><strong>Lixa progressiva:</strong> 120 → 180 → 220 → 320 (até 400 se necessário), sempre com taco
                   rígido.</li>
-                <li><strong>Controle de espessura:</strong> confira com paquímetro/calibrador em vários pontos do fundo.
+                <li><strong>Controle de espessura:</strong> confira com paquímetro/calibrador em vários pontos do
+                  fundo.
                 </li>
                 <li><strong>Uniformidade:</strong> evite “barrigas” e áreas muito finas; mantenha leve reforço próximo
                   aos blocos.</li>
@@ -3544,7 +4141,8 @@
                 <strong>Faixa típica:</strong> 2,2–2,8 mm. Preserve rigidez perto do bloco da culatra.
               </p>
               <p class="callout" data-instruments="uku">
-                <strong>Faixa típica:</strong> 1,8–2,4 mm. Retiradas mínimas fazem diferença; meça com mais frequência.
+                <strong>Faixa típica:</strong> 1,8–2,4 mm. Retiradas mínimas fazem diferença; meça com mais
+                frequência.
               </p>
 
               <!-- Callout geral -->
@@ -3590,14 +4188,18 @@
 
               <h5>Sequência recomendada</h5>
               <ol>
-                <li><strong>Reforço central (espelho):</strong> tira ~25 mm × ~2 mm, fibras na contrafibra; colar sobre
+                <li><strong>Reforço central (espelho):</strong> tira ~25 mm × ~2 mm, fibras na contrafibra; colar
+                  sobre
                   a emenda (adorno central), plano e contínuo.</li>
-                <li><strong>Travessas:</strong> 2, 3 ou 4 peças, conforme o projeto, grão perpendicular ao fundo; altura
+                <li><strong>Travessas:</strong> 2, 3 ou 4 peças, conforme o projeto, grão perpendicular ao fundo;
+                  altura
                   inicial típica 8–12 mm antes do perfilamento; pré-curvar para ~3 mm de bombeamento no centro.</li>
-                <li><strong>Curvatura das travessas:</strong> A maioria dos instrumentos têm as travessas curvas para o
+                <li><strong>Curvatura das travessas:</strong> A maioria dos instrumentos têm as travessas curvas para
+                  o
                   centro do fundo, então, de acordo com o seu projeto, preparar as travessar na curvatura ideal,
                   fazendo-as assentar perfeitamente na soleira.</li>
-                <li><strong>Ajuste na solera:</strong> transferir curvatura da soleira para as travessascom lápis curto
+                <li><strong>Ajuste na solera:</strong> transferir curvatura da soleira para as travessascom lápis
+                  curto
                   ou outro método de marcação; assentar sem forçar; acertar raio com galgas/lixas.</li>
                 <li><strong>Colagem:</strong> pressão uniforme (go-bar, cunhas ou grampos); filme fino de cola; limpar
                   excesso imediatamente; cura completa antes de perfilar.</li>
@@ -3631,15 +4233,18 @@
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> 3 travessas + espelho é configuração comum; bordas mais baixas ajudam
+                <strong>Violão clássico:</strong> 3 travessas + espelho é configuração comum; bordas mais baixas
+                ajudam
                 no controle do bombeamento.
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola caipira:</strong> pode exigir travessa extra próxima ao cavalete; monitore arqueamento com
+                <strong>Viola caipira:</strong> pode exigir travessa extra próxima ao cavalete; monitore arqueamento
+                com
                 10 cordas.
               </p>
               <p class="callout" data-instruments="cav uku">
-                <strong>Cavaquinho/Ukulele:</strong> 2 travessas bem perfiladas costumam bastar; evite massa excessiva.
+                <strong>Cavaquinho/Ukulele:</strong> 2 travessas bem perfiladas costumam bastar; evite massa
+                excessiva.
               </p>
 
 
@@ -3853,13 +4458,16 @@
               <h5>Objetivo</h5>
               <p>Dobrar as faixas com controle de calor e umidade, mantendo a <strong>simetria de veios</strong>
                 (bookmatch)
-                e a <strong>coincidência com o molde</strong> do instrumento. O método descrito aqui usa o <strong>tubo
+                e a <strong>coincidência com o molde</strong> do instrumento. O método descrito aqui usa o
+                <strong>tubo
                   de
-                  dobra</strong> — a técnica mais acessível e difundida em lutheria artesanal.</p>
+                  dobra</strong> — a técnica mais acessível e difundida em lutheria artesanal.
+              </p>
 
               <h5>Pareamento e corte longitudinal</h5>
               <ul>
-                <li>Posicione as duas faixas em <em>bookmatch</em> — "como um livro aberto" — para que as fibras fiquem
+                <li>Posicione as duas faixas em <em>bookmatch</em> — "como um livro aberto" — para que as fibras
+                  fiquem
                   simétricas no instrumento acabado.</li>
                 <li>Escolha um bordo 100% reto como referência e <strong>retifique-o</strong> se necessário com régua,
                   serrote curvo ou plaina/tupia.</li>
@@ -3871,10 +4479,12 @@
 
               <h5>Aquecimento e umidade</h5>
               <ul>
-                <li>Fixe o tubo de dobra além da borda da bancada, garantindo espaço livre dos dois lados para manobrar
+                <li>Fixe o tubo de dobra além da borda da bancada, garantindo espaço livre dos dois lados para
+                  manobrar
                   a
                   faixa.</li>
-                <li>Regule a chama (mecha ~10&nbsp;mm) ou a resistência elétrica para manter a superfície do tubo entre
+                <li>Regule a chama (mecha ~10&nbsp;mm) ou a resistência elétrica para manter a superfície do tubo
+                  entre
                   <strong>120 e 150&nbsp;°C</strong>. Marcas escuras na madeira indicam excesso de calor — recue e
                   re-hidrate antes de continuar.
                 </li>
@@ -3901,12 +4511,14 @@
 
               <h5>Estabilização no molde</h5>
               <ul>
-                <li>Monte as faixas no molde fêmea, corrija pequenos desvios com soprador térmico e mantenha sob pressão
+                <li>Monte as faixas no molde fêmea, corrija pequenos desvios com soprador térmico e mantenha sob
+                  pressão
                   até resfriar completamente.</li>
                 <li>Deixe <strong>descansar</strong> algumas horas; em seguida remova e seque por mais 2–3 dias em
                   ambiente
                   estável antes de colar.</li>
-                <li>Verifique o encaixe no <strong>tróculo</strong> e na <strong>culatra</strong> antes de avançar para
+                <li>Verifique o encaixe no <strong>tróculo</strong> e na <strong>culatra</strong> antes de avançar
+                  para
                   a
                   próxima etapa.</li>
               </ul>
@@ -3916,19 +4528,23 @@
                 do
                 volume de produção, o luthier pode recorrer a outras abordagens:</p>
               <ul>
-                <li><strong>Ferro elétrico (bending iron):</strong> versão controlada eletronicamente do tubo de dobra.
+                <li><strong>Ferro elétrico (bending iron):</strong> versão controlada eletronicamente do tubo de
+                  dobra.
                   Sem
                   chama aberta, com temperatura digital e maior repetibilidade — indicado para quem dobra faixas com
                   frequência ou trabalha em espaço fechado.</li>
-                <li><strong>Caixa de vapor:</strong> a faixa permanece numa câmara de vapor por 15–40 minutos e é então
+                <li><strong>Caixa de vapor:</strong> a faixa permanece numa câmara de vapor por 15–40 minutos e é
+                  então
                   pressionada rapidamente no molde com grampos. A umidade penetra de forma uniforme, reduzindo o risco
                   de
                   rachas em madeiras densas como Maple flameado e Nogueira.</li>
-                <li><strong>Fox bender (forma aquecida):</strong> sistema semi-automatizado em que a faixa é posicionada
+                <li><strong>Fox bender (forma aquecida):</strong> sistema semi-automatizado em que a faixa é
+                  posicionada
                   entre uma forma metálica com o contorno do instrumento e uma fita de aço aquecida que aplica pressão
                   uniforme. Alta repetibilidade; preferido em produção em série.</li>
                 <li><strong>Método frio com cortes de alívio (kerfing):</strong> sem calor — a faixa recebe cortes
-                  transversais parciais na face interna que reduzem a rigidez e permitem curvá-la manualmente no molde.
+                  transversais parciais na face interna que reduzem a rigidez e permitem curvá-la manualmente no
+                  molde.
                   Usado em madeiras muito finas, compensados ou materiais alternativos como ABS.</li>
               </ul>
 
@@ -3961,7 +4577,8 @@
 
               <!-- Callouts por instrumento -->
               <p class="callout" data-instruments="vcl">
-                <strong>Violão clássico:</strong> espessura alvo das faixas ≈ <em>1,7–2,0&nbsp;mm</em>. Larguras típicas
+                <strong>Violão clássico:</strong> espessura alvo das faixas ≈ <em>1,7–2,0&nbsp;mm</em>. Larguras
+                típicas
                 (ajuste à sua plantilla): ~90–95&nbsp;mm (braço) / ~95–100&nbsp;mm (culatra).
               </p>
               <p class="callout" data-instruments="vla">
@@ -3969,7 +4586,8 @@
                 1,8&nbsp;mm ajudam a suportar a tensão das 10 cordas.
               </p>
               <p class="callout" data-instruments="cav">
-                <strong>Cavaquinho:</strong> curvas mais fechadas na cintura — trabalhe com retiradas mínimas de calor e
+                <strong>Cavaquinho:</strong> curvas mais fechadas na cintura — trabalhe com retiradas mínimas de calor
+                e
                 espessuras entre <em>1,6–2,0&nbsp;mm</em>.
               </p>
               <p class="callout" data-instruments="uku">
@@ -4171,6 +4789,7 @@
                 <li><strong>Conjunto no molde fêmea:</strong> faixa laterais coladas ao tróculo e culatra, então volte
                   o
                   conjunto ao molde fêmea, ajuste-o centralizado, então segue para colagem do reengrosso.
+                </li>
                 <li><strong>Ajuste a seco:</strong> teste o alinhamento ao longo da lateral. Faça recortes/entalhes
                   nos
                   encontros com
@@ -4242,20 +4861,24 @@
 
             <div class="detail" id="d-caixa3">
 
-              <p><strong>Objetivo:</strong> garantir que o <em>eixo do braço</em> coincida com a <em>linha de centro da
+              <p><strong>Objetivo:</strong> garantir que o <em>eixo do braço</em> coincida com a <em>linha de centro
+                  da
                   caixa</em>.
                 No método espanhol, braço e tróculo são uma peça única já integrada ao conjunto — o alinhamento aqui é
                 essencialmente uma confirmação visual e de medição antes de prosseguir.</p>
 
               <h5>Sequência prática</h5>
               <ul>
-                <li><strong>Conjunto na solera:</strong> o conjunto (caixa com braço já integrado) deve estar assentado
+                <li><strong>Conjunto na solera:</strong> o conjunto (caixa com braço já integrado) deve estar
+                  assentado
                   no molde
-                  fêmea (solera). Esse é o momento de checar, não de colar — no método espanhol, o braço já está fixo ao
+                  fêmea (solera). Esse é o momento de checar, não de colar — no método espanhol, o braço já está fixo
+                  ao
                   tróculo.</li>
                 <li><strong>Linha de centro:</strong> com uma régua longa apoiada sobre a escala (como na foto),
                   verifique se ela
-                  aponta para o centro da boca e segue alinhada até a culatra. A régua não deve desviar lateralmente em
+                  aponta para o centro da boca e segue alinhada até a culatra. A régua não deve desviar lateralmente
+                  em
                   nenhum
                   ponto do percurso.</li>
                 <li><strong>Simetria lateral:</strong> meça as distâncias das laterais até essa linha de centro em 2–3
@@ -4263,11 +4886,13 @@
                   longo do corpo. Diferenças indicam giro (<em>yaw</em>) do braço em relação à caixa.</li>
                 <li><strong>Ângulo do braço:</strong> no método espanhol clássico, o braço é construído praticamente
                   paralelo ao
-                  tampo (ângulo "zero" ou próximo disso). A ação final é ajustada pela altura do cavalete e espessura da
+                  tampo (ângulo "zero" ou próximo disso). A ação final é ajustada pela altura do cavalete e espessura
+                  da
                   escala
                   — não por um ângulo inclinado como em violões folk. Confirme que o plano da escala está paralelo ao
                   tampo.</li>
-                <li><strong>Correções:</strong> pequenos desalinhamentos laterais podem ser corrigidos com micro-raspas
+                <li><strong>Correções:</strong> pequenos desalinhamentos laterais podem ser corrigidos com
+                  micro-raspas
                   no topo do
                   tróculo ou cunhas finas. Refaça a checagem após cada ajuste.</li>
               </ul>
@@ -4278,9 +4903,11 @@
                 posição do
                 cavalete para estimar a altura de ação futura. No método espanhol isso é uma <em>conferência
                   complementar</em>,
-                não o foco principal desta etapa — o centro já alinhado e o ângulo paralelo ao tampo são as prioridades.
+                não o foco principal desta etapa — o centro já alinhado e o ângulo paralelo ao tampo são as
+                prioridades.
                 Se
-                quiser checar, posicione a régua sobre a escala e observe onde ela cruza a linha do cavalete: idealmente
+                quiser checar, posicione a régua sobre a escala e observe onde ela cruza a linha do cavalete:
+                idealmente
                 deve
                 passar rente ao topo da ponte, com folga para a altura do rastilho.
               </p>
@@ -4366,7 +4993,8 @@
               </ul>
 
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Sequência lógica:</strong> marcação onde entalhar → entalhar → testar (ensaio a seco) → colagem
+                <strong>Sequência lógica:</strong> marcação onde entalhar → entalhar → testar (ensaio a seco) →
+                colagem
                 → pressão → cura.
               </p>
 
@@ -4424,7 +5052,8 @@
             <div class="detail" id="d-caixa5">
 
               <p><strong>Objetivo:</strong> colar o fundo sobre o “rim” (laterais + reengrossos/linings + blocos),
-                preservando o arqueamento (doming) e garantindo contato integral nos assentos das travessas e do reforço
+                preservando o arqueamento (doming) e garantindo contato integral nos assentos das travessas e do
+                reforço
                 central.
               </p>
               <p><strong>ATENÇÃO:</strong> Hora de tirar o <strong>molde fêmea</strong>, deixando somente a
@@ -4477,7 +5106,8 @@
                 Mantenha o arqueamento; não “achate” o fundo com excesso de força.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Checagem geométrica:</strong>o espelho central (reforço longitudinal do fundo) alinhado à linha
+                <strong>Checagem geométrica:</strong>o espelho central (reforço longitudinal do fundo) alinhado à
+                linha
                 de centro do corpo; diagonais
                 equivalentes
                 (sem torção).
@@ -4959,7 +5589,8 @@
                 Distanciamento furos do cavalete (mm):
                 <input class="persist" id="escala-dist-furos-cavalete" type="number" step="0.1" min="0"
                   data-measure="escala.distanciamento_furos_cavalete" placeholder="">
-                <small style="opacity:.75">Entre centros da 1ª e última corda no cavalete (default por modelo).</small>
+                <small style="opacity:.75">Entre centros da 1ª e última corda no cavalete (default por
+                  modelo).</small>
               </label>
 
               <label>
@@ -4975,7 +5606,8 @@
                 <input id="escala-espaco-entre-cordas-nut" type="text" inputmode="decimal"
                   data-measure="escala.espacamento_entre_cordas_nut" readonly tabindex="-1" class="is-calculated"
                   placeholder="Calculado">
-                <small id="escala-espacamento-entre-cordas-hint" style="opacity:.75">Entre centros adjacentes. Calculado: (1ª↔última) ÷ (nº cordas − 1).</small>
+                <small id="escala-espacamento-entre-cordas-hint" style="opacity:.75">Entre centros adjacentes.
+                  Calculado: (1ª↔última) ÷ (nº cordas − 1).</small>
               </label>
 
               <label>
@@ -4987,16 +5619,14 @@
 
               <label>
                 Largura Casa 14 (mm):
-                <input id="escala-largura-casa14" type="text" inputmode="decimal"
-                  data-measure="escala.largura_casa14" readonly tabindex="-1" class="is-calculated"
-                  placeholder="Calculado">
+                <input id="escala-largura-casa14" type="text" inputmode="decimal" data-measure="escala.largura_casa14"
+                  readonly tabindex="-1" class="is-calculated" placeholder="Calculado">
               </label>
 
               <label>
                 Largura Casa 19 (mm):
-                <input id="escala-largura-casa19" type="text" inputmode="decimal"
-                  data-measure="escala.largura_casa19" readonly tabindex="-1" class="is-calculated"
-                  placeholder="Calculado">
+                <input id="escala-largura-casa19" type="text" inputmode="decimal" data-measure="escala.largura_casa19"
+                  readonly tabindex="-1" class="is-calculated" placeholder="Calculado">
               </label>
             </div>
           </div>
@@ -5464,6 +6094,22 @@
         </header>
         <div class="section-body">
 
+          <div class="measures-block">
+            <button class="btn measures-toggle" type="button" data-target="measures-cavalete">
+              <span class="icon">📏</span>
+              <span class="label">Medidas</span>
+            </button>
+            <div class="measures-grid" id="measures-cavalete" hidden>
+              <label>
+                Distanciamento furos do cavalete (mm):
+                <input class="persist" id="cavalete-dist-furos-sec09" type="number" step="0.1" min="0"
+                  data-measure="escala.distanciamento_furos_cavalete" placeholder="">
+                <small style="opacity:.75">Espelha o valor da seção Escala (entre centros da 1ª e última
+                  corda).</small>
+              </label>
+            </div>
+          </div>
+
           <div class="step" data-step="cav1">
             <input class="chk persist" id="cav1" type="checkbox" />
             <label class="label" for="cav1">Preparar cavalete (alturas, canais, furação)</label>
@@ -5471,7 +6117,19 @@
               <span class="icon">＋</span>
             </button>
 
+
+
             <div class="detail" id="d-cav1">
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Atenção — escopo desta etapa:</strong> aqui você constrói apenas o
+                <strong>cavalete</strong> (formato, base e furação, conforme o instrumento).
+                A <strong>marcação da área de colagem no tampo não é feita agora</strong> —
+                ela ocorre na etapa <strong>10) Acabamento (Lixar, Selar, Verniz /
+                  Goma-laca)</strong>, logo após o lixamento final e antes de selar o tampo
+                e envernizar. A <strong>colagem do cavalete</strong> em si só acontece na
+                etapa <strong>11) Montagem Final</strong>.
+              </p>
 
               <p>A preparação do cavalete requer precisão dimensional, simetria e ajuste perfeito ao raio do tampo.
                 Trabalhe com um blank estável (jacarandá, ébano, pau-ferro), sem trincas.</p>
@@ -5570,6 +6228,95 @@
             </div>
           </div>
 
+
+
+
+
+        </div>
+      </div>
+      <div class="section" id="sec-10">
+        <header>
+          <h3>10) Acabamento (Lixar, Selar, Verniz / Goma-laca)
+
+          </h3>
+          <div class="progress"></div>
+          <div class="tick">✔</div>
+        </header>
+        <div class="section-body">
+          <div class="step" data-step="acab1">
+            <input class="chk persist" id="acab1" type="checkbox" />
+            <label class="label" for="acab1">Lixamento progressivo</label>
+            <button class="btn toggle" data-target="d-acab1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-acab1">
+
+              <h5>Objetivo</h5>
+              <p>Preparar madeira e junções para seladora/acabamento, eliminando marcas de ferramenta/cola e
+                deixando a
+                superfície uniforme sem arredondar bordas críticas.</p>
+
+              <h5>Procedimento recomendado</h5>
+              <ul>
+                <li><strong>Sequência de grãos:</strong> 120 → 180 → 220 → 320 → 400/600 (somente se o sistema de
+                  acabamento aceitar). Troque de grão apenas quando os riscos do grão anterior sumirem.</li>
+                <li><strong>Tacos corretos:</strong> rígido em planos (tampo/fundo); flexível/espuma em curvas;
+                  bordas
+                  com apoio largo para não “comer” filetes.</li>
+                <li><strong>Mapa a lápis:</strong> sombreie levemente a área; lixe até apagar por igual (revela
+                  altos/baixos).</li>
+                <li><strong>Direção:</strong> sempre a favor das fibras. Em madeiras cruzadas, passe final longo no
+                  sentido dominante.</li>
+                <li><strong>Resíduos de cola:</strong> remova 100% (raspilha/cinzel com apoio) especialmente junto à
+                  roseta e filetes.</li>
+                <li><strong>Levantamento de fibra (opcional):</strong> umedeça levemente, deixe secar e dê passada
+                  fina
+                  em 320–400.</li>
+                <li><strong>Limpeza:</strong> pó fora com pano levemente umedecido/álcool isopropílico ou ar
+                  comprimido.
+                </li>
+              </ul>
+
+              <!-- Callouts -->
+              <p class="callout" data-instruments="vcl vla">
+                <strong>Violão/Viola:</strong> áreas largas: mantenha taco longo para não criar “barrigas”. Proteja
+                transição tampo↔filete com apoio largo.
+              </p>
+              <p class="callout" data-instruments="cav uku">
+                <strong>Cavaquinho/Ukulele:</strong> curvas apertadas exigem pressão leve e taco flexível; evite
+                polir
+                demais (grão 320 costuma bastar).
+              </p>
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Luz rasante + máscara:</strong> use luz lateral para achar riscos/cola e máscara PFF2/P2
+                para o
+                pó fino.
+              </p>
+
+              <!-- Figura técnica -->
+              <figure class="tech-figure" data-key="acab1-tech"
+                data-cap="Lixamento progressivo — sequência de grãos, mapa a lápis, direção da fibra e proteção de bordas">
+              </figure>
+
+              <div class="img-row"></div>
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="acab1">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="acab1-tech">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/acab1/acab1.json"
+                  data-target="#assets-acab1" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da etapa
+                </button>
+              </div>
+              <div class="assets-row" id="assets-acab1"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-acab1" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+
           <div class="step" data-step="cav2">
             <input class="chk persist" id="cav2" type="checkbox" />
             <label class="label" for="cav2">Marcar área de colagem do cavalete (pré-acabamento)</label>
@@ -5650,6 +6397,233 @@
               </label>
             </div>
           </div>
+
+          <div class="step" data-step="acab2">
+            <input class="chk persist" id="acab2" type="checkbox" />
+            <label class="label" for="acab2">Seladora / Pore fill</label>
+            <button class="btn toggle" data-target="d-acab2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-acab2">
+
+              <h5>Objetivo</h5>
+              <p>Uniformizar absorção e nivelar poros das madeiras abertas (ex.: jacarandá, mogno, nogueira),
+                preparando
+                para o acabamento (goma-laca, nitro, PU, etc.).</p>
+
+              <h5>Escolha do sistema</h5>
+              <ul>
+                <li><strong>Somente seladora (fechado):</strong> abeto/cedro do tampo normalmente não precisa
+                  <em>pore
+                    fill</em>; apenas 1–2 demãos de seladora (dewaxed) para isolar fibras.
+                </li>
+                <li><strong>Seladora + pore fill:</strong> laterais/fundo em poro aberto. Métodos: <em>pó de
+                    pedra-pomes
+                    + goma-laca</em>, <em>filler</em> à base d’água, <em>epóxi de baixa viscosidade</em>, ou
+                  “slurry”
+                  (pó da própria madeira + óleo/seladora).</li>
+                <li><strong>Compatibilidade:</strong> sempre use <em>goma-laca descerada</em> como “barreira
+                  universal”
+                  entre o pore fill e o topcoat (principalmente antes de nitro/PU).</li>
+              </ul>
+
+              <!-- Callouts por instrumento -->
+              <p class="callout" data-instruments="vcl vla">
+                <strong>Violão/Viola:</strong> fundo/laterais em jacarandá ou mogno pedem pore fill completo. No
+                tampo
+                (abeto/cedro), apenas selar leve para não “matar” resposta.
+              </p>
+              <p class="callout" data-instruments="cav uku">
+                <strong>Cavaquinho/Ukulele:</strong> por área menor, evite massa excessiva; duas passadas finas
+                costumam
+                bastar. Priorize baixo peso.
+              </p>
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Flamenco (cipreste):</strong> poro mais fechado — pore fill muito leve ou dispensável; foco
+                em
+                selagem e finura do acabamento.
+              </p>
+
+              <h5>Procedimento recomendado</h5>
+              <ul>
+                <li><strong>Preparação:</strong> poeira removida, áreas de cola 100% limpas. Mascarar cavidade do
+                  cavalete/escala se ainda não colados.</li>
+                <li><strong>Seladora base:</strong> aplique goma-laca descerada 1:1 (álcool 96%) ou seladora nitro
+                  bem
+                  fina; 1–2 demãos, secando entre elas. Lixada leve 600.</li>
+                <li><strong>Pore fill — escolha um método:</strong>
+                  <ul>
+                    <li><em>Goma-laca + pedra-pomes:</em> polir em “oito” com muñequilla carregada; a pedra-pomes
+                      vira
+                      pasta com a goma-laca e preenche poros. Raspar o excesso na diagonal com raspilha/tarjeta.
+                      Secar e
+                      nivelar em 600.</li>
+                    <li><em>Filler à base d’água:</em> espalhar com espátula cruzando o veio; aguardar secagem
+                      indicada;
+                      lixar até restar filler apenas nos poros. Repetir se necessário.</li>
+                    <li><em>Epóxi fino 1:1:</em> espalhar com rodo/espátula <em>contra o veio</em>, remover excesso
+                      imediatamente. Curar 24 h; lixar até o epóxi ficar só nos poros. Selar com goma-laca antes do
+                      topcoat.</li>
+                  </ul>
+                </li>
+                <li><strong>Selagem pós-fill:</strong> 1–2 demãos finas de goma-laca descerada para uniformizar e
+                  garantir aderência do verniz final.</li>
+                <li><strong>Segurança:</strong> luvas/nitrílica, PFF2/P2; epóxi e solventes pedem ventilação forte.
+                </li>
+              </ul>
+
+              <!-- Figura técnica -->
+              <figure class="tech-figure" data-key="acab2-tech"
+                data-cap="Seladora e pore fill — quando usar, métodos e compatibilidade com o acabamento">
+              </figure>
+
+              <div class="img-row"></div>
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="acab2">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="acab2-tech">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/acab2/acab2.json"
+                  data-target="#assets-acab2" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da etapa
+                </button>
+              </div>
+              <div class="assets-row" id="assets-acab2"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-acab2" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <div class="step" data-step="acab3">
+            <input class="chk persist" id="acab3" type="checkbox" />
+            <label class="label" for="acab3">Aplicar acabamento final (Verniz / Goma-laca)</label>
+            <button class="btn toggle" data-target="d-acab3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-acab3">
+              <p>O acabamento final isola a madeira contra variações higroscópicas, estabiliza a estrutura e define a
+                estética, além de impactar diretamente a projeção e o timbre do instrumento.</p>
+
+              <h5>Goma-laca (French Polish / Polimento Francês)</h5>
+              <ul>
+                <li><strong>Preparo da solução:</strong> Utilize goma-laca em escamas tipo <em>Dewaxed</em>
+                  (descerada)
+                  diluída em álcool absoluto 96% ou isopropílico na proporção técnica de corte (aprox. 150–200 g/L).
+                </li>
+                <li><strong>A boneca (Muñequilla):</strong> Molde o núcleo com estopa ou lã pura envolta em um tecido
+                  de
+                  algodão fino e lavado (sem fiapos). Lubrifique a face externa com apenas 1 gota de óleo mineral se o
+                  acessório começar a travar na superfície.</li>
+                <li><strong>Dinâmica de aplicação:</strong> Desenhe movimentos contínuos em formato de "8" ou órbitas
+                  circulares. Aplique sessões repetidas com recarga controlada, cruzando as passadas para garantir
+                  uniformidade micrométrica.</li>
+                <li><strong>Ciclos e Nivelamento:</strong> Faça de 15 a 30 sessões finas. Entre sessões de deposição,
+                  faça um nivelamento seco muito sutil usando palha de aço premium 0000 ou micro-lixa P1200 para
+                  remover
+                  imperfeições e marcas de trajeto.</li>
+                <li><strong>Tempo de cura:</strong> Aguarde de 48 a 72 horas para manuseio leve. A cura estrutural e a
+                  estabilização molecular completa ocorrem entre 7 e 10 dias.</li>
+              </ul>
+
+              <h5>Verniz de Alta Sólido (Nitrocelulose / Poliuretano)</h5>
+              <ul>
+                <li><strong>Condicionamento ambiental:</strong> A aplicação exige isolamento em cabine de pintura.
+                  Monitore o ambiente: mantenha de 18°C a 25°C com a Umidade Relativa (UR) estritamente entre 40% e
+                  60%.
+                </li>
+                <li><strong>Técnica de aspersão:</strong> Ajuste a pistola HVLP para atomização fina. Aplique demãos
+                  paralelas com sobreposição constante de 50%, evitando o acúmulo nas quinas e curvas de raio
+                  apertado.
+                </li>
+                <li><strong>Janelas de intervalo:</strong> Respeite o tempo de evaporação de solventes (Nitro: 1 a 3
+                  horas entre demãos; PU: 12 a 24 horas conforme o catalisador químico). Promova o lixamento de quebra
+                  de brilho (P800 a P1200) entre demãos.</li>
+                <li><strong>Evolução do polimento:</strong> Após atingir a cobertura de 6 a 10 demãos, aguarde a
+                  retração da resina. Efetue o lixamento plano sequencial em progressão linear ($P800 \rightarrow
+                  P1200
+                  \rightarrow P1500 \rightarrow P2000$). Finalize o lustro com boina macia e compostos de polimento
+                  automotivos isentos de silicone.</li>
+                <li><strong>Cura funcional:</strong> Respeite o prazo de estabilização mecânica antes de fixar
+                  ferragens
+                  ou tracionar o encordoamento (Nitrocelulose: 2 a 4 semanas; Poliuretano: 7 a 14 dias).</li>
+              </ul>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Espessura do filme:</strong> A película protetora deve ser mantida o mais fina possível. Alvos
+                técnicos recomendados: Goma-laca ~30–60 µm; Nitrocelulose ~80–120 µm. Camadas excessivas amortecem a
+                flexibilidade harmônica e "matam" a resposta de projeção.
+              </p>
+              <p class="callout" data-instruments="vcl vla">
+                <strong>Hibridismo Clássico:</strong> Em violões e violas de concerto, é comum aplicar a técnica
+                híbrida: goma-laca no tampo (para máxima leveza e resposta rápida) e verniz nitro/PU nas laterais e no
+                fundo (para maior proteção contra desgaste físico).
+              </p>
+              <p class="callout" data-instruments="cav uku">
+                <strong>Instrumentos de Alta Frequência:</strong> Devido à caixa acústica reduzida de cavaquinhos e
+                ukuleles, evite massas de verniz densas. Demãos ultra-finas preservam o ataque brilhante e os
+                harmônicos
+                agudos característicos destes instrumentos.
+              </p>
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Barreira Universal:</strong> Caso opte por usar goma-laca como base seladora protetora sob
+                camadas subsequentes de nitro ou PU, certifique-se de que ela é 100% livre de cera (dewaxed) para
+                evitar
+                falhas graves de ancoragem química e descascamentos.
+              </p>
+
+              <h5>Boas práticas de Oficina</h5>
+              <ul>
+                <li><strong>Isolamento rígido:</strong> Mascare perfeitamente a área onde o cavalete será colado e
+                  sele
+                  a boca do instrumento. Lembre-se: cola de madeira não adere sobre superfícies seladas ou
+                  envernizadas.
+                </li>
+                <li><strong>Inspeção com Luz Rasante:</strong> Avalie a superfície sob iluminação lateral de bancada
+                  entre as trocas de lixas. Qualquer risco negligenciado será amplificado e ficará evidente após o
+                  lustro final.</li>
+                <li><strong>Prevenção de Marcas d'Água:</strong> Suavize e quebre levemente os cantos vivos e as
+                  linhas
+                  de transição de fitas com lixa P1200 antes de iniciar o processo de polimento mecânico com boina.
+                </li>
+              </ul>
+
+              <figure class="tech-figure" data-key="acab3-tech"
+                data-cap="Arquitetura de acabamento final: diagramação de micras das camadas, cinemática de aplicação da boneca e ciclo de lustro controlado.">
+              </figure>
+
+              <div class="img-row"></div>
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="acab3">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="acab3-tech">Ilustração Técnica Anotável</button>
+                <!--<button class="btn load-assets" data-manifest="./assets/extras/albuns/acab3/acab3.json"
+                  data-target="#assets-acab3" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da etapa
+                </button>-->
+                <a href="https://sites.google.com/view/haztuspropiasguitarras/cursos/barnizado-profesional"
+                  target="_blank">
+                  <button class="btn">Curso Profissional de Envernizamento</button>
+                </a>
+              </div>
+              <div class="assets-row" id="assets-acab3"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-acab3" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="section" id="sec-11">
+        <header>
+          <h3>11) Montagem Final</h3>
+          <div class="progress"></div>
+          <div class="tick">✔</div>
+        </header>
+        <div class="section-body">
 
           <div class="step" data-step="cav3">
             <input class="chk persist" id="cav3" type="checkbox" />
@@ -5859,303 +6833,7 @@
             </div>
           </div>
 
-        </div>
-      </div>
-      <div class="section" id="sec-10">
-        <header>
-          <h3>10) Acabamento (Lixar, Selar, Verniz / Goma-laca)
 
-          </h3>
-          <div class="progress"></div>
-          <div class="tick">✔</div>
-        </header>
-        <div class="section-body">
-          <div class="step" data-step="acab1">
-            <input class="chk persist" id="acab1" type="checkbox" />
-            <label class="label" for="acab1">Lixamento progressivo</label>
-            <button class="btn toggle" data-target="d-acab1" type="button" aria-label="Abrir detalhes">
-              <span class="icon">＋</span>
-            </button>
-
-            <div class="detail" id="d-acab1">
-
-              <h5>Objetivo</h5>
-              <p>Preparar madeira e junções para seladora/acabamento, eliminando marcas de ferramenta/cola e
-                deixando a
-                superfície uniforme sem arredondar bordas críticas.</p>
-
-              <h5>Procedimento recomendado</h5>
-              <ul>
-                <li><strong>Sequência de grãos:</strong> 120 → 180 → 220 → 320 → 400/600 (somente se o sistema de
-                  acabamento aceitar). Troque de grão apenas quando os riscos do grão anterior sumirem.</li>
-                <li><strong>Tacos corretos:</strong> rígido em planos (tampo/fundo); flexível/espuma em curvas;
-                  bordas
-                  com apoio largo para não “comer” filetes.</li>
-                <li><strong>Mapa a lápis:</strong> sombreie levemente a área; lixe até apagar por igual (revela
-                  altos/baixos).</li>
-                <li><strong>Direção:</strong> sempre a favor das fibras. Em madeiras cruzadas, passe final longo no
-                  sentido dominante.</li>
-                <li><strong>Resíduos de cola:</strong> remova 100% (raspilha/cinzel com apoio) especialmente junto à
-                  roseta e filetes.</li>
-                <li><strong>Levantamento de fibra (opcional):</strong> umedeça levemente, deixe secar e dê passada
-                  fina
-                  em 320–400.</li>
-                <li><strong>Limpeza:</strong> pó fora com pano levemente umedecido/álcool isopropílico ou ar
-                  comprimido.
-                </li>
-              </ul>
-
-              <!-- Callouts -->
-              <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> áreas largas: mantenha taco longo para não criar “barrigas”. Proteja
-                transição tampo↔filete com apoio largo.
-              </p>
-              <p class="callout" data-instruments="cav uku">
-                <strong>Cavaquinho/Ukulele:</strong> curvas apertadas exigem pressão leve e taco flexível; evite
-                polir
-                demais (grão 320 costuma bastar).
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Luz rasante + máscara:</strong> use luz lateral para achar riscos/cola e máscara PFF2/P2
-                para o
-                pó fino.
-              </p>
-
-              <!-- Figura técnica -->
-              <figure class="tech-figure" data-key="acab1-tech"
-                data-cap="Lixamento progressivo — sequência de grãos, mapa a lápis, direção da fibra e proteção de bordas">
-              </figure>
-
-              <div class="img-row"></div>
-              <div class="tool-row">
-                <button class="btn add-image" type="button" data-subetapa="acab1">Minhas Imagens</button>
-                <button class="btn open-draw" data-subetapa="acab1-tech">Ilustração Técnica Anotável</button>
-                <button class="btn load-assets" data-manifest="./assets/extras/albuns/acab1/acab1.json"
-                  data-target="#assets-acab1" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
-                  Galeria da etapa
-                </button>
-              </div>
-              <div class="assets-row" id="assets-acab1"></div>
-
-              <label>Notas
-                <textarea class="persist auto-grow" id="n-acab1" placeholder="Anotações desta subetapa..."></textarea>
-              </label>
-            </div>
-          </div>
-
-          <div class="step" data-step="acab2">
-            <input class="chk persist" id="acab2" type="checkbox" />
-            <label class="label" for="acab2">Seladora / Pore fill</label>
-            <button class="btn toggle" data-target="d-acab2" type="button" aria-label="Abrir detalhes">
-              <span class="icon">＋</span>
-            </button>
-
-            <div class="detail" id="d-acab2">
-
-              <h5>Objetivo</h5>
-              <p>Uniformizar absorção e nivelar poros das madeiras abertas (ex.: jacarandá, mogno, nogueira),
-                preparando
-                para o acabamento (goma-laca, nitro, PU, etc.).</p>
-
-              <h5>Escolha do sistema</h5>
-              <ul>
-                <li><strong>Somente seladora (fechado):</strong> abeto/cedro do tampo normalmente não precisa
-                  <em>pore
-                    fill</em>; apenas 1–2 demãos de seladora (dewaxed) para isolar fibras.
-                </li>
-                <li><strong>Seladora + pore fill:</strong> laterais/fundo em poro aberto. Métodos: <em>pó de
-                    pedra-pomes
-                    + goma-laca</em>, <em>filler</em> à base d’água, <em>epóxi de baixa viscosidade</em>, ou
-                  “slurry”
-                  (pó da própria madeira + óleo/seladora).</li>
-                <li><strong>Compatibilidade:</strong> sempre use <em>goma-laca descerada</em> como “barreira
-                  universal”
-                  entre o pore fill e o topcoat (principalmente antes de nitro/PU).</li>
-              </ul>
-
-              <!-- Callouts por instrumento -->
-              <p class="callout" data-instruments="vcl vla">
-                <strong>Violão/Viola:</strong> fundo/laterais em jacarandá ou mogno pedem pore fill completo. No
-                tampo
-                (abeto/cedro), apenas selar leve para não “matar” resposta.
-              </p>
-              <p class="callout" data-instruments="cav uku">
-                <strong>Cavaquinho/Ukulele:</strong> por área menor, evite massa excessiva; duas passadas finas
-                costumam
-                bastar. Priorize baixo peso.
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Flamenco (cipreste):</strong> poro mais fechado — pore fill muito leve ou dispensável; foco
-                em
-                selagem e finura do acabamento.
-              </p>
-
-              <h5>Procedimento recomendado</h5>
-              <ul>
-                <li><strong>Preparação:</strong> poeira removida, áreas de cola 100% limpas. Mascarar cavidade do
-                  cavalete/escala se ainda não colados.</li>
-                <li><strong>Seladora base:</strong> aplique goma-laca descerada 1:1 (álcool 96%) ou seladora nitro
-                  bem
-                  fina; 1–2 demãos, secando entre elas. Lixada leve 600.</li>
-                <li><strong>Pore fill — escolha um método:</strong>
-                  <ul>
-                    <li><em>Goma-laca + pedra-pomes:</em> polir em “oito” com muñequilla carregada; a pedra-pomes
-                      vira
-                      pasta com a goma-laca e preenche poros. Raspar o excesso na diagonal com raspilha/tarjeta.
-                      Secar e
-                      nivelar em 600.</li>
-                    <li><em>Filler à base d’água:</em> espalhar com espátula cruzando o veio; aguardar secagem
-                      indicada;
-                      lixar até restar filler apenas nos poros. Repetir se necessário.</li>
-                    <li><em>Epóxi fino 1:1:</em> espalhar com rodo/espátula <em>contra o veio</em>, remover excesso
-                      imediatamente. Curar 24 h; lixar até o epóxi ficar só nos poros. Selar com goma-laca antes do
-                      topcoat.</li>
-                  </ul>
-                </li>
-                <li><strong>Selagem pós-fill:</strong> 1–2 demãos finas de goma-laca descerada para uniformizar e
-                  garantir aderência do verniz final.</li>
-                <li><strong>Segurança:</strong> luvas/nitrílica, PFF2/P2; epóxi e solventes pedem ventilação forte.
-                </li>
-              </ul>
-
-              <!-- Figura técnica -->
-              <figure class="tech-figure" data-key="acab2-tech"
-                data-cap="Seladora e pore fill — quando usar, métodos e compatibilidade com o acabamento">
-              </figure>
-
-              <div class="img-row"></div>
-              <div class="tool-row">
-                <button class="btn add-image" type="button" data-subetapa="acab2">Minhas Imagens</button>
-                <button class="btn open-draw" data-subetapa="acab2-tech">Ilustração Técnica Anotável</button>
-                <button class="btn load-assets" data-manifest="./assets/extras/albuns/acab2/acab2.json"
-                  data-target="#assets-acab2" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
-                  Galeria da etapa
-                </button>
-              </div>
-              <div class="assets-row" id="assets-acab2"></div>
-
-              <label>Notas
-                <textarea class="persist auto-grow" id="n-acab2" placeholder="Anotações desta subetapa..."></textarea>
-              </label>
-            </div>
-          </div>
-
-          <div class="step" data-step="acab3">
-            <input class="chk persist" id="acab3" type="checkbox" />
-            <label class="label" for="acab3">Aplicar acabamento final (Verniz / Goma-laca)</label>
-            <button class="btn toggle" data-target="d-acab3" type="button" aria-label="Abrir detalhes">
-              <span class="icon">＋</span>
-            </button>
-
-            <div class="detail" id="d-acab3">
-              <p>O acabamento final isola a madeira contra variações higroscópicas, estabiliza a estrutura e define a
-                estética, além de impactar diretamente a projeção e o timbre do instrumento.</p>
-
-              <h5>Goma-laca (French Polish / Polimento Francês)</h5>
-              <ul>
-                <li><strong>Preparo da solução:</strong> Utilize goma-laca em escamas tipo <em>Dewaxed</em> (descerada)
-                  diluída em álcool absoluto 96% ou isopropílico na proporção técnica de corte (aprox. 150–200 g/L).
-                </li>
-                <li><strong>A boneca (Muñequilla):</strong> Molde o núcleo com estopa ou lã pura envolta em um tecido de
-                  algodão fino e lavado (sem fiapos). Lubrifique a face externa com apenas 1 gota de óleo mineral se o
-                  acessório começar a travar na superfície.</li>
-                <li><strong>Dinâmica de aplicação:</strong> Desenhe movimentos contínuos em formato de "8" ou órbitas
-                  circulares. Aplique sessões repetidas com recarga controlada, cruzando as passadas para garantir
-                  uniformidade micrométrica.</li>
-                <li><strong>Ciclos e Nivelamento:</strong> Faça de 15 a 30 sessões finas. Entre sessões de deposição,
-                  faça um nivelamento seco muito sutil usando palha de aço premium 0000 ou micro-lixa P1200 para remover
-                  imperfeições e marcas de trajeto.</li>
-                <li><strong>Tempo de cura:</strong> Aguarde de 48 a 72 horas para manuseio leve. A cura estrutural e a
-                  estabilização molecular completa ocorrem entre 7 e 10 dias.</li>
-              </ul>
-
-              <h5>Verniz de Alta Sólido (Nitrocelulose / Poliuretano)</h5>
-              <ul>
-                <li><strong>Condicionamento ambiental:</strong> A aplicação exige isolamento em cabine de pintura.
-                  Monitore o ambiente: mantenha de 18°C a 25°C com a Umidade Relativa (UR) estritamente entre 40% e 60%.
-                </li>
-                <li><strong>Técnica de aspersão:</strong> Ajuste a pistola HVLP para atomização fina. Aplique demãos
-                  paralelas com sobreposição constante de 50%, evitando o acúmulo nas quinas e curvas de raio apertado.
-                </li>
-                <li><strong>Janelas de intervalo:</strong> Respeite o tempo de evaporação de solventes (Nitro: 1 a 3
-                  horas entre demãos; PU: 12 a 24 horas conforme o catalisador químico). Promova o lixamento de quebra
-                  de brilho (P800 a P1200) entre demãos.</li>
-                <li><strong>Evolução do polimento:</strong> Após atingir a cobertura de 6 a 10 demãos, aguarde a
-                  retração da resina. Efetue o lixamento plano sequencial em progressão linear ($P800 \rightarrow P1200
-                  \rightarrow P1500 \rightarrow P2000$). Finalize o lustro com boina macia e compostos de polimento
-                  automotivos isentos de silicone.</li>
-                <li><strong>Cura funcional:</strong> Respeite o prazo de estabilização mecânica antes de fixar ferragens
-                  ou tracionar o encordoamento (Nitrocelulose: 2 a 4 semanas; Poliuretano: 7 a 14 dias).</li>
-              </ul>
-
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Espessura do filme:</strong> A película protetora deve ser mantida o mais fina possível. Alvos
-                técnicos recomendados: Goma-laca ~30–60 µm; Nitrocelulose ~80–120 µm. Camadas excessivas amortecem a
-                flexibilidade harmônica e "matam" a resposta de projeção.
-              </p>
-              <p class="callout" data-instruments="vcl vla">
-                <strong>Hibridismo Clássico:</strong> Em violões e violas de concerto, é comum aplicar a técnica
-                híbrida: goma-laca no tampo (para máxima leveza e resposta rápida) e verniz nitro/PU nas laterais e no
-                fundo (para maior proteção contra desgaste físico).
-              </p>
-              <p class="callout" data-instruments="cav uku">
-                <strong>Instrumentos de Alta Frequência:</strong> Devido à caixa acústica reduzida de cavaquinhos e
-                ukuleles, evite massas de verniz densas. Demãos ultra-finas preservam o ataque brilhante e os harmônicos
-                agudos característicos destes instrumentos.
-              </p>
-              <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Barreira Universal:</strong> Caso opte por usar goma-laca como base seladora protetora sob
-                camadas subsequentes de nitro ou PU, certifique-se de que ela é 100% livre de cera (dewaxed) para evitar
-                falhas graves de ancoragem química e descascamentos.
-              </p>
-
-              <h5>Boas práticas de Oficina</h5>
-              <ul>
-                <li><strong>Isolamento rígido:</strong> Mascare perfeitamente a área onde o cavalete será colado e sele
-                  a boca do instrumento. Lembre-se: cola de madeira não adere sobre superfícies seladas ou envernizadas.
-                </li>
-                <li><strong>Inspeção com Luz Rasante:</strong> Avalie a superfície sob iluminação lateral de bancada
-                  entre as trocas de lixas. Qualquer risco negligenciado será amplificado e ficará evidente após o
-                  lustro final.</li>
-                <li><strong>Prevenção de Marcas d'Água:</strong> Suavize e quebre levemente os cantos vivos e as linhas
-                  de transição de fitas com lixa P1200 antes de iniciar o processo de polimento mecânico com boina.</li>
-              </ul>
-
-              <figure class="tech-figure" data-key="acab3-tech"
-                data-cap="Arquitetura de acabamento final: diagramação de micras das camadas, cinemática de aplicação da boneca e ciclo de lustro controlado.">
-              </figure>
-
-              <div class="img-row"></div>
-              <div class="tool-row">
-                <button class="btn add-image" type="button" data-subetapa="acab3">Minhas Imagens</button>
-                <button class="btn open-draw" data-subetapa="acab3-tech">Ilustração Técnica Anotável</button>
-                <!--<button class="btn load-assets" data-manifest="./assets/extras/albuns/acab3/acab3.json"
-                  data-target="#assets-acab3" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
-                  Galeria da etapa-->
-                </button>
-                <a href="https://sites.google.com/view/haztuspropiasguitarras/cursos/barnizado-profesional"
-                  target="_blank">
-                  <button class="btn">Curso Profissional de Envernizamento</button>
-                </a>
-              </div>
-              <div class="assets-row" id="assets-acab3"></div>
-
-              <label>Notas
-                <textarea class="persist auto-grow" id="n-acab3" placeholder="Anotações desta subetapa..."></textarea>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="section" id="sec-11">
-        <header>
-          <h3>11) Montagem Final</h3>
-          <div class="progress"></div>
-          <div class="tick">✔</div>
-        </header>
-        <div class="section-body">
           <div class="step" data-step="mont1">
             <input class="chk persist" id="mont1" type="checkbox" />
             <label class="label" for="mont1">Pestana (Nut): dimensionar, canalizar e ajustar</label>
@@ -6175,7 +6853,8 @@
                 <li><strong>Ajuste de ancoragem (Encaixe):</strong> A base e as laterais da pestana devem estar
                   perfeitamente planas e sem folgas em relação ao slot do braço. Retifique a peça usando blocos
                   abrasivos rígidos sobre uma superfície de referência plana.</li>
-                <li><strong>Referência de altura inicial:</strong> Fixe como ponto de partida geral as medidas de 0,5 mm
+                <li><strong>Referência de altura inicial:</strong> Fixe como ponto de partida geral as medidas de 0,5
+                  mm
                   de folga para a 1ª corda e 0,8 mm para a 6ª corda, realizando a leitura milimétrica com cálibre de
                   lâminas posicionado diretamente sobre o topo do 1º traste.</li>
                 <li><strong>Direcionamento dos canais:</strong> Abra os sulcos utilizando limas específicas calibradas
@@ -6184,43 +6863,52 @@
                   inclinação suave descendente voltada para a cabeça do instrumento (headstock) para que a corda
                   encontre o ponto nítido de apoio no limite exato onde se inicia a escala.</li>
                 <li><strong>Alívio do topo da pestana:</strong> Após atingir a profundidade definitiva dos canais,
-                  desbaste o topo da peça para que aproximadamente 50% do diâmetro de cada corda fique exposto acima do
+                  desbaste o topo da peça para que aproximadamente 50% do diâmetro de cada corda fique exposto acima
+                  do
                   canal. Isso evita o excesso de atrito lateral e elimina ruídos indesejados.</li>
                 <li><strong>Distribuição geométrica (Espaçamento):</strong> Realize a marcação dos centros baseando-se
                   no método de "lacunas/gaps proporcionais" em vez de centros milimetricamente iguais. Isso compensa
                   visual e tatilmente o diâmetro superior dos bordões. Garanta uma margem de segurança de 3,0 mm a 3,5
                   mm em relação às bordas externas da escala.</li>
                 <li><strong>Lubrificação e montagem:</strong> Aplique grafite de alta pureza (grau 6B ou superior) no
-                  interior dos canais para facilitar o escoamento no momento da afinação. Fixe a peça aplicando de 1 a 2
+                  interior dos canais para facilitar o escoamento no momento da afinação. Fixe a peça aplicando de 1 a
+                  2
                   microgotas de cola vinílica (Titebond) ou cianoacrilato de alta viscosidade apenas na face voltada
                   para a escala; a pestana deve permanecer facilmente removível para futuras manutenções.</li>
               </ul>
 
               <p class="callout" data-instruments="vcl">
-                <strong>Violão Clássico:</strong> Largura padrão de pestana de 51 mm a 53 mm com espaçamento útil E-E de
+                <strong>Violão Clássico:</strong> Largura padrão de pestana de 51 mm a 53 mm com espaçamento útil E-E
+                de
                 43 mm a 45 mm. O alvo milimétrico final de folga sobre o 1º traste deve ser de ~0,45 mm nas cordas
                 agudas e de ~0,65 mm a 0,75 mm nos bordões.
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola Caipira (5 ordens / 10 cordas):</strong> Largura nominal entre 48 mm e 50 mm. Remodele os
-                canais duplos de cada ordem mantendo os eixos paralelos em semicírculos perfeitamente polidos. Amplie a
+                <strong>Viola Caipira (5 ordens / 10 cordas):</strong> Largura nominal entre 48 mm e 50 mm. Remodele
+                os
+                canais duplos de cada ordem mantendo os eixos paralelos em semicírculos perfeitamente polidos. Amplie
+                a
                 margem de segurança lateral para 3,5 mm para evitar que os canais externos fiquem muito próximos do
                 chanfro dos trastes.
               </p>
               <p class="callout" data-instruments="cav">
                 <strong>Cavaquinho:</strong> Pestana estreita com dimensões de 30 mm a 33 mm. O alvo de ação residual
-                sobre o 1º traste situa-se estritamente entre 0,35 mm e 0,55 mm. Em virtude do uso de cordas de aço sob
+                sobre o 1º traste situa-se estritamente entre 0,35 mm e 0,55 mm. Em virtude do uso de cordas de aço
+                sob
                 alta tensão, realize o polimento fino dos sulcos para evitar micro-travamentos e quebras de corda
                 durante micro-afinações.
               </p>
               <p class="callout" data-instruments="uku">
                 <strong>Ukulele:</strong> Modelos Soprano/Concert utilizam de 35 mm a 37 mm; Tenor adota de 37 mm a 38
-                mm. Materiais sintéticos como o fluorocarbono tendem a travar e sofrer desgaste precoce caso o diâmetro
-                do canal seja excessivamente justo. Certifique-se de realizar o acabamento interno dos sulcos com lixas
+                mm. Materiais sintéticos como o fluorocarbono tendem a travar e sofrer desgaste precoce caso o
+                diâmetro
+                do canal seja excessivamente justo. Certifique-se de realizar o acabamento interno dos sulcos com
+                lixas
                 micro-abrasivas.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Vetor de Quebra:</strong> O ângulo de inclinação estrutural da corda em direção às tarraxas deve
+                <strong>Vetor de Quebra:</strong> O ângulo de inclinação estrutural da corda em direção às tarraxas
+                deve
                 oscilar entre 12° e 18°. Angulações muito baixas reduzem a pressão vetorial sobre a pestana causando
                 perdas severas de sustentação (sustain), enquanto ângulos agudos demais elevam o atrito e causam
                 instabilidade crônica de afinação.
@@ -6266,18 +6954,22 @@
             </button>
 
             <div class="detail" id="d-mont2">
-              <p>A montagem mecânica do encordoamento dita o equilíbrio de tensões estáticas sobre a caixa harmônica do
+              <p>A montagem mecânica do encordoamento dita o equilíbrio de tensões estáticas sobre a caixa harmônica
+                do
                 instrumento. A execução precisa dos nós de amarração e o correto sentido de rotação dos eixos evitam
                 perdas de energia vibratória, instabilidades micro-tonais crônicas e danos estruturais no tampo.</p>
 
               <h5>1) Compatibilidade de Carga Estática e Preparação</h5>
               <ul>
-                <li><strong>Dimensionamento de tensão:</strong> Restrinja o uso de jogos de alta ou extra-alta tensão a
-                  instrumentos cujo leque harmônico (<em>bracing system</em>) e tampos foram projetados especificamente
+                <li><strong>Dimensionamento de tensão:</strong> Restrinja o uso de jogos de alta ou extra-alta tensão
+                  a
+                  instrumentos cujo leque harmônico (<em>bracing system</em>) e tampos foram projetados
+                  especificamente
                   para suportar cargas elevadas. Em tampos responsivos ou antigos, adote exclusivamente calibres de
                   tensão leve ou média.</li>
                 <li><strong>Preparação das interfaces de fricção:</strong> Antes de esticar as cordas, limpe as
-                  cavidades internas e os sulcos do rastilho e da pestana. Remova micro-rebarbas cristalizadas de verniz
+                  cavidades internas e os sulcos do rastilho e da pestana. Remova micro-rebarbas cristalizadas de
+                  verniz
                   e aplique uma película seca de grafite microfino de alta pureza (grau 6B a 8B) para mitigar o
                   coeficiente de atrito estático.</li>
               </ul>
@@ -6289,10 +6981,12 @@
                   Posicione a seção terminal livre da corda (chicote) travada por baixo da última volta na face
                   posterior do bloco de amarrar, mitigando o risco de escape e estalos mecânicos.</li>
                 <li><strong>Sistema Moderno de 12 Furos:</strong> Passe a corda pelo canal primário, retorne-a pelo
-                  canal secundário adjacente e trave a extremidade sob o laço. Este método elimina a necessidade de nós
+                  canal secundário adjacente e trave a extremidade sob o laço. Este método elimina a necessidade de
+                  nós
                   volumosos, preserva a integridade estética da madeira e aumenta o ângulo de quebra
                   (<em>break-angle</em>) sobre o topo do rastilho.</li>
-                <li><strong>Furos Passantes e Cavidades com Ball-End:</strong> Insira a corda através do tampo e use nós
+                <li><strong>Furos Passantes e Cavidades com Ball-End:</strong> Insira a corda através do tampo e use
+                  nós
                   de esferas ou travas duplas axiais quando o encordoamento não possuir terminais cilíndricos de
                   fábrica, inspecionando o assentamento interno sob a placa de ponte (<em>bridge plate</em>).</li>
               </ul>
@@ -6300,36 +6994,43 @@
               <h5>3) Orientação Dinâmica de Enrolamento nas Tarraxas</h5>
               <ul>
                 <li><strong>Vetor Descendente (Down-Wind):</strong> Transpasse a extremidade livre pelo orifício do
-                  poste metálico ou fenólitico, realize uma pré-dobra angular rígida de 90° e rotacione o eixo de forma
+                  poste metálico ou fenólitico, realize uma pré-dobra angular rígida de 90° e rotacione o eixo de
+                  forma
                   que as espiras subsequentes acomodem-se em espiral descendente. Esse alinhamento força a corda para
                   baixo, maximizando a pressão vetorial sobre os canais da pestana sem causar pinçamento lateral.</li>
-                <li><strong>Mecânica de Travamento (Lock-Wrap para Aço):</strong> Em filamentos de aço ou núcleos muito
+                <li><strong>Mecânica de Travamento (Lock-Wrap para Aço):</strong> Em filamentos de aço ou núcleos
+                  muito
                   finos, cruze a extremidade livre por baixo do corpo principal da corda antes de iniciar a tração do
                   eixo. Isso cria um laço auto-bloqueante que impede o escorregamento da corda em afinações sob alta
                   carga de tração.</li>
                 <li><strong>Controle de Espiras por Poste:</strong> Limite o número de voltas nos eixos para evitar
-                  sobreposições e emaranhados: adote de 2 a 4 voltas para filamentos poliméricos (nylon/fluorocarbono) e
+                  sobreposições e emaranhados: adote de 2 a 4 voltas para filamentos poliméricos (nylon/fluorocarbono)
+                  e
                   estritamente de 1 a 2 voltas completas para cordas de liga de aço.</li>
               </ul>
 
               <h5>4) Ciclo de Tensionamento Progressivo e Assentamento</h5>
               <ul>
                 <li><strong>Ordem de tracionamento simétrico:</strong> Eleve a tensão do jogo seguindo uma sequência
-                  alternada (ex: 6ª → 1ª → 5ª → 2ª) em pequenos incrementos lineares. Essa distribuição impede a torção
+                  alternada (ex: 6ª → 1ª → 5ª → 2ª) em pequenos incrementos lineares. Essa distribuição impede a
+                  torção
                   assimétrica e momentânea do braço ou o deslocamento do cavalete colado.</li>
-                <li><strong>Alívio de acomodação molecular:</strong> Realize leves trações manuais verticais ao longo de
+                <li><strong>Alívio de acomodação molecular:</strong> Realize leves trações manuais verticais ao longo
+                  de
                   toda a extensão útil da corda entre as etapas de afinação, acomodando os nós e acelerando a
                   estabilização elástica do material.</li>
               </ul>
 
               <p class="callout" data-instruments="vcl">
                 <strong>Violão Clássico:</strong> Filamentos puros de nylon polimérico exigem entre 24 e 72 horas de
-                tração contínua para atingir a estabilização plástica completa de sua estrutura interna. O uso da laçada
+                tração contínua para atingir a estabilização plástica completa de sua estrutura interna. O uso da
+                laçada
                 dupla nas primas é indispensável para evitar que a corda deslize e chicoteie o tampo.
               </p>
               <p class="callout" data-instruments="vla">
                 <strong>Viola Caipira:</strong> Sendo um sistema composto por 5 ordens duplas de aço de alta pressão,
-                utilize obrigatoriamente a técnica de <em>lock-wrap</em> nos postes metálicos. Suba a afinação de forma
+                utilize obrigatoriamente a técnica de <em>lock-wrap</em> nos postes metálicos. Suba a afinação de
+                forma
                 lenta e integrada para resguardar a junta colada do cavalete contra cisalhamentos súbitos.
               </p>
               <p class="callout" data-instruments="cav">
@@ -6344,16 +7045,20 @@
                 absoluto.
               </p>
               <p class="callout" data-instruments="vcl vla cav uku">
-                <strong>Ângulos Críticos de Quebra:</strong> Monitore visualmente se os filamentos mantêm uma angulação
-                livre e limpa de contato entre as cristas do rastilho/pestana e seus pontos de amarração. A corda nunca
-                deve encostar fisicamente nas superfícies de madeira do tampo ou do headstock após ultrapassar os pontos
+                <strong>Ângulos Críticos de Quebra:</strong> Monitore visualmente se os filamentos mantêm uma
+                angulação
+                livre e limpa de contato entre as cristas do rastilho/pestana e seus pontos de amarração. A corda
+                nunca
+                deve encostar fisicamente nas superfícies de madeira do tampo ou do headstock após ultrapassar os
+                pontos
                 zero de apoio.
               </p>
 
               <h5>Diagnóstico Técnico Preventivo</h5>
               <ul>
                 <li><strong>Inspeção Pós-Carga:</strong> Após estabilizar a afinação nominal do instrumento, examine
-                  minuciosamente com um espelho de inspeção luthier o comportamento do bloco de amarrar e a estabilidade
+                  minuciosamente com um espelho de inspeção luthier o comportamento do bloco de amarrar e a
+                  estabilidade
                   da colagem do cavalete, certificando-se de que não há micro-frestas de descolamento causadas pelo
                   estiramento inicial.</li>
               </ul>
@@ -6578,9 +7283,11 @@
 
             <div class="detail" id="d-reg1">
 
-              <p>As cordas já foram instaladas e o instrumento está na afinação de trabalho. Agora é hora de realizar um
+              <p>As cordas já foram instaladas e o instrumento está na afinação de trabalho. Agora é hora de realizar
+                um
                 ajuste
-                fino para verificação da ação das cordas e garantir que o instrumento está na condição ideal para o seu
+                fino para verificação da ação das cordas e garantir que o instrumento está na condição ideal para o
+                seu
                 uso.</p>
 
               <ul>
@@ -6592,7 +7299,8 @@
               </button>
 
               <p>Se necessário, ajuste a ação das cordas da seguinte forma:</p>
-              <ul <li>Lixe a base do rastilho em etapas muito pequenas (taco plano), conferindo a cada ajuste.</li>
+              <ul>
+                <li>Lixe a base do rastilho em etapas muito pequenas (taco plano), conferindo a cada ajuste.</li>
                 <li>Revise a pestana se houver desconforto nas 1–3 primeiras casas (teste da “3ª casa”).</li>
                 <li>Cheque leve <em>relief</em> por volta da 7ª (folga mínima ao pressionar 1ª e última casa).</li>
               </ul>
@@ -6604,7 +7312,8 @@
                 traste: ação-alvo típica 1.5-3.0&nbsp;mm
               </p>
               <p class="callout" data-instruments="vla">
-                <strong>Viola:</strong> Primeiro traste: ação-alvo típica 0.8 – 2.0 &nbsp;mm <br>Decimo Segundo traste:
+                <strong>Viola:</strong> Primeiro traste: ação-alvo típica 0.8 – 2.0 &nbsp;mm <br>Decimo Segundo
+                traste:
                 ação-alvo típica 2.5 – 4.5&nbsp;mm
               </p>
               <p class="callout" data-instruments="cav">
@@ -6985,8 +7694,8 @@
   <script src="./js/step16-measures-presets.v3.js?v=20260421-1"></script>
   <script src="./js/step17-measures-model-presets.js?v=20260816-1"></script>
   <script src="./js/step26-scale-width-math.js?v=20260824-3"></script>
-  <script src="./js/step26-scale-width.js?v=20260824-3"></script>
-  <script src="./js/step25-measures-figure-modal.js?v=20260824-1"></script>
+  <script src="./js/step26-scale-width.js?v=20260825-1"></script>
+  <script src="./js/step25-measures-figure-modal.js?v=20260825-1"></script>
   <script src="./js/step16-range-support.js"></script>
   <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
   <script src="./js/step17-measures-instrumentos.js"></script>
@@ -7016,7 +7725,7 @@
   <!-- Versao global do app/SW (ajuste em todo deploy).
        Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
   <script>
-    window.__APP_VERSION = '20260824-1';
+    window.__APP_VERSION = '20260825-1';
     window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
   </script>
 
