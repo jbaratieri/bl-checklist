@@ -25,8 +25,73 @@
   display: block;
 }
 
-.plant-wrapper .tuning-table-wrap {
-  max-width: 500px;
+.plant-cross-section {
+  margin: 16px 0 8px;
+  padding-top: 8px;
+  border-top: 1px solid #e9d7bf;
+}
+
+.plant-cross-hint {
+  margin: 0 0 10px;
+  font-size: 0.86rem;
+  color: #6b543d;
+  opacity: 0.9;
+}
+
+.plant-cross-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.plant-cross-card {
+  border: 1px solid #e9d7bf;
+  border-radius: 10px;
+  background: #fff;
+  padding: 10px;
+}
+
+.plant-cross-card h5 {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: #5c3b1e;
+}
+
+.plant-cross-canvas {
+  width: 100% !important;
+  height: 140px !important;
+  display: block;
+  background: #faf7f2;
+  border-radius: 6px;
+}
+
+.plant-cross-meta {
+  margin-top: 8px;
+  font-size: 0.84rem;
+  color: #3a2d1c;
+  line-height: 1.45;
+  display: grid;
+  gap: 2px;
+}
+
+.plant-cross-muted {
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+.plant-cross-warn {
+  color: #7a5310;
+  background: #fff7e8;
+  border: 1px solid #e2c48a;
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: inline-block;
+}
+
+@media (max-width: 700px) {
+  .plant-cross-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================

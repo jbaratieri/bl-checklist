@@ -37,11 +37,18 @@
     cav: ['aco'],
     uku: ['nylon']
   };
-  const STRING_COUNT_BY_INST = {
-    vcl: ['6', '7'],
-    vla: ['10'],
-    cav: ['4'],
-    uku: ['4']
+  /** Sugestão típica — o campo #job-string-count é livre e obrigatório. */
+  const SUGGESTED_STRING_COUNT_BY_INST = {
+    vcl: '6',
+    vla: '10',
+    cav: '4',
+    uku: '4'
+  };
+  const STRING_COUNT_HINT_BY_INST = {
+    vcl: 'Obrigatório. Ex.: 6 ou 7.',
+    vla: 'Obrigatório. Ex.: 10 (5 pares). Espaçamento calculado por pares.',
+    cav: 'Obrigatório. Ex.: 4 (ou 5, se for o caso).',
+    uku: 'Obrigatório. Ex.: 4.'
   };
   const BRACING_BY_INST = {
     vcl: [
@@ -162,12 +169,12 @@
     if (!selType || !selCount || !selBracing) return;
 
     const typeOptions = STRING_TYPE_BY_INST[inst] || ['aco', 'nylon'];
-    const countOptions = STRING_COUNT_BY_INST[inst] || ['6'];
     const bracingOptions = BRACING_BY_INST[inst] || [{ value: 'custom', label: 'Custom' }];
     const modelOptions = MODEL_BY_INST[inst] || [{ value: 'personalizado', label: 'Personalizado' }];
+    const suggestedCount = SUGGESTED_STRING_COUNT_BY_INST[inst] || '6';
+    const countHint = STRING_COUNT_HINT_BY_INST[inst] || STRING_COUNT_HINT_BY_INST.vcl;
 
     populateSelectOptions(selType, typeOptions, 'Selecione');
-    populateSelectOptions(selCount, countOptions, 'Selecione');
     populateSelectOptions(selBracing, bracingOptions, 'Selecione');
     if (selModel) populateSelectOptions(selModel, modelOptions, 'Selecione');
     selBracing.value = normalizeBracingValue(selBracing.value);
@@ -176,9 +183,6 @@
     if (!typeOptions.includes(selType.value)) {
       selType.value = typeOptions[0] || '';
     }
-    if (!countOptions.includes(selCount.value)) {
-      selCount.value = countOptions[0] || '';
-    }
     if (!bracingOptions.some(function (o) { return (o.value || o) === selBracing.value; })) {
       selBracing.value = (bracingOptions[0] && bracingOptions[0].value) || '';
     }
@@ -186,12 +190,26 @@
       selModel.value = '';
     }
 
+    // Nº de cordas: campo livre (nunca desabilitado). Sugere padrão só se estiver vazio.
+    selCount.disabled = false;
+    selCount.removeAttribute('disabled');
+    selCount.setAttribute('required', 'required');
+    selCount.setAttribute('min', '2');
+    selCount.setAttribute('max', '18');
+    selCount.setAttribute('step', '1');
+    selCount.placeholder = 'Ex.: ' + suggestedCount;
+    selCount.title = countHint;
+    if (!String(selCount.value || '').trim()) {
+      selCount.value = suggestedCount;
+      try { selCount.dispatchEvent(new Event('input', { bubbles: true })); } catch (_) {}
+      try { selCount.dispatchEvent(new Event('change', { bubbles: true })); } catch (_) {}
+    }
+    const hintEl = getEl('job-string-count-hint');
+    if (hintEl) hintEl.textContent = countHint;
+
     const singleType = typeOptions.length === 1;
-    const singleCount = countOptions.length === 1;
     selType.disabled = singleType;
-    selCount.disabled = singleCount;
     selType.title = singleType ? 'Padrão para este instrumento.' : '';
-    selCount.title = singleCount ? 'Padrão para este instrumento.' : '';
     applyScaleGuidance(inst);
   }
   function applyScaleGuidance(inst) {
@@ -694,6 +712,8 @@
       if (!val('job-acoustic-type')) return true;
       if (!val('job-string-type')) return true;
       if (!val('job-string-count')) return true;
+      var nStrings = Number(String(val('job-string-count')).replace(',', '.'));
+      if (!Number.isFinite(nStrings) || nStrings < 2) return true;
       var br = val('job-bracing-system');
       if (!br) return true;
       if (br === 'custom' && !val('job-bracing-custom-name')) return true;

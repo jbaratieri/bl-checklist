@@ -174,6 +174,57 @@
       '</div>';
   }
 
+  function buildScaleWidthSection(preset) {
+    if (!window.BL_SCALE_WIDTH || typeof window.BL_SCALE_WIDTH.summaryRows !== 'function') {
+      return '';
+    }
+    try {
+      if (typeof window.BL_SCALE_WIDTH.ensureDefaults === 'function') {
+        window.BL_SCALE_WIDTH.ensureDefaults({ onlyEmpty: true });
+      }
+      if (typeof window.BL_SCALE_WIDTH.recalculate === 'function') {
+        window.BL_SCALE_WIDTH.recalculate();
+      }
+    } catch (_) {}
+
+    var margin = readField('escala.margem_corda');
+    var bridge = readField('escala.distanciamento_furos_cavalete');
+    var refMargin = (preset && preset.values && preset.values['escala.margem_corda']) || '3.5';
+    var refBridge = (preset && preset.values && preset.values['escala.distanciamento_furos_cavalete']) || '—';
+    var rows = window.BL_SCALE_WIDTH.summaryRows() || [];
+    var derived = rows.map(function (r) {
+      return '<tr>' +
+        '<td class="mm-td-name" data-label="Medida">' + escapeHtml(r.label) + '</td>' +
+        '<td class="mm-td-ref" data-label="Origem">' + escapeHtml(r.origin) + '</td>' +
+        '<td class="mm-td-value" data-label="Valor">' + escapeHtml(r.value) + ' mm</td>' +
+      '</tr>';
+    }).join('');
+
+    return '' +
+      '<div class="mm-scale-width">' +
+        '<h4 class="mm-scale-width-title">Geometria da escala (paramétrica)</h4>' +
+        '<p class="mm-hint">Largura física = espaçamento das cordas externas + 2 × margem. Margem constante em toda a escala.</p>' +
+        '<div class="mm-scale-width-inputs">' +
+          '<label>Margem corda → borda (mm)' +
+            '<input type="text" inputmode="decimal" class="mm-table-input" data-mm-bind="escala.margem_corda" value="' +
+              escapeHtml(margin) + '" aria-label="Margem da corda à borda">' +
+            '<small>Ref. modelo: ' + escapeHtml(refMargin) + '</small>' +
+          '</label>' +
+          '<label>Distanciamento furos do cavalete (mm)' +
+            '<input type="text" inputmode="decimal" class="mm-table-input" data-mm-bind="escala.distanciamento_furos_cavalete" value="' +
+              escapeHtml(bridge) + '" aria-label="Distanciamento dos furos do cavalete">' +
+            '<small>Ref. modelo: ' + escapeHtml(String(refBridge)) + '</small>' +
+          '</label>' +
+        '</div>' +
+        '<div class="mm-table-wrap">' +
+          '<table class="measures-table mm-table mm-table--derived">' +
+            '<thead><tr><th>Medida</th><th>Origem</th><th>Valor</th></tr></thead>' +
+            '<tbody>' + derived + '</tbody>' +
+          '</table>' +
+        '</div>' +
+      '</div>';
+  }
+
   function buildTablePanel(preset) {
     var rows = hotspots().map(function (hs) {
       var current = readField(hs.bind);
@@ -198,7 +249,8 @@
           '<tbody>' + rows + '</tbody>' +
         '</table>' +
         (preset && preset.note ? '<p class="mm-note">' + escapeHtml(preset.note) + '</p>' : '') +
-      '</div>';
+      '</div>' +
+      buildScaleWidthSection(preset);
   }
 
   function renderBody(m) {
@@ -240,6 +292,9 @@
         writeField(hs.bind, input.value);
         var btn = m.querySelector('.mm-hotspot[data-mm-hotspot="' + hs.id + '"]');
         if (btn) btn.classList.toggle('is-filled', !!String(input.value || '').trim());
+        if (window.BL_SCALE_WIDTH && typeof window.BL_SCALE_WIDTH.recalculate === 'function') {
+          window.BL_SCALE_WIDTH.recalculate();
+        }
       });
     }
     var useRef = $('#mmUseRef', m);
@@ -251,6 +306,9 @@
         var ref = preset.values[hs.bind];
         if (ref == null || ref === '') return;
         writeField(hs.bind, ref);
+        if (window.BL_SCALE_WIDTH && typeof window.BL_SCALE_WIDTH.recalculate === 'function') {
+          window.BL_SCALE_WIDTH.recalculate();
+        }
         refreshEditorOnly(m);
       });
     }
@@ -274,6 +332,9 @@
       }
       if (writeField(bind, next)) applied += 1;
     });
+    if (window.BL_SCALE_WIDTH && typeof window.BL_SCALE_WIDTH.afterPresetApply === 'function') {
+      window.BL_SCALE_WIDTH.afterPresetApply();
+    }
     return { applied: applied, skipped: skipped };
   }
 
@@ -295,6 +356,9 @@
     $$('.mm-table-input', m).forEach(function (inp) {
       inp.addEventListener('input', function () {
         writeField(inp.getAttribute('data-mm-bind'), inp.value);
+        if (window.BL_SCALE_WIDTH && typeof window.BL_SCALE_WIDTH.recalculate === 'function') {
+          window.BL_SCALE_WIDTH.recalculate();
+        }
       });
     });
 

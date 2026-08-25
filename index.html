@@ -43,7 +43,7 @@
   <!-- Componentes (camada components/pages) -->
   <link rel="stylesheet" href="./css/instrument-badge.css" />
   <link rel="stylesheet" href="./css/measures-presets.css?v=20260421-1" />
-  <link rel="stylesheet" href="./css/step25-measures-figure.css?v=20260815-3" />
+  <link rel="stylesheet" href="./css/step25-measures-figure.css?v=20260824-1" />
   <link rel="stylesheet" href="./css/measures-block.css" />
   <link rel="stylesheet" href="./css/images-thumbs.css" />
   <link rel="stylesheet" href="./css/wood-catalog.css" />
@@ -55,7 +55,7 @@
   <link rel="stylesheet" href="./css/buttons.css">
   <!-- Responsividade global (carregar por ultimo) -->
   <link rel="stylesheet" href="./css/responsive.css">
-  <link rel="stylesheet" href="./css/prancheta.css?v=20260421-1">
+  <link rel="stylesheet" href="./css/prancheta.css?v=20260824-1">
 
 </head>
 
@@ -207,9 +207,9 @@
               </select>
             </label>
             <label>Número de cordas
-              <select class="persist" id="job-string-count">
-                <option value="">Selecione</option>
-              </select>
+              <input class="persist" id="job-string-count" type="number" inputmode="numeric"
+                min="2" max="18" step="1" required placeholder="Ex.: 6">
+              <small id="job-string-count-hint" style="opacity:.75">Obrigatório.</small>
             </label>
             <label>Sistema de leque harmônico
               <select class="persist" id="job-bracing-system">
@@ -4945,12 +4945,58 @@
                 Largura Nut (mm):
                 <input class="persist" id="escala-largura-nut-sec08" type="number" step="0.1"
                   data-measure="escala.largura_nut" placeholder="">
+                <small style="opacity:.75">Espelha a largura do braço no nut (fonte oficial na seção Braço).</small>
+              </label>
+
+              <label>
+                Margem corda → borda (mm):
+                <input class="persist" id="escala-margem-corda" type="number" step="0.1" min="0"
+                  data-measure="escala.margem_corda" placeholder="3.5" value="">
+                <small style="opacity:.75">Padrão 3,5 mm de cada lado (constante ao longo da escala).</small>
+              </label>
+
+              <label>
+                Distanciamento furos do cavalete (mm):
+                <input class="persist" id="escala-dist-furos-cavalete" type="number" step="0.1" min="0"
+                  data-measure="escala.distanciamento_furos_cavalete" placeholder="">
+                <small style="opacity:.75">Entre centros da 1ª e última corda no cavalete (default por modelo).</small>
+              </label>
+
+              <label>
+                Distanciamento cordas no nut (mm):
+                <input id="escala-dist-cordas-nut" type="text" inputmode="decimal"
+                  data-measure="escala.distanciamento_cordas_nut" readonly tabindex="-1" class="is-calculated"
+                  placeholder="Calculado">
+                <small style="opacity:.75">1ª↔última corda. Calculado: largura do nut − 2 × margem.</small>
+              </label>
+
+              <label>
+                <span id="escala-espaco-entre-cordas-label">Distanciamento entre cordas no nut (mm):</span>
+                <input id="escala-espaco-entre-cordas-nut" type="text" inputmode="decimal"
+                  data-measure="escala.espacamento_entre_cordas_nut" readonly tabindex="-1" class="is-calculated"
+                  placeholder="Calculado">
+                <small id="escala-espacamento-entre-cordas-hint" style="opacity:.75">Entre centros adjacentes. Calculado: (1ª↔última) ÷ (nº cordas − 1).</small>
               </label>
 
               <label>
                 Largura Casa 12 (mm):
                 <input class="persist" id="escala-largura-casa12-sec08" type="number" step="0.1"
                   data-measure="escala.largura_casa12" placeholder="">
+                <small style="opacity:.75">Atualizado automaticamente pela geometria da escala.</small>
+              </label>
+
+              <label>
+                Largura Casa 14 (mm):
+                <input id="escala-largura-casa14" type="text" inputmode="decimal"
+                  data-measure="escala.largura_casa14" readonly tabindex="-1" class="is-calculated"
+                  placeholder="Calculado">
+              </label>
+
+              <label>
+                Largura Casa 19 (mm):
+                <input id="escala-largura-casa19" type="text" inputmode="decimal"
+                  data-measure="escala.largura_casa19" readonly tabindex="-1" class="is-calculated"
+                  placeholder="Calculado">
               </label>
             </div>
           </div>
@@ -6938,13 +6984,15 @@
   <!-- Medidas & presets (dependem do instrumento) -->
   <script src="./js/step16-measures-presets.v3.js?v=20260421-1"></script>
   <script src="./js/step17-measures-model-presets.js?v=20260816-1"></script>
-  <script src="./js/step25-measures-figure-modal.js?v=20260815-4"></script>
+  <script src="./js/step26-scale-width-math.js?v=20260824-3"></script>
+  <script src="./js/step26-scale-width.js?v=20260824-3"></script>
+  <script src="./js/step25-measures-figure-modal.js?v=20260824-1"></script>
   <script src="./js/step16-range-support.js"></script>
   <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
   <script src="./js/step17-measures-instrumentos.js"></script>
   <script src="./js/step16-tuning-modal.js?v=20260421-1"></script>
   <script src="./js/step16-action-modal.js?v=20260421-1"></script>
-  <script src="./js/step16-plant-generator.js?v=20260808-2"></script>
+  <script src="./js/step16-plant-generator.js?v=20260824-2"></script>
 
 
 
@@ -6968,7 +7016,7 @@
   <!-- Versao global do app/SW (ajuste em todo deploy).
        Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
   <script>
-    window.__APP_VERSION = '20260816-1';
+    window.__APP_VERSION = '20260824-1';
     window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
   </script>
 
@@ -6979,7 +7027,7 @@
   <script src="./js/backup-restore.v1.js"></script>
 
   <!-- Painel (usa BackupRestore) -->
-  <script src="./js/step22-project-panel.js?v=20260808-1"></script>
+  <script src="./js/step22-project-panel.js?v=20260824-3"></script>
   <!-- Impressão da ficha do projeto (#btnPrint) -->
   <script src="./js/step24-print-project.js?v=20260808-2"></script>
 

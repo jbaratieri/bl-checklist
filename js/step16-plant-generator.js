@@ -275,6 +275,335 @@
   }
 
   // ----------------------
+  // CROQUIS TRANSVERSAIS (nut + cavalete) — só leitura da geometria do projeto
+  // ----------------------
+  function readFieldByBind(bind) {
+    if (window.BL_MEASURE_PRESET_API && typeof BL_MEASURE_PRESET_API.resolveField === 'function') {
+      const el = BL_MEASURE_PRESET_API.resolveField(bind);
+      return el && 'value' in el ? String(el.value || '').trim() : '';
+    }
+    if (!bind) return '';
+    if (bind.indexOf('.') === -1) {
+      const el = document.getElementById(bind);
+      return el && 'value' in el ? String(el.value || '').trim() : '';
+    }
+    const el = document.querySelector('[data-measure="' + bind + '"]');
+    return el && 'value' in el ? String(el.value || '').trim() : '';
+  }
+
+  function getScaleWidthSnapshot() {
+    const math = window.BL_SCALE_WIDTH_MATH;
+    if (!math) return { ok: false, reason: 'missing_math' };
+
+    const nutWidth = readFieldByBind('braco.largura_nut') || readFieldByBind('escala.largura_nut');
+    const margin = readFieldByBind('escala.margem_corda') || String(math.DEFAULT_MARGIN_MM);
+    const bridge = readFieldByBind('escala.distanciamento_furos_cavalete');
+    const stringCount = readFieldByBind('job-string-count');
+    let spacingMode = 'strings';
+    if (window.BL_SCALE_WIDTH && typeof BL_SCALE_WIDTH.currentSpacingMode === 'function') {
+      spacingMode = BL_SCALE_WIDTH.currentSpacingMode();
+    } else if ((window.BL_INSTRUMENT && BL_INSTRUMENT.get && BL_INSTRUMENT.get()) === 'vla') {
+      spacingMode = 'pairs';
+    }
+
+    if (!nutWidth) return { ok: false, reason: 'missing_nut', nutWidth, margin, bridge, stringCount, spacingMode };
+    if (!bridge) return { ok: false, reason: 'missing_bridge', nutWidth, margin, bridge, stringCount, spacingMode };
+    if (!stringCount) return { ok: false, reason: 'missing_strings', nutWidth, margin, bridge, stringCount, spacingMode };
+
+    const geo = math.computeScaleGeometry(nutWidth, margin, bridge, [0, 12], stringCount, { spacingMode });
+    if (!geo || !geo.ok) {
+      return {
+        ok: false,
+        reason: (geo && geo.error) || 'invalid_geometry',
+        nutWidth,
+        margin,
+        bridge,
+        stringCount,
+        spacingMode,
+        geo
+      };
+    }
+    if (!Number.isFinite(geo.adjacentStringSpacingNut)) {
+      const adjReason = spacingMode === 'pairs' && Number(stringCount) % 2 !== 0
+        ? 'odd_pairs'
+        : 'missing_adjacent';
+      return { ok: false, reason: adjReason, nutWidth, margin, bridge, stringCount, spacingMode, geo };
+    }
+    return { ok: true, reason: null, nutWidth, margin, bridge, stringCount, spacingMode, geo };
+  }
+
+  function incompleteMessage(reason) {
+    const map = {
+      missing_math: 'Módulo de geometria da escala indisponível.',
+      missing_nut: 'Informe a largura do braço no nut (Medidas).',
+      missing_bridge: 'Informe o distanciamento dos furos do cavalete (Medidas).',
+      missing_strings: 'Informe o número de cordas (Dados do projeto).',
+      missing_adjacent: 'Não foi possível calcular o espaçamento entre cordas.',
+      odd_pairs: 'Viola: informe nº par de cordas (ex.: 10 = 5 pares).',
+      odd_string_count_for_pairs: 'Viola: informe nº par de cordas (ex.: 10 = 5 pares).',
+      margin_too_large: 'Margem inválida em relação à largura do nut.',
+      invalid_geometry: 'Complete os dados em Medidas para ver o croqui.'
+    };
+    return map[reason] || map.invalid_geometry;
+  }
+
+  function drawEmptySketch(canvas, message) {
+    const ctx = resizeCanvas(canvas);
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+    ctx.fillStyle = '#f3ebe0';
+    ctx.fillRect(0, 0, w, h);
+    ctx.strokeStyle = '#d7c4a8';
+    ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
+    ctx.fillStyle = '#7a6248';
+    ctx.font = '12px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    const lines = String(message || '').split('\n');
+    lines.forEach((line, i) => {
+      ctx.fillText(line, w / 2, h / 2 + (i - (lines.length - 1) / 2) * 16);
+    });
+    ctx.textAlign = 'start';
+    ctx.textBaseline = 'alphabetic';
+  }
+
+  function stringCenters(count, totalOuter, midX) {
+    const n = Number(count);
+    const total = Number(totalOuter);
+    if (!(n >= 2) || !Number.isFinite(total) || total <= 0) return [];
+    const start = midX - total / 2;
+    const step = total / (n - 1);
+    const pts = [];
+    for (let i = 0; i < n; i++) pts.push(start + i * step);
+    return pts;
+  }
+
+  function drawPairMark(ctx, x, y) {
+    ctx.beginPath();
+    ctx.arc(x - 3, y, 2.2, 0, Math.PI * 2);
+    ctx.arc(x + 3, y, 2.2, 0, Math.PI * 2);
+    ctx.fillStyle = '#1a1a1a';
+    ctx.fill();
+  }
+
+  function drawNutSketch(canvas, snap) {
+    if (!snap || !snap.ok) {
+      drawEmptySketch(canvas, incompleteMessage(snap && snap.reason));
+      return;
+    }
+    const geo = snap.geo;
+    const math = window.BL_SCALE_WIDTH_MATH;
+    const ctx = resizeCanvas(canvas);
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const pad = 28;
+    const nutW = geo.nutWidth;
+    const usable = w - pad * 2;
+    const scaleX = usable / nutW;
+    const midY = h * 0.42;
+    const barH = Math.min(36, h * 0.28);
+    const left = pad;
+    const right = pad + nutW * scaleX;
+    const midX = (left + right) / 2;
+    const byPairs = geo.spacingMode === 'pairs';
+    const unitCount = Number.isFinite(geo.unitCount) ? geo.unitCount : geo.stringCount;
+
+    // corpo da escala/nut
+    ctx.fillStyle = '#f7f0e6';
+    ctx.strokeStyle = '#8a623f';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.rect(left, midY - barH / 2, right - left, barH);
+    ctx.fill();
+    ctx.stroke();
+
+    // margens
+    const mPx = geo.margin * scaleX;
+    ctx.setLineDash([4, 3]);
+    ctx.strokeStyle = '#2f6f3e';
+    ctx.beginPath();
+    ctx.moveTo(left + mPx, midY - barH / 2 - 6);
+    ctx.lineTo(left + mPx, midY + barH / 2 + 6);
+    ctx.moveTo(right - mPx, midY - barH / 2 - 6);
+    ctx.lineTo(right - mPx, midY + barH / 2 + 6);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // cordas ou centros de pares
+    const centers = stringCenters(unitCount, geo.nutStringSpacing * scaleX, midX);
+    centers.forEach((x, i) => {
+      if (byPairs) {
+        drawPairMark(ctx, x, midY);
+      } else {
+        ctx.beginPath();
+        ctx.arc(x, midY, i === 0 || i === centers.length - 1 ? 3.2 : 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = '#1a1a1a';
+        ctx.fill();
+      }
+    });
+
+    // cota margem
+    ctx.fillStyle = '#2f6f3e';
+    ctx.font = '11px Arial';
+    ctx.fillText('m ' + math.formatMm(geo.margin, 1), left + 2, midY - barH / 2 - 10);
+
+    // cota total 1ª↔última
+    const outerLeft = midX - (geo.nutStringSpacing * scaleX) / 2;
+    const outerRight = midX + (geo.nutStringSpacing * scaleX) / 2;
+    const cotY = midY + barH / 2 + 18;
+    ctx.strokeStyle = '#444';
+    ctx.beginPath();
+    ctx.moveTo(outerLeft, cotY);
+    ctx.lineTo(outerRight, cotY);
+    ctx.moveTo(outerLeft, cotY - 4);
+    ctx.lineTo(outerLeft, cotY + 4);
+    ctx.moveTo(outerRight, cotY - 4);
+    ctx.lineTo(outerRight, cotY + 4);
+    ctx.stroke();
+    ctx.fillStyle = '#333';
+    ctx.textAlign = 'center';
+    ctx.fillText('1ª↔última ' + math.formatMm(geo.nutStringSpacing, 2) + ' mm', midX, cotY + 14);
+    ctx.textAlign = 'start';
+  }
+
+  function drawBridgeSketch(canvas, snap) {
+    if (!snap || !snap.ok) {
+      drawEmptySketch(canvas, incompleteMessage(snap && snap.reason));
+      return;
+    }
+    const geo = snap.geo;
+    const math = window.BL_SCALE_WIDTH_MATH;
+    const ctx = resizeCanvas(canvas);
+    const rect = canvas.getBoundingClientRect();
+    const w = rect.width;
+    const h = rect.height;
+    ctx.clearRect(0, 0, w, h);
+
+    const pad = 28;
+    const total = geo.bridgeStringSpacing;
+    const physical = total + 2 * geo.margin;
+    const usable = w - pad * 2;
+    const scaleX = usable / physical;
+    const midY = h * 0.42;
+    const barH = Math.min(28, h * 0.22);
+    const left = pad;
+    const right = pad + physical * scaleX;
+    const midX = (left + right) / 2;
+    const byPairs = geo.spacingMode === 'pairs';
+    const unitCount = Number.isFinite(geo.unitCount) ? geo.unitCount : geo.stringCount;
+
+    // bloco do cavalete
+    ctx.fillStyle = '#efe4d4';
+    ctx.strokeStyle = '#8a623f';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.rect(left, midY - barH / 2, right - left, barH);
+    ctx.fill();
+    ctx.stroke();
+
+    // furos / pares
+    const centers = stringCenters(unitCount, total * scaleX, midX);
+    centers.forEach((x, i) => {
+      if (byPairs) {
+        ctx.beginPath();
+        ctx.arc(x - 3.2, midY, 2.4, 0, Math.PI * 2);
+        ctx.arc(x + 3.2, midY, 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      } else {
+        ctx.beginPath();
+        ctx.arc(x, midY, i === 0 || i === centers.length - 1 ? 3.4 : 2.6, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+        ctx.strokeStyle = '#111';
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+      }
+    });
+
+    // cota total furos
+    const outerLeft = midX - (total * scaleX) / 2;
+    const outerRight = midX + (total * scaleX) / 2;
+    const cotY = midY + barH / 2 + 18;
+    ctx.strokeStyle = '#444';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(outerLeft, cotY);
+    ctx.lineTo(outerRight, cotY);
+    ctx.moveTo(outerLeft, cotY - 4);
+    ctx.lineTo(outerLeft, cotY + 4);
+    ctx.moveTo(outerRight, cotY - 4);
+    ctx.lineTo(outerRight, cotY + 4);
+    ctx.stroke();
+    ctx.fillStyle = '#333';
+    ctx.font = '11px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText(
+      (byPairs ? 'pares 1ª↔última ' : 'furos 1ª↔última ') + math.formatMm(total, 2) + ' mm',
+      midX,
+      cotY + 14
+    );
+    ctx.textAlign = 'start';
+  }
+
+  function fillCrossMeta(el, snap, kind) {
+    if (!el) return;
+    if (!snap || !snap.ok) {
+      el.innerHTML = '<span class="plant-cross-warn">' + incompleteMessage(snap && snap.reason) + '</span>';
+      return;
+    }
+    const math = window.BL_SCALE_WIDTH_MATH;
+    const geo = snap.geo;
+    const byPairs = geo.spacingMode === 'pairs';
+    if (kind === 'nut') {
+      const adjLabel = byPairs ? 'Entre pares:' : 'Entre cordas:';
+      const unitNote = byPairs
+        ? '(' + geo.stringCount + ' cordas → ' + geo.pairCount + ' pares, ' + geo.adjacentGaps + ' intervalos)'
+        : '(' + geo.stringCount + ' cordas, ' + geo.adjacentGaps + ' intervalos)';
+      el.innerHTML =
+        '<div><strong>Largura:</strong> ' + math.formatMm(geo.nutWidth, 1) + ' mm</div>' +
+        '<div><strong>Margem:</strong> ' + math.formatMm(geo.margin, 1) + ' mm (cada lado)</div>' +
+        '<div><strong>1ª↔última:</strong> ' + math.formatMm(geo.nutStringSpacing, 2) + ' mm</div>' +
+        '<div><strong>' + adjLabel + '</strong> ' + math.formatMm(geo.adjacentStringSpacingNut, 2) +
+        ' mm <span class="plant-cross-muted">' + unitNote + '</span></div>';
+      return;
+    }
+    const adjBridge = math.getAdjacentStringSpacing(
+      geo.bridgeStringSpacing,
+      geo.stringCount,
+      geo.spacingMode
+    );
+    el.innerHTML =
+      '<div><strong>' + (byPairs ? 'Pares 1ª↔última:' : 'Furos 1ª↔última:') + '</strong> ' +
+      math.formatMm(geo.bridgeStringSpacing, 2) + ' mm</div>' +
+      '<div><strong>' + (byPairs ? 'Entre pares:' : 'Entre furos:') + '</strong> ' +
+      (adjBridge.ok ? math.formatMm(adjBridge.value, 2) + ' mm' : '—') +
+      '</div>' +
+      '<div><strong>Largura física ref.:</strong> ' +
+      math.formatMm(geo.bridgeStringSpacing + 2 * geo.margin, 2) +
+      ' mm <span class="plant-cross-muted">(furos + 2×margem)</span></div>';
+  }
+
+  function renderCrossSectionSketches() {
+    const nutCanvas = document.getElementById('plantNutCanvas');
+    const bridgeCanvas = document.getElementById('plantBridgeCanvas');
+    if (!nutCanvas && !bridgeCanvas) return;
+    const snap = getScaleWidthSnapshot();
+    if (nutCanvas) drawNutSketch(nutCanvas, snap);
+    if (bridgeCanvas) drawBridgeSketch(bridgeCanvas, snap);
+    fillCrossMeta(document.getElementById('plantNutMeta'), snap, 'nut');
+    fillCrossMeta(document.getElementById('plantBridgeMeta'), snap, 'bridge');
+  }
+
+  // ----------------------
   // UI
   // ----------------------
   function buildUI() {
@@ -454,6 +783,23 @@
           <tr><td>Junção braço-corpo</td><td>${data.neckJoinFret}º traste (${data.neckJoinPos.toFixed(2)} mm)</td></tr>
         </table>
 
+        <section class="plant-cross-section" aria-label="Geometria transversal do projeto">
+          <h4>Geometria transversal</h4>
+          <p class="plant-cross-hint">Somente visualização — edite em <strong>Medidas</strong> e nos <strong>Dados do projeto</strong>.</p>
+          <div class="plant-cross-grid">
+            <article class="plant-cross-card">
+              <h5>Nut (vista de topo)</h5>
+              <canvas id="plantNutCanvas" class="plant-cross-canvas" width="480" height="140"></canvas>
+              <div id="plantNutMeta" class="plant-cross-meta"></div>
+            </article>
+            <article class="plant-cross-card">
+              <h5>Cavalete (furos)</h5>
+              <canvas id="plantBridgeCanvas" class="plant-cross-canvas" width="480" height="140"></canvas>
+              <div id="plantBridgeMeta" class="plant-cross-meta"></div>
+            </article>
+          </div>
+        </section>
+
         <h4>Régua de construção</h4>
         <table class="measures-table">
           <tr><td>Nut → 12º traste</td><td>${data.halfScale.toFixed(2)} mm</td></tr>
@@ -500,6 +846,7 @@
     requestAnimationFrame(() => {
       const canvas = document.getElementById('plantCanvas');
       if (canvas) drawPlant(canvas, data);
+      renderCrossSectionSketches();
     });
   }
 
@@ -537,6 +884,21 @@
 
     applyProjectContextToPlant();
     render();
+
+    // Atualiza croquis transversais quando a geometria da escala muda no projeto.
+    if (!window.__BL_PLANT_SCALE_WIDTH_HOOKED__) {
+      window.__BL_PLANT_SCALE_WIDTH_HOOKED__ = true;
+      window.addEventListener('bl:scale-width-change', () => {
+        if (document.getElementById('plantNutCanvas') || document.getElementById('plantBridgeCanvas')) {
+          renderCrossSectionSketches();
+        }
+      });
+      window.addEventListener('resize', () => {
+        if (document.getElementById('plantNutCanvas') || document.getElementById('plantBridgeCanvas')) {
+          renderCrossSectionSketches();
+        }
+      });
+    }
   }
 
   // ----------------------
