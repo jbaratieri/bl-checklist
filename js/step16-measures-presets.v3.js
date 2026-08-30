@@ -12,8 +12,9 @@
       inclinacao_headstock: "ex.: 13–15",
       largura_nut: "ex.: 52",
       largura_casa12: "ex.: 62–63",
-      espessura_nut: "ex.: 3.0",
-      espessura_casa10: "ex.: 22–23"
+      espessura_nut: "ex.: 21–22",
+      espessura_casa10: "ex.: 23–24",
+      formato_perfil: "ex.: C / D / Oval"
     },
     tampo: {
       madeira: "ex.: Abeto / Cedro",

@@ -6,6 +6,7 @@
   var INST_NAMES = { vcl: 'Violão', vla: 'Viola', cav: 'Cavaquinho', uku: 'Ukulele' };
   var MEASURE_GROUPS = [
     { title: 'Braço', gridId: 'measures-braco' },
+    { title: 'Moldagem do braço', gridId: 'measures-moldagem' },
     { title: 'Tampo', gridId: 'measures-tampo' },
     { title: 'Fundo', gridId: 'measures-fundo' },
     { title: 'Laterais', gridId: 'measures-laterais' },

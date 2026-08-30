@@ -44,7 +44,7 @@
   <link rel="stylesheet" href="./css/instrument-badge.css" />
   <link rel="stylesheet" href="./css/measures-presets.css?v=20260421-1" />
   <link rel="stylesheet" href="./css/step25-measures-figure.css?v=20260824-1" />
-  <link rel="stylesheet" href="./css/measures-block.css" />
+  <link rel="stylesheet" href="./css/measures-block.css?v=20260830-1" />
   <link rel="stylesheet" href="./css/images-thumbs.css" />
   <link rel="stylesheet" href="./css/wood-catalog.css" />
   <link rel="stylesheet" href="./css/footer.css">
@@ -287,17 +287,18 @@
       <strong>Índice</strong>
       <ul>
         <li><a href="#sec-01">1) Preparação de Materiais</a></li>
-        <li><a href="#sec-02">2) braço / Taco Espanhol &amp; Encaixe do Braço</a></li>
+        <li><a href="#sec-02">2) Preparação do braço / Taco Espanhol &amp; Encaixe</a></li>
         <li><a href="#sec-03">3) Tampo</a></li>
         <li><a href="#sec-04">4) Fundo</a></li>
         <li><a href="#sec-05">5) Laterais (Faixas)</a></li>
         <li><a href="#sec-06">6) Montagem da Caixa</a></li>
         <li><a href="#sec-07">7) Filetes / Binding &amp; Purfling</a></li>
         <li><a href="#sec-08">8) Escala / Trastes</a></li>
-        <li><a href="#sec-09">9) Cavalete</a></li>
-        <li><a href="#sec-10">10) Acabamento (Lixar, Selar, Verniz / Goma-laca)</a></li>
-        <li><a href="#sec-11">11) Montagem Final</a></li>
-        <li><a href="#sec-12">12) Regulagem &amp; Entrega</a></li>
+        <li><a href="#sec-09">9) Moldagem do Braço — Perfil, Tróculo e Junções</a></li>
+        <li><a href="#sec-10">10) Cavalete</a></li>
+        <li><a href="#sec-11">11) Acabamento (Lixar, Selar, Verniz / Goma-laca)</a></li>
+        <li><a href="#sec-12">12) Montagem Final</a></li>
+        <li><a href="#sec-13">13) Regulagem &amp; Entrega</a></li>
       </ul>
     </nav>
     <main id="sections">
@@ -541,7 +542,7 @@
 
       <div class="section" id="sec-02">
         <header>
-          <h3>2) Braço / Taco Espanhol &amp; Encaixe do Braço
+          <h3>2) Preparação do braço / Taco Espanhol &amp; Encaixe
 
           </h3>
           <div class="progress"></div>
@@ -575,18 +576,6 @@
                 Largura na Casa 12 (mm):
                 <input class="persist" id="braco-largura-casa12-sec02" type="number" step="0.1"
                   data-measure="braco.largura_casa12" placeholder="">
-              </label>
-
-              <label>
-                Espessura no Nut (mm):
-                <input class="persist" id="braco-espessura-nut-sec02" type="number" step="0.1"
-                  data-measure="braco.espessura_nut" placeholder="">
-              </label>
-
-              <label>
-                Espessura Casa 10 (mm):
-                <input class="persist" id="braco-espessura-casa10-sec02" type="number" step="0.1"
-                  data-measure="braco.espessura_casa10" placeholder="">
               </label>
             </div>
           </div>
@@ -6084,9 +6073,526 @@
           </div>
         </div>
       </div>
+
+
       <div class="section" id="sec-09">
         <header>
-          <h3>9) Cavalete
+          <h3>9) Moldagem do Braço — Perfil, Tróculo e Junções
+
+          </h3>
+          <div class="progress"></div>
+          <div class="tick">✔</div>
+        </header>
+        <div class="section-body">
+          <div class="measures-block">
+            <button class="btn measures-toggle" type="button" data-target="measures-moldagem">
+              <span class="icon">📏</span>
+              <span class="label">Medidas</span>
+            </button>
+            <div class="measures-grid" id="measures-moldagem" hidden>
+              <label>
+                Espessura Casa 1 (mm):
+                <input class="persist" id="braco-espessura-nut-sec02" type="number" step="0.1"
+                  data-measure="braco.espessura_nut" placeholder="">
+              </label>
+
+              <label>
+                Espessura Casa 9 (mm):
+                <input class="persist" id="braco-espessura-casa10-sec02" type="number" step="0.1"
+                  data-measure="braco.espessura_casa10" placeholder="">
+              </label>
+
+              <label>
+                Formato do perfil:
+                <select class="persist" id="braco-formato-perfil-sec09" data-measure="braco.formato_perfil">
+                  <option value="">Selecione</option>
+                  <option value="C">C</option>
+                  <option value="D">D</option>
+                  <option value="Oval">Oval</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol1 -->
+          <div class="step" data-step="mol1">
+            <input class="chk persist" id="mol1" type="checkbox" />
+            <label class="label" for="mol1">Verificar pré-requisitos para a moldagem final</label>
+            <button class="btn toggle" data-target="d-mol1" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol1">
+
+              <p>A <strong>moldagem final do braço</strong> só deve começar depois que o conjunto está
+                estruturalmente completo: caixa fechada, braço definitivamente unido ao corpo e escala colada
+                sobre o braço. Trabalhar o perfil antes disso arrisca desperdiçar material em uma peça que ainda
+                pode se mover durante as etapas seguintes.</p>
+
+              <h5>Checklist antes de iniciar</h5>
+              <ul class="checklist">
+                <li>☐ Caixa acústica fechada, com filetes/binding da região do calcanhar já concluídos.</li>
+                <li>☐ Braço colado/encaixado definitivamente ao corpo (junção curada conforme o método).</li>
+                <li>☐ Escala colada e nivelada sobre o braço.</li>
+                <li>☐ Linha central ainda visível ao longo do braço; retrace se necessário.</li>
+                <li>☐ Ferramentas em mãos: formão afiado, plaina de espasmo (spokeshave), raspador (scraper),
+                  gabaritos de perfil (réguas flexíveis ou têmplates), paquímetro/calibre de espessura.</li>
+              </ul>
+
+              <p><em>Observação sobre trastes:</em> muitos luthiers preferem moldar o braço <strong>antes</strong>
+                da instalação dos trastes, para não danificar as extremidades durante o desbaste. Se o seu fluxo
+                de trabalho já instalou os trastes, redobre a atenção ao trabalhar próximo às bordas da escala.</p>
+
+              <figure class="tech-figure" data-key="mol1-tech"
+                data-cap="Conjunto pronto para moldagem — caixa fechada, braço unido e escala colada"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Não pule etapas:</strong> qualquer folga, torção ou desalinhamento remanescente das
+                etapas anteriores fica muito mais difícil de corrigir depois que o perfil é desbastado.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol1">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol1">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol1/mol1.json"
+                  data-target="#assets-mol1" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol1"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol1" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol2 -->
+          <div class="step" data-step="mol2">
+            <input class="chk persist" id="mol2" type="checkbox" />
+            <label class="label" for="mol2">Traçar as linhas-guia do perfil</label>
+            <button class="btn toggle" data-target="d-mol2" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol2">
+
+              <p>Antes de tirar qualquer lasca, marque no braço todos os limites que vão guiar o desbaste. Essas
+                linhas evitam remoção excessiva de material e mantêm a simetria entre os dois lados do braço.</p>
+
+              <h5>Marcações necessárias</h5>
+              <ul>
+                <li><strong>Linha de afunilamento:</strong> com régua flexível, trace nas duas laterais a
+                  transição gradual de espessura do headstock até o calcanhar.</li>
+                <li><strong>Linha de ombros (shoulder line):</strong> marque, em toda a extensão, até onde a
+                  escala projeta sobre o braço — essa borda delimita onde o arredondamento do perfil começa.</li>
+                <li><strong>Pontos de espessura-alvo:</strong> marque na lateral do braço as espessuras previstas
+                  na casa 1 e na casa 9 (ver valores de referência por instrumento).</li>
+                <li><strong>Contorno do calcanhar/tróculo:</strong> se disponível, posicione o gabarito (têmplate)
+                  de perfil do calcanhar e risque seu contorno.</li>
+              </ul>
+
+              <p><em>Dica:</em> use lápis de cor diferente para cada tipo de linha (afunilamento, ombro,
+                espessura-alvo) — isso evita confundir marcações durante o desbaste.</p>
+
+              <figure class="tech-figure" data-key="mol2-tech"
+                data-cap="Linhas-guia do perfil — afunilamento, ombros e pontos de espessura"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Simetria primeiro:</strong> confira as marcações dos dois lados encostando o braço contra
+                a luz ou usando um espelho — qualquer assimetria nas linhas se multiplica no resultado final.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol2">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol2">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol2/mol2.json"
+                  data-target="#assets-mol2" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol2"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol2" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol3 -->
+          <div class="step" data-step="mol3">
+            <input class="chk persist" id="mol3" type="checkbox" />
+            <label class="label" for="mol3">Desbaste grosso do perfil</label>
+            <button class="btn toggle" data-target="d-mol3" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol3">
+
+              <p>Com as linhas-guia definidas, remova o excesso de material das quinas do braço para aproximar o
+                perfil final. Esta é a fase de maior remoção — trabalhe com cautela e em pequenos trechos.</p>
+
+              <h5>Passo a passo</h5>
+              <ul>
+                <li>Fixe o instrumento com segurança (suporte de bancada ou apoio estofado), protegendo a caixa e
+                  o verniz/madeira já trabalhados.</li>
+                <li>Com <strong>formão</strong> ou <strong>plaina de espasmo (spokeshave)</strong>, remova as
+                  quinas vivas entre a face superior (colada à escala) e as laterais, respeitando as linhas de
+                  ombro e afunilamento.</li>
+                <li>Trabalhe sempre <strong>a favor da fibra</strong>, avançando do headstock em direção ao
+                  calcanhar em pequenos trechos sobrepostos.</li>
+                <li>Alterne entre os dois lados do braço a cada poucos centímetros, comparando a simetria com
+                  frequência.</li>
+                <li>Pare o desbaste grosso deixando <strong>1–2&nbsp;mm de sobra</strong> sobre as linhas de
+                  espessura-alvo — essa margem será removida no refino (mol7).</li>
+              </ul>
+
+              <figure class="tech-figure" data-key="mol3-tech"
+                data-cap="Desbaste grosso do perfil — remoção das quinas com spokeshave"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Passes curtos e frequentes:</strong> é muito mais fácil corrigir um desbaste insuficiente
+                do que recuperar material removido além da conta. Confira as linhas a cada poucas passadas.
+              </p>
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Sentido da fibra:</strong> se notar arrancamento ou lascamento, inverta o sentido de
+                trabalho — geralmente indica que a ferramenta está cortando contra a fibra.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol3">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol3">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol3/mol3.json"
+                  data-target="#assets-mol3" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol3"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol3" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol4 -->
+          <div class="step" data-step="mol4">
+            <input class="chk persist" id="mol4" type="checkbox" />
+            <label class="label" for="mol4">Moldar a transição mão/braço (voluta)</label>
+            <button class="btn toggle" data-target="d-mol4" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol4">
+
+              <p>A região logo atrás da pestana, onde o headstock encontra o perfil arredondado do braço, forma a
+                <strong>voluta</strong> (ou "colher"). É uma das áreas mais visíveis do instrumento e exige
+                trabalho lento e simétrico.
+              </p>
+
+              <h5>Passo a passo</h5>
+              <ul>
+                <li>Com formão pequeno bem afiado, comece a definir a curva de transição a partir da linha onde o
+                  headstock mantém sua espessura plana até o ponto em que o braço já está arredondado.</li>
+                <li>Trabalhe em cortes curtos e controlados, sempre conferindo a simetria entre os dois lados.</li>
+                <li>Refine com lixa enrolada em bastão de raio adequado, acompanhando a curvatura já formada.</li>
+                <li>Confira a transição visualmente segurando o instrumento na posição de execução — a voluta
+                  deve parecer uma continuação natural do perfil, sem degraus ou facetas visíveis.</li>
+              </ul>
+
+              <figure class="tech-figure" data-key="mol4-tech"
+                data-cap="Voluta — transição entre o headstock plano e o perfil arredondado do braço"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Trabalhe devagar:</strong> essa região concentra troca de fibra em várias direções —
+                prefira muitas passadas leves a poucas passadas profundas.
+              </p>
+              <p class="callout" data-instruments="vcl vla">
+                <strong>Violão/Viola:</strong> se houver reforço central de madeira dura sob a voluta, ele ajuda a
+                evitar lascamento nessa região — trabalhe com atenção redobrada perto da linha de colagem.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol4">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol4">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol4/mol4.json"
+                  data-target="#assets-mol4" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol4"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol4" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol5 -->
+          <div class="step" data-step="mol5">
+            <input class="chk persist" id="mol5" type="checkbox" />
+            <label class="label" for="mol5">Moldar o tróculo/calcanhar final</label>
+            <button class="btn toggle" data-target="d-mol5" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol5">
+
+              <p>Na etapa 2 (sol5), o taco do tróculo foi preparado com uma <strong>sobra proposital</strong> para
+                acomodar a curvatura do fundo abaulado. Agora, com a caixa já fechada, é o momento de desbastar
+                essa sobra e dar ao calcanhar sua forma e altura definitivas.</p>
+
+              <h5>Passo a passo</h5>
+              <ul>
+                <li>Posicione um <strong>gabarito de curvatura do fundo</strong> (têmplate ou régua flexível
+                  calibrada ao raio do abaulamento) encostado à base do calcanhar.</li>
+                <li>Transfira a curva ao calcanhar, marcando o excesso a ser removido.</li>
+                <li>Desbaste em <strong>passadas pequenas</strong> com formão ou raspador, conferindo o encaixe
+                  contra o fundo real do instrumento a cada remoção.</li>
+                <li>Ajuste até que a base do calcanhar acompanhe perfeitamente a curvatura do fundo, sem frestas
+                  visíveis nem pressão desigual.</li>
+                <li>Defina a <strong>altura final</strong> do conjunto tróculo+braço na região do calcanhar
+                  conforme a especificação do projeto.</li>
+              </ul>
+
+              <figure class="tech-figure" data-key="mol5-tech"
+                data-cap="Calcanhar/tróculo — ajuste da sobra à curvatura do fundo abaulado"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Confira contra o fundo real:</strong> gabaritos genéricos ajudam, mas o encaixe final deve
+                ser validado encostando o calcanhar no próprio fundo do instrumento.
+              </p>
+              <p class="callout" data-instruments="vla">
+                <strong>Viola caipira:</strong> por conta da maior tensão total das 10 cordas, garanta apoio pleno
+                em toda a base do calcanhar — qualquer folga tende a se acentuar com o tempo.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol5">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol5">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol5/mol5.json"
+                  data-target="#assets-mol5" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol5"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol5" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol6 -->
+          <div class="step" data-step="mol6">
+            <input class="chk persist" id="mol6" type="checkbox" />
+            <label class="label" for="mol6">Moldar a junção braço/calcanhar com o corpo</label>
+            <button class="btn toggle" data-target="d-mol6" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol6">
+
+              <p>Depois de o calcanhar assentar corretamente no fundo, resta suavizar a transição entre o
+                <strong>braço arredondado</strong> e o <strong>volume do calcanhar</strong>, criando a curva
+                estética que caracteriza o "colo" do instrumento e garantindo conforto de acesso às casas
+                agudas.
+              </p>
+
+              <h5>Passo a passo</h5>
+              <ul>
+                <li>Marque, com lápis, a linha de transição entre o perfil fino do braço e o volume maior do
+                  calcanhar.</li>
+                <li>Desbaste gradualmente essa transição com formão e lixa, evitando qualquer degrau perceptível
+                  ao tato.</li>
+                <li>Confira o acesso às últimas casas passando a mão como se estivesse tocando — a transição não
+                  deve criar obstrução.</li>
+                <li>Em modelos com <em>cutaway</em>, ajuste a curva conforme o desenho específico do corte.</li>
+                <li>Faça um lixamento intermediário (grão 120) nessa região para verificar visualmente a
+                  suavidade da curva antes de seguir ao refino de perfil.</li>
+              </ul>
+
+              <figure class="tech-figure" data-key="mol6-tech"
+                data-cap="Junção braço/calcanhar — suavização da transição e conforto de acesso"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Teste com as mãos:</strong> a melhor verificação dessa etapa não é visual, mas tátil —
+                deslize a mão ao longo de toda a junção procurando qualquer aresta ou desnível.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol6">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol6">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol6/mol6.json"
+                  data-target="#assets-mol6" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol6"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol6" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol7 -->
+          <div class="step" data-step="mol7">
+            <input class="chk persist" id="mol7" type="checkbox" />
+            <label class="label" for="mol7">Refinar o perfil transversal e conferir espessuras</label>
+            <button class="btn toggle" data-target="d-mol7" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol7">
+
+              <p>Com o volume geral já definido, o trabalho passa a ser de <strong>refino</strong>: aproximar o
+                perfil transversal (visto de frente, no corte da seção) da forma escolhida — C, D ou oval — e
+                conferir as espessuras nos pontos-chave com o calibre.</p>
+
+              <h5>Passo a passo</h5>
+              <ul>
+                <li>Meça a espessura atual nas casas 1, 5 e 9 com paquímetro/calibre e compare aos valores-alvo do
+                  projeto.</li>
+                <li>Remova o excedente restante com raspador (scraper) ou lixa em bastão, trabalhando em toda a
+                  extensão para manter a transição suave entre os pontos medidos.</li>
+                <li>Verifique a <strong>simetria esquerda/direita</strong> com luz rasante e, se possível, um
+                  gabarito de perfil (têmplate em seções transversais).</li>
+                <li>Ajuste o formato do perfil (C, D ou oval) conforme a preferência ergonômica definida no
+                  projeto — o formato afeta como a mão do músico envolve o braço.</li>
+              </ul>
+
+              <h5>Valores de referência de espessura (ajustar conforme conforto do músico)</h5>
+              <ul>
+                <li><span data-instruments="vcl"><strong>Violão clássico:</strong> ≈21–22&nbsp;mm na casa 1;
+                    ≈23–24&nbsp;mm na casa 9.</span>
+                  <span data-instruments="vla"><strong>Viola caipira:</strong> ≈22–23&nbsp;mm na casa 1;
+                    ≈24–25&nbsp;mm na casa 9 (perfil um pouco mais robusto pela tensão total maior).</span>
+                  <span data-instruments="cav"><strong>Cavaquinho:</strong> ≈19–20&nbsp;mm na casa 1;
+                    ≈21–22&nbsp;mm na casa 9.</span>
+                  <span data-instruments="uku"><strong>Ukulele:</strong> ≈18–19&nbsp;mm na casa 1;
+                    ≈20–21&nbsp;mm na casa 9.</span>
+                </li>
+              </ul>
+
+              <figure class="tech-figure" data-key="mol7-tech"
+                data-cap="Refino do perfil transversal — formatos C, D e oval, e pontos de medição"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Meça, não estime:</strong> confie no calibre, não apenas no tato — a percepção de
+                espessura muda conforme a mão se cansa ao longo do trabalho.
+              </p>
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Transição suave entre pontos:</strong> os valores nas casas 1, 5 e 9 são referências —
+                a variação entre eles deve ser gradual, sem degraus perceptíveis.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol7">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol7">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol7/mol7.json"
+                  data-target="#assets-mol7" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol7"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol7" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+
+          <!-- mol8 -->
+          <div class="step" data-step="mol8">
+            <input class="chk persist" id="mol8" type="checkbox" />
+            <label class="label" for="mol8">Lixamento progressivo e acabamento final do braço</label>
+            <button class="btn toggle" data-target="d-mol8" type="button" aria-label="Abrir detalhes">
+              <span class="icon">＋</span>
+            </button>
+
+            <div class="detail" id="d-mol8">
+
+              <p>Última etapa da moldagem: eliminar todas as marcas de ferramenta e preparar a superfície do
+                braço para receber selante/verniz nas etapas de acabamento do instrumento.</p>
+
+              <h5>Sequência de lixamento</h5>
+              <ul>
+                <li>Grão <strong>80</strong>: remoção de marcas de formão/raspador e pequenas irregularidades
+                  remanescentes do refino.</li>
+                <li>Grão <strong>120</strong>: uniformização geral do perfil.</li>
+                <li>Grão <strong>180–220</strong>: suavização fina, eliminando riscos do grão anterior.</li>
+                <li>Grão <strong>320–400</strong>: acabamento final antes do selante/verniz.</li>
+              </ul>
+
+              <h5>Verificação final</h5>
+              <ul>
+                <li>Passe as mãos por todo o braço, da voluta ao calcanhar, procurando qualquer aresta viva,
+                  degrau ou assimetria ao tato.</li>
+                <li>Confira sob luz rasante se restam marcas de ferramenta ou ondulações na superfície.</li>
+                <li>Quebre levemente as arestas remanescentes (bordas da escala junto ao braço, bordas do
+                  calcanhar) com lixa fina, sem arredondar excessivamente.</li>
+                <li>Remova todo o pó com pano seco antes de seguir para as etapas de acabamento (selante,
+                  verniz/shellac).</li>
+              </ul>
+
+              <figure class="tech-figure" data-key="mol8-tech"
+                data-cap="Lixamento progressivo do braço — da remoção de marcas ao acabamento final"></figure>
+
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Não pule grãos:</strong> saltar etapas de lixamento deixa riscos profundos visíveis sob o
+                verniz, especialmente com acabamentos brilhantes.
+              </p>
+              <p class="callout" data-instruments="vcl vla cav uku">
+                <strong>Esta etapa encerra a moldagem do braço:</strong> a partir daqui, o conjunto segue para as
+                etapas de acabamento (selante, verniz/shellac) e montagem final do instrumento.
+              </p>
+
+              <div class="img-row"></div>
+              <!-- Sem assets ainda — descomentar quando houver imagens/desenhos
+              <div class="tool-row">
+                <button class="btn add-image" type="button" data-subetapa="mol8">Minhas Imagens</button>
+                <button class="btn open-draw" data-subetapa="mol8">Ilustração Técnica Anotável</button>
+                <button class="btn load-assets" data-manifest="./assets/extras/albuns/mol8/mol8.json"
+                  data-target="#assets-mol8" data-label-open="Galeria da Etapa" data-label-close="Fechar imagens">
+                  Galeria da Etapa
+                </button>
+              </div>
+              -->
+              <div class="assets-row" id="assets-mol8"></div>
+
+              <label>Notas
+                <textarea class="persist auto-grow" id="n-mol8" placeholder="Anotações desta subetapa..."></textarea>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="sec-10">
+        <header>
+          <h3>10) Cavalete
 
           </h3>
           <div class="progress"></div>
@@ -6234,9 +6740,9 @@
 
         </div>
       </div>
-      <div class="section" id="sec-10">
+      <div class="section" id="sec-11">
         <header>
-          <h3>10) Acabamento (Lixar, Selar, Verniz / Goma-laca)
+          <h3>11) Acabamento (Lixar, Selar, Verniz / Goma-laca)
 
           </h3>
           <div class="progress"></div>
@@ -6510,7 +7016,8 @@
               <ul>
                 <li><strong>Preparo da solução:</strong> Utilize goma-laca em escamas tipo <em>Dewaxed</em>
                   (descerada)
-                  diluída em álcool absoluto 96% ou isopropílico na proporção técnica de corte (aprox. 150–200 g/L).
+                  diluída em álcool absoluto 92 a 96% ou isopropílico na proporção técnica de corte (aprox. 150–200
+                  g/L).
                 </li>
                 <li><strong>A boneca (Muñequilla):</strong> Molde o núcleo com estopa ou lã pura envolta em um tecido
                   de
@@ -6526,6 +7033,123 @@
                 <li><strong>Tempo de cura:</strong> Aguarde de 48 a 72 horas para manuseio leve. A cura estrutural e a
                   estabilização molecular completa ocorrem entre 7 e 10 dias.</li>
               </ul>
+
+              <div class="finish-ref-block">
+                <button class="btn measures-toggle" type="button" data-target="ref-gomalaca"
+                  data-label="Receitas" data-icon="🪵" aria-expanded="false" aria-controls="ref-gomalaca">
+                  <span class="icon">🪵</span>
+                  <span class="label">Receitas</span>
+                </button>
+                <div class="finish-ref-panel" id="ref-gomalaca" hidden>
+                  <h5>Receita prática de goma-laca (French Polish)</h5>
+                  <div class="finish-table-wrap">
+                    <table class="finish-table">
+                      <thead>
+                        <tr>
+                          <th>Corte</th>
+                          <th>Receita</th>
+                          <th>Uso típico</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>3 lb</td>
+                          <td>SOLUÇÃO MÃE: 100 g goma-laca + 10 g Damar em 400 ml álcool</td>
+                          <td>Selagem inicial / preenchimento de poros</td>
+                        </tr>
+                        <tr>
+                          <td>2 lb</td>
+                          <td>Diluição 1:1 da solução mãe com álcool</td>
+                          <td>Construção da película principal</td>
+                        </tr>
+                        <tr>
+                          <td>1 lb</td>
+                          <td>Diluição 1:2 ou 1:3 da solução mãe com álcool</td>
+                          <td>Acabamento final / spiriting off</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <h5>Orientações por madeira</h5>
+                  <div class="finish-table-wrap">
+                    <table class="finish-table finish-table--stack">
+                      <thead>
+                        <tr>
+                          <th>Madeira</th>
+                          <th>Orientação</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>Cedro rosa</td>
+                          <td>Película fina com 2 lb e finalizar com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Cedro canadense</td>
+                          <td>Selagem leve com 3 lb, construir película com 2 lb e finalizar com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Abeto</td>
+                          <td>Selagem inicial com 3 lb bem leve, película fina com 2 lb e acabamento com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Marupá</td>
+                          <td>Selagem inicial com 3 lb, película leve com 2 lb e acabamento delicado com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Araucária</td>
+                          <td>Selagem inicial com 3 lb, película com 2 lb e acabamento suave com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Mogno (tampo)</td>
+                          <td>Selagem inicial com 3 lb, película com 2 lb e acabamento com 1 lb, evitando excesso de camadas</td>
+                        </tr>
+                        <tr>
+                          <td>Jacarandá</td>
+                          <td>Preencher poros com 3 lb + pó de pedra-pomes, construir película com 2 lb e finalizar com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Mogno (fundo/laterais)</td>
+                          <td>Preenchimento leve com 3 lb, película com 2 lb e acabamento com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Maple</td>
+                          <td>Selagem leve com 3 lb, película com 2 lb e acabamento cristalino com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Guajuvira</td>
+                          <td>Preencher poros com 3 lb + pó de pedra-pomes, depois criar película com 2 lb e finalizar com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Imbuia</td>
+                          <td>Preencher poros com 3 lb, construir película com 2 lb e acabamento com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Caviúna</td>
+                          <td>Preencher poros com 3 lb, película com 2 lb e acabamento com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Walnut (Nogueira)</td>
+                          <td>Selagem leve com 3 lb, película com 2 lb e acabamento equilibrado com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Cerejeira (Amburana)</td>
+                          <td>Selagem leve com 3 lb, película com 2 lb e acabamento suave com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Ziricote</td>
+                          <td>Preencher poros com 3 lb, película com 2 lb e acabamento com 1 lb</td>
+                        </tr>
+                        <tr>
+                          <td>Freijó</td>
+                          <td>Selagem leve com 3 lb, película com 2 lb e acabamento com 1 lb</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
 
               <h5>Verniz de Alta Sólido (Nitrocelulose / Poliuretano)</h5>
               <ul>
@@ -6617,9 +7241,9 @@
       </div>
 
 
-      <div class="section" id="sec-11">
+      <div class="section" id="sec-12">
         <header>
-          <h3>11) Montagem Final</h3>
+          <h3>12) Montagem Final</h3>
           <div class="progress"></div>
           <div class="tick">✔</div>
         </header>
@@ -7263,9 +7887,9 @@
         </div>
       </div>
 
-      <div class="section" id="sec-12">
+      <div class="section" id="sec-13">
         <header>
-          <h3>12) Regulagem &amp; Entrega
+          <h3>13) Regulagem &amp; Entrega
 
           </h3>
           <div class="progress"></div>
@@ -7691,13 +8315,13 @@
   <script src="./js/step12-draw.v4.2.js"></script>
 
   <!-- Medidas & presets (dependem do instrumento) -->
-  <script src="./js/step16-measures-presets.v3.js?v=20260421-1"></script>
-  <script src="./js/step17-measures-model-presets.js?v=20260816-1"></script>
+  <script src="./js/step16-measures-presets.v3.js?v=20260830-1"></script>
+  <script src="./js/step17-measures-model-presets.js?v=20260830-1"></script>
   <script src="./js/step26-scale-width-math.js?v=20260824-3"></script>
   <script src="./js/step26-scale-width.js?v=20260825-1"></script>
   <script src="./js/step25-measures-figure-modal.js?v=20260825-1"></script>
   <script src="./js/step16-range-support.js"></script>
-  <script src="./js/step16-measures-toggle.js?v=20250928-1"></script>
+  <script src="./js/step16-measures-toggle.js?v=20260830-1"></script>
   <script src="./js/step17-measures-instrumentos.js"></script>
   <script src="./js/step16-tuning-modal.js?v=20260421-1"></script>
   <script src="./js/step16-action-modal.js?v=20260421-1"></script>
@@ -7725,7 +8349,7 @@
   <!-- Versao global do app/SW (ajuste em todo deploy).
        Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
   <script>
-    window.__APP_VERSION = '20260825-1';
+    window.__APP_VERSION = '20260829-1';
     window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
   </script>
 
@@ -7738,7 +8362,7 @@
   <!-- Painel (usa BackupRestore) -->
   <script src="./js/step22-project-panel.js?v=20260824-3"></script>
   <!-- Impressão da ficha do projeto (#btnPrint) -->
-  <script src="./js/step24-print-project.js?v=20260808-2"></script>
+  <script src="./js/step24-print-project.js?v=20260830-1"></script>
 
   <!-- Consumidores do Instrumento/Projeto (dependem do painel/ctx) -->
   <script src="./js/step9-instrument.js"></script>

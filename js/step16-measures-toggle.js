@@ -1,6 +1,7 @@
 // `step16-measures-toggle.js`: controla abrir/recolher grades de medidas por botao.
 // Troca icone e legenda dinamicamente para indicar estado visivel/oculto.
 // Atenção: depende de `data-target` apontando para um elemento existente.
+// Opcionais: `data-label` e `data-icon` no botao (padrao: Medidas / 📏).
 (() => {
   'use strict';
 
@@ -14,20 +15,28 @@
 
     const icon  = btn.querySelector('.icon');
     const label = btn.querySelector('.label');
+    const collapsedLabel = btn.dataset.label || 'Medidas';
+    const collapsedIcon = btn.dataset.icon || '📏';
     const isHidden = grid.hasAttribute('hidden');
 
     if (isHidden) {
       grid.removeAttribute('hidden');
-      grid.style.display = 'grid'; // garante layout correto
+      if (grid.classList.contains('measures-grid')) {
+        grid.style.display = 'grid';
+      } else {
+        grid.style.removeProperty('display');
+      }
       btn.classList.add('active');
+      btn.setAttribute('aria-expanded', 'true');
       if (icon)  icon.textContent  = '🔽';
       if (label) label.textContent = 'Recolher';
     } else {
       grid.setAttribute('hidden', '');
       grid.style.display = 'none';
       btn.classList.remove('active');
-      if (icon)  icon.textContent  = '📏';
-      if (label) label.textContent = 'Medidas';
+      btn.setAttribute('aria-expanded', 'false');
+      if (icon)  icon.textContent  = collapsedIcon;
+      if (label) label.textContent = collapsedLabel;
     }
   });
 })();

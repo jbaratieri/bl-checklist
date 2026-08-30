@@ -51,7 +51,8 @@
 
 /* Campos de input */
 .measures-grid input[type="text"],
-.measures-grid input[type="number"] {
+.measures-grid input[type="number"],
+.measures-grid select {
   flex: 1 1 auto;
   min-width: 0;
   padding: 8px 10px;
@@ -81,9 +82,100 @@
 /* Dark mode */
 @media (prefers-color-scheme: dark) {
   .measures-grid input[type="text"],
-  .measures-grid input[type="number"] {
+  .measures-grid input[type="number"],
+  .measures-grid select {
     background: #1f1f1f;
     border-color: rgba(255,255,255,.12);
     color: #f2f2f2;
+  }
+}
+
+/* Tabelas de referencia recolhiveis (ex.: receitas de goma-laca) */
+.finish-ref-block {
+  margin: 12px 0 16px;
+}
+.finish-ref-panel {
+  margin: 8px 0 0;
+  padding: 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fafafa;
+}
+.finish-ref-panel[hidden] {
+  display: none !important;
+}
+.finish-ref-panel h5 {
+  margin: 4px 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.finish-ref-panel h5 + .finish-table-wrap {
+  margin-bottom: 18px;
+}
+.finish-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
+  border: 1px solid #eadfce;
+  background: #fff;
+}
+.finish-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  background: #fff;
+}
+.finish-table th,
+.finish-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eadfce;
+  text-align: left;
+  vertical-align: top;
+}
+.finish-table thead th {
+  background: #f5eadb;
+  font-weight: 700;
+  color: #4a3b2e;
+}
+.finish-table tbody tr:nth-child(even) {
+  background: #fcfaf7;
+}
+.finish-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 600px) {
+  .finish-table--stack thead {
+    display: none;
+  }
+  .finish-table--stack,
+  .finish-table--stack tbody,
+  .finish-table--stack tr,
+  .finish-table--stack td {
+    display: block;
+    width: 100%;
+  }
+  .finish-table--stack tr {
+    margin: 0;
+    padding: 8px 10px;
+    border-bottom: 1px solid #eadfce;
+  }
+  .finish-table--stack tbody tr:last-child {
+    border-bottom: none;
+  }
+  .finish-table--stack td {
+    border-bottom: none;
+    padding: 2px 0;
+  }
+  .finish-table--stack td:first-child {
+    font-weight: 700;
+    color: #4a3b2e;
+  }
+}
+
+@media print {
+  .finish-ref-panel {
+    display: block !important;
   }
 }
