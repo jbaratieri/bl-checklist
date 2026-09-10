@@ -34,7 +34,7 @@
       label: 'Violão Folk',
       note: 'Padrão Martin D; braço mais estreito, corpo grande e potente. Laterais ~110/120 mm.',
       values: {
-        'braco.inclinacao_headstock': '10–14',
+        'braco.inclinacao_headstock': '12–15',
         'braco.largura_nut': '43',
         'braco.largura_casa12': '56',
         'braco.espessura_nut': '21',
@@ -57,7 +57,7 @@
       label: 'Violão OM',
       note: 'Corpo mais equilibrado que o dread; boa resposta para fingerstyle. Laterais ~95/105 mm.',
       values: {
-        'braco.inclinacao_headstock': '10–14',
+        'braco.inclinacao_headstock': '12–15',
         'braco.largura_nut': '44.5',
         'braco.largura_casa12': '55',
         'braco.espessura_nut': '21',
@@ -80,7 +80,7 @@
       label: 'Violão Jumbo',
       note: 'Corpo mais volumoso, cintura mais estreita e bojo inferior maior. Laterais ~112/122 mm.',
       values: {
-        'braco.inclinacao_headstock': '10–14',
+        'braco.inclinacao_headstock': '12–15',
         'braco.largura_nut': '43',
         'braco.largura_casa12': '57',
         'braco.espessura_nut': '21.5',
@@ -103,7 +103,7 @@
       label: 'Violão Flat',
       note: 'Preset inicial de flat-top aço (estilo 000/OM). Ajuste fino manual conforme o projeto. Laterais ~100/110 mm.',
       values: {
-        'braco.inclinacao_headstock': '12–14',
+        'braco.inclinacao_headstock': '12–15',
         'braco.largura_nut': '43',
         'braco.largura_casa12': '56',
         'braco.espessura_nut': '20',
@@ -126,7 +126,7 @@
       label: 'Viola Caipira',
       note: 'Medidas típicas de viola tradicional; 10 cordas em 5 ordens. Laterais ~80/90 mm.',
       values: {
-        'braco.inclinacao_headstock': '10–12',
+        'braco.inclinacao_headstock': '10–15',
         'braco.largura_nut': '45',
         'braco.largura_casa12': '60',
         'braco.espessura_nut': '21',
@@ -149,7 +149,7 @@
       label: 'Viola Cinturada',
       note: 'Cintura mais acentuada; mesma escala/braço da tradicional. Laterais ~78/88 mm.',
       values: {
-        'braco.inclinacao_headstock': '10–12',
+        'braco.inclinacao_headstock': '10–15',
         'braco.largura_nut': '46',
         'braco.largura_casa12': '60',
         'braco.espessura_nut': '21',
@@ -172,7 +172,7 @@
       label: 'Viola 610mm',
       note: 'Escala longa (610 mm); corpo levemente maior. Laterais ~82/92 mm.',
       values: {
-        'braco.inclinacao_headstock': '10–12',
+        'braco.inclinacao_headstock': '10–15',
         'braco.largura_nut': '45',
         'braco.largura_casa12': '60',
         'braco.espessura_nut': '21',
@@ -195,7 +195,7 @@
       label: 'Cavaquinho Tradicional',
       note: 'Corpo pequeno, 4 cordas; braço fino e estreito. Laterais ~50/60 mm.',
       values: {
-        'braco.inclinacao_headstock': '8–10',
+        'braco.inclinacao_headstock': '12-15',
         'braco.largura_nut': '30',
         'braco.largura_casa12': '35',
         'braco.espessura_nut': '19',
@@ -218,7 +218,7 @@
       label: 'Ukulele Soprano',
       note: 'Menor da família; escala curta, som brilhante. Laterais ~44/54 mm.',
       values: {
-        'braco.inclinacao_headstock': '0–5',
+        'braco.inclinacao_headstock': '12-15',
         'braco.largura_nut': '35',
         'braco.largura_casa12': '42',
         'braco.espessura_nut': '18.5',
@@ -241,7 +241,7 @@
       label: 'Ukulele Concert',
       note: 'Corpo um pouco maior que o soprano; mais volume e sustain. Laterais ~50/60 mm.',
       values: {
-        'braco.inclinacao_headstock': '0–5',
+        'braco.inclinacao_headstock': '12-15',
         'braco.largura_nut': '35',
         'braco.largura_casa12': '42',
         'braco.espessura_nut': '19',
@@ -264,7 +264,7 @@
       label: 'Ukulele Tenor',
       note: 'Mais usado por profissionais; melhor projeção grave. Laterais ~60/70 mm.',
       values: {
-        'braco.inclinacao_headstock': '0–5',
+        'braco.inclinacao_headstock': '12-15',
         'braco.largura_nut': '37',
         'braco.largura_casa12': '43',
         'braco.espessura_nut': '19.5',
@@ -287,7 +287,7 @@
       label: 'Ukulele Barítono',
       note: 'Afinação DGBE; braço mais próximo do violão. Laterais ~70/80 mm.',
       values: {
-        'braco.inclinacao_headstock': '5–10',
+        'braco.inclinacao_headstock': '12-15',
         'braco.largura_nut': '38',
         'braco.largura_casa12': '52',
         'braco.espessura_nut': '20',
