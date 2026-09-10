@@ -146,7 +146,7 @@
     Object.keys(m.BRIDGE_STRING_SPACING_BY_MODEL).forEach(function (modelId) {
       var preset = presets[modelId];
       if (!preset || !preset.values) return;
-      preset.values[BINDS.margin] = m.formatMm(m.DEFAULT_MARGIN_MM, 1);
+      preset.values[BINDS.margin] = m.formatMm(m.getScaleMargin(modelId), 1);
       preset.values[BINDS.bridgeSpacing] = m.formatMm(m.BRIDGE_STRING_SPACING_BY_MODEL[modelId], 1);
     });
   }

@@ -19,19 +19,36 @@
    * Models omitted here have no automatic default (must be set explicitly by the user).
    */
   var BRIDGE_STRING_SPACING_BY_MODEL = {
-    violao_classico: 60,
-    violao_folk: 55,
+    violao_classico: 58,
+    violao_folk: 54,
     violao_om: 55,
-    violao_jumbo: 55,
-    violao_flat: 55,
-    viola_caipira: 56,
-    viola_cinturada: 56,
-    viola_610: 56,
-    cavaquinho_tradicional: 23,
-    ukulele_soprano: 23,
-    ukulele_concert: 24,
-    ukulele_tenor: 27,
-    ukulele_baritono: 29
+    violao_jumbo: 54,
+    violao_flat: 57,
+    viola_caipira: 50,
+    viola_cinturada: 50,
+    viola_610: 50,
+    cavaquinho_tradicional: 35,
+    ukulele_soprano: 40,
+    ukulele_concert: 40,
+    ukulele_tenor: 42,
+    ukulele_baritono: 45
+  };
+
+  /** Margem da corda à borda do nut (mm) por #job-model. Ausentes usam DEFAULT_MARGIN_MM. */
+  var MARGIN_BY_MODEL = {
+    violao_classico: 4,
+    violao_folk: 3.5,
+    violao_om: 3.5,
+    violao_jumbo: 3.5,
+    violao_flat: 3.5,
+    viola_caipira: 3,
+    viola_cinturada: 3,
+    viola_610: 3,
+    cavaquinho_tradicional: 2.5,
+    ukulele_soprano: 3,
+    ukulele_concert: 3,
+    ukulele_tenor: 3,
+    ukulele_baritono: 3.2
   };
 
   function toNumber(value) {
@@ -64,8 +81,10 @@
   }
 
   function getScaleMargin(modelId) {
-    // Global default; modelId reserved for future per-model margins.
-    void modelId;
+    var key = String(modelId || '').trim();
+    if (key && Object.prototype.hasOwnProperty.call(MARGIN_BY_MODEL, key)) {
+      return MARGIN_BY_MODEL[key];
+    }
     return DEFAULT_MARGIN_MM;
   }
 
@@ -321,6 +340,7 @@
   return {
     DEFAULT_MARGIN_MM: DEFAULT_MARGIN_MM,
     BRIDGE_STRING_SPACING_BY_MODEL: BRIDGE_STRING_SPACING_BY_MODEL,
+    MARGIN_BY_MODEL: MARGIN_BY_MODEL,
     toNumber: toNumber,
     roundMm: roundMm,
     formatMm: formatMm,

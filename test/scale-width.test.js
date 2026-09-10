@@ -92,19 +92,27 @@ test('alteração da margem recalcula a escala', () => {
 });
 
 test('defaults por modelo estão centralizados e corretos', () => {
-  assert.equal(math.getBridgeStringSpacing('violao_classico'), 60);
-  assert.equal(math.getBridgeStringSpacing('violao_folk'), 55);
+  assert.equal(math.getBridgeStringSpacing('violao_classico'), 58);
+  assert.equal(math.getBridgeStringSpacing('violao_folk'), 54);
   assert.equal(math.getBridgeStringSpacing('violao_om'), 55);
-  assert.equal(math.getBridgeStringSpacing('violao_jumbo'), 55);
-  assert.equal(math.getBridgeStringSpacing('viola_caipira'), 56);
-  assert.equal(math.getBridgeStringSpacing('cavaquinho_tradicional'), 23);
-  assert.equal(math.getBridgeStringSpacing('ukulele_soprano'), 23);
-  assert.equal(math.getBridgeStringSpacing('ukulele_concert'), 24);
-  assert.equal(math.getBridgeStringSpacing('ukulele_tenor'), 27);
-  assert.equal(math.getBridgeStringSpacing('ukulele_baritono'), 29);
+  assert.equal(math.getBridgeStringSpacing('violao_jumbo'), 54);
+  assert.equal(math.getBridgeStringSpacing('violao_flat'), 57);
+  assert.equal(math.getBridgeStringSpacing('viola_caipira'), 50);
+  assert.equal(math.getBridgeStringSpacing('viola_cinturada'), 50);
+  assert.equal(math.getBridgeStringSpacing('viola_610'), 50);
+  assert.equal(math.getBridgeStringSpacing('cavaquinho_tradicional'), 35);
+  assert.equal(math.getBridgeStringSpacing('ukulele_soprano'), 40);
+  assert.equal(math.getBridgeStringSpacing('ukulele_concert'), 40);
+  assert.equal(math.getBridgeStringSpacing('ukulele_tenor'), 42);
+  assert.equal(math.getBridgeStringSpacing('ukulele_baritono'), 45);
   assert.equal(math.getBridgeStringSpacing('personalizado'), null);
   assert.equal(math.getBridgeStringSpacing(''), null);
-  assert.equal(math.getScaleMargin('violao_classico'), 3.5);
+  assert.equal(math.getScaleMargin('violao_classico'), 4);
+  assert.equal(math.getScaleMargin('violao_folk'), 3.5);
+  assert.equal(math.getScaleMargin('viola_caipira'), 3);
+  assert.equal(math.getScaleMargin('cavaquinho_tradicional'), 2.5);
+  assert.equal(math.getScaleMargin('ukulele_baritono'), 3.2);
+  assert.equal(math.getScaleMargin('personalizado'), 3.5);
 });
 
 test('distanciamento entre cordas no nut = (1ª↔última) ÷ (n−1)', () => {
