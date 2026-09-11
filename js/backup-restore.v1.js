@@ -16,7 +16,7 @@
   function downloadJSON(obj, name) {
     const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a'); a.href = url; a.download = name || ('luthierpro-backup-' + Date.now() + '.json');
+    const a = document.createElement('a'); a.href = url; a.download = name || ('metodo-baratieri-backup-' + Date.now() + '.json');
     document.body.appendChild(a); a.click(); setTimeout(() => { a.remove(); URL.revokeObjectURL(url); }, 400);
   }
 
@@ -451,7 +451,7 @@
   async function exportCurrentProjectAndDownload() {
     const inst = currInst(); const proj = currProj(inst);
     const payload = await exportProject(inst, proj);
-    const name = 'luthierpro-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+    const name = 'metodo-baratieri-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
     downloadJSON(payload, name);
     return payload;
   }
@@ -472,7 +472,7 @@
     if (inst || proj) {
       const payload = await window.BackupRestore.exportProject(inst, proj);
       try {
-        const name = 'luthierpro-export-' + (inst || 'inst') + '-proj' + (proj || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+        const name = 'metodo-baratieri-export-' + (inst || 'inst') + '-proj' + (proj || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
         const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
@@ -494,7 +494,7 @@
     const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument') || 'vcl'));
     const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:' + inst0) || 'default'));
     const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
-    const name0 = 'luthierpro-export-' + (inst0 || 'inst') + '-proj' + (proj0 || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+    const name0 = 'metodo-baratieri-export-' + (inst0 || 'inst') + '-proj' + (proj0 || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
     const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type: 'application/json' });
     const url0 = URL.createObjectURL(blob0);
     const a0 = document.createElement('a');

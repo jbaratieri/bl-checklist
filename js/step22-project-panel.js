@@ -540,7 +540,7 @@
 
           if (window.BackupRestore && typeof BackupRestore.exportProject === 'function') {
             var payload = await BackupRestore.exportProject(inst, proj);
-            var name = 'luthierpro-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+            var name = 'metodo-baratieri-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
             var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
@@ -563,7 +563,7 @@
         try {
           if (window.BackupRestore && typeof BackupRestore.exportAllProjects === 'function') {
             var payload = await BackupRestore.exportAllProjects();
-            var name = 'luthierpro-export-all-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+            var name = 'metodo-baratieri-export-all-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
             var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
