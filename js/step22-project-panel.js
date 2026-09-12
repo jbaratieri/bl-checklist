@@ -1,4 +1,4 @@
-// `step22-project-panel.js`: conecta botoes/painel de projeto com criar, renomear, excluir, exportar e importar.
+// `step22-project-panel.js`: conecta botoes/painel de projeto com criar, renomear, excluir, salvar e restaurar copia.
 // Exibe toasts, sincroniza seletores e chama APIs de backup/restore do sistema.
 // Atenção: e o ponto de operacao do usuario; qualquer regressao aqui impacta fluxo diario de uso.
 (function () {
@@ -456,6 +456,86 @@
     } catch (_) { }
   }
 
+  function copyOutcomeToast(outcome) {
+    if (outcome === 'cancelled') {
+      showToast('Cópia cancelada.', { type: 'info' });
+      return;
+    }
+    if (outcome === 'shared') {
+      showToast('Cópia pronta. Escolha Drive, WhatsApp ou Arquivos para guardar.', { type: 'success', timeout: 5200 });
+      return;
+    }
+    showToast('Cópia salva. Guarde esse arquivo no Drive, WhatsApp ou pendrive.', { type: 'success', timeout: 5200 });
+  }
+
+  function refreshCopyRemind() {
+    var el = document.getElementById('copyRemind');
+    if (!el || !window.BackupRestore || typeof BackupRestore.getCopyRemindState !== 'function') return;
+    var st = BackupRestore.getCopyRemindState();
+    var lead = el.querySelector('.copy-remind__lead');
+    if (!st || !st.show) {
+      el.setAttribute('hidden', '');
+      return;
+    }
+    if (lead) {
+      if (st.reason === 'never') {
+        lead.textContent = 'Ainda não tem uma cópia fora do app.';
+      } else {
+        lead.textContent = 'Faz ' + st.days + ' dia' + (st.days === 1 ? '' : 's') + ' sem cópia de segurança.';
+      }
+    }
+    el.removeAttribute('hidden');
+  }
+
+  function closeCopyMenus() {
+    closeDetails('btnExportToggle');
+    closeDetails('btnImportToggle');
+  }
+
+  async function saveCurrentProjectCopy() {
+    showToast('Preparando a cópia deste projeto...', { type: 'info', timeout: 1400 });
+    try {
+      var inst = currInst();
+      var proj = (window.BL_PROJECT && BL_PROJECT.get) ? BL_PROJECT.get(inst) : (document.getElementById('selProject') && document.getElementById('selProject').value) || 'default';
+      if (window.BackupRestore && typeof BackupRestore.saveProjectCopy === 'function') {
+        var res = await BackupRestore.saveProjectCopy(inst, proj);
+        copyOutcomeToast(res && res.outcome);
+        closeCopyMenus();
+        refreshCopyRemind();
+        return;
+      }
+      if (typeof window.exportProjectFile === 'function') {
+        var legacy = await window.exportProjectFile(inst, proj);
+        copyOutcomeToast((legacy && legacy.outcome) || 'downloaded');
+        closeCopyMenus();
+        refreshCopyRemind();
+        return;
+      }
+      showToast('Não foi possível preparar a cópia agora.', { type: 'error', timeout: 6000 });
+    } catch (err) {
+      console.error(err);
+      showToast('Não deu para salvar a cópia: ' + (err && err.message ? err.message : err), { type: 'error', timeout: 7000 });
+    }
+  }
+
+  function installCopyRemind() {
+    var btnCopyRemindSave = getEl('btnCopyRemindSave');
+    var btnCopyRemindLater = getEl('btnCopyRemindLater');
+    if (btnCopyRemindSave && !btnCopyRemindSave.getAttribute('data-copy-wired')) {
+      btnCopyRemindSave.setAttribute('data-copy-wired', '1');
+      btnCopyRemindSave.addEventListener('click', guard(saveCurrentProjectCopy));
+    }
+    if (btnCopyRemindLater && !btnCopyRemindLater.getAttribute('data-copy-wired')) {
+      btnCopyRemindLater.setAttribute('data-copy-wired', '1');
+      btnCopyRemindLater.addEventListener('click', function () {
+        try { if (window.BackupRestore && BackupRestore.snoozeCopyRemind) BackupRestore.snoozeCopyRemind(); } catch (_) {}
+        refreshCopyRemind();
+        showToast('Combinado. Aviso de novo em alguns dias.', { type: 'info' });
+      });
+    }
+    refreshCopyRemind();
+  }
+
   function bindEvents() {
     var selProject = document.querySelector('#selProject');
     var selInstrument = document.querySelector('#selInstrument');
@@ -526,55 +606,38 @@
     var fileInput = ensureBrFileInput();
 
     if (btnExp) {
-      btnExp.addEventListener('click', guard(async function () {
-        showToast('Preparando export do projeto...', { type: 'info', timeout: 1500 });
-        try {
-          var inst = currInst();
-          var proj = (window.BL_PROJECT && BL_PROJECT.get) ? BL_PROJECT.get(inst) : (document.getElementById('selProject') && document.getElementById('selProject').value) || 'default';
-
-          if (typeof window.exportProjectFile === 'function') {
-            await window.exportProjectFile(inst, proj);
-            showToast('Export concluído — arquivo salvo no seu computador.', { type: 'success' });
-            return;
-          }
-
-          if (window.BackupRestore && typeof BackupRestore.exportProject === 'function') {
-            var payload = await BackupRestore.exportProject(inst, proj);
-            var name = 'metodo-baratieri-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
-            var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
-            setTimeout(function () { URL.revokeObjectURL(url); }, 500);
-            showToast('Export concluído — arquivo salvo no seu computador.', { type: 'success' });
-            return;
-          }
-
-          showToast('Função de export não encontrada (exportProjectFile / BackupRestore.exportProject).', { type: 'error', timeout: 6000 });
-        } catch (err) {
-          console.error(err);
-          showToast('Falha ao exportar: ' + (err && err.message ? err.message : err), { type: 'error', timeout: 7000 });
-        }
-      }));
+      btnExp.addEventListener('click', guard(saveCurrentProjectCopy));
     }
+    installCopyRemind();
 
     if (btnExpAll) {
       btnExpAll.addEventListener('click', guard(async function () {
-        showToast('Iniciando export All projects...', { type: 'info', timeout: 1500 });
+        showToast('Preparando a cópia de todos os projetos...', { type: 'info', timeout: 1400 });
         try {
+          if (window.BackupRestore && typeof BackupRestore.saveAllProjectsCopy === 'function') {
+            var resAll = await BackupRestore.saveAllProjectsCopy();
+            copyOutcomeToast(resAll && resAll.outcome);
+            closeCopyMenus();
+            refreshCopyRemind();
+            return;
+          }
           if (window.BackupRestore && typeof BackupRestore.exportAllProjects === 'function') {
             var payload = await BackupRestore.exportAllProjects();
-            var name = 'metodo-baratieri-export-all-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
+            var name = 'Metodo-Baratieri-todos-os-projetos.json';
             var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
             setTimeout(function () { URL.revokeObjectURL(url); }, 500);
-            showToast('Export (All) concluído — arquivo salvo no seu computador.', { type: 'success' });
-          } else {
-            showToast('ExportAll não disponível (BackupRestore.exportAllProjects ausente).', { type: 'error' });
+            if (BackupRestore.markCopySaved) BackupRestore.markCopySaved('all');
+            copyOutcomeToast('downloaded');
+            closeCopyMenus();
+            refreshCopyRemind();
+            return;
           }
+          showToast('Não foi possível preparar a cópia agora.', { type: 'error' });
         } catch (err) {
           console.error(err);
-          showToast('Falha no exportAll: ' + (err && err.message ? err.message : err), { type: 'error' });
+          showToast('Não deu para salvar a cópia: ' + (err && err.message ? err.message : err), { type: 'error' });
         }
       }));
     }
@@ -598,12 +661,12 @@
       var mode = fileInput._importMode || 'merge';
       fileInput._importMode = null;
       if (!f) return;
-      showToast('Iniciando import — lendo arquivo...', { type: 'info', timeout: 1500 });
+      showToast('Lendo a cópia para restaurar...', { type: 'info', timeout: 1500 });
 
       try {
         if (window.BackupRestore && typeof BackupRestore.importFromFile === 'function') {
           var res = await BackupRestore.importFromFile(f, { overwrite: mode === 'overwrite' });
-          showToast('Import concluído — aplicando mudanças.', { type: 'success' });
+          showToast('Cópia restaurada — aplicando no app.', { type: 'success' });
           closeDetails('btnImportToggle');
 
           try {
@@ -625,7 +688,7 @@
 
         if (typeof window.importProjectFile === 'function') {
           var res2 = await window.importProjectFile(f);
-          showToast('Import concluído — aplicando mudanças.', { type: 'success' });
+          showToast('Cópia restaurada — aplicando no app.', { type: 'success' });
           closeDetails('btnImportToggle');
           try { refreshProjectSelector(); } catch (_) { }
           try { window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta: (res2 && res2.meta) || null } })); } catch (_) { }
@@ -640,7 +703,7 @@
         try { payload = JSON.parse(txt); } catch (e) { throw new Error('Arquivo JSON inválido'); }
         if (window.BackupRestore && typeof BackupRestore.importPayload === 'function') {
           var res3 = await BackupRestore.importPayload(payload, { merge: mode === 'merge', overwrite: mode === 'overwrite' });
-          showToast('Import via importPayload concluído.', { type: 'success' });
+          showToast('Cópia restaurada — aplicando no app.', { type: 'success' });
           closeDetails('btnImportToggle');
           try { refreshProjectSelector(); } catch (_) { }
           try { window.dispatchEvent(new CustomEvent('bl:projects-imported', { detail: { meta: (res3 && res3.meta) || null } })); } catch (_) { }
@@ -650,10 +713,10 @@
           return;
         }
 
-        showToast('Nenhuma função de import disponível (BackupRestore.importFromFile/importProjectFile/importPayload).', { type: 'error', timeout: 7000 });
+        showToast('Não foi possível restaurar a cópia agora.', { type: 'error', timeout: 7000 });
       } catch (err) {
         console.error(err);
-        showToast('Falha ao importar: ' + (err && err.message ? err.message : err), { type: 'error', timeout: 7000 });
+        showToast('Não deu para restaurar: ' + (err && err.message ? err.message : err), { type: 'error', timeout: 7000 });
       } finally {
         try { fileInput.value = ''; } catch (_) { }
       }
@@ -778,6 +841,7 @@
         }, 120);
       });
     } catch (e) { console.warn('[ProjectPanel] init error', e); }
+    try { installCopyRemind(); } catch (e2) { console.warn('[ProjectPanel] copy remind init error', e2); }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
 

@@ -182,7 +182,72 @@ header.app .toolbar .btn.primary:hover {
 }
 
 /* ==========================
-   Dropdowns de Import/Export
+   Lembrete de cópia de segurança
+   ========================== */
+.copy-remind {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  background: #fef3c7;
+  color: #3f2d1c;
+  border: 1px solid #f3d9a8;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.copy-remind[hidden] {
+  display: none !important;
+}
+
+.copy-remind__text {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.copy-remind__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.copy-remind__actions .btn {
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.copy-remind__save {
+  background: #8a623f;
+  color: #fff;
+  border-color: #8a623f;
+}
+
+.copy-remind__save:hover {
+  background: #5c3b1e;
+  border-color: #5c3b1e;
+}
+
+@media (max-width: 640px) {
+  .copy-remind {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .copy-remind__actions {
+    width: 100%;
+  }
+  .copy-remind__actions .btn {
+    flex: 1 1 auto;
+  }
+}
+
+/* ==========================
+   Dropdowns de Salvar / Restaurar cópia
    ========================== */
 
 /* container of the two dropdowns */

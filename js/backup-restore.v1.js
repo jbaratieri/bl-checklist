@@ -447,13 +447,191 @@
     return await importPayload(payload, opts || { merge: true });
   }
 
-  // Export current project and trigger download
+  var KEY_COPY_AT = 'bl:copy:lastAt';
+  var KEY_COPY_SCOPE = 'bl:copy:lastScope';
+  var KEY_COPY_FIRST = 'bl:copy:firstSeen';
+  var KEY_COPY_SNOOZE = 'bl:copy:snoozeUntil';
+  var COPY_REMIND_NEVER_DAYS = 2;
+  var COPY_REMIND_STALE_DAYS = 7;
+  var COPY_SNOOZE_DAYS = 3;
+
+  function daysBetween(iso) {
+    if (!iso) return null;
+    var t = Date.parse(iso);
+    if (!isFinite(t)) return null;
+    return Math.floor((Date.now() - t) / (1000 * 60 * 60 * 24));
+  }
+
+  function projectDisplayName(inst, proj) {
+    inst = inst || currInst();
+    proj = proj || currProj(inst);
+    try {
+      var named = localStorage.getItem('bl:project:name:' + inst + ':' + proj);
+      if (named && String(named).trim()) return String(named).trim();
+    } catch (_) {}
+    try {
+      var raw = localStorage.getItem('bl:project:meta:' + inst + ':' + proj);
+      var meta = raw ? JSON.parse(raw) : null;
+      if (meta && meta.name && String(meta.name).trim()) return String(meta.name).trim();
+    } catch (_) {}
+    try {
+      if (window.BL_PROJECT && typeof BL_PROJECT.list === 'function') {
+        var arr = BL_PROJECT.list(inst) || [];
+        for (var i = 0; i < arr.length; i++) {
+          if (String(arr[i].id) === String(proj) && arr[i].name) return String(arr[i].name).trim();
+        }
+      }
+    } catch (_) {}
+    return String(proj || 'projeto');
+  }
+
+  function safeCopyLabel(name) {
+    var s = String(name || 'projeto').trim();
+    try { s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch (_) {}
+    s = s.replace(/[<>:"/\\|?*\x00-\x1f]/g, ' ').replace(/\s+/g, ' ').trim();
+    s = s.replace(/\s/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    if (!s) s = 'projeto';
+    if (s.length > 50) s = s.slice(0, 50).replace(/-$/, '');
+    return s;
+  }
+
+  function localStamp() {
+    var d = new Date();
+    function p(n) { return String(n).padStart(2, '0'); }
+    return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + '-' + p(d.getHours()) + 'h' + p(d.getMinutes());
+  }
+
+  function buildCopyFilename(opts) {
+    opts = opts || {};
+    var stamp = localStamp();
+    if (opts.kind === 'all') return 'Metodo-Baratieri-todos-os-projetos-' + stamp + '.json';
+    return 'Metodo-Baratieri-' + safeCopyLabel(opts.displayName || 'projeto') + '-' + stamp + '.json';
+  }
+
+  function preferNativeShare() {
+    try {
+      if (!navigator.share) return false;
+      var ua = navigator.userAgent || '';
+      if (/Android|iPhone|iPad|iPod/i.test(ua)) return true;
+      if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return true;
+      if (window.matchMedia && window.matchMedia('(max-width: 768px)').matches) return true;
+    } catch (_) {}
+    return false;
+  }
+
+  function downloadBlob(blob, name) {
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 500);
+  }
+
+  async function deliverCopy(payload, filename) {
+    var json = JSON.stringify(payload, null, 2);
+    var blob = new Blob([json], { type: 'application/json' });
+    if (preferNativeShare()) {
+      var candidates = [
+        { type: 'application/json', data: blob },
+        { type: 'text/plain', data: new Blob([json], { type: 'text/plain' }) }
+      ];
+      for (var i = 0; i < candidates.length; i++) {
+        try {
+          var file = new File([candidates[i].data], filename, { type: candidates[i].type });
+          if (navigator.canShare && !navigator.canShare({ files: [file] })) continue;
+          await navigator.share({
+            files: [file],
+            title: 'Cópia de segurança',
+            text: 'Cópia do Método Baratieri — guarde em local seguro.'
+          });
+          return 'shared';
+        } catch (e) {
+          if (e && e.name === 'AbortError') return 'cancelled';
+        }
+      }
+    }
+    downloadBlob(blob, filename);
+    return 'downloaded';
+  }
+
+  function persistStorageQuiet() {
+    try {
+      if (navigator.storage && typeof navigator.storage.persist === 'function') {
+        navigator.storage.persist();
+      }
+    } catch (_) {}
+  }
+
+  function markCopySaved(scope) {
+    try {
+      localStorage.setItem(KEY_COPY_AT, nowISO());
+      localStorage.setItem(KEY_COPY_SCOPE, String(scope || 'project'));
+      localStorage.removeItem(KEY_COPY_SNOOZE);
+    } catch (_) {}
+    persistStorageQuiet();
+  }
+
+  function ensureCopyFirstSeen() {
+    try {
+      if (!localStorage.getItem(KEY_COPY_FIRST)) localStorage.setItem(KEY_COPY_FIRST, nowISO());
+    } catch (_) {}
+  }
+
+  function snoozeCopyRemind() {
+    try {
+      var until = new Date(Date.now() + COPY_SNOOZE_DAYS * 24 * 60 * 60 * 1000).toISOString();
+      localStorage.setItem(KEY_COPY_SNOOZE, until);
+    } catch (_) {}
+  }
+
+  function getCopyRemindState() {
+    ensureCopyFirstSeen();
+    var lastAt = null, firstSeen = null, snoozeUntil = null;
+    try { lastAt = localStorage.getItem(KEY_COPY_AT); } catch (_) {}
+    try { firstSeen = localStorage.getItem(KEY_COPY_FIRST); } catch (_) {}
+    try { snoozeUntil = localStorage.getItem(KEY_COPY_SNOOZE); } catch (_) {}
+    if (snoozeUntil && Date.parse(snoozeUntil) > Date.now()) {
+      return { show: false, reason: 'snoozed', days: 0 };
+    }
+    if (lastAt) {
+      var stale = daysBetween(lastAt);
+      if (stale !== null && stale >= COPY_REMIND_STALE_DAYS) {
+        return { show: true, reason: 'stale', days: stale };
+      }
+      return { show: false, reason: 'fresh', days: stale || 0 };
+    }
+    var sinceFirst = daysBetween(firstSeen);
+    if (sinceFirst !== null && sinceFirst >= COPY_REMIND_NEVER_DAYS) {
+      return { show: true, reason: 'never', days: sinceFirst };
+    }
+    return { show: false, reason: 'new', days: sinceFirst || 0 };
+  }
+
+  async function saveProjectCopy(inst, proj) {
+    inst = inst || currInst();
+    proj = proj || currProj(inst);
+    var display = projectDisplayName(inst, proj);
+    var payload = await exportProject(inst, proj);
+    var filename = buildCopyFilename({ kind: 'project', displayName: display });
+    var outcome = await deliverCopy(payload, filename);
+    if (outcome === 'shared' || outcome === 'downloaded') markCopySaved('project');
+    return { outcome: outcome, filename: filename, inst: inst, proj: proj, display: display, payload: payload };
+  }
+
+  async function saveAllProjectsCopy() {
+    var payload = await exportAllProjects();
+    var filename = buildCopyFilename({ kind: 'all' });
+    var outcome = await deliverCopy(payload, filename);
+    if (outcome === 'shared' || outcome === 'downloaded') markCopySaved('all');
+    return { outcome: outcome, filename: filename, payload: payload };
+  }
+
   async function exportCurrentProjectAndDownload() {
-    const inst = currInst(); const proj = currProj(inst);
-    const payload = await exportProject(inst, proj);
-    const name = 'metodo-baratieri-export-' + inst + '-proj' + proj + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
-    downloadJSON(payload, name);
-    return payload;
+    var res = await saveProjectCopy();
+    return res && res.payload ? res.payload : res;
   }
 
   // Expose API
@@ -461,50 +639,24 @@
   window.BackupRestore.exportProject = exportProject;
   window.BackupRestore.exportCurrentProjectAndDownload = exportCurrentProjectAndDownload;
   window.BackupRestore.exportAllProjects = exportAllProjects;
+  window.BackupRestore.saveProjectCopy = saveProjectCopy;
+  window.BackupRestore.saveAllProjectsCopy = saveAllProjectsCopy;
+  window.BackupRestore.projectDisplayName = projectDisplayName;
+  window.BackupRestore.getCopyRemindState = getCopyRemindState;
+  window.BackupRestore.snoozeCopyRemind = snoozeCopyRemind;
+  window.BackupRestore.markCopySaved = markCopySaved;
   window.BackupRestore.importPayload = importPayload;
   window.BackupRestore.importPayloadWithOptions = importPayloadWithOptions;
   window.BackupRestore.importFromFile = importFromFile;
-  window.BackupRestore.promptAndImport = function () { const i = document.createElement('input'); i.type = 'file'; i.accept = 'application/json'; i.addEventListener('change', async () => { if (i.files && i.files[0]) { try { await importFromFile(i.files[0], { merge: true }); alert('Import OK'); } catch (e) { alert('Import falhou: ' + (e && e.message)); } } }, { once: true }); i.click(); };
+  window.BackupRestore.promptAndImport = function () { const i = document.createElement('input'); i.type = 'file'; i.accept = 'application/json'; i.addEventListener('change', async () => { if (i.files && i.files[0]) { try { await importFromFile(i.files[0], { merge: true }); alert('Cópia restaurada.'); } catch (e) { alert('Não deu para restaurar: ' + (e && e.message)); } } }, { once: true }); i.click(); };
 
-  // BACKWARDS COMPAT: exportProjectFile() — versão única que sempre força download
-  window.exportProjectFile = window.exportProjectFile || (async function (inst, proj, token) {
-    if (!window.BackupRestore) throw new Error('BackupRestore not loaded');
-    if (inst || proj) {
-      const payload = await window.BackupRestore.exportProject(inst, proj);
-      try {
-        const name = 'metodo-baratieri-export-' + (inst || 'inst') + '-proj' + (proj || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
-        const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = name;
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 500);
-      } catch (e) {
-        console.warn('[exportProjectFile] download fallback', e);
-        return payload;
-      }
-      return payload;
+  // BACKWARDS COMPAT: exportProjectFile() agora entrega a cópia (compartilhar no celular ou download)
+  window.exportProjectFile = async function (inst, proj) {
+    if (!window.BackupRestore || typeof window.BackupRestore.saveProjectCopy !== 'function') {
+      throw new Error('BackupRestore not loaded');
     }
-    if (typeof window.BackupRestore.exportCurrentProjectAndDownload === 'function') {
-      return await window.BackupRestore.exportCurrentProjectAndDownload();
-    }
-    // last resort
-    const inst0 = (window.BL_INSTRUMENT ? BL_INSTRUMENT.get() : (localStorage.getItem('bl:instrument') || 'vcl'));
-    const proj0 = (window.BL_PROJECT ? BL_PROJECT.get(inst0) : (localStorage.getItem('bl:project:' + inst0) || 'default'));
-    const payload0 = await window.BackupRestore.exportProject(inst0, proj0);
-    const name0 = 'metodo-baratieri-export-' + (inst0 || 'inst') + '-proj' + (proj0 || 'proj') + '-' + (new Date().toISOString().replace(/[:.]/g, '-')) + '.json';
-    const blob0 = new Blob([JSON.stringify(payload0, null, 2)], { type: 'application/json' });
-    const url0 = URL.createObjectURL(blob0);
-    const a0 = document.createElement('a');
-    a0.href = url0; a0.download = name0;
-    document.body.appendChild(a0);
-    a0.click();
-    a0.remove();
-    setTimeout(() => URL.revokeObjectURL(url0), 500);
-    return payload0;
-  });
+    return await window.BackupRestore.saveProjectCopy(inst, proj);
+  };
 
   // Ensure importProjectFile exists (definitive shim)
   window.importProjectFile = window.importProjectFile || (async function (file, options) {
@@ -518,6 +670,6 @@
   });
 
   // small notes in console for developer
-  info('BackupRestore v1.1 patched loaded — exportProject/exportAllProjects/importFromFile available. Toggle debug with window.BL_BACKUP_DEBUG = true');
+  info('BackupRestore v1.2 loaded — saveProjectCopy/saveAllProjectsCopy/importFromFile. Toggle debug with window.BL_BACKUP_DEBUG = true');
 
 })();

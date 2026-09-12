@@ -52,7 +52,7 @@
   <!-- Fonte oficial atual do painel de projeto -->
   <link rel="stylesheet" href="./css/project-panel.css?v=20260427-1">
   <!-- Fonte oficial de toolbar/modal de botoes -->
-  <link rel="stylesheet" href="./css/buttons.css">
+  <link rel="stylesheet" href="./css/buttons.css?v=20260911-1">
   <!-- Responsividade global (carregar por ultimo) -->
   <link rel="stylesheet" href="./css/responsive.css">
   <link rel="stylesheet" href="./css/prancheta.css?v=20260824-1">
@@ -98,26 +98,38 @@
 
       <div class="br-group">
         <details id="btnExportToggle" class="br-dropdown">
-          <summary class="btn" title="Exportar">
-            💾 <span class="label">Exportar</span>
+          <summary class="btn" title="Salvar cópia de segurança">
+            💾 <span class="label">Salvar cópia</span>
           </summary>
           <div id="menuExport" class="br-menu">
-            <button class="btn" id="btnExportProject">Exportar projeto atual</button>
-            <button class="btn" id="btnExportAllProjects">Exportar TODOS os projetos</button>
+            <button class="btn" type="button" id="btnExportProject">Este projeto</button>
+            <button class="btn" type="button" id="btnExportAllProjects">Todos os projetos</button>
+            <small class="hint">Guarde o arquivo no Drive, WhatsApp ou pendrive.</small>
           </div>
         </details>
 
         <details id="btnImportToggle" class="br-dropdown">
-          <summary class="btn" title="Importar">
-            📤 <span class="label">Importar</span>
+          <summary class="btn" title="Restaurar cópia de segurança">
+            📤 <span class="label">Restaurar</span>
           </summary>
           <div id="menuImport" class="br-menu">
-            <button class="btn" id="btnImportProject">Importar (adiciona/atualiza)</button>
-            <small class="hint">Escolha o projeto ou todos</small>
+            <button class="btn" type="button" id="btnImportProject">Restaurar cópia</button>
+            <small class="hint">Escolha o arquivo .json que você guardou.</small>
           </div>
         </details>
 
-        <input id="br_file_input" type="file" accept=".json" style="display:none" />
+        <input id="br_file_input" type="file" accept=".json,application/json" style="display:none" />
+      </div>
+    </div>
+
+    <div id="copyRemind" class="copy-remind" hidden>
+      <p class="copy-remind__text">
+        <strong class="copy-remind__lead">Ainda não tem uma cópia fora do app.</strong>
+        <span>Guarde seus projetos fora do navegador — Drive, WhatsApp ou pendrive.</span>
+      </p>
+      <div class="copy-remind__actions">
+        <button type="button" class="btn copy-remind__save" id="btnCopyRemindSave">Guardar este projeto</button>
+        <button type="button" class="btn copy-remind__later" id="btnCopyRemindLater">Agora não</button>
       </div>
     </div>
 
@@ -8353,7 +8365,7 @@
   <!-- Versao global do app/SW (ajuste em todo deploy).
        Mude APENAS este valor para sincronizar query/cache entre cliente e SW. -->
   <script>
-    window.__APP_VERSION = '20260910-2';
+    window.__APP_VERSION = '20260911-1';
     window.__RUNTIME_CACHE_NAME = 'runtime-luthierpro-' + window.__APP_VERSION;
   </script>
 
@@ -8361,10 +8373,10 @@
 
 
   <!-- Backup/Restore (precisa do providers de imagens + BL_PROJECT presentes) -->
-  <script src="./js/backup-restore.v1.js"></script>
+  <script src="./js/backup-restore.v1.js?v=20260911-1"></script>
 
   <!-- Painel (usa BackupRestore) -->
-  <script src="./js/step22-project-panel.js?v=20260824-3"></script>
+  <script src="./js/step22-project-panel.js?v=20260911-1"></script>
   <!-- Impressão da ficha do projeto (#btnPrint) -->
   <script src="./js/step24-print-project.js?v=20260830-1"></script>
 
