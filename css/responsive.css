@@ -334,7 +334,7 @@ header.app .app-logo {
 
 #measuresModal .measures-table.action-table,
 #measuresBody .measures-table.action-table {
-  min-width: 560px;
+  min-width: 720px;
   width: 100%;
   max-width: none;
   table-layout: fixed;
@@ -360,7 +360,7 @@ header.app .app-logo {
 #measuresBody .measures-table.action-table thead th:nth-child(1),
 #measuresModal .measures-table.action-table tbody td:nth-child(1),
 #measuresBody .measures-table.action-table tbody td:nth-child(1) {
-  width: 28%;
+  width: 20%;
 }
 
 #measuresModal .measures-table.action-table thead th:nth-child(2),
@@ -375,5 +375,20 @@ header.app .app-logo {
 #measuresBody .measures-table.action-table thead th:nth-child(4),
 #measuresModal .measures-table.action-table tbody td:nth-child(4),
 #measuresBody .measures-table.action-table tbody td:nth-child(4) {
-  width: 24%;
+  width: 16%;
+}
+
+/* NOVO: colunas Alívio T8 e Ação T1 */
+#measuresModal .measures-table.action-table thead th:nth-child(5),
+#measuresBody .measures-table.action-table thead th:nth-child(5),
+#measuresModal .measures-table.action-table tbody td:nth-child(5),
+#measuresBody .measures-table.action-table tbody td:nth-child(5) {
+  width: 14%;
+}
+
+#measuresModal .measures-table.action-table thead th:nth-child(6),
+#measuresBody .measures-table.action-table thead th:nth-child(6),
+#measuresModal .measures-table.action-table tbody td:nth-child(6),
+#measuresBody .measures-table.action-table tbody td:nth-child(6) {
+  width: 14%;
 }

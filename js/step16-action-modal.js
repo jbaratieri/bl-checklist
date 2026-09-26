@@ -10,31 +10,41 @@ const ACTION_RANGES = [
     instrument: 'Violão aço',
     low: '1ª: 1.5–2.0<br>6ª: 2.0–2.5',
     mid: '1ª: 2.0–2.5<br>6ª: 2.5–3.0',
-    high: '1ª: 2.5–3.0<br>6ª: 3.0–3.5'
+    high: '1ª: 2.5–3.0<br>6ª: 3.0–3.5',
+    alivio: '0.25 mm',
+    acao: '1ª: 0.35 mm<br>6ª: 0.50 mm'
   },
   {
     instrument: 'Violão nylon',
     low: '1ª: 2.5–3.0<br>6ª: 3.0–3.5',
     mid: '1ª: 3.0–3.5<br>6ª: 3.5–4.0',
-    high: '1ª: 3.5–4.0<br>6ª: 4.0–4.5'
+    high: '1ª: 3.5–4.0<br>6ª: 4.0–4.5',
+    alivio: '0.30 mm',
+    acao: '1ª: 0.50 mm<br>6ª: 0.65 mm'
   },
   {
     instrument: 'Viola caipira',
     low: '1ª: 2.0–2.5<br>5ª: 2.5–3.0',
     mid: '1ª: 2.5–3.0<br>5ª: 3.0–3.5',
-    high: '1ª: 3.0–3.5<br>5ª: 3.5–4.0'
+    high: '1ª: 3.0–3.5<br>5ª: 3.5–4.0',
+    alivio: '0.20 mm',
+    acao: '1ª: 0.30 mm<br>5ª: 0.50 mm'
   },
   {
     instrument: 'Ukulele',
     low: '1ª: 1.5–1.8<br>4ª: 1.8–2.0',
     mid: '1ª: 1.8–2.2<br>4ª: 2.0–2.3',
-    high: '1ª: 2.2–2.5<br>4ª: 2.3–2.6'
+    high: '1ª: 2.2–2.5<br>4ª: 2.3–2.6',
+    alivio: '0.20 mm',
+    acao: '1ª: 0.30 mm<br>4ª: 0.50 mm'
   },
   {
     instrument: 'Cavaquinho',
     low: '1ª: 1.5–1.8<br>4ª: 1.8–2.0',
     mid: '1ª: 1.8–2.2<br>4ª: 2.0–2.3',
-    high: '1ª: 2.2–2.5<br>4ª: 2.3–2.6'
+    high: '1ª: 2.2–2.5<br>4ª: 2.3–2.6',
+    alivio: '0.20 mm',
+    acao: '1ª: 0.30 mm<br>4ª: 0.50 mm'
   }
 ];
 
@@ -44,16 +54,18 @@ const ACTION_RANGES = [
 function buildActionHtml() {
   let html = `
     <div class="tuning-root">
-      <h3>Ação no traste 12 — em mm</h3>
+      <h3>Ação no traste 12 - Alivio no traste 8 - Ação no traste 1</h3>
       <section class="tuning-section action-table-wrap">
         <div class="tuning-table-wrap">
           <table class="measures-table action-table">
             <thead>
               <tr>
                 <th>Instrumento</th>
-                <th>Baixa</th>
-                <th>Média</th>
-                <th>Alta</th>
+                <th>Baixa T12</th>
+                <th>Média T12</th>
+                <th>Alta T12</th>
+                <th>Alivio T8</th>
+                <th>Ação T1</th>
               </tr>
             </thead>
             <tbody>
@@ -66,6 +78,8 @@ function buildActionHtml() {
         <td>${r.low}</td>
         <td>${r.mid}</td>
         <td>${r.high}</td>
+        <td>${r.alivio}</td>
+        <td>${r.acao}</td>
       </tr>
     `;
   });
@@ -79,6 +93,7 @@ function buildActionHtml() {
       <p style="font-size:.9em;color:#555">
         Valores comuns entre luthiers; ajuste varia conforme cordas e preferência.
       </p>
+     
     </div>
   `;
 
