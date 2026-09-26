@@ -13,7 +13,7 @@ git pull origin main
 git add .
 
 # Cria um commit (se não houver alterações, não quebra)
-git commit -m "Refinado o CSS dos Ajustes no modal Ação das cordas, incluido colunas de Alívio e Ação no traste 1" --allow-empty
+git commit -m "Incluido no modal afinação - frequencias das notas" --allow-empty
 
 # Envia para a branch main (GitHub Pages já publica direto da main)
 git push origin main

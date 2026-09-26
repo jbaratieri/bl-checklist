@@ -233,10 +233,12 @@
   max-width: 70ch;
 }
 
-/* Tratamento especial para a tabela de Ação típica (3 colunas) */
+/* Tratamento especial para tabelas de 3 colunas (Ação e Afinação com frequência) */
 .tuning-root .tuning-section.action-table-wrap,
-.measures-modal .measures-body > .tuning-section.action-table-wrap {
-    grid-column: 1 / -1; /* Ocupa a largura total (2 colunas de grid) no desktop */
+.tuning-root .tuning-section.tuning-freq-wrap,
+.measures-modal .measures-body > .tuning-section.action-table-wrap,
+.measures-modal .measures-body > .tuning-section.tuning-freq-wrap {
+    grid-column: 1 / -1; /* Ocupa a largura total no desktop */
 }
 
 /* ===========================
@@ -261,7 +263,8 @@
       color: var(--wc-acc);
   }
 
-  .tuning-root .tuning-section.action-table-wrap {
+    .tuning-root .tuning-section.action-table-wrap,
+  .tuning-root .tuning-section.tuning-freq-wrap {
     grid-column: span 1; /* Volta a ser 1 coluna no mobile */
   }
 
@@ -298,6 +301,7 @@
   }
   /* Tratamento específico para a 3ª coluna da tabela de Ação (mobile) */
   .measures-table td:nth-child(3) {
+     display: block; 
       margin-top: 6px;
       color: var(--wc-ink);
       font-style: italic;
