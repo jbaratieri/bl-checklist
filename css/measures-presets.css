@@ -322,9 +322,12 @@
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
   }
-  .measures-table.action-table thead, .measures-table.action-table tr {
-      display: table-row;
-  }
+  .measures-table.action-table thead {
+    display: table-header-group;
+}
+.measures-table.action-table tr {
+    display: table-row;
+}
   .measures-table.action-table th, .measures-table.action-table td {
       display: table-cell;
       width: auto;
